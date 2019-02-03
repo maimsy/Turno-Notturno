@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Character
 {
 
-    [SerializeField] Transform playerCamera;  
+    [SerializeField] Transform playerCamera;
+    [SerializeField] Text interactTooltip;
+    [SerializeField] float maxInteractDistance = 4f;
 
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float XSensitivity = 1f;
@@ -43,6 +46,8 @@ public class Player : Character
     {
         LookRotation();
 
+        Interact();
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             
@@ -50,6 +55,27 @@ public class Player : Character
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
              
+        }
+    }
+
+    void Interact()
+    {
+        if (interactTooltip) interactTooltip.text = "";
+        RaycastHit hit;
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+        if (Physics.Raycast(ray, out hit, maxInteractDistance))
+        {
+            GameObject objectHit = hit.transform.gameObject;
+            Interactable interactable = objectHit.GetComponent<Interactable>();
+            if (interactable != null)
+            {
+                if (interactTooltip) interactTooltip.text = "Press E to " + interactable.GetTooltip();
+                if (Input.GetButtonDown("Interact"))
+                {
+                    interactable.OnInteract();
+                }
+            }
+
         }
     }
 

@@ -6,16 +6,14 @@ using UnityEngine.UI;
 
 public class Painting : MonoBehaviour
 {
-
-    public GameObject camera;
-    public GameObject hintIcon;
-    public GameObject cursorIcon;
-    public Text cluesRemaining;
-    public float inspectDistance;
-    public float inspectSpeed;
-    public float maxX;
-    public float maxY;
-    public float maxZoom;
+    [SerializeField] GameObject hintIcon;
+    [SerializeField] GameObject cursorIcon;
+    [SerializeField] Text cluesRemaining;
+    [SerializeField] float inspectDistance;
+    [SerializeField] float inspectSpeed;
+    [SerializeField] float maxX;
+    [SerializeField] float maxY;
+    [SerializeField] float maxZoom;
 
     private bool inspecting = false;
     private float x;
@@ -23,15 +21,24 @@ public class Painting : MonoBehaviour
 
     private float zoom = 1;
 
+    private Player player;
+    private Vector3 prevCameraPosition = new Vector3();
+    private Quaternion prevCameraRotation = new Quaternion();
     private List<Clue> clues;
     private List<Clue> foundClues;
+    private GameObject camera;
     
     // Start is called before the first frame update
     void Start()
     {
         clues = new List<Clue>(GetComponentsInChildren<Clue>());
         foundClues = new List<Clue>();
-        StartInspect();
+        player = FindObjectOfType<Player>();
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        //StartInspect();
     }
 
     // Update is called once per frame
@@ -40,6 +47,12 @@ public class Painting : MonoBehaviour
 
         if (inspecting)
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                StopInspect();
+                return;
+            }
+
             HandleInspectMovement();
             
             // Set zoom
@@ -51,8 +64,8 @@ public class Painting : MonoBehaviour
             {
                 cluesRemaining.text = (clues.Count - foundClues.Count).ToString();    
             }
-            
-            hintIcon.SetActive(false);
+
+            EnableHintCursor(false);
 
             // Check for clues with raycast
             RaycastHit hit;
@@ -65,12 +78,12 @@ public class Painting : MonoBehaviour
                 {
                     if (clues.Contains(clue))
                     {
-                        hintIcon.SetActive(true);
-                        if (Input.GetKeyDown(KeyCode.Space))
+                        EnableHintCursor(true);
+                        if (Input.GetButtonDown("Interact"))
                         {
                             foundClues.Add(clue);
                             clue.AnimateDiscovery();
-                            Debug.Log("Clue found!");
+                            //Debug.Log("Clue found!");
                         }
                         else
                         {
@@ -91,23 +104,46 @@ public class Painting : MonoBehaviour
             {
                 //Debug.Log("No hit");
             }
-            cursorIcon.SetActive(!hintIcon.active);
-        
-            
+ 
         }
     }
 
-    void StartInspect()
+    void EnableHintCursor(bool value)
     {
+        if (hintIcon) hintIcon.SetActive(value);
+        if (cursorIcon) cursorIcon.SetActive(!value);
+    }
+
+    public void StartInspect()
+    {
+        // Enable clue colliders and info text
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+
+        // Take control of camera
+        camera = Camera.main.gameObject;
         inspecting = true;
+        if (player) player.enabled = false;
+        prevCameraPosition = camera.transform.position;
+        prevCameraRotation = camera.transform.rotation;
         camera.transform.position = transform.position - transform.forward * inspectDistance;
+        camera.transform.LookAt(transform.position);
         x = 0;
         y = 0;
     }
 
     void StopInspect()
     {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
         inspecting = false;
+        if (player) player.enabled = true;
+        camera.transform.position = prevCameraPosition;
+        camera.transform.rotation = prevCameraRotation;
     }
 
     void HandleInspectMovement()
