@@ -60,6 +60,7 @@ public class PuzzleRandomizer : MonoBehaviour
             {
                 howManyCorrect++;
             }
+            Debug.Log("hooh "+i+" " + howManyCorrect);
             themeParent.transform.GetChild(i).GetComponent<Property>().UpdateValue();
             clues.Add(materialParent.transform.GetChild(i).gameObject);
             Material material = (Material)Random.Range(0, System.Enum.GetValues(typeof(Material)).Length);
@@ -68,9 +69,11 @@ public class PuzzleRandomizer : MonoBehaviour
             {
                 howManyCorrect++;
             }
+            Debug.Log("hooh " + i + " " + howManyCorrect);
             materialParent.transform.GetChild(i).GetComponent<Property>().UpdateValue();
             clues.Add(colorParent.transform.GetChild(i).gameObject);
             Color color = (Color)Random.Range(0, System.Enum.GetValues(typeof(Color)).Length);
+            colorParent.transform.GetChild(i).GetComponent<Property>().color = color;
             if ((int)color == solution[2])
             {
                 if (howManyCorrect < 2)
@@ -78,39 +81,41 @@ public class PuzzleRandomizer : MonoBehaviour
                     colorParent.transform.GetChild(i).GetComponent<Property>().color = color;
                     //colorParent.transform.GetChild(i).GetComponent<Property>().UpdateValue();
                     howManyCorrect++;
+                    Debug.Log("asd1 " + i);
                 }
                 else
                 {
-                    bool found = false;
-                    while (!found)
+                    
+                    while (true)
                     {
                         color = (Color)Random.Range(0, System.Enum.GetValues(typeof(Color)).Length);
                         if ((int)color != solution[2])
                         {
                             colorParent.transform.GetChild(i).GetComponent<Property>().color = color;
-                            found = true;
+                            break;
                         }
+                        Debug.Log("Here1 "+ i);
                     }
                 }
             }
             else if(howManyCorrect == 0)
             {
-                bool found = false;
-                while (!found)
+                while (true)
                 {
                     color = (Color)Random.Range(0, System.Enum.GetValues(typeof(Color)).Length);
                     if ((int)color == solution[2])
                     {
                         colorParent.transform.GetChild(i).GetComponent<Property>().color = color;
                         howManyCorrect++;
-                        found = true;
+                        break;
                     }
                 }
             }
             colorParent.transform.GetChild(i).GetComponent<Property>().UpdateValue();
-
+            Debug.Log("hooh " + i + " " + howManyCorrect);
             clues.Add(shapeParent.transform.GetChild(i).gameObject);
             Shape shape = (Shape)Random.Range(0, System.Enum.GetValues(typeof(Shape)).Length);
+            shapeParent.transform.GetChild(i).GetComponent<Property>().shape = shape;
             if ((int)shape == solution[3])
             {
                 if (howManyCorrect < 2)
@@ -118,38 +123,41 @@ public class PuzzleRandomizer : MonoBehaviour
                     shapeParent.transform.GetChild(i).GetComponent<Property>().shape = shape;
                     //colorParent.transform.GetChild(i).GetComponent<Property>().UpdateValue();
                     howManyCorrect++;
+                    Debug.Log("asd2 " + i);
                 }
                 else
                 {
-                    bool found = false;
-                    while (!found)
+                    
+                    while (true)
                     {
                         shape = (Shape)Random.Range(0, System.Enum.GetValues(typeof(Shape)).Length);
                         if ((int)shape != solution[3])
                         {
                             shapeParent.transform.GetChild(i).GetComponent<Property>().shape = shape;
-                            found = true;
+                            break;
                         }
+                        Debug.Log("Here2 " + i);
                     }
                 }
             }
             else if (howManyCorrect == 1)
             {
-                bool found = false;
-                while (!found)
+               
+                while (true)
                 {
                     shape = (Shape)Random.Range(0, System.Enum.GetValues(typeof(Shape)).Length);
                     if ((int)shape == solution[3])
                     {
                         shapeParent.transform.GetChild(i).GetComponent<Property>().shape = shape;
                         howManyCorrect++;
-                        found = true;
+                        break;
                     }
                 }
             }
             shapeParent.transform.GetChild(i).GetComponent<Property>().UpdateValue();
+            Debug.Log("hooh " + i + " " + howManyCorrect);
         }
-
+        
 
         Debug.Log("solution "+solution[0]+" "+solution[1]+" "+solution[2]+" "+solution[3]);
         Debug.Log("HA");
@@ -172,7 +180,7 @@ public class PuzzleRandomizer : MonoBehaviour
                 {
                     if(type == obj.GetComponent<Property>().propertyType)
                     {
-                        if ( (int)obj.GetComponent<Property>().theme == selection)
+                        if ((int) obj.GetComponent<Property>().theme == selection)
                         {
                             obj.GetComponent<Image>().color = new UnityEngine.Color(1, 1, 1, 1);
                         }
