@@ -27,10 +27,13 @@ public class Painting : MonoBehaviour
     private List<Clue> clues;
     private List<Clue> foundClues;
     private GameObject camera;
+
+    private GameManager manager;
     
     // Start is called before the first frame update
     void Start()
     {
+        manager = FindObjectOfType<GameManager>();
         clues = new List<Clue>(GetComponentsInChildren<Clue>());
         foundClues = new List<Clue>();
         player = FindObjectOfType<Player>();
@@ -83,6 +86,11 @@ public class Painting : MonoBehaviour
                         {
                             foundClues.Add(clue);
                             clue.AnimateDiscovery();
+                            if (clues.Count - foundClues.Count == 0)
+                            {
+                                GameManager manager = FindObjectOfType<GameManager>();
+                                if (manager) manager.IncrementDiscoveredClues();
+                            }
                             //Debug.Log("Clue found!");
                         }
                         else
@@ -114,6 +122,12 @@ public class Painting : MonoBehaviour
         if (cursorIcon) cursorIcon.SetActive(!value);
     }
 
+    void HideCursor()
+    {
+        if (hintIcon) hintIcon.SetActive(false);
+        if (cursorIcon) cursorIcon.SetActive(false);
+    }
+
     public void StartInspect()
     {
         // Enable clue colliders and info text
@@ -125,7 +139,7 @@ public class Painting : MonoBehaviour
         // Take control of camera
         camera = Camera.main.gameObject;
         inspecting = true;
-        if (player) player.enabled = false;
+        manager.DisableControls();
         prevCameraPosition = camera.transform.position;
         prevCameraRotation = camera.transform.rotation;
         camera.transform.position = transform.position - transform.forward * inspectDistance;
@@ -141,9 +155,10 @@ public class Painting : MonoBehaviour
             child.gameObject.SetActive(false);
         }
         inspecting = false;
-        if (player) player.enabled = true;
         camera.transform.position = prevCameraPosition;
         camera.transform.rotation = prevCameraRotation;
+        HideCursor();
+        manager.EnableControls();
     }
 
     void HandleInspectMovement()

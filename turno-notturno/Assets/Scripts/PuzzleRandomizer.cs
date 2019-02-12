@@ -170,17 +170,38 @@ public class PuzzleRandomizer : MonoBehaviour
         
     }
 
+    void OnEnable()
+    {
+        UpdateFoundClues();
+    }
+
+    public void UpdateFoundClues()
+    {
+        // Set visibility depending on amount of clues found
+        GameManager manager = FindObjectOfType<GameManager>();
+        int cluesFound = 3;
+        if (manager) cluesFound = manager.GetCluesFound();
+        for (int i = 0; i < clueAmount; i++)
+        {
+            bool visible = (i < cluesFound);
+            themeParent.transform.GetChild(i).gameObject.SetActive(visible);
+            colorParent.transform.GetChild(i).gameObject.SetActive(visible);
+            materialParent.transform.GetChild(i).gameObject.SetActive(visible);
+            shapeParent.transform.GetChild(i).gameObject.SetActive(visible);
+        }
+    }
+
     public void HighLightObjects(PropertyType type, int selection)
     {
         //Debug.Log(type);
-        switch(type)
+        switch (type)
         {
             case PropertyType.Theme:
                 foreach (GameObject obj in clues)
                 {
-                    if(type == obj.GetComponent<Property>().propertyType)
+                    if (type == obj.GetComponent<Property>().propertyType)
                     {
-                        if ((int) obj.GetComponent<Property>().theme == selection)
+                        if ((int)obj.GetComponent<Property>().theme == selection)
                         {
                             obj.GetComponent<Image>().color = new UnityEngine.Color(1, 1, 1, 1);
                         }
@@ -189,14 +210,14 @@ public class PuzzleRandomizer : MonoBehaviour
                             obj.GetComponent<Image>().color = new UnityEngine.Color(1, 1, 1, 0);
                         }
                     }
-                    
+
                 }
                 break;
 
             case PropertyType.Material:
                 foreach (GameObject obj in clues)
                 {
-                    if(type == obj.GetComponent<Property>().propertyType)
+                    if (type == obj.GetComponent<Property>().propertyType)
                     {
                         if ((int)obj.GetComponent<Property>().material == selection)
                         {
@@ -207,13 +228,13 @@ public class PuzzleRandomizer : MonoBehaviour
                             obj.GetComponent<Image>().color = new UnityEngine.Color(1, 1, 1, 0);
                         }
                     }
-                    
+
                 }
                 break;
             case PropertyType.Color:
                 foreach (GameObject obj in clues)
                 {
-                    if(type == obj.GetComponent<Property>().propertyType)
+                    if (type == obj.GetComponent<Property>().propertyType)
                     {
                         if ((int)obj.GetComponent<Property>().color == selection)
                         {
@@ -224,13 +245,13 @@ public class PuzzleRandomizer : MonoBehaviour
                             obj.GetComponent<Image>().color = new UnityEngine.Color(1, 1, 1, 0);
                         }
                     }
-                    
+
                 }
                 break;
             case PropertyType.Shape:
                 foreach (GameObject obj in clues)
                 {
-                    if(type == obj.GetComponent<Property>().propertyType)
+                    if (type == obj.GetComponent<Property>().propertyType)
                     {
                         if ((int)obj.GetComponent<Property>().shape == selection)
                         {
@@ -241,12 +262,12 @@ public class PuzzleRandomizer : MonoBehaviour
                             obj.GetComponent<Image>().color = new UnityEngine.Color(1, 1, 1, 0);
                         }
                     }
-                    
+
                 }
                 break;
 
         }
-        
+
     }
     public void SetCorrectSolution()
     {
