@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class pMovement : MonoBehaviour {
 
@@ -9,7 +10,6 @@ public class pMovement : MonoBehaviour {
     public GameObject p2;
     public GameObject p3;
     public float movespeed = 5f;
-
 
     // Use this for initialization
     void Start() {
@@ -37,6 +37,10 @@ public class pMovement : MonoBehaviour {
         {
             p1.transform.position = new Vector3(transform.position.x + movespeed, transform.position.y);
             p2.transform.position = new Vector3(p2.transform.position.x - movespeed, p2.transform.position.y);
+        }
+        else if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("standard-test");
         }
     }
 
