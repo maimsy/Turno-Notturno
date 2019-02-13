@@ -10,6 +10,7 @@ public class Player : Character
     [SerializeField] Text interactTooltip;
     [SerializeField] float maxInteractDistance = 4f;
 
+    [SerializeField] float maxMovementSpeed = 5f;
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float XSensitivity = 1f;
     [SerializeField] float YSensitivity = 1f;
@@ -47,7 +48,11 @@ public class Player : Character
         LookRotation();
 
         Interact();
-
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            // Force cursor visible
+            HideCursor(false);
+        }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             
@@ -111,9 +116,31 @@ public class Player : Character
         move.z *= movementSpeed;
         move = transform.TransformDirection(move);
 
-        rb.MovePosition(rb.position + move * Time.fixedDeltaTime);
-        rb.velocity = Vector3.zero;
+        //rb.MovePosition(rb.position + move * Time.fixedDeltaTime);
+
+
+        move *= Time.fixedDeltaTime;
+        //move.y = rb.velocity.y;
+        //rb.velocity = Vector3.zero;
+        rb.AddForce(move, ForceMode.Acceleration);
         rb.angularVelocity = Vector3.zero;
+
+        Vector3 velo = Vector3.zero;
+        velo.x = rb.velocity.x;
+        velo.z = rb.velocity.z;
+
+        if (velo.magnitude > maxMovementSpeed)
+        {
+            velo = velo.normalized * maxMovementSpeed;
+        }
+
+        velo.y = rb.velocity.y;
+        if (velo.y > 0)
+        {
+            // Stop bouncing
+            velo.y = 0;
+        }
+        rb.velocity = velo;
     }
     
     Vector3 MovementVector()
