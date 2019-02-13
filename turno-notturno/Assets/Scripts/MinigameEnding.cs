@@ -26,13 +26,17 @@ public class MinigameEnding : MonoBehaviour
                 ending = false;
                 if (winning)
                 {
-                    SceneManager.LoadScene("anton_test_scene_2");
+                    SceneManager.LoadScene("standard-test");
                 }
                 else
                 {
-                     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 }
             }
+        }
+        else if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("standard-test");
         }
     }
 
