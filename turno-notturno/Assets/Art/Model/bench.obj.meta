@@ -1,22 +1,65 @@
 fileFormatVersion: 2
-guid: 7bad15ee07e125e42a7c977ab0aebd93
+guid: 425b4265ed86ead4e8663814c9c5d353
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: pCube171
-    100004: pCube172
+    100002: pCube91
+    100004: pCube92
+    100006: pCube94
+    100008: pCube95
+    100010: polySurface122
+    100012: polySurface123
+    100014: polySurface124
+    100016: polySurface85_pCube46
+    100018: polySurface88
     400000: //RootNode
-    400002: pCube171
-    400004: pCube172
-    2100000: lambert1
-    2100002: blinn1
-    2300000: pCube171
-    2300002: pCube172
-    3300000: pCube171
-    3300002: pCube172
-    4300000: pCube171
-    4300002: pCube172
+    400002: pCube91
+    400004: pCube92
+    400006: pCube94
+    400008: pCube95
+    400010: polySurface122
+    400012: polySurface123
+    400014: polySurface124
+    400016: polySurface85_pCube46
+    400018: polySurface88
+    2100000: pCube91Mat
+    2100002: pCube92Mat
+    2100004: pCube94Mat
+    2100006: pCube95Mat
+    2100008: polySurface122Mat
+    2100010: polySurface123Mat
+    2100012: polySurface124Mat
+    2100014: polySurface85_pCube46Mat
+    2100016: polySurface88Mat
+    2300000: pCube91
+    2300002: pCube92
+    2300004: pCube94
+    2300006: pCube95
+    2300008: polySurface122
+    2300010: polySurface123
+    2300012: polySurface124
+    2300014: polySurface85_pCube46
+    2300016: polySurface88
+    3300000: pCube91
+    3300002: pCube92
+    3300004: pCube94
+    3300006: pCube95
+    3300008: polySurface122
+    3300010: polySurface123
+    3300012: polySurface124
+    3300014: polySurface85_pCube46
+    3300016: polySurface88
+    4300000: pCube91
+    4300002: pCube92
+    4300004: pCube94
+    4300006: pCube95
+    4300008: polySurface122
+    4300010: polySurface123
+    4300012: polySurface124
+    4300014: polySurface85_pCube46
+    4300016: polySurface88
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -48,7 +91,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 10
+    globalScale: 0.05
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
