@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         player = FindObjectOfType<Player>();
+        SetPlayerPosition();
     }
 
     void Update()
@@ -84,5 +85,19 @@ public class GameManager : MonoBehaviour
     public int GetCluesFound()
     {
         return PlayerPrefs.GetInt("CluesFound", 0);
+    }
+
+    public void SavePlayerPosition()
+    {
+        PlayerPrefs.SetFloat("PlayerPositionX", player.transform.position.x);
+        PlayerPrefs.SetFloat("PlayerPositionY", player.transform.position.y);
+        PlayerPrefs.SetFloat("PlayerPositionZ", player.transform.position.z);
+    }
+
+    public void SetPlayerPosition()
+    {
+        player.transform.position = new Vector3(PlayerPrefs.GetFloat("PlayerPositionX"),
+            PlayerPrefs.GetFloat("PlayerPositionY"),
+            PlayerPrefs.GetFloat("PlayerPositionZ"));
     }
 }

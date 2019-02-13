@@ -46,6 +46,7 @@ public class pMovement : MonoBehaviour {
             p1.SetActive(false);
             p2.SetActive(false);
             p3.SetActive(true);
+            p3.GetComponent<MinigameEnding>().EndGame(true);
         }
     }
 
