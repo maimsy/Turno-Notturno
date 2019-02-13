@@ -15,7 +15,6 @@ public class P2Dmovement : MonoBehaviour
     void Start()
     {
         GetComponent<Rigidbody2D>().velocity = new Vector2(speed, GetComponent<Rigidbody2D>().velocity.y);
-
     }
 
     // Update is called once per frame
@@ -26,9 +25,11 @@ public class P2Dmovement : MonoBehaviour
         losingXY = new Vector2(pos.x, pos.y);
         if (transform.position.x < losingXY.x || transform.position.y < losingXY.y)
         {
-            Lose();
+            EndGame(false);
         }
     }
+
+
     private void Move()
     {
         //easy mode
@@ -44,15 +45,27 @@ public class P2Dmovement : MonoBehaviour
         Vector3 pos = Camera.main.transform.position;
         Camera.main.transform.position = new Vector3(pos.x + speed / 75f, pos.y, pos.z);
     }
-    private void Lose()
-    {
-        winText.GetComponent<Text>().text = "Booo";
-        winText.SetActive(true);
-    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "Goal")
         {
+            EndGame(true);
+        }
+    }
+
+    public void EndGame(bool win)
+    {
+        //player won the minigame
+        if(win)
+        {
+            winText.SetActive(true);
+            
+        }
+        //he lost
+        else
+        {
+            winText.GetComponent<Text>().text = "Booo";
             winText.SetActive(true);
         }
     }
