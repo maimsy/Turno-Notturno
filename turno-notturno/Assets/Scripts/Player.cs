@@ -112,8 +112,10 @@ public class Player : Character
         move = transform.TransformDirection(move);
 
         rb.MovePosition(rb.position + move * Time.fixedDeltaTime);
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
-
+    
     Vector3 MovementVector()
     {
         float h = Input.GetAxisRaw("Horizontal");

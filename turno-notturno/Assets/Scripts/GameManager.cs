@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
         {
             player.HideCursor(true);
             player.enabled = true;
+            player.gameObject.GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
         {
             player.HideCursor(false);
             player.enabled = false;
+            player.gameObject.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 
