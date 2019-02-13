@@ -58,6 +58,12 @@ public class Player : Character
         }
     }
 
+    void OnDisable()
+    {
+        // Quick fix for interaction text being stuck while inspecting pictures/final puzzle
+        if (interactTooltip) interactTooltip.text = "";
+    }
+
     void Interact()
     {
         if (interactTooltip) interactTooltip.text = "";
@@ -134,6 +140,7 @@ public class Player : Character
     {
         m_cursorIsLocked = value;
         InternalLockUpdate();
+        Debug.Log(Cursor.visible);
     }
 
     private void InternalLockUpdate()
