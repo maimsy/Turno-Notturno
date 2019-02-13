@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class P2Dmovement : MonoBehaviour
 {
-    public GameObject winText;
-
     private float speed = 2f;
     private GameObject goal;
     private Vector2 losingXY;
@@ -25,7 +23,8 @@ public class P2Dmovement : MonoBehaviour
         losingXY = new Vector2(pos.x, pos.y);
         if (transform.position.x < losingXY.x || transform.position.y < losingXY.y)
         {
-            EndGame(false);
+            GetComponent<MinigameEnding>().EndGame(false);
+            enabled = false;
         }
     }
 
@@ -41,7 +40,6 @@ public class P2Dmovement : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(speed, GetComponent<Rigidbody2D>().velocity.y);
         }
-
         Vector3 pos = Camera.main.transform.position;
         Camera.main.transform.position = new Vector3(pos.x + speed / 75f, pos.y, pos.z);
     }
@@ -50,23 +48,9 @@ public class P2Dmovement : MonoBehaviour
     {
         if (collision.collider.tag == "Goal")
         {
-            EndGame(true);
+            GetComponent<MinigameEnding>().EndGame(true);
+            enabled = false;
         }
     }
 
-    public void EndGame(bool win)
-    {
-        //player won the minigame
-        if(win)
-        {
-            winText.SetActive(true);
-            
-        }
-        //he lost
-        else
-        {
-            winText.GetComponent<Text>().text = "Booo";
-            winText.SetActive(true);
-        }
-    }
 }

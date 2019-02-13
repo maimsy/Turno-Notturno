@@ -39,11 +39,15 @@ public class AvoidMovement : MonoBehaviour
     {
         if(collision.gameObject.tag == "Dangerous")
         {
-            Destroy(gameObject);
+            GetComponent<MinigameEnding>().EndGame(false);
+            GetComponent<SpriteRenderer>().enabled = false;
+            enabled = false;
         }
         else if(collision.gameObject.tag == "Goal")
         {
-            goalText.SetActive(true);
+            GetComponent<MinigameEnding>().EndGame(true);
+            GetComponent<SpriteRenderer>().enabled = false;
+            enabled = false;
         }
     }
 }
