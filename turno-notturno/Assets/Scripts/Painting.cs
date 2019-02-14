@@ -133,6 +133,7 @@ public class Painting : MonoBehaviour
         camera = Camera.main.gameObject;
         inspecting = true;
         manager.DisableControls();
+        manager.HideCursor();
         prevCameraPosition = camera.transform.position;
         prevCameraRotation = camera.transform.rotation;
         camera.transform.position = transform.position - transform.forward * inspectDistance;
