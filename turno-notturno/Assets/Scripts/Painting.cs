@@ -67,6 +67,7 @@ public class Painting : MonoBehaviour
             
             if (ui) ui.SetCluesRemainingText("Clues remaining: " + (clues.Count - foundClues.Count).ToString());
             if (ui) ui.EnableHintCursor(false);
+            if (ui) ui.SetTooltip("");
             
 
             // Check for clues with raycast
@@ -81,6 +82,7 @@ public class Painting : MonoBehaviour
                     if (clues.Contains(clue))
                     {
                         if (ui) ui.EnableHintCursor(true);
+                        if (ui) ui.SetTooltip("Press E");
                         if (Input.GetButtonDown("Interact"))
                         {
                             foundClues.Add(clue);

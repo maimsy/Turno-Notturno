@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2438634479745995360
 RectTransform:
   m_ObjectHideFlags: 0
@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -23, y: 191}
-  m_SizeDelta: {x: 257.3, y: 38.82}
+  m_AnchoredPosition: {x: -177.69, y: 163.59988}
+  m_SizeDelta: {x: 329.92, y: 38.82}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2438634479745995374
 CanvasRenderer:
@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 2438634480208218737}
   - component: {fileID: 2438634480208218736}
   - component: {fileID: 2438634480208218739}
+  - component: {fileID: 866493000}
   m_Layer: 5
   m_Name: TestPaintingUI
   m_TagString: Untagged
@@ -182,6 +183,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &866493000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2438634480208218738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 717976e211f4d63f4952a7339ef2041e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hintIcon: {fileID: 2438634480340325151}
+  cursorIcon: {fileID: 2438634480811799603}
+  cluesRemaining: {fileID: 2438634479745995361}
+  tooltip: {fileID: 2438634480700843501}
 --- !u!1 &2438634480340325151
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7, y: -262}
+  m_AnchoredPosition: {x: 7, y: -206}
   m_SizeDelta: {x: 567.43, y: 84.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2438634480700843498

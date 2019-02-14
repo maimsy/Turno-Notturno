@@ -9,6 +9,7 @@ public class PaintingUI : MonoBehaviour
     [SerializeField] GameObject hintIcon;
     [SerializeField] GameObject cursorIcon;
     [SerializeField] Text cluesRemaining;
+    [SerializeField] Text tooltip;
     
     public void EnableHintCursor(bool value)
     {
@@ -20,11 +21,16 @@ public class PaintingUI : MonoBehaviour
     {
         if (hintIcon) hintIcon.SetActive(false);
         if (cursorIcon) cursorIcon.SetActive(false);
-        cluesRemaining.text = "";
+        if (cluesRemaining) cluesRemaining.text = "";
     }
 
     public void SetCluesRemainingText(String str)
     {
-        cluesRemaining.text = str;
+        if (cluesRemaining) cluesRemaining.text = str;
+    }
+
+    public void SetTooltip(String str)
+    {
+        if (tooltip) tooltip.text = str;
     }
 }
