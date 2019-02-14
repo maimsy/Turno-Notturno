@@ -78,6 +78,7 @@ public class Player : Character
         {
             GameObject objectHit = hit.transform.gameObject;
             Interactable interactable = objectHit.GetComponent<Interactable>();
+            if (!interactable) interactable = objectHit.GetComponentInParent<Interactable>();
             if (interactable != null)
             {
                 if (interactTooltip) interactTooltip.text = "Press E to " + interactable.GetTooltip();

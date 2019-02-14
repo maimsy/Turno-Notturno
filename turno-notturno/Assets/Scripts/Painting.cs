@@ -6,37 +6,40 @@ using UnityEngine.UI;
 
 public class Painting : MonoBehaviour
 {
-    [SerializeField] GameObject hintIcon;
-    [SerializeField] GameObject cursorIcon;
-    [SerializeField] Text cluesRemaining;
+    
     [SerializeField] float inspectDistance;
     [SerializeField] float inspectSpeed;
     [SerializeField] float maxX;
     [SerializeField] float maxY;
     [SerializeField] float maxZoom;
 
-    private bool inspecting = false;
+    private bool inspecting;
     private float x;
     private float y;
 
     private float zoom = 1;
 
-    private Player player;
-    private Vector3 prevCameraPosition = new Vector3();
-    private Quaternion prevCameraRotation = new Quaternion();
+    private Vector3 prevCameraPosition;
+    private Quaternion prevCameraRotation;
     private List<Clue> clues;
     private List<Clue> foundClues;
     private GameObject camera;
+
+    private PaintingUI ui;
 
     private GameManager manager;
     
     // Start is called before the first frame update
     void Start()
     {
+        ui = FindObjectOfType<PaintingUI>();
         manager = FindObjectOfType<GameManager>();
+        if (!manager)
+        {
+            Debug.LogError("GameManager is missing from the scene!");
+        }
         clues = new List<Clue>(GetComponentsInChildren<Clue>());
         foundClues = new List<Clue>();
-        player = FindObjectOfType<Player>();
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);
@@ -62,13 +65,10 @@ public class Painting : MonoBehaviour
             if (Input.GetKey(KeyCode.Mouse0)) zoom = maxZoom;
             else zoom = 1;
             
-            // Set UI elements
-            if (cluesRemaining)
-            {
-                cluesRemaining.text = (clues.Count - foundClues.Count).ToString();    
-            }
-
-            EnableHintCursor(false);
+            if (ui) ui.SetCluesRemainingText("Clues remaining: " + (clues.Count - foundClues.Count).ToString());
+            if (ui) ui.EnableHintCursor(false);
+            if (ui) ui.SetTooltip("");
+            
 
             // Check for clues with raycast
             RaycastHit hit;
@@ -81,7 +81,8 @@ public class Painting : MonoBehaviour
                 {
                     if (clues.Contains(clue))
                     {
-                        EnableHintCursor(true);
+                        if (ui) ui.EnableHintCursor(true);
+                        if (ui) ui.SetTooltip("Press E");
                         if (Input.GetButtonDown("Interact"))
                         {
                             foundClues.Add(clue);
@@ -116,20 +117,12 @@ public class Painting : MonoBehaviour
         }
     }
 
-    void EnableHintCursor(bool value)
-    {
-        if (hintIcon) hintIcon.SetActive(value);
-        if (cursorIcon) cursorIcon.SetActive(!value);
-    }
-
-    void HideCursor()
-    {
-        if (hintIcon) hintIcon.SetActive(false);
-        if (cursorIcon) cursorIcon.SetActive(false);
-    }
+    
 
     public void StartInspect()
     {
+        //if (ui) ui.gameObject.SetActive(true);
+        
         // Enable clue colliders and info text
         foreach (Transform child in transform)
         {
@@ -140,6 +133,7 @@ public class Painting : MonoBehaviour
         camera = Camera.main.gameObject;
         inspecting = true;
         manager.DisableControls();
+        manager.HideCursor();
         prevCameraPosition = camera.transform.position;
         prevCameraRotation = camera.transform.rotation;
         camera.transform.position = transform.position - transform.forward * inspectDistance;
@@ -150,6 +144,7 @@ public class Painting : MonoBehaviour
 
     void StopInspect()
     {
+        //if (ui) ui.gameObject.SetActive(false);
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);
@@ -157,7 +152,7 @@ public class Painting : MonoBehaviour
         inspecting = false;
         camera.transform.position = prevCameraPosition;
         camera.transform.rotation = prevCameraRotation;
-        HideCursor();
+        if (ui) ui.HideCursor();
         manager.EnableControls();
     }
 

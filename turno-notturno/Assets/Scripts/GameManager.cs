@@ -60,6 +60,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void HideCursor()
+    {
+        if (player) player.HideCursor(true);
+    }
+
 
     public void HideFinalPuzzle()
     {
