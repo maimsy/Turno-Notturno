@@ -37,13 +37,13 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         player = FindObjectOfType<Player>();
-        SetPlayerPosition();
+        //SetPlayerPosition();
     }
 
     void Start()
     {
-        LoadActSpecificElements();
-        SetPaused(false);
+        ActManager actManager = FindObjectOfType<ActManager>();
+        if (actManager) actManager.SetUpAct(GetGameState());
     }
 
     void Update()
@@ -226,10 +226,5 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
         LoadGame();
-    }
-
-    public void LoadActSpecificElements()
-    {
-
     }
 }
