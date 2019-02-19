@@ -42,14 +42,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        pauseMenu = FindObjectOfType<PauseMenu>();
-        if (!pauseMenu)
-        {
-            GameObject obj = Resources.Load<GameObject>("Canvas");
-            obj = Instantiate(obj);
-            pauseMenu = obj.GetComponentInChildren<PauseMenu>();
-            pauseMenu.gameObject.SetActive(false);
-        }
         LoadActSpecificElements();
         SetPaused(false);
     }
@@ -80,6 +72,7 @@ public class GameManager : MonoBehaviour
     public void SetPaused(bool value)
     {
         paused = value;
+        if (!pauseMenu) LoadPauseMenuPrefab();
         if (paused)
         {
             pauseMenu.gameObject.SetActive(true);
@@ -91,6 +84,18 @@ public class GameManager : MonoBehaviour
             pauseMenu.gameObject.SetActive(false);
             EnableControls();
             Time.timeScale = 1f;
+        }
+    }
+
+    void LoadPauseMenuPrefab()
+    {
+        pauseMenu = FindObjectOfType<PauseMenu>();
+        if (!pauseMenu)
+        {
+            GameObject obj = Resources.Load<GameObject>("Canvas");
+            obj = Instantiate(obj);
+            pauseMenu = obj.GetComponentInChildren<PauseMenu>();
+            pauseMenu.gameObject.SetActive(false);
         }
     }
 

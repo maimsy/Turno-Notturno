@@ -27,13 +27,9 @@ public class MinigameEnding : MonoBehaviour
                 ending = false;
                 if (winning)
                 {
-
                     GameManager gameManager = GameManager.GetInstance();
                     gameManager.LoadNextAct();
-                    SceneManager.LoadScene("standard-test");
-
                     //SceneManager.LoadScene(sceneToLoadAfter);
-
                 }
                 else
                 {
