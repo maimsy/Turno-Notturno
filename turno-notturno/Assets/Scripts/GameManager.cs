@@ -19,10 +19,13 @@ public class GameManager : MonoBehaviour
     private Player player;
 
     private UnityAction escapeActions;
+    private bool paused = false;
+    private PauseMenu pauseMenu;
+    private static GameManager instance;
 
     public static GameManager GetInstance()
     {
-        GameManager instance = FindObjectOfType<GameManager>();
+        instance = FindObjectOfType<GameManager>();
         if (!instance)
         {
             GameObject obj = Resources.Load<GameObject>("GameManager");
@@ -39,12 +42,21 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        pauseMenu = FindObjectOfType<PauseMenu>();
+        if (!pauseMenu)
+        {
+            GameObject obj = Resources.Load<GameObject>("Canvas");
+            obj = Instantiate(obj);
+            pauseMenu = obj.GetComponentInChildren<PauseMenu>();
+            pauseMenu.gameObject.SetActive(false);
+        }
         LoadActSpecificElements();
+        SetPaused(false);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (escapeActions != null)
             {
@@ -52,6 +64,33 @@ public class GameManager : MonoBehaviour
                 ClearEscapeActions();
                 
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SetPaused(!paused);
+        }
+    }
+
+    public bool IsPaused()
+    {
+        return paused;
+    }
+
+    public void SetPaused(bool value)
+    {
+        paused = value;
+        if (paused)
+        {
+            pauseMenu.gameObject.SetActive(true);
+            DisableControls();
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            pauseMenu.gameObject.SetActive(false);
+            EnableControls();
+            Time.timeScale = 1f;
         }
     }
 
@@ -166,10 +205,15 @@ public class GameManager : MonoBehaviour
             if (state == pair.state)
             {
                 SceneManager.LoadScene(pair.scene);
+
+                // Avoid possible bugs where the game starts paused or without cursor
+                SetPaused(false);  
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 return;
             }
         }
-        Debug.LogError("Attempted to load " + state);
+        Debug.LogError("Attempted to load state " + state);
         Debug.LogError("Cannot load game! No scene found for current GameState!");
     }
 

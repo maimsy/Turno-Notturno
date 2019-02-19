@@ -19,7 +19,7 @@ public class PauseMenu : MonoBehaviour
     public void Continue()
     {
         if (reloadGameOnContinue) { gameManager.LoadGame(); }
-        else { gameObject.SetActive(false); }
+        else { gameManager.SetPaused(false); }
     }
 
     public void NewGame()
@@ -29,7 +29,11 @@ public class PauseMenu : MonoBehaviour
 
     public void Exit()
     {
-        Application.Quit();
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #else
+                Application.Quit();
+        #endif
     }
 
     public void ChangeAct()

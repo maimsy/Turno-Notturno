@@ -50,10 +50,10 @@ public class Painting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (manager.IsPaused()) return;
         if (inspecting)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Tab))
             {
                 StopInspect();
                 return;
