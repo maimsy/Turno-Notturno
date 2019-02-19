@@ -1,22 +1,45 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject finalPuzzle;
 
+    [Serializable]
+    public struct SceneStatePair
+    {
+        public GameState state;
+        public string scene;
+    }
+    public List<SceneStatePair> scenes;
+
     private Player player;
 
     private UnityAction escapeActions;
 
+    public static GameManager GetInstance()
+    {
+        GameManager instance = FindObjectOfType<GameManager>();
+        if (!instance)
+        {
+            GameObject obj = Resources.Load<GameObject>("GameManager");
+            instance = obj.GetComponent<GameManager>();
+        }
+        return instance;
+    }
 
     void Awake()
     {
         player = FindObjectOfType<Player>();
         SetPlayerPosition();
+    }
+
+    void Start()
+    {
+        LoadActSpecificElements();
     }
 
     void Update()
@@ -101,8 +124,63 @@ public class GameManager : MonoBehaviour
 
     public void SetPlayerPosition()
     {
+        if (!player) return;
         player.transform.position = new Vector3(PlayerPrefs.GetFloat("PlayerPositionX"),
-            PlayerPrefs.GetFloat("PlayerPositionY"),
-            PlayerPrefs.GetFloat("PlayerPositionZ"));
+                                                PlayerPrefs.GetFloat("PlayerPositionY"),
+                                                PlayerPrefs.GetFloat("PlayerPositionZ"));
+    }
+
+    public void LoadNextAct()
+    {
+        // Increment game state by one and reload scene
+        GameState state = GetGameState();
+        int index = scenes.FindIndex(t => t.state == state);
+        if (index + 1 < scenes.Count)
+        {
+            index++;
+            SetGameState(scenes[index].state);
+            LoadGame();
+        }
+        else
+        {
+            Debug.LogError("Cannot load next act! Already playing the final act!");
+        }
+    }
+
+    public void SetGameState(GameState state)
+    {
+        PlayerPrefs.SetInt("GameState", (int)state);
+    }
+
+    public GameState GetGameState()
+    {
+        return (GameState)PlayerPrefs.GetInt("GameState", 0);
+    }
+
+    public void LoadGame()
+    {
+        // Loads the scene associated with the current GameState
+        GameState state = GetGameState();
+        foreach (SceneStatePair pair in scenes)
+        {
+            if (state == pair.state)
+            {
+                SceneManager.LoadScene(pair.scene);
+                return;
+            }
+        }
+        Debug.LogError("Attempted to load " + state);
+        Debug.LogError("Cannot load game! No scene found for current GameState!");
+    }
+
+    public void NewGame()
+    {
+        PlayerPrefs.DeleteAll();
+        LoadGame();
+    }
+
+    public void LoadActSpecificElements()
+    {
+
     }
 }

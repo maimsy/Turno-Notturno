@@ -26,7 +26,9 @@ public class MinigameEnding : MonoBehaviour
                 ending = false;
                 if (winning)
                 {
-                    SceneManager.LoadScene("standard-test");
+                    GameManager gameManager = GameManager.GetInstance();
+                    gameManager.LoadNextAct();
+                    //SceneManager.LoadScene("standard-test");
                 }
                 else
                 {
@@ -36,7 +38,7 @@ public class MinigameEnding : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.Escape))
         {
-            SceneManager.LoadScene("standard-test");
+            SceneManager.LoadScene("MainScene");
         }
     }
 
