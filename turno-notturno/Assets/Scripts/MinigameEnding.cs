@@ -10,6 +10,7 @@ public class MinigameEnding : MonoBehaviour
 
     private bool ending = false;
     private bool winning = false;
+    private string sceneToLoadAfter = "MainScene";
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,7 @@ public class MinigameEnding : MonoBehaviour
                 ending = false;
                 if (winning)
                 {
-                    SceneManager.LoadScene("standard-test");
+                    SceneManager.LoadScene(sceneToLoadAfter);
                 }
                 else
                 {
@@ -36,7 +37,7 @@ public class MinigameEnding : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.Escape))
         {
-            SceneManager.LoadScene("standard-test");
+            SceneManager.LoadScene(sceneToLoadAfter);
         }
     }
 
