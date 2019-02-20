@@ -463,10 +463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f864aadcc9947049949f268f5cc554c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inspectDistance: 10
+  inspectDistance: -10
   inspectSpeed: 0.05
-  maxX: 2
-  maxY: 2
   maxZoom: 0.4
 --- !u!114 &816416439
 MonoBehaviour:
@@ -686,11 +684,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 848061016}

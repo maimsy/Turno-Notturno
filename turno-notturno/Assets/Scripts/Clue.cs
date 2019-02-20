@@ -21,12 +21,23 @@ public class Clue : MonoBehaviour
         Vector3 end = text.transform.position;
         lineRenderer.SetPosition(0, start);
         lineRenderer.SetPosition(0, end);
+
+        icon = Resources.Load<GameObject>("ClueIcon");
+        icon = Instantiate(icon, transform);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void SetZOffset(float offset)
+    {
+        Vector3 newPos = icon.transform.localPosition;
+        newPos.z = offset;
+        icon.transform.localPosition = newPos;
     }
 
     public void AnimateDiscovery()

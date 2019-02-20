@@ -7,15 +7,15 @@ using UnityEngine.UI;
 public class Painting : MonoBehaviour
 {
     
-    [SerializeField] float inspectDistance;
-    [SerializeField] float inspectSpeed;
-    [SerializeField] float maxX;
-    [SerializeField] float maxY;
-    [SerializeField] float maxZoom;
+    [SerializeField] float inspectDistance = 10f;
+    [SerializeField] float inspectSpeed = 0.05f;
+    [SerializeField] float maxZoom = 0.4f;
 
     private bool inspecting;
     private float x;
     private float y;
+    private float maxX = 4;
+    private float maxY = 4;
 
     private float zoom = 1;
 
@@ -45,6 +45,17 @@ public class Painting : MonoBehaviour
             child.gameObject.SetActive(false);
         }
         //StartInspect();
+
+        // Find the bounds to determine how far the camera can move
+        Bounds bounds = GetComponent<MeshRenderer>().bounds;
+        Vector3 centeredBounds = bounds.max - transform.position;
+        maxX = Mathf.Max(centeredBounds.x, centeredBounds.z);
+        maxY = centeredBounds.y;
+        /*
+        foreach (Clue clue in clues)
+        {
+            clue.SetZOffset(Mathf.Min(centeredBounds.x, centeredBounds.z) + 0.1f);
+        }*/
     }
 
     // Update is called once per frame
@@ -136,7 +147,7 @@ public class Painting : MonoBehaviour
         manager.HideCursor();
         prevCameraPosition = camera.transform.position;
         prevCameraRotation = camera.transform.rotation;
-        camera.transform.position = transform.position - transform.forward * inspectDistance;
+        camera.transform.position = transform.position + transform.forward * inspectDistance;
         camera.transform.LookAt(transform.position);
         x = 0;
         y = 0;
@@ -181,15 +192,15 @@ public class Painting : MonoBehaviour
             vSpeed = Mathf.Clamp(maxY+y, 0, 1);
         }
             
-        float h = inspectSpeed * hSpeed * mouseX * zoom;
-        float v = inspectSpeed * vSpeed * mouseY * zoom;
+        float h = inspectSpeed * hSpeed * mouseX * zoom * maxX;
+        float v = inspectSpeed * vSpeed * mouseY * zoom * maxY;
             
         x = Mathf.Clamp(x+h, -maxX, maxX);
         y = Mathf.Clamp(y+v, -maxY, maxY);
 
-        camera.transform.position = transform.position - transform.forward * inspectDistance * zoom;
-        camera.transform.position += transform.right * x;
-        camera.transform.position += transform.up * y;
+        camera.transform.position = transform.position + transform.forward * inspectDistance * zoom;
+        camera.transform.position -= camera.transform.right * x;
+        camera.transform.position -= camera.transform.up * y;
     }
     
     
