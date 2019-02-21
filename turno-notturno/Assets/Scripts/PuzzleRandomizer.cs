@@ -22,7 +22,7 @@ public enum Material
     Y,
     Z
 }
-public enum Color
+public enum Colour
 {
     R,
     G,
@@ -72,7 +72,7 @@ public class PuzzleRandomizer : MonoBehaviour
             Debug.Log("hooh " + i + " " + howManyCorrect);
             materialParent.transform.GetChild(i).GetComponent<Property>().UpdateValue();
             clues.Add(colorParent.transform.GetChild(i).gameObject);
-            Color color = (Color)Random.Range(0, System.Enum.GetValues(typeof(Color)).Length);
+            Colour color = (Colour)Random.Range(0, System.Enum.GetValues(typeof(Colour)).Length);
             colorParent.transform.GetChild(i).GetComponent<Property>().color = color;
             if ((int)color == solution[2])
             {
@@ -88,7 +88,7 @@ public class PuzzleRandomizer : MonoBehaviour
                     
                     while (true)
                     {
-                        color = (Color)Random.Range(0, System.Enum.GetValues(typeof(Color)).Length);
+                        color = (Colour)Random.Range(0, System.Enum.GetValues(typeof(Colour)).Length);
                         if ((int)color != solution[2])
                         {
                             colorParent.transform.GetChild(i).GetComponent<Property>().color = color;
@@ -102,7 +102,7 @@ public class PuzzleRandomizer : MonoBehaviour
             {
                 while (true)
                 {
-                    color = (Color)Random.Range(0, System.Enum.GetValues(typeof(Color)).Length);
+                    color = (Colour)Random.Range(0, System.Enum.GetValues(typeof(Colour)).Length);
                     if ((int)color == solution[2])
                     {
                         colorParent.transform.GetChild(i).GetComponent<Property>().color = color;
@@ -274,7 +274,7 @@ public class PuzzleRandomizer : MonoBehaviour
         solution = new List<int>();
         solution.Add(Random.Range(0, System.Enum.GetValues(typeof(Theme)).Length));
         solution.Add(Random.Range(0, System.Enum.GetValues(typeof(Material)).Length));
-        solution.Add(Random.Range(0, System.Enum.GetValues(typeof(Color)).Length));
+        solution.Add(Random.Range(0, System.Enum.GetValues(typeof(Colour)).Length));
         solution.Add(Random.Range(0, System.Enum.GetValues(typeof(Shape)).Length));
     }
 
