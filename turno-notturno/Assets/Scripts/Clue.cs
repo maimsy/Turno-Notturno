@@ -5,7 +5,7 @@ using UnityEngine;
 public class Clue : MonoBehaviour
 {
     public GameObject text;
-    public GameObject icon;
+    private GameObject icon;
     public float lineWidth;
 
     private LineRenderer lineRenderer;
@@ -17,7 +17,7 @@ public class Clue : MonoBehaviour
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.enabled = false;
         lineRenderer.SetWidth(lineWidth, lineWidth);
-        Vector3 start = icon.transform.position;
+        Vector3 start = transform.position;
         Vector3 end = text.transform.position;
         lineRenderer.SetPosition(0, start);
         lineRenderer.SetPosition(0, end);

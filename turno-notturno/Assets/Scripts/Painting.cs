@@ -4,204 +4,86 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Painting : MonoBehaviour
+public class Painting : Inspectable
 {
-    
-    [SerializeField] float inspectDistance = 10f;
-    [SerializeField] float inspectSpeed = 0.05f;
-    [SerializeField] float maxZoom = 0.4f;
-
-    private bool inspecting;
-    private float x;
-    private float y;
-    private float maxX = 4;
-    private float maxY = 4;
-
-    private float zoom = 1;
-
-    private Vector3 prevCameraPosition;
-    private Quaternion prevCameraRotation;
-    private List<Clue> clues;
-    private List<Clue> foundClues;
-    private GameObject camera;
+    public bool enableClues = false;
 
     private PaintingUI ui;
+    private List<Clue> clues;
+    private List<Clue> foundClues;
 
-    private GameManager manager;
-    
     // Start is called before the first frame update
-    void Start()
+    protected override void OnStart()
     {
         ui = FindObjectOfType<PaintingUI>();
-        manager = FindObjectOfType<GameManager>();
-        if (!manager)
-        {
-            Debug.LogError("GameManager is missing from the scene!");
-        }
+
         clues = new List<Clue>(GetComponentsInChildren<Clue>());
         foundClues = new List<Clue>();
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);
         }
-        //StartInspect();
-
-        // Find the bounds to determine how far the camera can move
-        Bounds bounds = GetComponent<MeshRenderer>().bounds;
-        Vector3 centeredBounds = bounds.max - transform.position;
-        maxX = Mathf.Max(centeredBounds.x, centeredBounds.z);
-        maxY = centeredBounds.y;
-        /*
-        foreach (Clue clue in clues)
-        {
-            clue.SetZOffset(Mathf.Min(centeredBounds.x, centeredBounds.z) + 0.1f);
-        }*/
+        
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void OnUpdate()
     {
-        if (manager.IsPaused()) return;
-        if (inspecting)
+        if (!enableClues) return;
+        if (ui) ui.SetCluesRemainingText("Clues remaining: " + (clues.Count - foundClues.Count));
+        if (ui) ui.EnableHintCursor(false);
+        if (ui) ui.SetTooltip("");
+        
+
+        // Check for clues with raycast
+        RaycastHit hit;
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        if (Physics.Raycast(ray, out hit)) 
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
+            GameObject objectHit = hit.transform.gameObject;
+            Clue clue = objectHit.GetComponent<Clue>();
+            if(clue != null)
             {
-                StopInspect();
-                return;
-            }
-
-            HandleInspectMovement();
-            
-            // Set zoom
-            if (Input.GetKey(KeyCode.Mouse0)) zoom = maxZoom;
-            else zoom = 1;
-            
-            if (ui) ui.SetCluesRemainingText("Clues remaining: " + (clues.Count - foundClues.Count).ToString());
-            if (ui) ui.EnableHintCursor(false);
-            if (ui) ui.SetTooltip("");
-            
-
-            // Check for clues with raycast
-            RaycastHit hit;
-            Ray ray = new Ray(camera.transform.position, camera.transform.forward);
-            if (Physics.Raycast(ray, out hit)) 
-            {
-                GameObject objectHit = hit.transform.gameObject;
-                Clue clue = objectHit.GetComponent<Clue>();
-                if(clue != null)
+                if (clues.Contains(clue))
                 {
-                    if (clues.Contains(clue))
+                    if (ui) ui.EnableHintCursor(true);
+                    if (ui) ui.SetTooltip("Press E");
+                    if (Input.GetButtonDown("Interact"))
                     {
-                        if (ui) ui.EnableHintCursor(true);
-                        if (ui) ui.SetTooltip("Press E");
-                        if (Input.GetButtonDown("Interact"))
+                        foundClues.Add(clue);
+                        clue.AnimateDiscovery();
+                        if (clues.Count - foundClues.Count == 0)
                         {
-                            foundClues.Add(clue);
-                            clue.AnimateDiscovery();
-                            if (clues.Count - foundClues.Count == 0)
-                            {
-                                GameManager manager = FindObjectOfType<GameManager>();
-                                if (manager) manager.IncrementDiscoveredClues();
-                            }
-                            //Debug.Log("Clue found!");
+                            GameManager manager = FindObjectOfType<GameManager>();
+                            if (manager) manager.IncrementDiscoveredClues();
                         }
-                        else
-                        {
-                            //Debug.Log("Yes clue!");
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogWarning("Clicked on clue that does not belong to this painting!");
                     }
                 }
                 else
                 {
-                    //Debug.Log("No clue");
+                    Debug.LogWarning("Clicked on clue that does not belong to this painting!");
                 }
             }
-            else
-            {
-                //Debug.Log("No hit");
-            }
- 
         }
     }
 
-    
-
-    public void StartInspect()
+    protected override void OnStartInspect()
     {
-        //if (ui) ui.gameObject.SetActive(true);
-        
-        // Enable clue colliders and info text
+        if (!enableClues) return;
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(true);
         }
-
-        // Take control of camera
-        camera = Camera.main.gameObject;
-        inspecting = true;
-        manager.DisableControls();
-        manager.HideCursor();
-        prevCameraPosition = camera.transform.position;
-        prevCameraRotation = camera.transform.rotation;
-        camera.transform.position = transform.position + transform.forward * inspectDistance;
-        camera.transform.LookAt(transform.position);
-        x = 0;
-        y = 0;
     }
 
-    void StopInspect()
+    protected override void OnStopInspect()
     {
+        if (!enableClues) return;
         //if (ui) ui.gameObject.SetActive(false);
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);
         }
-        inspecting = false;
-        camera.transform.position = prevCameraPosition;
-        camera.transform.rotation = prevCameraRotation;
         if (ui) ui.HideCursor();
-        manager.EnableControls();
     }
-
-    void HandleInspectMovement()
-    {
-        float vSpeed = 1;
-        float hSpeed = 1;
-
-        float mouseX = -Input.GetAxis("Mouse X");
-        float mouseY = -Input.GetAxis("Mouse Y");
-            
-        if (mouseX > 0)
-        {
-            hSpeed = Mathf.Clamp(maxX-x, 0, 1);
-        }
-        if (mouseX < 0)
-        {
-            hSpeed = Mathf.Clamp(maxX+x, 0, 1);
-        }   
-        if (mouseY > 0)
-        {
-            vSpeed = Mathf.Clamp(maxY-y, 0, 1);
-        }
-        if (mouseY < 0)
-        {
-            vSpeed = Mathf.Clamp(maxY+y, 0, 1);
-        }
-            
-        float h = inspectSpeed * hSpeed * mouseX * zoom * maxX;
-        float v = inspectSpeed * vSpeed * mouseY * zoom * maxY;
-            
-        x = Mathf.Clamp(x+h, -maxX, maxX);
-        y = Mathf.Clamp(y+v, -maxY, maxY);
-
-        camera.transform.position = transform.position + transform.forward * inspectDistance * zoom;
-        camera.transform.position -= camera.transform.right * x;
-        camera.transform.position -= camera.transform.up * y;
-    }
-    
-    
 }

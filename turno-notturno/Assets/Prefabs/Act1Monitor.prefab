@@ -138,6 +138,50 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &7972347386716279104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921401263412736639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99e24f316af8754ebc98703b30a2856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltip: inspect
+  interactionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5833133783176797302}
+        m_MethodName: StartInspect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &5833133783176797302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921401263412736619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511c2d37fd806484b92cc1fb3d3f22e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inspectDistance: 10
+  inspectSpeed: 0.05
+  maxZoom: 0.4
 --- !u!1001 &7921401263412638943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -147,7 +191,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: b20a38dec070c9a469c134c427225fa0, type: 3}
       propertyPath: m_Name
-      value: monitor
+      value: Act1Monitor
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b20a38dec070c9a469c134c427225fa0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -207,9 +251,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b20a38dec070c9a469c134c427225fa0, type: 3}
+--- !u!1 &7921401263412736639 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: b20a38dec070c9a469c134c427225fa0,
+    type: 3}
+  m_PrefabInstance: {fileID: 7921401263412638943}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7921401263412768351 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b20a38dec070c9a469c134c427225fa0,
+    type: 3}
+  m_PrefabInstance: {fileID: 7921401263412638943}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7921401263412736619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100020, guid: b20a38dec070c9a469c134c427225fa0,
     type: 3}
   m_PrefabInstance: {fileID: 7921401263412638943}
   m_PrefabAsset: {fileID: 0}

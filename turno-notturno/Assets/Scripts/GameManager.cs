@@ -117,7 +117,9 @@ public class GameManager : MonoBehaviour
         {
             player.HideCursor(true);
             player.enabled = true;
-            player.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            Rigidbody rb = player.gameObject.GetComponent<Rigidbody>();
+            rb.isKinematic = false;
+            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         }
     }
 
@@ -128,7 +130,9 @@ public class GameManager : MonoBehaviour
         {
             player.HideCursor(false);
             player.enabled = false;
-            player.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            Rigidbody rb = player.gameObject.GetComponent<Rigidbody>();
+            rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            rb.isKinematic = true;
         }
     }
 
