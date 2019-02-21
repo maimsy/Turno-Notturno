@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     private UnityAction escapeActions;
     private bool paused = false;
+    private bool enableControlsAfterPause = true;
+    private bool controlsEnabled = true;
     private PauseMenu pauseMenu;
     private static GameManager instance;
 
@@ -76,13 +78,14 @@ public class GameManager : MonoBehaviour
         if (paused)
         {
             pauseMenu.gameObject.SetActive(true);
+            enableControlsAfterPause = controlsEnabled;
             DisableControls();
             Time.timeScale = 0f;
         }
         else
         {
             pauseMenu.gameObject.SetActive(false);
-            EnableControls();
+            if (enableControlsAfterPause) EnableControls();
             Time.timeScale = 1f;
         }
     }
@@ -109,6 +112,7 @@ public class GameManager : MonoBehaviour
 
     public void EnableControls()
     {
+        controlsEnabled = true;
         if (player)
         {
             player.HideCursor(true);
@@ -119,6 +123,7 @@ public class GameManager : MonoBehaviour
 
     public void DisableControls()
     {
+        controlsEnabled = false;
         if (player)
         {
             player.HideCursor(false);
