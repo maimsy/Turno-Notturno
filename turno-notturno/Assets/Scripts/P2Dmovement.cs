@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class P2Dmovement : MonoBehaviour
 {
-    private float speed = 2f;
+    public float speed = 2f;
     private GameObject goal;
     private Vector2 losingXY;
 
