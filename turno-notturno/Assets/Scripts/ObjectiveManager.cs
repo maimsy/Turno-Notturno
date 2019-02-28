@@ -5,7 +5,7 @@ using UnityEngine.Playables;
 
 public class ObjectiveManager : MonoBehaviour
 {
-    public GameObject[] windowBars;
+    private List<GameObject> windowBars;
 
     private GameObject objectivePredab;
     private Dictionary<string, GameObject> objectives;
@@ -13,6 +13,10 @@ public class ObjectiveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        windowBars = new List<GameObject>();
+        if(GameObject.Find("windowBars1")) windowBars.Add(GameObject.Find("windowBars1"));
+        if(GameObject.Find("windowBars2")) windowBars.Add(GameObject.Find("windowBars2"));
+        Debug.Log("juppaduuris "+ windowBars.Count);
         objectives = new Dictionary<string, GameObject>();
         objectivePredab = Resources.Load<GameObject>("Objective");
         Act1();
@@ -28,7 +32,7 @@ public class ObjectiveManager : MonoBehaviour
     public void Act1()
     {
         // turn off the alarm should be the first
-        NewObjective("window1", "Lock the windows", "Windows locked", windowBars.Length);
+        NewObjective("window1", "Lock the windows", "Windows locked", windowBars.Count);
     }
 
     //Spawn new objective UI
