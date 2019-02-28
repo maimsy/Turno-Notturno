@@ -10,7 +10,7 @@ public class Property : MonoBehaviour
     public PropertyType propertyType;
     public Theme theme;
     public Material material;
-    public Color color;
+    public Colour color;
     public Shape shape;
 
     // Start is called before the first frame update
