@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
+    [SerializeField] bool triggersOnce = false;
     [SerializeField] String tooltip;
     [SerializeField] List<UnityEvent> interactionEvents;
 
@@ -16,6 +17,7 @@ public class Interactable : MonoBehaviour
         if (interactionEvents.Count == 0) return;
         if (nextEventIndex + 1 > interactionEvents.Count) nextEventIndex = 0;
         interactionEvents[nextEventIndex++].Invoke();
+        if(triggersOnce) Destroy(this);
     }
 
     public String GetTooltip()

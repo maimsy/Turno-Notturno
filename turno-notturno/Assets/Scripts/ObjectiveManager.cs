@@ -6,9 +6,8 @@ using UnityEngine.Playables;
 public class ObjectiveManager : MonoBehaviour
 {
     private List<GameObject> windowBars;
-
     private GameObject objectivePredab;
-    private Dictionary<string, GameObject> objectives;
+    private Dictionary<string, Objective> objectives;
     
     // Start is called before the first frame update
     void Start()
@@ -16,23 +15,19 @@ public class ObjectiveManager : MonoBehaviour
         windowBars = new List<GameObject>();
         if(GameObject.Find("windowBars1")) windowBars.Add(GameObject.Find("windowBars1"));
         if(GameObject.Find("windowBars2")) windowBars.Add(GameObject.Find("windowBars2"));
-        Debug.Log("juppaduuris "+ windowBars.Count);
-        objectives = new Dictionary<string, GameObject>();
+        foreach(GameObject obj in windowBars)
+        {
+            obj.SetActive(false);
+        }
+        objectives = new Dictionary<string, Objective>();
         objectivePredab = Resources.Load<GameObject>("Objective");
         Act1();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     // set up objectives for act 1
     public void Act1()
     {
-        // turn off the alarm should be the first
-        NewObjective("window1", "Lock the windows", "Windows locked", windowBars.Count);
+        NewObjective("room1", "Go to the blinking room", "Done", 1);
     }
 
     //Spawn new objective UI
@@ -41,41 +36,53 @@ public class ObjectiveManager : MonoBehaviour
         GameObject obj = Instantiate(objectivePredab, transform);
         Objective objective = obj.GetComponent<Objective>();
         objective.SetUp(description, progressText, objectives.Count, targetAmount);
-        objectives[name] = obj;
+        objectives[name] = obj.GetComponent<Objective>();
     }
 
-    //Mark the objective UI as completed
-    public void CompleteObjective(string name)
+    public bool UpdateProgress(string name)
     {
-        if(objectives.ContainsKey(name))
+        if (objectives[name].UpdateProgress(1))
         {
-            Objective objective = objectives[name].GetComponent<Objective>();
-            objective.Complete();
+            objectives[name].Complete();
+            return true;
         }
+        return false;
+    }
+
+    //Guard arrived to the first blinking room
+    public void Room1()
+    {
+        if(UpdateProgress("room1"))
+            NewObjective("alarm1", "Turn off the alarm", "Alarms turned off", 1);
+    }
+
+    //Player turned off alarm
+    public void TurnOffAlarm1()
+    {
+        if (UpdateProgress("alarm1"))
+            NewObjective("artpiece1", "Find the art piece", "Art pieces found", 1);
+    }
+
+    //player inspects the painting
+    public void InspectPainting1()
+    {
+        if (UpdateProgress("artpiece1"))
+            NewObjective("window1", "Lock the windows", "Windows locked", windowBars.Count);
     }
 
     //One window was locked
     public void LockWindow()
     {
-        string key = "window1";
-        Objective objective = objectives[key].GetComponent<Objective>();
-        windowBars[objective.GetProgress()].GetComponent<PlayableDirector>().enabled = true;
-        if(objective.UpdateProgress(1))
-        {
-            CompleteObjective(key);
+        windowBars[objectives["window1"].GetComponent<Objective>().GetProgress()].GetComponent<PlayableDirector>().enabled = true;
+        if (UpdateProgress("window1"))
             NewObjective("door1", "Lock the doors", "Doors locked", 2);
-        }
     }
 
     //One door was locked
     public void LockDoor()
     {
-        string key = "door1";
-        Objective objective = objectives[key].GetComponent<Objective>();
-        if (objective.UpdateProgress(1))
-        {
-            CompleteObjective(key);
-        }
+        if (UpdateProgress("door1"))
+            NewObjective("pills1", "Find some migraine pills", "Portions of pills taken", 1);
     }
     
 

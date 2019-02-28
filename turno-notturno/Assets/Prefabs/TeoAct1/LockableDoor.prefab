@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 5103636299752157041}
   - component: {fileID: 5103636299752157040}
   - component: {fileID: 5103636299752157043}
-  - component: {fileID: 5103636299752157042}
   m_Layer: 0
   m_Name: LockableDoor
   m_TagString: Untagged
@@ -107,11 +106,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99e24f316af8754ebc98703b30a2856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggersOnce: 1
   tooltip: Lock the door
   interactionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5103636299752157042}
+      - m_Target: {fileID: 0}
         m_MethodName: Lock
         m_Mode: 1
         m_Arguments:
@@ -143,18 +143,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5103636299752157042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5103636299752157045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1aef91a6db326c449f66980f7e5dbb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!64 &5103636299831191874
 MeshCollider:
   m_ObjectHideFlags: 0
