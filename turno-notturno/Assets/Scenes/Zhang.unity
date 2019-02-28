@@ -2243,6 +2243,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 848061015, guid: aa3f049555c8a97899065bbe172f67b1, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 406175145, guid: aa3f049555c8a97899065bbe172f67b1, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -2251,10 +2255,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 848061015, guid: aa3f049555c8a97899065bbe172f67b1, type: 3}
-      propertyPath: m_Mesh
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 848061013, guid: aa3f049555c8a97899065bbe172f67b1, type: 3}
       propertyPath: m_havePropertiesChanged
@@ -3538,6 +3538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99e24f316af8754ebc98703b30a2856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggersOnce: 0
   tooltip: 
   interactionEvents:
   - m_PersistentCalls:
@@ -4227,6 +4228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finalPuzzle: {fileID: 845970640}
+  scenes: []
 --- !u!4 &1627728139
 Transform:
   m_ObjectHideFlags: 0
@@ -12381,6 +12383,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.11323281
       objectReference: {fileID: 0}
+    - target: {fileID: 4730303250578302495, guid: c27cea43d1b35064abe67bf2bb1e3d42,
+        type: 3}
+      propertyPath: speed
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c27cea43d1b35064abe67bf2bb1e3d42, type: 3}
 --- !u!1001 &6801875873063268318
@@ -12396,6 +12403,11 @@ PrefabInstance:
       value: alarm-box
       objectReference: {fileID: 0}
     - target: {fileID: 1620866130254997899, guid: e6876eb062f83ec4391f5dbddf77dde2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527843407636428758, guid: e6876eb062f83ec4391f5dbddf77dde2,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
@@ -12456,11 +12468,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7170111030276215912, guid: e6876eb062f83ec4391f5dbddf77dde2,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 6527843407636428758, guid: e6876eb062f83ec4391f5dbddf77dde2,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
