@@ -81,10 +81,13 @@ public class Player : Character
             if (!interactable) interactable = objectHit.GetComponentInParent<Interactable>();
             if (interactable != null)
             {
-                if (interactTooltip) interactTooltip.text = "Press E to " + interactable.GetTooltip();
-                if (Input.GetButtonDown("Interact"))
+                if(interactable.isInteractable)
                 {
-                    interactable.OnInteract();
+                    if (interactTooltip) interactTooltip.text = "Press E to " + interactable.GetTooltip();
+                    if (Input.GetButtonDown("Interact"))
+                    {
+                        interactable.OnInteract();
+                    }
                 }
             }
 

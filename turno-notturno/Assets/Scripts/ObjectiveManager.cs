@@ -78,6 +78,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             StartCoroutine(RemoveObjective("room1"));
             StartCoroutine(NewObjective("alarm1", "Turn off the alarm",  1, delayTime));
+            //GameObject.Find("alarm-box").GetComponent<Interactable>().isInteractable = true;
         }
     }
 
@@ -88,6 +89,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             StartCoroutine(RemoveObjective("alarm1"));
             StartCoroutine(NewObjective("artpiece1", "Find the art piece",  1, delayTime));
+            //GameObject.Find("artpiece").GetComponent<Interactable>().isInteractable = true;
         } 
     }
 
@@ -98,7 +100,10 @@ public class ObjectiveManager : MonoBehaviour
         {
             StartCoroutine(RemoveObjective("artpiece1"));
             StartCoroutine(NewObjective("window1", "Lock the windows", windowBars.Count, delayTime));
-            StartCoroutine(NewObjective("door1", "Lock the doors", 2, delayTime));
+            StartCoroutine(NewObjective("door1", "Lock the main door", 1, delayTime));
+            //GameObject.Find("window1").GetComponent<Interactable>().isInteractable = true;
+            //GameObject.Find("window2").GetComponent<Interactable>().isInteractable = true;
+            //GameObject.Find("maindoor").GetComponent<Interactable>().isInteractable = true;
             string[] names = { "window1", "door1" };
             MultiObjective(names);
             
@@ -116,7 +121,7 @@ public class ObjectiveManager : MonoBehaviour
             if(multiObjectives.Count == 0)
             {
                 StartCoroutine(NewObjective("pills1", "Take some migraine pills", 1, delayTime));
-
+                //GameObject.Find("pills").GetComponent<Interactable>().isInteractable = true;
             }
         }
     }
@@ -131,8 +136,18 @@ public class ObjectiveManager : MonoBehaviour
             if (multiObjectives.Count == 0)
             {
                 StartCoroutine(NewObjective("pills1", "Take some migraine pills", 1, delayTime));
-
+                //GameObject.Find("pills").GetComponent<Interactable>().isInteractable = true;
             }
+        }
+    }
+
+    //player takes pills
+    public void TakePills()
+    {
+        if (UpdateProgress("pills1"))
+        {
+            StartCoroutine(RemoveObjective("pills1"));
+            //fall asleep for act 2 minigame
         }
     }
 

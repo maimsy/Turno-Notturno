@@ -10,6 +10,8 @@ public class Interactable : MonoBehaviour
     [SerializeField] String tooltip;
     [SerializeField] List<UnityEvent> interactionEvents;
 
+    public bool isInteractable = true;
+
     private int nextEventIndex = 0;
 
     public void OnInteract()
