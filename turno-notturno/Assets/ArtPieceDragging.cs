@@ -20,5 +20,6 @@ public class ArtPieceDragging : MonoBehaviour
     private void OnMouseUp()
     {
         GetComponent<BoxCollider2D>().enabled = true;
+        GetComponent<BoxCollider2D>().isTrigger = false;
     }
 }
