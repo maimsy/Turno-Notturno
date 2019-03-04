@@ -13,6 +13,7 @@ public class P2Dmovement : MonoBehaviour
     void Start()
     {
         GetComponent<Rigidbody2D>().velocity = new Vector2(speed, GetComponent<Rigidbody2D>().velocity.y);
+        
     }
 
     // Update is called once per frame
@@ -40,10 +41,10 @@ public class P2Dmovement : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(speed, GetComponent<Rigidbody2D>().velocity.y);
         }
-        Vector3 pos = Camera.main.transform.position;
-        Camera.main.transform.position = new Vector3(pos.x + speed / 75f, pos.y, pos.z);
+        
+        
     }
-
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "Goal")
