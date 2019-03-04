@@ -57,6 +57,7 @@ public class MinigameEnding : MonoBehaviour
             infoText.GetComponent<Text>().text = "You lost.. Press E to restart";
             infoText.SetActive(true);
         }
+        GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
         winning = win;
         ending = true;
     }

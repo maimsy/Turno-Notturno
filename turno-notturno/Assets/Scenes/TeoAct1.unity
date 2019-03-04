@@ -2182,6 +2182,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  isInteractable: 1
 --- !u!1 &590441610 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 7a0db444e3ef2854b8aa63f446ee179c,
@@ -2234,6 +2235,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  isInteractable: 1
 --- !u!65 &590441616
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3131,6 +3133,57 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300002, guid: 5a75165569520484982d874bd1b120b5, type: 3}
+--- !u!1 &805434039 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100032, guid: 5a75165569520484982d874bd1b120b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 494584607}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &805434041
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805434039}
+  m_Material: {fileID: 13400000, guid: cd4998da09c56f6828966efd20e00b92, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300006, guid: 139ee928fa40f4c4688a9c7f60b8f4f0, type: 3}
+--- !u!114 &805434042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805434039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99e24f316af8754ebc98703b30a2856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggersOnce: 1
+  tooltip: Take pills
+  interactionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1306519759}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  isInteractable: 1
 --- !u!1 &807698515
 GameObject:
   m_ObjectHideFlags: 0
@@ -3473,7 +3526,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 499539519}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1306519759}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1b86154da218b145b19c72c2e1bba67, type: 3}
@@ -5425,6 +5478,12 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300006, guid: f4e0f8941bd67114b9f6db05efe9be17, type: 3}
+--- !u!1 &1306519759 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6705873116309707641, guid: f4bd57ca1c934bf418a0605f330527e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 499539519}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1314549824 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100058, guid: 5a75165569520484982d874bd1b120b5,
@@ -5716,6 +5775,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  isInteractable: 1
 --- !u!114 &1416328670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6011,6 +6071,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  isInteractable: 1
 --- !u!65 &1497778062
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7849,6 +7910,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  isInteractable: 1
 --- !u!65 &1900504950
 BoxCollider:
   m_ObjectHideFlags: 0

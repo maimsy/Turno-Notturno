@@ -7,31 +7,28 @@ public class Objective : MonoBehaviour
 {
     private string description;
     private bool isDone;
-    private Text headLine;
-    private Text progress;
+    private Text text;
     private int progressAmount = 0;
     private int targetAmount = 0;
-    private string progressText;
 
     private Toggle toggle;
-    private int counter = 0;
-    private int animSpeed = 3;
+    private float timer = 0;
+    private float animSpeed = 0.05f;
     private int textIndex = 0;
     private int pos = 0;
+    private float fadeTime = 2.0f;
+    private float fadeTimer = 0;
     
     private bool animate = false;
     private bool hasStarted = false;
+    private bool completed = false;
    
     // Start is called before the first frame update
     void Awake()
     {
-        headLine = transform.GetChild(0).GetComponent<Text>();
-        progress = transform.GetChild(1).GetComponent<Text>();
+        text = transform.GetChild(0).GetComponent<Text>();
         toggle = GetComponentInChildren<Toggle>();
-        headLine.text = "";
-        progress.text = "";
-
-
+        text.text = "";
     }
 
     // Update is called once per frame
@@ -41,19 +38,22 @@ public class Objective : MonoBehaviour
         {
             AnimateText();
         }
-        
+        if (completed)
+        {
+            Fade();
+        }
     }
     
     // Make letters appear one by one
     public void AnimateText()
     {
-        counter++;
-        if (counter > animSpeed)
+        timer += Time.deltaTime;
+        if (timer > animSpeed)
         {
-            counter = 0;
+            timer = 0;
             if (textIndex <= description.Length)
             {
-                headLine.text = description.Substring(0, textIndex);
+                text.text = description.Substring(0, textIndex);
                 textIndex++;
             }
             else
@@ -65,11 +65,10 @@ public class Objective : MonoBehaviour
     }
 
     // Set the UI
-    public void SetUp(string descr, string progress, int position, int target)
+    public void SetUp(string descr, int position, int target)
     {
         pos = position;
         description = descr;
-        progressText = progress;
         targetAmount = target;
         Vector2 topRight = GetComponent<RectTransform>().offsetMax;
         Vector2 botLeft = GetComponent<RectTransform>().offsetMin;
@@ -88,7 +87,14 @@ public class Objective : MonoBehaviour
     public bool UpdateProgress(int amount)
     {
         progressAmount += amount;
-        progress.text = progressAmount.ToString() + "/" + targetAmount.ToString() + " " + progressText;
+        if(targetAmount > 1)
+        {
+            text.text = description +" " + progressAmount.ToString() + "/" + targetAmount.ToString();
+        }
+        else
+        {
+            text.text = description;
+        }
         if(progressAmount == targetAmount)
         {
             return true;
@@ -101,10 +107,35 @@ public class Objective : MonoBehaviour
     {
         GetComponentInChildren<Toggle>().isOn = true;
         float p = 0.5f;
-        headLine.color = new UnityEngine.Color(p,p,p,p);
-        progress.color = new UnityEngine.Color(p, p, p, p);
+        //headLine.color = new UnityEngine.Color(p,p,p,p);
+        //progress.color = new UnityEngine.Color(p, p, p, p);
+        completed = true;
         //any other animations for completion
-        //do we want the completed to move to topmost or is it even possible to have multiple objectives
 
+    }
+
+    //Fade the UI away after completing the objective
+    private void Fade()
+    {
+        fadeTimer += Time.deltaTime;
+        float fade = fadeTimer/fadeTime;
+        Debug.Log("Fade " + fade);
+        Color color = text.color;
+        text.color = new Color(color.r, color.g, color.b, 1 - fade);
+        Image[] images = GetComponentsInChildren<Image>();
+        foreach (Image image in images)
+        {
+            color = image.color;
+            image.color = new Color(color.r, color.g, color.b, 1 - fade);
+        }
+        if(fadeTimer > fadeTime)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public float GetFadeTime()
+    {
+        return fadeTime;
     }
 }
