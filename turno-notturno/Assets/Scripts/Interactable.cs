@@ -10,9 +10,11 @@ public class Interactable : MonoBehaviour
     [SerializeField] String tooltip;
     [SerializeField] List<UnityEvent> interactionEvents;
 
+    public bool isInteractable = true;
+
     private int nextEventIndex = 0;
 
-    public void OnInteract()
+    public virtual void OnInteract()
     {
         if (interactionEvents.Count == 0) return;
         if (nextEventIndex + 1 > interactionEvents.Count) nextEventIndex = 0;
@@ -20,7 +22,7 @@ public class Interactable : MonoBehaviour
         if(triggersOnce) Destroy(this);
     }
 
-    public String GetTooltip()
+    public virtual String GetTooltip()
     {
         return tooltip;
     }
