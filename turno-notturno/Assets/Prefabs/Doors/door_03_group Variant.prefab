@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &6323795450603029062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6323795451949037080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99e24f316af8754ebc98703b30a2856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggersOnce: 1
+  tooltip: Lock the door
+  interactionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: LockDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: DoorOpen
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  isInteractable: 0
 --- !u!64 &56583370219414610
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -38,18 +69,6 @@ PrefabInstance:
     - target: {fileID: 100002, guid: 25e06ec0d13278a488cc5cf8e35e8494, type: 3}
       propertyPath: m_Name
       value: door_03_group
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 25e06ec0d13278a488cc5cf8e35e8494, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 25e06ec0d13278a488cc5cf8e35e8494, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 100004, guid: 25e06ec0d13278a488cc5cf8e35e8494, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 25e06ec0d13278a488cc5cf8e35e8494, type: 3}
       propertyPath: m_LocalPosition.x
@@ -105,6 +124,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25e06ec0d13278a488cc5cf8e35e8494, type: 3}
+--- !u!1 &6323795451949037080 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100002, guid: 25e06ec0d13278a488cc5cf8e35e8494,
+    type: 3}
+  m_PrefabInstance: {fileID: 6323795451949002938}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6323795451949037082 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 25e06ec0d13278a488cc5cf8e35e8494,
