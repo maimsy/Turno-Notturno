@@ -6,12 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 1864c4eca65e66f45b5dffb5d2c52704
+  - enabled: 1
     path: Assets/Scenes/teoBridgeGame.unity
     guid: 3cac450ba461ea84c986c5e2eea5d245
   - enabled: 1
-    path: Assets/Scenes/TeoMuseum.unity
-    guid: a2027b6eda25a9546829c85c2c776ff2
+    path: Assets/Scenes/Gorkem.unity
+    guid: c47eb6712c313194ca6e8650ed1c00be
   - enabled: 1
     path: Assets/Scenes/teo2DavoidingGame.unity
     guid: 0c012597fb37b4940b9d0fa45e20c827
+  - enabled: 1
+    path: Assets/Scenes/teo2Ddrawing.unity
+    guid: a79070731115bed41b0d545dd3f1f477
+  - enabled: 1
+    path: Assets/Scenes/2DOppositePlatformer.unity
+    guid: f13e9a3469aa0f24592a0fd844a05480
   m_configObjects: {}
