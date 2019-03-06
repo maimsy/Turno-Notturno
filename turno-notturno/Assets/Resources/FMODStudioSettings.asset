@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: fmod_turno\fmod_turno.fspro
-  SourceProjectPathUnformatted: fmod_turno\fmod_turno.fspro
-  SourceBankPathUnformatted: fmod_turno\Build
+  sourceProjectPath: fmod_turno/fmod_turno.fspro
+  SourceProjectPathUnformatted: fmod_turno/fmod_turno.fspro
+  SourceBankPathUnformatted: fmod_turno/Build
   AutomaticEventLoading: 1
   AutomaticSampleLoading: 0
   ImportType: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
     Value: 3
   SampleRateSettings:
   - Platform: 1
-    Value: 48000
+    Value: 44100
   - Platform: 2
     Value: 0
   LiveUpdateSettings:

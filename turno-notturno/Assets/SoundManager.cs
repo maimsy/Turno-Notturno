@@ -5,11 +5,13 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
 
-    public AudioSource EffectSource;
-    public AudioSource MusicScore;
+    //public AudioSource EffectSource;
+    //public AudioSource MusicScore;
 
-    public float lowPictchRange;
-    public float highPitchRage;
+    //public float lowPictchRange;
+    //public float highPitchRage;
+    [FMODUnity.EventRef]
+    public string footstepsound;
 
     public static SoundManager Instance = null;
 
@@ -29,22 +31,23 @@ public class SoundManager : MonoBehaviour
     // Update is called once per frame
     public void Play(AudioClip clip)
     {
-        EffectSource.clip = clip;
-        EffectSource.Play();
+       // EffectSource.clip = clip;
+       // EffectSource.Play();
     }
 
     public void PlayMusic(AudioClip clip) {
-        MusicScore.clip = clip;
-        MusicScore.Play();
+       // MusicScore.clip = clip;
+      // MusicScore.Play();
     }
 
 
     public void RandomSoundEffect(params AudioClip[] clips) {
         //float randomPitch = Random.Range(lowPictchRange, highPitchRage);
-        int randomIndx = Random.Range(0, clips.Length);
+        //int randomIndx = Random.Range(0, clips.Length);
         //EffectSource.pitch = randomPitch;*/
-        EffectSource.clip = clips[randomIndx];
-        EffectSource.PlayOneShot(EffectSource.clip);
+        //EffectSource.clip = clips[randomIndx];
+        //EffectSource.PlayOneShot(EffectSource.clip);
+        FMODUnity.RuntimeManager.PlayOneShot(footstepsound);
 
     }
 }
