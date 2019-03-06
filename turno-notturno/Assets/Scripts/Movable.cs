@@ -17,6 +17,7 @@ public class Movable : Interactable
     void Awake()
     {
         rbody = GetComponent<Rigidbody>();
+        rbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
     
     // Start is called before the first frame update
