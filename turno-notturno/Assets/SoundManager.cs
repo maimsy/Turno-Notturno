@@ -47,7 +47,7 @@ public class SoundManager : MonoBehaviour
         //EffectSource.pitch = randomPitch;*/
         //EffectSource.clip = clips[randomIndx];
         //EffectSource.PlayOneShot(EffectSource.clip);
-        FMODUnity.RuntimeManager.PlayOneShot(footstepsound);
+       FMODUnity.RuntimeManager.PlayOneShot(footstepsound);
 
     }
 }
