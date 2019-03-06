@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -30,6 +31,9 @@ public class ObjectiveManager : MonoBehaviour
     // set up objectives for act 1
     public void Act1()
     {
+        PlayDialogue("01", 4f, abortPrevious: false);
+        PlayDialogue("02", 10f, abortPrevious: false);
+        PlayDialogue("03", 20f, abortPrevious: false);
         StartCoroutine(NewObjective("room1", "Go to the blinking room", 1, delayTime));
     }
 
@@ -76,6 +80,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("room1"))
         {
+            PlayDialogue("04", 1f);
             StartCoroutine(RemoveObjective("room1"));
             StartCoroutine(NewObjective("alarm1", "Turn off the alarm",  1, delayTime));
             StartCoroutine(NewObjective("artpiece1", "Find the art piece", 1, delayTime));
@@ -90,6 +95,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("alarm1"))
         {
+            PlayDialogue("05", 0f);
             StartCoroutine(RemoveObjective("alarm1"));
             multiObjectives.Remove("alarm1");
             if (multiObjectives.Count == 0)
@@ -105,6 +111,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("artpiece1"))
         {
+            PlayDialogue("06", 0.5f);
             StartCoroutine(RemoveObjective("artpiece1"));
             multiObjectives.Remove("artpiece1");
             if (multiObjectives.Count == 0)
@@ -134,8 +141,9 @@ public class ObjectiveManager : MonoBehaviour
         {
             StartCoroutine(RemoveObjective("window1"));
             multiObjectives.Remove("window1");
-            if(multiObjectives.Count == 0)
+            if (multiObjectives.Count == 0)
             {
+                PlayDialogue("08", 0.5f);
                 StartCoroutine(NewObjective("pills1", "Take some migraine pills", 1, delayTime));
                 GameObject.Find("bottle_pill_01").GetComponent<Interactable>().isInteractable = true;
             }
@@ -151,8 +159,13 @@ public class ObjectiveManager : MonoBehaviour
             multiObjectives.Remove("door1");
             if (multiObjectives.Count == 0)
             {
+                PlayDialogue("08", 0.5f);
                 StartCoroutine(NewObjective("pills1", "Take some migraine pills", 1, delayTime));
                 GameObject.Find("bottle_pill_01").GetComponent<Interactable>().isInteractable = true;
+            }
+            else
+            {
+                PlayDialogue("07", 0.5f);
             }
         }
     }
@@ -162,11 +175,71 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("pills1"))
         {
+            PlayDialogue("10", 1f);
             StartCoroutine(RemoveObjective("pills1"));
             //fall asleep for act 2 minigame 
             GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
         }
     }
 
+    public void AbortDialogue()
+    {
+        // Used to prevent overlapping dialogues
+        StopCoroutine("DelayedVoiceline");
+    }
 
+    public void PlayDialogue(String filename, float delay, bool abortPrevious=true)
+    {
+        if (abortPrevious) AbortDialogue();
+        String dialogueMessage = "";
+        switch (filename)
+        {
+            case "01":
+                dialogueMessage = "Ugh... what?";
+                break;
+            case "02":
+                dialogueMessage = "Ugh...";
+                break;
+            case "03":
+                dialogueMessage = "Ugh...";
+                break;
+            case "04":
+                dialogueMessage = "What is this... an intruder?";
+                break;
+            case "05":
+                dialogueMessage = "Shut up!";
+                break;
+            case "06":
+                dialogueMessage = "This is a comment on the artwork";
+                break;
+            case "07":
+                dialogueMessage = "God damn security always giving me extra work... *grumble*";
+                break;
+            case "08":
+                dialogueMessage = "No one could have gotten in...";
+                break;
+            case "09":
+                dialogueMessage = "Ugh...not again!";
+                break;
+            case "10":
+                dialogueMessage = "*gulping sound for eating pills*";
+                break;
+            default:
+                Debug.LogError("Invalid voiceline: " + filename);
+                break;
+        }
+        IEnumerator delayedCoroutine = DelayedVoiceline(dialogueMessage, filename, delay);
+        StartCoroutine(delayedCoroutine);
+    }
+
+    IEnumerator DelayedVoiceline(String dialogueMessage, String filename, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Dialogue dialogue = FindObjectOfType<Dialogue>();
+        if (dialogue)
+        {
+            dialogue.DisplayText(dialogueMessage);
+        }
+        FMODUnity.RuntimeManager.PlayOneShot("event:/placeholderSpeaks/" + filename + "_placeholder");
+    }
 }
