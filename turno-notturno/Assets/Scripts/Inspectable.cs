@@ -1,18 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Inspectable : MonoBehaviour
 {
-    [SerializeField] float inspectDistance = 10f;
+    [SerializeField] float inspectDistance = 3f;
     [SerializeField] float inspectSpeed = 0.05f;
     [SerializeField] float maxZoom = 0.4f;
+    [SerializeField] InspectDirection inspectDirection = InspectDirection.xy;
+    [SerializeField] bool flipDirection = false;
+
+    public enum InspectDirection
+    {
+        xy,
+        xz,
+        zy
+    }
+
+    private Vector3 center;
 
     private bool inspecting;
-    private float x;
-    private float y;
-    private float maxX = 4;
-    private float maxY = 4;
+    private float hor;
+    private float vert;
+    private float maxHor = 4;
+    private float maxVert = 4;
 
     private float zoom = 1;
 
@@ -28,13 +40,34 @@ public class Inspectable : MonoBehaviour
         {
             Debug.LogError("GameManager is missing from the scene!");
         }
+        OnStart();
+    }
 
+    void CalculateBounds()
+    {
         // Find the bounds to determine how far the camera can move
         Bounds bounds = GetComponent<MeshRenderer>().bounds;
-        Vector3 centeredBounds = bounds.max - transform.position;
-        maxX = Mathf.Max(centeredBounds.x, centeredBounds.z);
-        maxY = centeredBounds.y;
-        OnStart();
+        center = bounds.center;
+        Vector3 centeredBounds = bounds.max - center;
+        switch (inspectDirection)
+        {
+            case InspectDirection.xy:
+                maxHor = centeredBounds.x;
+                maxVert = centeredBounds.y;
+                break;
+            case InspectDirection.xz:
+                maxHor = centeredBounds.x;
+                maxVert = centeredBounds.z;
+                break;
+            case InspectDirection.zy:
+                maxHor = centeredBounds.z;
+                maxVert = centeredBounds.y;
+                break;
+        }
+
+        // Add a little more room
+        maxHor *= 1.2f;
+        maxVert *= 1.2f;
     }
 
     void Update()
@@ -60,15 +93,16 @@ public class Inspectable : MonoBehaviour
 
     public void StartInspect()
     {
+        CalculateBounds();
         inspecting = true;
         manager.DisableControls();
         manager.HideCursor();
         prevCameraPosition = Camera.main.transform.position;
         prevCameraRotation = Camera.main.transform.rotation;
-        Camera.main.transform.position = transform.position + transform.forward * inspectDistance;
-        Camera.main.transform.LookAt(transform.position);
-        x = 0;
-        y = 0;
+        Camera.main.transform.position = GetStartingPosition();
+        Camera.main.transform.LookAt(center);
+        hor = 0;
+        vert = 0;
         OnStartInspect();
     }
 
@@ -111,29 +145,71 @@ public class Inspectable : MonoBehaviour
 
         if (mouseX > 0)
         {
-            hSpeed = Mathf.Clamp(maxX - x, 0, 1);
+            hSpeed = Mathf.Clamp(maxHor - hor, 0, 1);
         }
         if (mouseX < 0)
         {
-            hSpeed = Mathf.Clamp(maxX + x, 0, 1);
+            hSpeed = Mathf.Clamp(maxHor + hor, 0, 1);
         }
         if (mouseY > 0)
         {
-            vSpeed = Mathf.Clamp(maxY - y, 0, 1);
+            vSpeed = Mathf.Clamp(maxVert - vert, 0, 1);
         }
         if (mouseY < 0)
         {
-            vSpeed = Mathf.Clamp(maxY + y, 0, 1);
+            vSpeed = Mathf.Clamp(maxVert + vert, 0, 1);
         }
 
-        float h = inspectSpeed * hSpeed * mouseX * zoom * maxX;
-        float v = inspectSpeed * vSpeed * mouseY * zoom * maxY;
+        float h = inspectSpeed * hSpeed * mouseX * zoom * maxHor;
+        float v = inspectSpeed * vSpeed * mouseY * zoom * maxVert;
 
-        x = Mathf.Clamp(x + h, -maxX, maxX);
-        y = Mathf.Clamp(y + v, -maxY, maxY);
+        hor = Mathf.Clamp(hor + h, -maxHor, maxHor);
+        vert = Mathf.Clamp(vert + v, -maxVert, maxVert);
 
-        Camera.main.transform.position = transform.position + transform.forward * inspectDistance * zoom;
-        Camera.main.transform.position -= Camera.main.transform.right * x;
-        Camera.main.transform.position -= Camera.main.transform.up * y;
+        Camera.main.transform.position = GetStartingPosition();
+        Camera.main.transform.position -= Camera.main.transform.right * hor;
+        Camera.main.transform.position -= Camera.main.transform.up * vert;
     }
+
+    Vector3 GetStartingPosition()
+    {
+        Vector3 direction = Vector3.zero;
+        switch (inspectDirection)
+        {
+            case InspectDirection.xy:
+                direction = transform.forward;
+                break;
+            case InspectDirection.xz:
+                direction = transform.up;
+                break;
+            case InspectDirection.zy:
+                direction = transform.right;
+                break;
+        }
+        if (flipDirection) direction = -direction;
+        return center + direction * inspectDistance * zoom;
+    }
+
+    [ContextMenu("Visualize")]
+    public void Visualize()
+    {
+        CalculateBounds();
+        Debug.DrawRay(center, GetStartingPosition() - center, Color.red, 5f);
+        Debug.Log(center);
+    }
+
+    /*
+    void Reset()
+    {
+        // Automatically add interaction script when first created
+        Interactable interactable = GetComponent<Interactable>();
+        if (!interactable)
+        {
+            UnityEvent inspectEvent = new UnityEvent();
+            inspectEvent.AddListener(StartInspect);
+            interactable = gameObject.AddComponent<Interactable>();
+            interactable.AddEvent(inspectEvent);
+        }
+    }
+    */
 }
