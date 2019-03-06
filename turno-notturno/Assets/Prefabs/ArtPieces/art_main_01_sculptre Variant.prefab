@@ -26,9 +26,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f864aadcc9947049949f268f5cc554c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inspectDistance: 10
+  inspectDistance: 3
   inspectSpeed: 0.05
   maxZoom: 0.4
+  inspectDirection: 1
+  flipDirection: 0
   enableClues: 1
 --- !u!114 &4231141835797531599
 MonoBehaviour:
@@ -87,6 +89,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d822fa356d4a3754eb94a91452847e17, type: 2}
     - target: {fileID: 400000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.8
@@ -131,10 +137,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d822fa356d4a3754eb94a91452847e17, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
 --- !u!1 &4463229174394119484 stripped
