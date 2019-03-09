@@ -19,12 +19,6 @@ public class Movable : Interactable
         rbody = GetComponent<Rigidbody>();
         rbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -41,6 +35,7 @@ public class Movable : Interactable
                 Throw();
             }
         }
+        renderer.material.shader = originalShader;
     }
 
     public void Grab()

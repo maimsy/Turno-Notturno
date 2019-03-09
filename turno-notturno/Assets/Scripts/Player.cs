@@ -83,6 +83,7 @@ public class Player : Character
             {
                 if(interactable.isInteractable)
                 {
+                    interactable.HighLight();
                     if (interactTooltip) interactTooltip.text = "Press E to " + interactable.GetTooltip();
                     if (Input.GetButtonDown("Interact"))
                     {
