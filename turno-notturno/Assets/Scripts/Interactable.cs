@@ -12,6 +12,8 @@ public class Interactable : MonoBehaviour
 
     public bool isInteractable = true;
 
+    protected Shader HighLightShader;
+
     private int nextEventIndex = 0;
 
     public virtual void OnInteract()
@@ -25,5 +27,10 @@ public class Interactable : MonoBehaviour
     public virtual String GetTooltip()
     {
         return tooltip;
+    }
+
+    public void HighLight()
+    {
+
     }
 }
