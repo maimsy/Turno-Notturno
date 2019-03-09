@@ -86,6 +86,7 @@ public class ObjectiveManager : MonoBehaviour
             StartCoroutine(NewObjective("artpiece1", "Find the art piece", 1, delayTime));
             string[] names = { "alarm1", "artpiece1" };
             MultiObjective(names);
+            //FindObjectOfType<MigrainEffect>().StartMigrain();
             //GameObject.Find("alarm-box").GetComponent<Interactable>().isInteractable = true;
         }
     }
@@ -118,6 +119,7 @@ public class ObjectiveManager : MonoBehaviour
             {
                 Locking();
             }
+            //FindObjectOfType<MigrainEffect>().EndMigrain();
         }
     }
 

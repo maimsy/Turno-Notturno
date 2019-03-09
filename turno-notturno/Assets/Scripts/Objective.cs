@@ -119,7 +119,6 @@ public class Objective : MonoBehaviour
     {
         fadeTimer += Time.deltaTime;
         float fade = fadeTimer/fadeTime;
-        Debug.Log("Fade " + fade);
         Color color = text.color;
         text.color = new Color(color.r, color.g, color.b, 1 - fade);
         Image[] images = GetComponentsInChildren<Image>();
