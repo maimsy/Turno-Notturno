@@ -19,10 +19,6 @@ public class ObjectiveManager : MonoBehaviour
         multiObjectives = new List<string>();
         if(GameObject.Find("windowBars1")) windowBars.Add(GameObject.Find("windowBars1"));
         if(GameObject.Find("windowBars2")) windowBars.Add(GameObject.Find("windowBars2"));
-        foreach(GameObject obj in windowBars)
-        {
-            obj.SetActive(false);
-        }
         objectives = new Dictionary<string, Objective>();
         objectivePredab = Resources.Load<GameObject>("Objective");
         Act1();
@@ -43,7 +39,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             Debug.LogError("Alarm manager is missing!");
         }
-        StartCoroutine(NewObjective("room1", "Go to the blinking room", 1, delayTime));
+        StartCoroutine(NewObjective("room1", "Find the cause of the alarm", 1, delayTime));
     }
 
     //Spawn new objective UI after animations
@@ -145,9 +141,9 @@ public class ObjectiveManager : MonoBehaviour
     }
 
     //One window was locked
-    public void LockWindow()
+    public void LockWindow(int whichWindow)
     {
-        //windowBars[objectives["window1"].GetComponent<Objective>().GetProgress()].GetComponent<PlayableDirector>().enabled = true;
+        windowBars[whichWindow].GetComponent<Animator>().enabled = true;
         if (UpdateProgress("window1"))
         {
             StartCoroutine(RemoveObjective("window1"));
