@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class Property : MonoBehaviour
 {
     public PropertyType propertyType;
-    public Theme theme;
-    public Material material;
-    public Colour color;
-    public Shape shape;
+    public ArtTheme theme;
+    public ArtMaterial material;
+    public ArtColour color;
+    public ArtShape shape;
 
     // Start is called before the first frame update
     void Start()
