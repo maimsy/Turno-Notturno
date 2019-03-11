@@ -70,7 +70,7 @@ MonoBehaviour:
     alarmMinimap: {fileID: 2100000, guid: 5afeb0b932a3fe1449335bfbaaeb571c, type: 2}
   act4Alarm:
     light: {fileID: 7576157120662401455}
-    sound: {fileID: 6110013326104436019}
+    sound: {fileID: 6110013325721733540}
     alarmMinimap: {fileID: 2100000, guid: 5afeb0b932a3fe1449335bfbaaeb571c, type: 2}
 --- !u!1001 &431557253180192631
 PrefabInstance:
@@ -414,6 +414,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 431557254152244946}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6110013325721733540 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5851886438713444214, guid: 11295edee2bd3f745a1e42a6c372e0bb,
+    type: 3}
+  m_PrefabInstance: {fileID: 431557254152244946}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &431557254893492805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -491,12 +497,6 @@ PrefabInstance:
 --- !u!4 &1945775743886527773 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2233217739496281944, guid: 11295edee2bd3f745a1e42a6c372e0bb,
-    type: 3}
-  m_PrefabInstance: {fileID: 431557254893492805}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6110013326104436019 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5851886438713444214, guid: 11295edee2bd3f745a1e42a6c372e0bb,
     type: 3}
   m_PrefabInstance: {fileID: 431557254893492805}
   m_PrefabAsset: {fileID: 0}
