@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class P2Dmovement : MonoBehaviour
 {
     public float speed = 2f;
+    [SerializeField] bool reDragging = false;
     private GameObject goal;
     private Vector2 losingXY;
 
@@ -44,14 +45,24 @@ public class P2Dmovement : MonoBehaviour
         
         
     }
-    
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Goal")
+        if (collision.gameObject.tag == "Art")
+        {
+            if(!reDragging)
+            {
+                collision.gameObject.GetComponent<ArtPieceDragging>().DisableDragging();
+            }
+            
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.tag == "Goal")
         {
             GetComponent<MinigameEnding>().EndGame(true);
             enabled = false;
         }
-    }
-
+    } 
 }
