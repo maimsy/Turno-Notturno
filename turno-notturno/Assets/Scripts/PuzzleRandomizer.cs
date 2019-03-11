@@ -8,31 +8,30 @@ public enum PropertyType
     Theme,
     Material,
     Color,
-    Shape
+    Special
 }
 public enum Theme
 {
-    A,
-    B,
-    C
+    Cityscape,
+    Portrait,
+    Abstract
 }
 public enum Material
 {
-    X,
-    Y,
-    Z
+    Wood,
+    Copper,
 }
 public enum Colour
 {
-    R,
-    G,
-    B
+    Red,
+    Green,
+    Blue
 }
-public enum Shape
+public enum Special
 {
-    Circle,
-    Square,
-    Triangle
+    Spirals,
+    Teeth,
+    Technology
 }
 
 public class PuzzleRandomizer : MonoBehaviour
@@ -114,13 +113,13 @@ public class PuzzleRandomizer : MonoBehaviour
             colorParent.transform.GetChild(i).GetComponent<Property>().UpdateValue();
             Debug.Log("hooh " + i + " " + howManyCorrect);
             clues.Add(shapeParent.transform.GetChild(i).gameObject);
-            Shape shape = (Shape)Random.Range(0, System.Enum.GetValues(typeof(Shape)).Length);
-            shapeParent.transform.GetChild(i).GetComponent<Property>().shape = shape;
+            Special shape = (Special)Random.Range(0, System.Enum.GetValues(typeof(Special)).Length);
+            shapeParent.transform.GetChild(i).GetComponent<Property>().special = shape;
             if ((int)shape == solution[3])
             {
                 if (howManyCorrect < 2)
                 {
-                    shapeParent.transform.GetChild(i).GetComponent<Property>().shape = shape;
+                    shapeParent.transform.GetChild(i).GetComponent<Property>().special = shape;
                     //colorParent.transform.GetChild(i).GetComponent<Property>().UpdateValue();
                     howManyCorrect++;
                     Debug.Log("asd2 " + i);
@@ -130,10 +129,10 @@ public class PuzzleRandomizer : MonoBehaviour
                     
                     while (true)
                     {
-                        shape = (Shape)Random.Range(0, System.Enum.GetValues(typeof(Shape)).Length);
+                        shape = (Special)Random.Range(0, System.Enum.GetValues(typeof(Special)).Length);
                         if ((int)shape != solution[3])
                         {
-                            shapeParent.transform.GetChild(i).GetComponent<Property>().shape = shape;
+                            shapeParent.transform.GetChild(i).GetComponent<Property>().special = shape;
                             break;
                         }
                         Debug.Log("Here2 " + i);
@@ -145,10 +144,10 @@ public class PuzzleRandomizer : MonoBehaviour
                
                 while (true)
                 {
-                    shape = (Shape)Random.Range(0, System.Enum.GetValues(typeof(Shape)).Length);
+                    shape = (Special)Random.Range(0, System.Enum.GetValues(typeof(Special)).Length);
                     if ((int)shape == solution[3])
                     {
-                        shapeParent.transform.GetChild(i).GetComponent<Property>().shape = shape;
+                        shapeParent.transform.GetChild(i).GetComponent<Property>().special = shape;
                         howManyCorrect++;
                         break;
                     }
@@ -248,12 +247,12 @@ public class PuzzleRandomizer : MonoBehaviour
 
                 }
                 break;
-            case PropertyType.Shape:
+            case PropertyType.Special:
                 foreach (GameObject obj in clues)
                 {
                     if (type == obj.GetComponent<Property>().propertyType)
                     {
-                        if ((int)obj.GetComponent<Property>().shape == selection)
+                        if ((int)obj.GetComponent<Property>().special == selection)
                         {
                             obj.GetComponent<Image>().color = new UnityEngine.Color(1, 1, 1, 1);
                         }
@@ -275,7 +274,7 @@ public class PuzzleRandomizer : MonoBehaviour
         solution.Add(Random.Range(0, System.Enum.GetValues(typeof(Theme)).Length));
         solution.Add(Random.Range(0, System.Enum.GetValues(typeof(Material)).Length));
         solution.Add(Random.Range(0, System.Enum.GetValues(typeof(Colour)).Length));
-        solution.Add(Random.Range(0, System.Enum.GetValues(typeof(Shape)).Length));
+        solution.Add(Random.Range(0, System.Enum.GetValues(typeof(Special)).Length));
     }
 
 }

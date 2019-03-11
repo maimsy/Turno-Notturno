@@ -11,20 +11,8 @@ public class Property : MonoBehaviour
     public Theme theme;
     public Material material;
     public Colour color;
-    public Shape shape;
+    public Special special;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void UpdateValue()
     {
@@ -41,8 +29,9 @@ public class Property : MonoBehaviour
             case PropertyType.Color:
                 transform.GetChild(0).GetComponent<Text>().text = color.ToString();
                 break;
-            case PropertyType.Shape:
-                transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + shape.ToString());
+            case PropertyType.Special:
+                transform.GetChild(0).GetComponent<Text>().text = special.ToString();
+                //transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + shape.ToString());
                 break;
 
         }

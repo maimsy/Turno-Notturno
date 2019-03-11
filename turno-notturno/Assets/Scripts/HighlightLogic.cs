@@ -10,8 +10,8 @@ public class HighlightLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject.FindGameObjectWithTag("PuzzleRandomizer").GetComponent<PuzzleRandomizer>().HighLightObjects(propertyType, GetComponent<Dropdown>().value);
-
+        //GameObject.FindGameObjectWithTag("PuzzleRandomizer").GetComponent<PuzzleRandomizer>().HighLightObjects(propertyType, GetComponent<Dropdown>().value);
+       FindObjectOfType<FinalPuzzle>().HighLightObjects(propertyType, GetComponent<Dropdown>().value);
     }
 
     // Update is called once per frame
@@ -21,6 +21,7 @@ public class HighlightLogic : MonoBehaviour
     }
     public void Highlight()
     {
-        GameObject.FindGameObjectWithTag("PuzzleRandomizer").GetComponent<PuzzleRandomizer>().HighLightObjects(propertyType, GetComponent<Dropdown>().value);
+       //GameObject.FindGameObjectWithTag("PuzzleRandomizer").GetComponent<PuzzleRandomizer>().HighLightObjects(propertyType, GetComponent<Dropdown>().value);
+        FindObjectOfType<FinalPuzzle>().HighLightObjects(propertyType, GetComponent<Dropdown>().value);
     }
 }
