@@ -34,6 +34,15 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("01", 4f, abortPrevious: false);
         PlayDialogue("02", 10f, abortPrevious: false);
         PlayDialogue("03", 20f, abortPrevious: false);
+        AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
+        if (alarmManager)
+        {
+            alarmManager.ActivateAlarm(AlarmManager.Act.act_1);
+        }
+        else
+        {
+            Debug.LogError("Alarm manager is missing!");
+        }
         StartCoroutine(NewObjective("room1", "Go to the blinking room", 1, delayTime));
     }
 
