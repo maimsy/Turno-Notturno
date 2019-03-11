@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Woodcity_rotate : MonoBehaviour
+public class Rotate : MonoBehaviour
 {
     public float speed;
     // Start is called before the first frame update

@@ -5,26 +5,26 @@ using UnityEngine.UI;
 
 public class FinalPuzzle : MonoBehaviour
 {
-    [SerializeField] List<Colour> artColours;
-    [SerializeField] List<Theme> artThemes;
-    [SerializeField] List<Material> artMaterials;
-    [SerializeField] List<Special> artSpecials;
+    [SerializeField] List<ArtColour> artColours;
+    [SerializeField] List<ArtTheme> artThemes;
+    [SerializeField] List<ArtMaterial> artMaterials;
+    [SerializeField] List<ArtShape> artShapes;
     [SerializeField] GameObject winText;
     private List<GameObject> clues;
 
     private struct Solution
     {
-        public Colour color;
-        public Theme theme;
-        public Material material;
-        public Special special;
+        public ArtColour color;
+        public ArtTheme theme;
+        public ArtMaterial material;
+        public ArtShape special;
     }
    
 
     private GameObject themes;
     private GameObject materials;
     private GameObject colors;
-    private GameObject specials;
+    private GameObject shapes;
     private Solution solution;
     private List<int> highlightsPerArt;
     // Start is called before the first frame update
@@ -32,14 +32,14 @@ public class FinalPuzzle : MonoBehaviour
     {
         highlightsPerArt = new List<int>(new int[] { 0, 0, 0, 0, 0, 0 });
         solution = new Solution();
-        solution.color = Colour.Blue;
-        solution.theme = Theme.Abstract;
-        solution.material = Material.Copper;
-        solution.special = Special.Spirals;
+        solution.color = ArtColour.Blue;
+        solution.theme = ArtTheme.Abstract;
+        solution.material = ArtMaterial.Copper;
+        solution.special = ArtShape.Spirals;
         themes = GameObject.Find("Themes");
         materials = GameObject.Find("Materials");
         colors = GameObject.Find("Colors");
-        specials = GameObject.Find("Specials");
+        shapes = GameObject.Find("Shapes");
         clues = new List<GameObject>();
         for (int i = 0; i < themes.transform.childCount; i++)
         {
@@ -63,11 +63,11 @@ public class FinalPuzzle : MonoBehaviour
             property.color = artColours[i];
             property.UpdateValue();
         }
-        for (int i = 0; i < specials.transform.childCount; i++)
+        for (int i = 0; i < shapes.transform.childCount; i++)
         {
-            clues.Add(specials.transform.GetChild(i).gameObject);
-            Property property = specials.transform.GetChild(i).GetComponent<Property>();
-            property.special = artSpecials[i];
+            clues.Add(shapes.transform.GetChild(i).gameObject);
+            Property property = shapes.transform.GetChild(i).GetComponent<Property>();
+            property.shape = artShapes[i];
             property.UpdateValue();
         }
     }
@@ -165,7 +165,7 @@ public class FinalPuzzle : MonoBehaviour
                     if (type == obj.GetComponent<Property>().propertyType)
                     {
                         int index = clues.IndexOf(obj) % 6;
-                        if ((int)obj.GetComponent<Property>().special == selection)
+                        if ((int)obj.GetComponent<Property>().shape == selection)
                         {
                             if (obj.GetComponent<Image>().color.Equals(new Color(1, 1, 1, 0)))
                             {

@@ -24,6 +24,7 @@ public class Player : Character
     Quaternion characterTargetRotation;
     Quaternion cameraTargetRotation;
     bool m_cursorIsLocked = true;
+    bool cameraRotationEnabled = true;
     Rigidbody rb;
 
     AudioSource Sound;
@@ -45,13 +46,14 @@ public class Player : Character
 
     void Update()
     {
-        LookRotation();
+        if(cameraRotationEnabled) LookRotation();
 
         Interact();
         if (Input.GetKeyDown(KeyCode.P))
         {
-            // Force cursor visible
-            HideCursor(false);
+            // Toggle cursor and camera rotation (makes editing the scene easier while playing)
+            cameraRotationEnabled = !cameraRotationEnabled;
+            HideCursor(cameraRotationEnabled);
         }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {

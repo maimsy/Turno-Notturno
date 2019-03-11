@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class Property : MonoBehaviour
 {
     public PropertyType propertyType;
-    public Theme theme;
-    public Material material;
-    public Colour color;
-    public Special special;
+    public ArtTheme theme;
+    public ArtMaterial material;
+    public ArtColour color;
+    public ArtShape shape;
 
 
     public void UpdateValue()
@@ -30,7 +30,7 @@ public class Property : MonoBehaviour
                 transform.GetChild(0).GetComponent<Text>().text = color.ToString();
                 break;
             case PropertyType.Special:
-                transform.GetChild(0).GetComponent<Text>().text = special.ToString();
+                transform.GetChild(0).GetComponent<Text>().text = shape.ToString();
                 //transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + shape.ToString());
                 break;
 
