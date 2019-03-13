@@ -27,9 +27,9 @@ public class ObjectiveManager : MonoBehaviour
     // set up objectives for act 1
     public void Act1()
     {
-        PlayDialogue("01", 4f, abortPrevious: false);
-        PlayDialogue("02", 10f, abortPrevious: false);
-        PlayDialogue("03", 20f, abortPrevious: false);
+        PlayDialogue("01", 2f, abortPrevious: false);
+        //PlayDialogue("02", 10f, abortPrevious: false);
+        //PlayDialogue("03", 20f, abortPrevious: false);
         AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
         {
@@ -85,7 +85,6 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("room1"))
         {
-            PlayDialogue("04", 1f);
             StartCoroutine(RemoveObjective("room1"));
             StartCoroutine(NewObjective("alarm1", "Turn off the alarm",  1, delayTime));
             StartCoroutine(NewObjective("artpiece1", "Find the art piece", 1, delayTime));
@@ -143,6 +142,7 @@ public class ObjectiveManager : MonoBehaviour
     //One window was locked
     public void LockWindow(int whichWindow)
     {
+        if (whichWindow == 0) PlayDialogue("07", 0.5f);
         windowBars[whichWindow].GetComponent<Animator>().enabled = true;
         if (UpdateProgress("window1"))
         {
@@ -150,9 +150,7 @@ public class ObjectiveManager : MonoBehaviour
             multiObjectives.Remove("window1");
             if (multiObjectives.Count == 0)
             {
-                PlayDialogue("08", 0.5f);
-                StartCoroutine(NewObjective("pills1", "Take some migraine pills", 1, delayTime));
-                GameObject.Find("bottle_pill_01").GetComponent<Interactable>().isInteractable = true;
+                AddPillObjective();
             }
         }
     }
@@ -162,19 +160,29 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("door1"))
         {
+            PlayDialogue("08", 0.5f);
             StartCoroutine(RemoveObjective("door1"));
             multiObjectives.Remove("door1");
             if (multiObjectives.Count == 0)
             {
-                PlayDialogue("08", 0.5f);
-                StartCoroutine(NewObjective("pills1", "Take some migraine pills", 1, delayTime));
-                GameObject.Find("bottle_pill_01").GetComponent<Interactable>().isInteractable = true;
+                AddPillObjective();
             }
             else
             {
-                PlayDialogue("07", 0.5f);
+                
             }
         }
+    }
+
+    void AddPillObjective()
+    {
+        float migraineDelay = 6f;
+        MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
+        if (migraine) migraine.StartMigrainDelayed(migraineDelay);
+
+        StartCoroutine(NewObjective("pills1", "Take some migraine pills", 1, migraineDelay + delayTime));
+        PlayDialogue("09", migraineDelay);
+        GameObject.Find("bottle_pill_01").GetComponent<Interactable>().isInteractable = true;
     }
 
     //player takes pills
@@ -182,7 +190,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("pills1"))
         {
-            PlayDialogue("10", 1f);
+            PlayDialogue("10", 0f);
             StartCoroutine(RemoveObjective("pills1"));
             //fall asleep for act 2 minigame 
             GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
@@ -193,6 +201,11 @@ public class ObjectiveManager : MonoBehaviour
     {
         // Used to prevent overlapping dialogues
         StopCoroutine("DelayedVoiceline");
+    }
+
+    public void PlayDialogue(String filename)
+    {
+        PlayDialogue(filename, 0f);
     }
 
     public void PlayDialogue(String filename, float delay, bool abortPrevious=true)
