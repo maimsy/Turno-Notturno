@@ -40,13 +40,13 @@ public class MigrainEffect : MonoBehaviour
             {
                 chromeaticthing.intensity.value += speed;
                 grainthing.intensity.value += speed;
-                AmbientOcclusionthing.intensity.value += speed*4;
+                //AmbientOcclusionthing.intensity.value += speed*4;
             }
             else
             {
                 chromeaticthing.intensity.value -= speed;
                 grainthing.intensity.value -= speed;
-                AmbientOcclusionthing.intensity.value += speed;
+                //AmbientOcclusionthing.intensity.value += speed;
             }
         }
         if (Input.GetKeyDown(KeyCode.E))
