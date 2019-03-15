@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class Interactable : MonoBehaviour
 {
     [SerializeField] bool triggersOnce = false;
-    [SerializeField] String tooltip;
+    public String tooltip;
     [SerializeField] List<UnityEvent> interactionEvents;
 
     public bool isInteractable = true;
@@ -17,6 +17,12 @@ public class Interactable : MonoBehaviour
     protected Renderer renderer;
 
     private int nextEventIndex = 0;
+    protected String originalTooltip;
+
+    private void Awake()
+    {
+        originalTooltip = tooltip;
+    }
 
     private void Start()
     {
@@ -29,6 +35,16 @@ public class Interactable : MonoBehaviour
     private void Update()
     {
         renderer.material.shader = originalShader;
+    }
+
+    public void SetTooltip(String newTooltip)
+    {
+        tooltip = newTooltip;
+    }
+
+    public void ResetTooltip()
+    {
+        tooltip = originalTooltip;
     }
 
     public virtual void OnInteract()

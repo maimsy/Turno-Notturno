@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DoorInverted
+  m_Controller: {fileID: 9100000, guid: 5125063261fc9f5498c86ee77a57ead6, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 851830783bf975b4bbe06d1fb161e3cc, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7884476f723665b419bb2981c2cfe576, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b871f0aa9993ed04fa79acc82bdfc038, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6931bea2d97190047a11a828b40ddfb6, type: 2}

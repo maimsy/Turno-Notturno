@@ -136,7 +136,8 @@ public class ObjectiveManager : MonoBehaviour
         MultiObjective(names);
         GameObject.Find("control_windows_03").GetComponent<Interactable>().isInteractable = true;
         GameObject.Find("control_windows_01").GetComponent<Interactable>().isInteractable = true;
-        GameObject.Find("door_03_group").GetComponent<Interactable>().isInteractable = true;
+        GameObject.Find("door_02_group").GetComponent<Interactable>().SetTooltip("check doors");
+        GameObject.Find("door_03_group").GetComponent<Interactable>().SetTooltip("check doors");
     }
 
     //One window was locked
