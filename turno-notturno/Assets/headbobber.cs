@@ -11,13 +11,16 @@ public class headbobber : MonoBehaviour
     private float waveslice,horizontal, vertical, translateChange, totalAxes;
     
     private float timer = 0.0f;
+    private Player player;
 
     private void Start()
     {
+        player = FindObjectOfType<Player>();
         InvokeRepeating("PlaySound", 0.0f, 0.5f);
     }
     void Update()
     {
+        if (!player || !player.enabled) return; // Disable bobbing on pause menu and while inspecting paintings
         waveslice = 0f;
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
