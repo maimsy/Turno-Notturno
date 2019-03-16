@@ -13,9 +13,11 @@ public class Movable : Interactable
     private float targetDistance;
     private Rigidbody rbody;
     private bool gravityWasEnabled;
+    private int originalLayer;
 
     void Awake()
     {
+        originalLayer = gameObject.layer;
         rbody = GetComponent<Rigidbody>();
         rbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
@@ -26,7 +28,7 @@ public class Movable : Interactable
         if (playerIsHolding)
         {
             Vector3 targetPos = target.position + target.forward * targetDistance;
-            Vector3 offset = targetPos - transform.position;
+            Vector3 offset = targetPos - GetCenterOfMass();
             //rbody.AddForce(offset*10, ForceMode.Acceleration);
             rbody.velocity = offset * 10;
             rbody.angularVelocity = Vector3.zero;
@@ -38,19 +40,33 @@ public class Movable : Interactable
         renderer.material.shader = originalShader;
     }
 
+    Vector3 GetCenterOfMass()
+    {
+        return transform.TransformPoint(rbody.centerOfMass);
+    }
+
     public void Grab()
     {
         target = Camera.main.transform;
-        targetDistance = (target.position - transform.position).magnitude;
+        targetDistance = (target.position - GetCenterOfMass()).magnitude;
         playerIsHolding = true;
         gravityWasEnabled = rbody.useGravity;
         rbody.useGravity = false;
+        IgnorePlayerCollision(true);
     }
 
     public void Drop()
     {
         playerIsHolding = false;
         rbody.useGravity = gravityWasEnabled;
+        IgnorePlayerCollision(false);
+    }
+
+    void IgnorePlayerCollision(bool value)
+    {
+        // Ignore collision between movable object and player to avoid flying while holding the object
+        //if (value) gameObject.layer = LayerMask.NameToLayer("Player");
+        //else gameObject.layer = originalLayer;
     }
 
     public void Throw()
