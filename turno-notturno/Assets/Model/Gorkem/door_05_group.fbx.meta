@@ -1,16 +1,23 @@
 fileFormatVersion: 2
-guid: 50142475c9180aa4b843933415970d0a
+guid: c6a52bfdacb20a641978ea4f5ecd29a0
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: pCylinder10
-    100002: //RootNode
-    400000: pCylinder10
-    400002: //RootNode
-    2100000: pCylinder10Mat
-    2300000: pCylinder10
-    3300000: pCylinder10
-    4300000: pCylinder10
+    100000: door_05
+    100002: door_05_group
+    100004: //RootNode
+    100006: handle_door_05
+    400000: door_05
+    400002: door_05_group
+    400004: //RootNode
+    400006: handle_door_05
+    2100000: lambert1
+    2300000: door_05
+    2300002: handle_door_05
+    3300000: door_05
+    3300002: handle_door_05
+    4300000: handle_door_05
+    4300002: door_05
   externalObjects: {}
   materials:
     importMaterials: 1
