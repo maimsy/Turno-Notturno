@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!64 &614045224
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5624712457913124336}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
 --- !u!54 &614045229
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -30,6 +16,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &614045224
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5624712457913124336}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
 --- !u!114 &614045228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,9 +44,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggersOnce: 0
   tooltip: 
+  interactionDisabledTooltip: 
   interactionEvents: []
   isInteractable: 1
+  soundEmitter: {fileID: 0}
   throwVelocity: 20
+  name: newspaper
 --- !u!1001 &5624712457913221968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58,17 +61,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: newspaper_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
     - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.8315477
+      value: 6.9692273
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.9067076
+      value: 0.90561503
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.40716
+      value: -8.399581
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_LocalRotation.x
@@ -102,10 +109,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
 --- !u!1 &5624712457913124336 stripped

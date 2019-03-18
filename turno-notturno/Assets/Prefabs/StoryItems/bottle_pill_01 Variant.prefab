@@ -27,7 +27,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggersOnce: 1
-  tooltip: Take pills
+  tooltip: take pills
+  interactionDisabledTooltip: Migraine pills
   interactionEvents:
   - m_PersistentCalls:
       m_Calls:
@@ -45,6 +46,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   isInteractable: 0
+  soundEmitter: {fileID: 2369412107192312922}
 --- !u!114 &2369412107192312922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,8 +60,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Event: event:/fx/pills
-  PlayEvent: 11
-  StopEvent: 12
+  PlayEvent: 0
+  StopEvent: 0
   CollisionTag: 
   AllowFadeout: 1
   TriggerOnce: 0
@@ -77,23 +79,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
       propertyPath: m_Name
-      value: bottle_pill_01 Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: bottle_pill_01
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.0733557
+      value: 4.354
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.600199
+      value: 0.7201
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.05267
+      value: -5.65
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
       propertyPath: m_LocalRotation.x
@@ -129,15 +127,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.2
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.2
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.2
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!64 &1888011023
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7074598829595884229}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 931c3e73baa83c941b0c56b85a12c18f, type: 3}
 --- !u!54 &1888011028
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -30,6 +16,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &1888011023
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7074598829595884229}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 931c3e73baa83c941b0c56b85a12c18f, type: 3}
 --- !u!114 &1888011027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,9 +44,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggersOnce: 0
   tooltip: 
+  interactionDisabledTooltip: 
   interactionEvents: []
   isInteractable: 1
+  soundEmitter: {fileID: 0}
   throwVelocity: 20
+  name: pill
 --- !u!1001 &7074598829595917413
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58,17 +61,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: pill_02
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 931c3e73baa83c941b0c56b85a12c18f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
     - target: {fileID: 400000, guid: 931c3e73baa83c941b0c56b85a12c18f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.122265
+      value: 4.4380646
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 931c3e73baa83c941b0c56b85a12c18f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6003403
+      value: 0.72026
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 931c3e73baa83c941b0c56b85a12c18f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.0439205
+      value: -5.5955167
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 931c3e73baa83c941b0c56b85a12c18f, type: 3}
       propertyPath: m_LocalRotation.x
@@ -104,20 +111,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 931c3e73baa83c941b0c56b85a12c18f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.2
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 931c3e73baa83c941b0c56b85a12c18f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.2
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 931c3e73baa83c941b0c56b85a12c18f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.2
+      value: 1.6
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 931c3e73baa83c941b0c56b85a12c18f, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 931c3e73baa83c941b0c56b85a12c18f, type: 3}
 --- !u!1 &7074598829595884229 stripped
