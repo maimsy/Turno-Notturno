@@ -26,40 +26,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f864aadcc9947049949f268f5cc554c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inspectDistance: 3
-  inspectSpeed: 0.05
-  maxZoom: 0.4
-  inspectDirection: 1
-  flipDirection: 0
-  enableClues: 1
---- !u!114 &4231141835797531599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4463229174394119484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c99e24f316af8754ebc98703b30a2856, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   triggersOnce: 0
-  tooltip: inspect painting
+  tooltip: 
+  interactionDisabledTooltip: 
   interactionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3412154375834540458}
-        m_MethodName: StartInspect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 0}
         m_MethodName: InspectPainting1
         m_Mode: 1
@@ -74,6 +46,14 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   isInteractable: 1
+  soundEmitter: {fileID: 0}
+  inspectDistance: 2
+  inspectSpeed: 0.05
+  maxZoom: 0.4
+  inspectDirection: 1
+  flipDirection: 0
+  name: 
+  enableClues: 1
 --- !u!1001 &4463229174394020764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83,7 +63,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
       propertyPath: m_Name
-      value: art_main_01_sculptre Variant
+      value: art_main_01_sculptre
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -95,7 +75,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d822fa356d4a3754eb94a91452847e17, type: 2}
     - target: {fileID: 400000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.8
+      value: -26.802
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
       propertyPath: m_LocalPosition.y
@@ -103,7 +83,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.55
+      value: 4.87
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
       propertyPath: m_LocalRotation.x
