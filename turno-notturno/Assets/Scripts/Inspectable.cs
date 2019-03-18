@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Inspectable : MonoBehaviour
+public class Inspectable : Interactable
 {
     [SerializeField] float inspectDistance = 3f;
     [SerializeField] float inspectSpeed = 0.05f;
     [SerializeField] float maxZoom = 0.4f;
     [SerializeField] InspectDirection inspectDirection = InspectDirection.xy;
     [SerializeField] bool flipDirection = false;
+    [SerializeField] string name;
 
     public enum InspectDirection
     {
@@ -33,8 +34,9 @@ public class Inspectable : MonoBehaviour
 
     private GameManager manager;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         manager = GameManager.GetInstance();
         if (!manager)
         {
@@ -49,6 +51,10 @@ public class Inspectable : MonoBehaviour
         Bounds bounds = GetComponent<MeshRenderer>().bounds;
         center = bounds.center;
         Vector3 centeredBounds = bounds.max - center;
+        centeredBounds = transform.InverseTransformVector(centeredBounds);
+        centeredBounds.x = Mathf.Abs(centeredBounds.x);
+        centeredBounds.y = Mathf.Abs(centeredBounds.y);
+        centeredBounds.z = Mathf.Abs(centeredBounds.z);
         switch (inspectDirection)
         {
             case InspectDirection.xy:
@@ -70,8 +76,9 @@ public class Inspectable : MonoBehaviour
         maxVert *= 1.2f;
     }
 
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         if (manager.IsPaused()) return;
         if (inspecting)
         {
@@ -89,6 +96,17 @@ public class Inspectable : MonoBehaviour
 
             OnUpdate();
         }
+    }
+
+    public override void OnInteract()
+    {
+        base.OnInteract();
+        StartInspect();
+    }
+
+    public override string GetTooltip()
+    {
+        return "inspect " + name;
     }
 
     public void StartInspect()

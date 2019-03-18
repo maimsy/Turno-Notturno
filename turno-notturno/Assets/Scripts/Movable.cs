@@ -7,6 +7,7 @@ using UnityEngine.Experimental.UIElements;
 public class Movable : Interactable
 {
     [SerializeField] float throwVelocity = 20f;
+    public string name;
     private bool playerIsHolding = false;
     
     private Transform target;
@@ -14,6 +15,7 @@ public class Movable : Interactable
     private Rigidbody rbody;
     private bool gravityWasEnabled;
     private int originalLayer;
+    private bool wasHoldingThisFrame;
 
     void Awake()
     {
@@ -25,6 +27,7 @@ public class Movable : Interactable
     // Update is called once per frame
     void Update()
     {
+        wasHoldingThisFrame = playerIsHolding;
         if (playerIsHolding)
         {
             Vector3 targetPos = target.position + target.forward * targetDistance;
@@ -35,6 +38,10 @@ public class Movable : Interactable
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 Throw();
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Drop();
             }
         }
         renderer.material.shader = originalShader;
@@ -60,6 +67,7 @@ public class Movable : Interactable
         playerIsHolding = false;
         rbody.useGravity = gravityWasEnabled;
         IgnorePlayerCollision(false);
+        wasHoldingThisFrame = true;
     }
 
     void IgnorePlayerCollision(bool value)
@@ -77,6 +85,11 @@ public class Movable : Interactable
 
     public override void OnInteract()
     {
+        if (wasHoldingThisFrame)
+        {
+            // Avoid picking the object up immediately after dropping it
+            return;
+        }
         base.OnInteract();
         if (!playerIsHolding) Grab();
         else Drop();
@@ -84,7 +97,7 @@ public class Movable : Interactable
 
     public override string GetTooltip()
     {
-        if (!playerIsHolding) return "pick up";
+        if (!playerIsHolding) return "pick up " + name;
         else return "drop. Throw with left click";
     }
 }
