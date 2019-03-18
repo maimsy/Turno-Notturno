@@ -26,8 +26,10 @@ public class Inspectable : Interactable
     private float vert;
     private float maxHor = 4;
     private float maxVert = 4;
+    private float distanceOffset = 0f; 
 
     private float zoom = 1;
+
 
     private Vector3 prevCameraPosition;
     private Quaternion prevCameraRotation;
@@ -60,14 +62,17 @@ public class Inspectable : Interactable
             case InspectDirection.xy:
                 maxHor = centeredBounds.x;
                 maxVert = centeredBounds.y;
+                distanceOffset = centeredBounds.z;
                 break;
             case InspectDirection.xz:
                 maxHor = centeredBounds.x;
                 maxVert = centeredBounds.z;
+                distanceOffset = centeredBounds.y;
                 break;
             case InspectDirection.zy:
                 maxHor = centeredBounds.z;
                 maxVert = centeredBounds.y;
+                distanceOffset = centeredBounds.x;
                 break;
         }
 
@@ -205,7 +210,7 @@ public class Inspectable : Interactable
                 break;
         }
         if (flipDirection) direction = -direction;
-        return center + direction * inspectDistance * zoom;
+        return center + direction * distanceOffset + direction * inspectDistance * zoom;
     }
 
     [ContextMenu("Visualize")]
