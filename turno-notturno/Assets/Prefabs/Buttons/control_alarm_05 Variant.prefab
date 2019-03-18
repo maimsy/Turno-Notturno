@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!64 &1825069194868543093
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825069194868543092}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 0498ad0b6f043cc4f98299f343dd19f5, type: 3}
+--- !u!114 &4738901658227560589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825069194868543092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99e24f316af8754ebc98703b30a2856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggersOnce: 0
+  tooltip: 
+  interactionDisabledTooltip: Alarm control panel (Inactive)
+  interactionEvents: []
+  isInteractable: 0
+  soundEmitter: {fileID: 8143762424525364751}
+--- !u!114 &8143762424525364751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825069194868543092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/fx/button
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &1825069194868443348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15,9 +70,13 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 0498ad0b6f043cc4f98299f343dd19f5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
     - target: {fileID: 400000, guid: 0498ad0b6f043cc4f98299f343dd19f5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.996467
+      value: -19.95
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0498ad0b6f043cc4f98299f343dd19f5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -25,7 +84,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0498ad0b6f043cc4f98299f343dd19f5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.7247268
+      value: -1.727
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0498ad0b6f043cc4f98299f343dd19f5, type: 3}
       propertyPath: m_LocalRotation.x
@@ -59,9 +118,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 0498ad0b6f043cc4f98299f343dd19f5, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0498ad0b6f043cc4f98299f343dd19f5, type: 3}
+--- !u!1 &1825069194868543092 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 0498ad0b6f043cc4f98299f343dd19f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1825069194868443348}
+  m_PrefabAsset: {fileID: 0}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,9 +9,11 @@ public class Interactable : MonoBehaviour
 {
     [SerializeField] bool triggersOnce = false;
     public String tooltip;
+    public String interactionDisabledTooltip;
     [SerializeField] List<UnityEvent> interactionEvents;
 
     public bool isInteractable = true;
+    public StudioEventEmitter soundEmitter;
 
     protected Shader highLightShader;
     protected Shader originalShader;
@@ -54,14 +57,17 @@ public class Interactable : MonoBehaviour
         interactionEvents[nextEventIndex++].Invoke();
         if (triggersOnce)
         {
-            renderer.material.shader = originalShader;
-            Destroy(this);
+            isInteractable = false;
+            //renderer.material.shader = originalShader;
+            //Destroy(this);
         }
+        if (soundEmitter) soundEmitter.Play();
     }
 
     public virtual String GetTooltip()
     {
-        return tooltip;
+        if (isInteractable) return tooltip;
+        else return interactionDisabledTooltip;
     }
 
     public void HighLight()

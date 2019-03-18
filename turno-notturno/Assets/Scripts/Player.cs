@@ -92,6 +92,10 @@ public class Player : Character
                         interactable.OnInteract();
                     }
                 }
+                else
+                {
+                    if (interactTooltip) interactTooltip.text = interactable.GetTooltip();
+                }
             }
 
         }
