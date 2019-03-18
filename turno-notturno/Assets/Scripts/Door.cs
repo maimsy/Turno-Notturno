@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -13,6 +14,10 @@ public class Door : Interactable
     public bool closed = false;
     public float closedAngle = 0;
     public float openAngle = 100;
+
+    public StudioEventEmitter closeDoorSound;
+    public StudioEventEmitter openDoorSound;
+    public StudioEventEmitter lockedDoorSound;
 
     private bool moving = false;
     private Rigidbody rbody;
@@ -76,6 +81,7 @@ public class Door : Interactable
         if (closed)
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, closedAngle, 0));
+            if (closeDoorSound) closeDoorSound.Play();
         }
         else
         {
@@ -113,11 +119,13 @@ public class Door : Interactable
             if (locked)
             {
                 if (animator) animator.Play("DoorHandleLocked");
+                if (lockedDoorSound) lockedDoorSound.Play();
             }
             else
             {
                 Open();
                 if (animator) animator.Play("DoorHandleOpen");
+                if (openDoorSound) openDoorSound.Play();
             }
         }
         else Close();
