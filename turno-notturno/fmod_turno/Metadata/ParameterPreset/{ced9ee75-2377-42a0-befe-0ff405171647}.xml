@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{ced9ee75-2377-42a0-befe-0ff405171647}">
+        <property name="name">
+            <value>migraineVolume</value>
+        </property>
+        <relationship name="folder">
+            <destination>{f81e462a-9d36-408c-9b99-269f6f7ddbca}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{83af6c87-61d9-48e0-a086-1451b4e8631b}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{83af6c87-61d9-48e0-a086-1451b4e8631b}">
+        <property name="initialValue">
+            <value>0</value>
+        </property>
+        <property name="seekSpeed">
+            <value>0.8200000524520874</value>
+        </property>
+    </object>
+</objects>
