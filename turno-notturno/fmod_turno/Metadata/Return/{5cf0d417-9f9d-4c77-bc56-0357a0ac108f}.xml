@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.10.00">
     <object class="MixerReturn" id="{5cf0d417-9f9d-4c77-bc56-0357a0ac108f}">
         <property name="overridingInputFormat">
-            <value>2</value>
+            <value>1</value>
         </property>
         <property name="inputFormatOverridden">
             <value>true</value>
@@ -26,7 +26,14 @@
             <destination>{d9c3f20b-7278-4631-8339-15cbf72a0c7d}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{14b257a0-533e-4725-955b-44b8f50fae15}"/>
+    <object class="MixerBusPanner" id="{14b257a0-533e-4725-955b-44b8f50fae15}">
+        <property name="overridingOutputFormat">
+            <value>1</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="SFXReverbEffect" id="{e1bca61c-26d2-495d-acab-1fcf1fab679d}">
         <property name="decayTime">
             <value>2000</value>

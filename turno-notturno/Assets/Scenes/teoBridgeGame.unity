@@ -2371,6 +2371,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &636427149 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2466778563288764139, guid: 17f0a1bf2f50b2b4897368aaf3a69801,
+    type: 3}
+  m_PrefabInstance: {fileID: 1343855757}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &636427150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636427149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/musicMinigame3
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &641938918
 GameObject:
   m_ObjectHideFlags: 0
@@ -4137,7 +4166,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1213564259}
   - component: {fileID: 1213564255}
-  - component: {fileID: 1213564254}
   - component: {fileID: 1213564258}
   - component: {fileID: 1213564257}
   - component: {fileID: 1213564256}
@@ -4146,6 +4174,7 @@ GameObject:
   - component: {fileID: 1213564260}
   - component: {fileID: 1213564264}
   - component: {fileID: 1213564263}
+  - component: {fileID: 1213564254}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4153,14 +4182,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1213564254
-AudioListener:
+--- !u!114 &1213564254
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213564253}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: 0
 --- !u!20 &1213564255
 Camera:
   m_ObjectHideFlags: 0
@@ -5041,6 +5075,11 @@ PrefabInstance:
     - target: {fileID: 602897437858189089, guid: 17f0a1bf2f50b2b4897368aaf3a69801,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9209991922475804828, guid: 17f0a1bf2f50b2b4897368aaf3a69801,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
