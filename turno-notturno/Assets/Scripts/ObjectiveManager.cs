@@ -181,7 +181,7 @@ public class ObjectiveManager : MonoBehaviour
         MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
         if (migraine) migraine.StartMigrainDelayed(migraineDelay);
 
-        StartCoroutine(NewObjective("pills1", "Take a migraine pill", 1, migraineDelay + delayTime));
+        StartCoroutine(NewObjective("pills1", "Find migraine pills in guard room", 1, migraineDelay + delayTime));
         PlayDialogue("09", migraineDelay);
         GameObject.Find("bottle_pill_01").GetComponent<Interactable>().isInteractable = true;
     }
@@ -219,7 +219,7 @@ public class ObjectiveManager : MonoBehaviour
                 dialogueMessage = "Ugh... what?";
                 break;
             case "02":
-                dialogueMessage = "Ugh...";
+                dialogueMessage = "Ughh my head!";
                 break;
             case "03":
                 dialogueMessage = "Ugh...";
