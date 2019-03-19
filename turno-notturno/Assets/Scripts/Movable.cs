@@ -35,11 +35,11 @@ public class Movable : Interactable
             //rbody.AddForce(offset*10, ForceMode.Acceleration);
             rbody.velocity = offset * 10;
             rbody.angularVelocity = Vector3.zero;
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 Throw();
             }
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 Drop();
             }
@@ -98,6 +98,6 @@ public class Movable : Interactable
     public override string GetTooltip()
     {
         if (!playerIsHolding) return "pick up " + name;
-        else return "drop. Throw with left click";
+        else return "Left click to Drop \nE to throw";
     }
 }

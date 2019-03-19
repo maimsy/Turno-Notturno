@@ -32,6 +32,8 @@ public class Player : Character
     public AudioClip[] Aw;
     public AudioClip Player_Death;
 
+    private string tipString = "Left click to ";
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -86,10 +88,11 @@ public class Player : Character
                 if(interactable.isInteractable)
                 {
                     interactable.HighLight();
-                    if (interactTooltip) interactTooltip.text = "Press E to " + interactable.GetTooltip();
-                    if (Input.GetButtonDown("Interact"))
+                    if (interactTooltip) interactTooltip.text = tipString + interactable.GetTooltip();
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         interactable.OnInteract();
+                        tipString = "";
                     }
                 }
                 else
