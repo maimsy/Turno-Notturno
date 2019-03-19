@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using FMODUnity;
 
 public class MigrainEffect : MonoBehaviour
 {
@@ -59,12 +60,14 @@ public class MigrainEffect : MonoBehaviour
         }
     }
     public void StartMigrain() {
+        Camera.main.GetComponent<StudioEventEmitter>().enabled = true;
         ismigrain = true;
         PostProcessVolume ppVolume = GetComponent<PostProcessVolume>();
         if (ppVolume) ppVolume.enabled = true;
     }
     public void EndMigrain()
     {
+        Camera.main.GetComponent<StudioEventEmitter>().enabled = false;
         ismigrain = false;
         PostProcessVolume ppVolume = GetComponent<PostProcessVolume>();
         if (ppVolume) ppVolume.enabled = false;

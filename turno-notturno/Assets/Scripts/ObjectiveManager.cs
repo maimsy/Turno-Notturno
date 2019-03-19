@@ -39,7 +39,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             Debug.LogError("Alarm manager is missing!");
         }
-        StartCoroutine(NewObjective("room1", "Find the cause of the alarm", 1, delayTime));
+        StartCoroutine(NewObjective("room1", "Go to the alarm", 1, delayTime));
     }
 
     //Spawn new objective UI after animations
@@ -87,7 +87,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             StartCoroutine(RemoveObjective("room1"));
             StartCoroutine(NewObjective("alarm1", "Turn off the alarm",  1, delayTime));
-            StartCoroutine(NewObjective("artpiece1", "Find the art piece", 1, delayTime));
+            StartCoroutine(NewObjective("artpiece1", "Check the cause of the alarm", 1, delayTime));
             string[] names = { "alarm1", "artpiece1" };
             MultiObjective(names);
             //FindObjectOfType<MigrainEffect>().StartMigrain();
