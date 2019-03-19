@@ -39,7 +39,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             Debug.LogError("Alarm manager is missing!");
         }
-        StartCoroutine(NewObjective("room1", "Go to the alarm", 1, delayTime));
+        StartCoroutine(NewObjective("room1", "Check the alarm", 1, delayTime));
     }
 
     //Spawn new objective UI after animations
@@ -87,7 +87,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             StartCoroutine(RemoveObjective("room1"));
             StartCoroutine(NewObjective("alarm1", "Turn off the alarm",  1, delayTime));
-            StartCoroutine(NewObjective("artpiece1", "Check the cause of the alarm", 1, delayTime));
+            StartCoroutine(NewObjective("artpiece1", "Find the cause of the alarm", 1, delayTime));
             string[] names = { "alarm1", "artpiece1" };
             MultiObjective(names);
             //FindObjectOfType<MigrainEffect>().StartMigrain();
@@ -130,8 +130,8 @@ public class ObjectiveManager : MonoBehaviour
     //Start the locking objectives
     public void Locking()
     {
-        StartCoroutine(NewObjective("window1", "Lock the windows", windowBars.Count, delayTime));
-        StartCoroutine(NewObjective("door1", "Lock the main door", 1, delayTime));
+        StartCoroutine(NewObjective("window1", "Secure the windows", windowBars.Count, delayTime));
+        StartCoroutine(NewObjective("door1", "Check the main door", 1, delayTime));
         string[] names = { "window1", "door1" };
         MultiObjective(names);
         GameObject.Find("control_windows_03").GetComponent<Interactable>().isInteractable = true;
@@ -181,7 +181,7 @@ public class ObjectiveManager : MonoBehaviour
         MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
         if (migraine) migraine.StartMigrainDelayed(migraineDelay);
 
-        StartCoroutine(NewObjective("pills1", "Take some migraine pills", 1, migraineDelay + delayTime));
+        StartCoroutine(NewObjective("pills1", "Take a migraine pill", 1, migraineDelay + delayTime));
         PlayDialogue("09", migraineDelay);
         GameObject.Find("bottle_pill_01").GetComponent<Interactable>().isInteractable = true;
     }

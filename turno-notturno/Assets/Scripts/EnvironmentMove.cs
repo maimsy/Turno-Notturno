@@ -37,7 +37,6 @@ public class EnvironmentMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("WHUH");
         MoveLayers();
         MoveArt();
         GameObject.Find("Player").GetComponent<P2Dmovement>().speed = gameSpeed * 60 * speedUp;
