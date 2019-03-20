@@ -218,34 +218,40 @@ public class ObjectiveManager : MonoBehaviour
         switch (filename)
         {
             case "01":
-                dialogueMessage = "Ugh... what?";
+                dialogueMessage = "Ugh...what the...?";
                 break;
             case "02":
-                dialogueMessage = "Ughh my head!";
+                dialogueMessage = "Why the hell is the alarm on…? Did someone break in?";
                 break;
             case "03":
-                dialogueMessage = "Ugh...";
+                dialogueMessage = "Uhh, my head is gonna split open from this bloody sound!";
                 break;
             case "04":
-                dialogueMessage = "What is this... an intruder?";
+                dialogueMessage = "Finally. What could have caused this?";
                 break;
             case "05":
-                dialogueMessage = "Shut up!";
+                dialogueMessage = "Hngggh…";
                 break;
             case "06":
-                dialogueMessage = "This is a comment on the artwork";
+                dialogueMessage = "Someone’s been messing with this. It’s not supposed to be on";
                 break;
             case "07":
-                dialogueMessage = "God damn security always giving me extra work... *grumble*";
+                dialogueMessage = "Why would you break in and not steal the art? Such a waste of fine criminal activity";
                 break;
             case "08":
-                dialogueMessage = "No one could have gotten in...";
+                dialogueMessage = "I guess I should check the doors and windows.";
                 break;
             case "09":
-                dialogueMessage = "Ugh...not again!";
+                dialogueMessage = "Why did they only mess that one artwork...it’s not like it’s that great.";
                 break;
             case "10":
-                dialogueMessage = "*gulping sound for eating pills*";
+                dialogueMessage = "Why is the door open? I’m sure I locked it earlier.";
+                break;
+            case "011":
+                dialogueMessage = "Ugh...not again!";
+                break;
+            case "012":
+                dialogueMessage = "Where did I leave my pills…?";
                 break;
             default:
                 Debug.LogError("Invalid voiceline: " + filename);
