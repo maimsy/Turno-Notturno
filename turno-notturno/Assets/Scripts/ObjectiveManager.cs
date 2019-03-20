@@ -72,10 +72,12 @@ public class ObjectiveManager : MonoBehaviour
 
     public bool UpdateProgress(string name)
     {
-        if (objectives[name].UpdateProgress(1))
-        {
-            objectives[name].Complete();
-            return true;
+        if(objectives.ContainsKey(name)){
+            if (objectives[name].UpdateProgress(1))
+            {
+                objectives[name].Complete();
+                return true;
+            }
         }
         return false;
     }
@@ -134,8 +136,8 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("door1", "Check the main door", 1, delayTime));
         string[] names = { "window1", "door1" };
         MultiObjective(names);
-        GameObject.Find("control_windows_03").GetComponent<Interactable>().isInteractable = true;
         GameObject.Find("control_windows_01").GetComponent<Interactable>().isInteractable = true;
+        GameObject.Find("control_windows_02").GetComponent<Interactable>().isInteractable = true;
         GameObject.Find("door_02_group").GetComponent<Interactable>().SetTooltip("check doors");
         GameObject.Find("door_03_group").GetComponent<Interactable>().SetTooltip("check doors");
     }
