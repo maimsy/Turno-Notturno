@@ -87,7 +87,7 @@ public class Inspectable : Interactable
         if (manager.IsPaused()) return;
         if (inspecting)
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 StopInspect();
                 return;
@@ -111,7 +111,7 @@ public class Inspectable : Interactable
 
     public override string GetTooltip()
     {
-        return "inspect " + name;
+        return "Inspect " + name;
     }
 
     public void StartInspect()
