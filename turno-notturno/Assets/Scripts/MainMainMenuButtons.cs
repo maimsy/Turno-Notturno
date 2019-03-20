@@ -14,13 +14,17 @@ public class MainMainMenuButtons : MonoBehaviour
     public Button StartButton;
     public Button ContinueButton;
     public Button OptionsButton;
+    
+    private GameManager gameManager;
 
 
     private void Start()
     {
         ArrowImage1.SetActive(true);
         ArrowImage2.SetActive(false);
-        ArrowImage3.SetActive(false); 
+        ArrowImage3.SetActive(false);
+        gameManager = GameManager.GetInstance();
+
     }
 
 
@@ -52,7 +56,8 @@ public class MainMainMenuButtons : MonoBehaviour
     // Start is called before the first frame update
     public void StartGame()
     {
-        SceneManager.LoadScene("teoBridgeGame");
+        //SceneManager.LoadScene("teoBridgeGame");
+        gameManager.NewGame();
     }
 
     // Update is called once per frame
