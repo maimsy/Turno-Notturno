@@ -28,7 +28,7 @@ public class ObjectiveManager : MonoBehaviour
     public void Act1()
     {
         PlayDialogue("01", 2f, abortPrevious: false);
-        //PlayDialogue("02", 10f, abortPrevious: false);
+        PlayDialogue("02", 6f, abortPrevious: false);
         //PlayDialogue("03", 20f, abortPrevious: false);
         AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
@@ -87,6 +87,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("room1"))
         {
+            PlayDialogue("03", 0f);
             StartCoroutine(RemoveObjective("room1"));
             StartCoroutine(NewObjective("alarm1", "Turn off the alarm",  1, delayTime));
             StartCoroutine(NewObjective("artpiece1", "Find the cause of the alarm", 1, delayTime));
@@ -102,7 +103,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("alarm1"))
         {
-            PlayDialogue("05", 0f);
+            PlayDialogue("04", 0f);
             StartCoroutine(RemoveObjective("alarm1"));
             multiObjectives.Remove("alarm1");
             if (multiObjectives.Count == 0)
@@ -146,6 +147,7 @@ public class ObjectiveManager : MonoBehaviour
     public void LockWindow(int whichWindow)
     {
         if (whichWindow == 0) PlayDialogue("07", 0.5f);
+        if (whichWindow == 1) PlayDialogue("09", 0.5f);
         windowBars[whichWindow].GetComponent<Animator>().enabled = true;
         if (UpdateProgress("window1"))
         {
@@ -163,7 +165,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("door1"))
         {
-            PlayDialogue("08", 0.5f);
+            PlayDialogue("10", 0.5f);
             StartCoroutine(RemoveObjective("door1"));
             multiObjectives.Remove("door1");
             if (multiObjectives.Count == 0)
@@ -184,7 +186,8 @@ public class ObjectiveManager : MonoBehaviour
         if (migraine) migraine.StartMigrainDelayed(migraineDelay);
 
         StartCoroutine(NewObjective("pills1", "Find migraine pills in guard room", 1, migraineDelay + delayTime));
-        PlayDialogue("09", migraineDelay);
+        PlayDialogue("11", migraineDelay);
+        PlayDialogue("12", migraineDelay + 3f);
         GameObject.Find("bottle_pill_01").GetComponent<Interactable>().isInteractable = true;
     }
 
@@ -193,7 +196,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("pills1"))
         {
-            PlayDialogue("10", 0f);
+            PlayDialogue("13", 0f);
             StartCoroutine(RemoveObjective("pills1"));
             //fall asleep for act 2 minigame 
             GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
@@ -247,11 +250,14 @@ public class ObjectiveManager : MonoBehaviour
             case "10":
                 dialogueMessage = "Why is the door open? I’m sure I locked it earlier.";
                 break;
-            case "011":
+            case "11":
                 dialogueMessage = "Ugh...not again!";
                 break;
-            case "012":
+            case "12":
                 dialogueMessage = "Where did I leave my pills…?";
+                break;
+            case "13":
+                dialogueMessage = "*gulping sound for eating pills*";
                 break;
             default:
                 Debug.LogError("Invalid voiceline: " + filename);
