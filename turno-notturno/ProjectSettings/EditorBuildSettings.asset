@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 1864c4eca65e66f45b5dffb5d2c52704
+    path: Assets/Scenes/MainMainMenu.unity
+    guid: fada07afc4dd36f4a9f3001d51d0ff94
   - enabled: 1
     path: Assets/Scenes/teoBridgeGame.unity
     guid: 3cac450ba461ea84c986c5e2eea5d245
@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/2DOppositePlatformer.unity
     guid: f13e9a3469aa0f24592a0fd844a05480
+  - enabled: 0
+    path: Assets/Scenes/MainMenu.unity
+    guid: 1864c4eca65e66f45b5dffb5d2c52704
   m_configObjects: {}
