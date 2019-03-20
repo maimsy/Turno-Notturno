@@ -55,7 +55,7 @@ public class ObjectiveManager : MonoBehaviour
     //Remove objective after animations
     IEnumerator RemoveObjective(string name)
     {
-        yield return new WaitForSeconds(delayTime);
+        yield return new WaitForSeconds(0);
         objectives.Remove(name);
     }
 
@@ -89,7 +89,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             PlayDialogue("03", 0f);
             StartCoroutine(RemoveObjective("room1"));
-            StartCoroutine(NewObjective("alarm1", "Turn off the alarm",  1, delayTime));
+            StartCoroutine(NewObjective("alarm1", "Turn off the alarm",  1, 0));
             StartCoroutine(NewObjective("artpiece1", "Find the cause of the alarm", 1, delayTime));
             string[] names = { "alarm1", "artpiece1" };
             MultiObjective(names);

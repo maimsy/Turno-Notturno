@@ -963,6 +963,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2079634885, guid: e4b3c3c339472a041a9b525dc1913327, type: 3}
+      propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079634885, guid: e4b3c3c339472a041a9b525dc1913327, type: 3}
       propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 541056433}
@@ -1190,6 +1194,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 753777408, guid: 954e9c4ccbeeb1d4bbc9e825d89021ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 753777406, guid: 954e9c4ccbeeb1d4bbc9e825d89021ef, type: 3}
+      propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 753777406, guid: 954e9c4ccbeeb1d4bbc9e825d89021ef, type: 3}
@@ -6981,6 +6989,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462980385224831566, guid: 80c3f346b4e0b6b4b85c875f668fa439,
+        type: 3}
+      propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3462980385224831566, guid: 80c3f346b4e0b6b4b85c875f668fa439,
         type: 3}
