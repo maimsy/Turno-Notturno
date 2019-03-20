@@ -108,19 +108,6 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
---- !u!65 &3005904027506625002
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3005904027506625001}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.26098514, y: 0.030000003, z: 0.35011613}
-  m_Center: {x: -0.11502338, y: -0.00000018626454, z: -0.00000007450581}
 --- !u!54 &3005904027506625005
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -169,11 +156,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggersOnce: 0
-  tooltip: close door
+  tooltip: Close door
+  interactionDisabledTooltip: 
   interactionEvents: []
   isInteractable: 1
-  closedTooltip: open door
-  lockedTooltip: open door (locked)
+  soundEmitter: {fileID: 0}
+  closedTooltip: Open door
+  lockedTooltip: Open door (locked)
   openingTime: 1
   locked: 1
   closed: 1
@@ -195,6 +184,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4158633, y: 2.98, z: 0.12883072}
   m_Center: {x: 0.69593656, y: 1.5, z: 0.025680998}
+--- !u!65 &3005904027506625002
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3005904027506625001}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.26098514, y: 0.030000003, z: 0.35011613}
+  m_Center: {x: -0.11502338, y: -0.00000018626454, z: -0.00000007450581}
 --- !u!1 &5211033217817725152
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,9 +258,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100006, guid: c6a52bfdacb20a641978ea4f5ecd29a0, type: 3}
+      propertyPath: m_Name
+      value: handle_door
+      objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: c6a52bfdacb20a641978ea4f5ecd29a0, type: 3}
       propertyPath: m_Name
-      value: door_05_group
+      value: door_05_group Variant
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: c6a52bfdacb20a641978ea4f5ecd29a0, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -267,10 +273,6 @@ PrefabInstance:
     - target: {fileID: 100000, guid: c6a52bfdacb20a641978ea4f5ecd29a0, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: c6a52bfdacb20a641978ea4f5ecd29a0, type: 3}
-      propertyPath: m_Name
-      value: handle_door
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: c6a52bfdacb20a641978ea4f5ecd29a0, type: 3}
       propertyPath: m_LocalPosition.x
