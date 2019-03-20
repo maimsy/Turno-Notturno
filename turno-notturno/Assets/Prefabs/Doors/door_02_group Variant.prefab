@@ -54,42 +54,6 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
---- !u!65 &668249885
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4172157785255000594}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.24270977, y: 0.027899168, z: 0.32559937}
-  m_Center: {x: -0.10696887, y: -0.00000030593947, z: -0.000000067055225}
---- !u!114 &2088049076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4172157785255000594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: event:/fx/mainDoorLock
-  PlayEvent: 11
-  StopEvent: 12
-  CollisionTag: 
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!54 &1476682455
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -138,7 +102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggersOnce: 0
-  tooltip: close door
+  tooltip: Close door
+  interactionDisabledTooltip: 
   interactionEvents:
   - m_PersistentCalls:
       m_Calls:
@@ -167,8 +132,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   isInteractable: 1
-  closedTooltip: open door
-  lockedTooltip: open door (locked)
+  soundEmitter: {fileID: 0}
+  closedTooltip: Open door
+  lockedTooltip: Open door (locked)
   openingTime: 1
   locked: 1
   closed: 1
@@ -190,6 +156,42 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4530313, y: 2.98, z: 0.1047953}
   m_Center: {x: 0.70348465, y: 1.49, z: 0.03453632}
+--- !u!65 &668249885
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4172157785255000594}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24270977, y: 0.027899168, z: 0.32559937}
+  m_Center: {x: -0.10696887, y: -0.00000030593947, z: -0.000000067055225}
+--- !u!114 &2088049076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4172157785255000594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/fx/mainDoorLock
+  PlayEvent: 11
+  StopEvent: 12
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &6696791669009943439
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +309,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100002, guid: 9f7653d59d3ea074da4f9af98e48ad91, type: 3}
       propertyPath: m_Name
-      value: door_02_group
+      value: door_02_group Variant
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 9f7653d59d3ea074da4f9af98e48ad91, type: 3}
       propertyPath: m_Layer

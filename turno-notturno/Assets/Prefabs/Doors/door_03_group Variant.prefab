@@ -189,7 +189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggersOnce: 0
-  tooltip: close door
+  tooltip: Close door
+  interactionDisabledTooltip: 
   interactionEvents:
   - m_PersistentCalls:
       m_Calls:
@@ -218,8 +219,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   isInteractable: 1
-  closedTooltip: open door
-  lockedTooltip: open door (locked)
+  soundEmitter: {fileID: 0}
+  closedTooltip: Open door
+  lockedTooltip: Open door (locked)
   openingTime: 1
   locked: 1
   closed: 1
@@ -304,17 +306,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100002, guid: 25e06ec0d13278a488cc5cf8e35e8494, type: 3}
       propertyPath: m_Name
-      value: door_03_group
+      value: door_03_group Variant
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 25e06ec0d13278a488cc5cf8e35e8494, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: 25e06ec0d13278a488cc5cf8e35e8494, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 25e06ec0d13278a488cc5cf8e35e8494, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -361,6 +355,14 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 25e06ec0d13278a488cc5cf8e35e8494, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 25e06ec0d13278a488cc5cf8e35e8494, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 25e06ec0d13278a488cc5cf8e35e8494, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 25e06ec0d13278a488cc5cf8e35e8494, type: 3}
       propertyPath: m_Materials.Array.data[0]

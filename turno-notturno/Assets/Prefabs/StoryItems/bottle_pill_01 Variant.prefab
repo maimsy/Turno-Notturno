@@ -27,7 +27,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggersOnce: 1
-  tooltip: take pills
+  tooltip: Take pills
   interactionDisabledTooltip: Migraine pills
   interactionEvents:
   - m_PersistentCalls:
@@ -79,7 +79,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
       propertyPath: m_Name
-      value: bottle_pill_01
+      value: bottle_pill_01 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
       propertyPath: m_LocalPosition.x
