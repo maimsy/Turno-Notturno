@@ -29,7 +29,9 @@ public class Painting : Inspectable
     {
         foreach (Interactable clue in clues)
         {
+
             if(clue) clue.gameObject.SetActive(value);
+
         }
     }
 
