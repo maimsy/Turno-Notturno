@@ -113,6 +113,32 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &4803609 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100124, guid: 4d647588da2655246892e3e67ccf02a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1456273528}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &4803611
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4803609}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300120, guid: 4d647588da2655246892e3e67ccf02a8, type: 3}
+--- !u!1 &52080805 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7576157120820520399, guid: 7f2408c7265d60a44a3c71adfcea5f8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 431557253641092906}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &76216234 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100062, guid: 4d647588da2655246892e3e67ccf02a8,
@@ -3666,6 +3692,12 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: e28d1f548a12ff64b8fc3504ad3bc116, type: 3}
+--- !u!1 &1161075637 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6110013324790061177, guid: 7f2408c7265d60a44a3c71adfcea5f8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 431557253641092906}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1180025607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8524,6 +8556,16 @@ PrefabInstance:
       propertyPath: act2Alarm.sound
       value: 
       objectReference: {fileID: 1062492171}
+    - target: {fileID: 2852448098119310350, guid: 7f2408c7265d60a44a3c71adfcea5f8d,
+        type: 3}
+      propertyPath: act3Alarm.light
+      value: 
+      objectReference: {fileID: 52080805}
+    - target: {fileID: 2852448098119310350, guid: 7f2408c7265d60a44a3c71adfcea5f8d,
+        type: 3}
+      propertyPath: act3Alarm.sound
+      value: 
+      objectReference: {fileID: 1161075637}
     - target: {fileID: 6110013324901911577, guid: 7f2408c7265d60a44a3c71adfcea5f8d,
         type: 3}
       propertyPath: m_IsActive

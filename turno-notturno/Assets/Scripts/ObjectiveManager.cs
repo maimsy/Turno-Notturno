@@ -16,7 +16,6 @@ public class ObjectiveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("GameState", 3);
         paintingsChecked = new bool[2] { false, false };
         multiObjectives = new List<string>();
         objectives = new Dictionary<string, Objective>();
@@ -60,7 +59,8 @@ public class ObjectiveManager : MonoBehaviour
     // set up objectives for act 2
     private void Act2()
     {
-        //PlayDialogue("14", 2f, abortPrevious: false);
+        PlayDialogue("14", 2f, abortPrevious: false);
+        PlayDialogue("15", 6f, abortPrevious: false);
         GameObject obj = GameObject.Find("WakeUpPosition1");
         if (obj)
         {
@@ -242,6 +242,10 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("pills1", "Find migraine pills in guard room", 1, migraineDelay + delayTime));
         PlayDialogue("11", migraineDelay);
         PlayDialogue("12", migraineDelay + 3f);
+        Invoke("PillsInteractable", migraineDelay + delayTime);
+    }
+    private void PillsInteractable()
+    {
         GameObject.Find("bottle_pill_01").GetComponent<Interactable>().isInteractable = true;
     }
 
@@ -283,6 +287,10 @@ public class ObjectiveManager : MonoBehaviour
     {
         if(!paintingsChecked[whichPainting])
         {
+            if(paintingsChecked[0] == false && paintingsChecked[1] == false)
+            {
+                PlayDialogue("16", 1f, abortPrevious: false);
+            }
             paintingsChecked[whichPainting] = true;
             if (UpdateProgress("artpiece2"))
             {
@@ -315,7 +323,8 @@ public class ObjectiveManager : MonoBehaviour
 
     private void StorageRoomSetUp()
     {
-        StartCoroutine(NewObjective("storage", "Check the storage room", 1, delayTime));
+        StartCoroutine(NewObjective("storage", "Check the storage room", 1, 5f));
+        PlayDialogue("17", 3f, abortPrevious: false);
     }
 
     //player arrives to the storage room
@@ -324,7 +333,9 @@ public class ObjectiveManager : MonoBehaviour
         if (UpdateProgress("storage"))
         {
             StartCoroutine(RemoveObjective("storage"));
-            //StartCoroutine(FadeToNextScene(5));
+            PlayDialogue("18", 0.5f, abortPrevious: false);
+            PlayDialogue("19", 6f, abortPrevious: false);
+            StartCoroutine(FadeToNextScene(9f));
         }
     }
 
@@ -392,6 +403,21 @@ public class ObjectiveManager : MonoBehaviour
                 break;
             case "14":
                 dialogueMessage = "Haah! What? Where am I?";
+                break;
+            case "15":
+                dialogueMessage = "What the fuck.";
+                break;
+            case "16":
+                dialogueMessage = "So there is someone in here";
+                break;
+            case "17":
+                dialogueMessage = "Gotcha. I'll teach you not to mess with me.";
+                break;
+            case "18":
+                dialogueMessage = "Where are you hiding you little rat...";
+                break;
+            case "19":
+                dialogueMessage = "What is this smell?";
                 break;
             default:
                 Debug.LogError("Invalid voiceline: " + filename);
