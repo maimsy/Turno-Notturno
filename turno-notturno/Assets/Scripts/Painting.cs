@@ -9,81 +9,85 @@ public class Painting : Inspectable
     public bool enableClues = false;
 
     private PaintingUI ui;
-    private List<Clue> clues;
-    private List<Clue> foundClues;
+    private List<Interactable> clues;
+
+    private Player player;
+    //private List<Interactable> foundClues;
 
     // Start is called before the first frame update
     protected override void OnStart()
     {
         ui = FindObjectOfType<PaintingUI>();
 
-        clues = new List<Clue>(GetComponentsInChildren<Clue>());
-        foundClues = new List<Clue>();
-        foreach (Transform child in transform)
+        clues = new List<Interactable>(GetComponentsInChildren<Interactable>());
+        //foundClues = new List<Interactable>();
+
+        player = FindObjectOfType<Player>();
+    }
+
+    void EnableClues(bool value)
+    {
+        foreach (Interactable clue in clues)
         {
-            child.gameObject.SetActive(false);
+            if(clue) clue.gameObject.SetActive(value);
         }
-        
     }
 
     // Update is called once per frame
     protected override void OnUpdate()
     {
         if (!enableClues) return;
-        if (ui) ui.SetCluesRemainingText("Clues remaining: " + (clues.Count - foundClues.Count));
+        //if (ui) ui.SetCluesRemainingText("Clues remaining: " + (clues.Count - foundClues.Count));
         if (ui) ui.EnableHintCursor(false);
         if (ui) ui.SetTooltip("");
-        
+        if (player) player.SetTooltip("");
 
         // Check for clues with raycast
         RaycastHit hit;
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-        if (Physics.Raycast(ray, out hit)) 
+        int mask = (1 << LayerMask.NameToLayer("InspectOnly")); // Ignore everything else except "InspectOnly" 
+
+        if (Physics.Raycast(ray, out hit, 2f, mask)) 
         {
             GameObject objectHit = hit.transform.gameObject;
-            Clue clue = objectHit.GetComponent<Clue>();
-            if(clue != null)
+            Interactable interactable = objectHit.GetComponent<Interactable>();
+            if (!interactable) interactable = objectHit.GetComponentInParent<Interactable>();
+            if (interactable != null)
             {
-                if (clues.Contains(clue))
+                
+                if (player) player.SetTooltip(interactable.GetTooltip());
+                if (interactable.isInteractable)
                 {
-                    if (ui) ui.EnableHintCursor(true);
-                    if (ui) ui.SetTooltip("Press E");
-                    if (Input.GetButtonDown("Interact"))
+                    interactable.HighLight();
+                    
+                    if (player) player.SetTooltip("Press E to " + interactable.GetTooltip());
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
-                        foundClues.Add(clue);
-                        clue.AnimateDiscovery();
-                        if (clues.Count - foundClues.Count == 0)
-                        {
-                            GameManager manager = FindObjectOfType<GameManager>();
-                            if (manager) manager.IncrementDiscoveredClues();
-                        }
+                        interactable.OnInteract();
                     }
                 }
-                else
-                {
-                    Debug.LogWarning("Clicked on clue that does not belong to this painting!");
-                }
             }
+
         }
     }
 
     protected override void OnStartInspect()
     {
         if (!enableClues) return;
-        foreach (Transform child in transform)
+        /*foreach (Transform child in transform)
         {
             child.gameObject.SetActive(true);
-        }
+        }*/
     }
 
     protected override void OnStopInspect()
     {
         if (!enableClues) return;
         //if (ui) ui.gameObject.SetActive(false);
-        foreach (Transform child in transform)
+        /*foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);
-        }
+        }*/
         if (ui) ui.HideCursor();
     }
 }

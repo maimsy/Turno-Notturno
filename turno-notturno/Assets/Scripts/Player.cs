@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Player : Character
 {
@@ -78,7 +80,8 @@ public class Player : Character
         if (interactTooltip) interactTooltip.text = "";
         RaycastHit hit;
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        if (Physics.Raycast(ray, out hit, maxInteractDistance))
+        int mask = ~(1 << LayerMask.NameToLayer("InspectOnly")); // Ignore "InspectOnly" layer, which is handled by Inspectable objects
+        if (Physics.Raycast(ray, out hit, maxInteractDistance, mask)) 
         {
             GameObject objectHit = hit.transform.gameObject;
             Interactable interactable = objectHit.GetComponent<Interactable>();
@@ -102,6 +105,11 @@ public class Player : Character
             }
 
         }
+    }
+
+    public void SetTooltip(String str)
+    {
+        if (interactTooltip) interactTooltip.text = str;
     }
 
     public override void TakeDamage(int damage, Transform attacker)

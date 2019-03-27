@@ -122,11 +122,26 @@ public class ObjectiveManager : MonoBehaviour
             PlayDialogue("06", 0.5f);
             StartCoroutine(RemoveObjective("artpiece1"));
             multiObjectives.Remove("artpiece1");
+            StartCoroutine(NewObjective("clue1", "Inspect the artwork for damage", 4, 0));
+            //FindObjectOfType<MigrainEffect>().EndMigrain();
+        }
+    }
+
+    public void InspectClues1(int propertyType)
+    {
+        PropertyType property = (PropertyType)propertyType;
+        if (property == PropertyType.Color) PlayDialogue("06a", 0.5f);
+        if (property == PropertyType.Theme) PlayDialogue("06b", 0.5f);
+        if (property == PropertyType.Material) PlayDialogue("06c", 0.5f);
+        if (property == PropertyType.Special) PlayDialogue("06d", 0.5f);
+        if (UpdateProgress("clue1"))
+        {
+            StartCoroutine(RemoveObjective("clue1"));
+            multiObjectives.Remove("clue1");
             if (multiObjectives.Count == 0)
             {
                 Locking();
             }
-            //FindObjectOfType<MigrainEffect>().EndMigrain();
         }
     }
 
@@ -237,6 +252,18 @@ public class ObjectiveManager : MonoBehaviour
                 break;
             case "06":
                 dialogueMessage = "Someone’s been messing with this. It’s not supposed to be on";
+                break;
+            case "06a":
+                dialogueMessage = "Comment on color";
+                break;
+            case "06b":
+                dialogueMessage = "Comment on theme";
+                break;
+            case "06c":
+                dialogueMessage = "Comment on material";
+                break;
+            case "06d":
+                dialogueMessage = "Comment on spiral";
                 break;
             case "07":
                 dialogueMessage = "Why would you break in and not steal the art? Such a waste of fine criminal activity";

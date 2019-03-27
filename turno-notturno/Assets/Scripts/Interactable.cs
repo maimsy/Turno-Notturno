@@ -30,14 +30,14 @@ public class Interactable : MonoBehaviour
     protected virtual void Start()
     {
         if (GetComponent<Renderer>()) renderer = GetComponent<Renderer>();
-        if (!renderer) renderer = transform.GetChild(0).GetComponent<Renderer>();
-        originalShader = renderer.material.shader;
+        if (!renderer) renderer = GetComponentInChildren<Renderer>();
+        if (renderer) originalShader = renderer.material.shader;
         highLightShader = Resources.Load<Shader>("HighLight");
     }
 
     protected virtual void Update()
     {
-        renderer.material.shader = originalShader;
+        if (renderer) renderer.material.shader = originalShader;
     }
 
     public void SetTooltip(String newTooltip)
@@ -72,6 +72,6 @@ public class Interactable : MonoBehaviour
 
     public void HighLight()
     {
-        renderer.material.shader = highLightShader;
+        if (renderer) renderer.material.shader = highLightShader;
     }
 }
