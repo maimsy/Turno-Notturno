@@ -1411,6 +1411,48 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 0ddca450ad55fb04f8dbd002dd1ff482, type: 3}
+--- !u!1 &424161590 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5276446745304685809, guid: 6cc9c3dbb3b8eb9479d96c143437eae1,
+    type: 3}
+  m_PrefabInstance: {fileID: 6452307180899423474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &424161592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424161590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99e24f316af8754ebc98703b30a2856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggersOnce: 0
+  tooltip: Inspect teeth
+  interactionDisabledTooltip: 
+  interactionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  isInteractable: 1
+  soundEmitter: {fileID: 0}
+--- !u!64 &424161593
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424161590}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300012, guid: ae04e61be5991ed4080d5b23e6c95eca, type: 3}
 --- !u!1 &512610540
 GameObject:
   m_ObjectHideFlags: 0
@@ -2859,7 +2901,7 @@ MonoBehaviour:
   inspectDistance: 1
   inspectSpeed: 0.05
   maxZoom: 0.4
-  inspectDirection: 1
+  inspectDirection: 2
   flipDirection: 0
   name: 
 --- !u!1 &866492999 stripped
@@ -5949,7 +5991,7 @@ MonoBehaviour:
   inspectDistance: 1
   inspectSpeed: 0.05
   maxZoom: 0.4
-  inspectDirection: 1
+  inspectDirection: 0
   flipDirection: 0
   name: 
 --- !u!1 &1503306229
@@ -7180,6 +7222,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 114
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1782408870 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5276446745304685815, guid: 6cc9c3dbb3b8eb9479d96c143437eae1,
+    type: 3}
+  m_PrefabInstance: {fileID: 6452307180899423474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1782408874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782408870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99e24f316af8754ebc98703b30a2856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggersOnce: 0
+  tooltip: Inspect wood
+  interactionDisabledTooltip: 
+  interactionEvents: []
+  isInteractable: 1
+  soundEmitter: {fileID: 0}
+--- !u!64 &1782408875
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782408870}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300010, guid: ae04e61be5991ed4080d5b23e6c95eca, type: 3}
 --- !u!1 &1831632717 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1825069194868543092, guid: 9b3374c9b52ef9944802ea7fbe483bab,
@@ -10378,6 +10458,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3242d52b4595d0b44a8ca3b7eb420848, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d822fa356d4a3754eb94a91452847e17, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2636cabaf09ba1f4495c19917177fd67, type: 2}
     - target: {fileID: 4463229174394119484, guid: 41046802f6063014d896e88ab6f130eb,
         type: 3}
       propertyPath: m_Name
@@ -10448,18 +10540,6 @@ PrefabInstance:
       propertyPath: inspectDistance
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 3242d52b4595d0b44a8ca3b7eb420848, type: 2}
-    - target: {fileID: 0}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 2100000, guid: d822fa356d4a3754eb94a91452847e17, type: 2}
-    - target: {fileID: 0}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2636cabaf09ba1f4495c19917177fd67, type: 2}
     - target: {fileID: 3412154376471907900, guid: 41046802f6063014d896e88ab6f130eb,
         type: 3}
       propertyPath: interactionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
