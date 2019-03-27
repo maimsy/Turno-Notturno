@@ -588,7 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffb6891c105c4694d9cc55b7bc4b1c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 720
+  speed: 360
   speedChangeTime: 2
 --- !u!114 &3412154376471907900
 MonoBehaviour:
@@ -629,7 +629,6 @@ MonoBehaviour:
   inspectDirection: 1
   flipDirection: 0
   name: 
-  enableClues: 1
 --- !u!1001 &4463229174394020764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -639,7 +638,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
       propertyPath: m_Name
-      value: art_main_01_sculptre
+      value: art_main_01_sculptre Variant
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
       propertyPath: m_LocalPosition.x

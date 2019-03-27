@@ -38,9 +38,11 @@ public class Inspectable : Interactable
     private Bounds bounds;
     private Vector3[] originalCorners;
     private Vector3[] rotatedCorners;
+    private MeshRenderer renderer;
 
     void Awake()
     {
+        renderer = GetComponentInChildren<MeshRenderer>();
         InitialBounds();
     }
 
@@ -57,10 +59,15 @@ public class Inspectable : Interactable
 
     void InitialBounds()
     {
+        if (!renderer)
+        {
+            Debug.LogError("Inspectable object missing MeshRenderer!");
+            return;
+        }
         // Calculate bounding box in local space
         Quaternion originalRotation = transform.rotation;
         transform.rotation = Quaternion.identity; // Rotate temporarily to (0,0,0), because MeshRenderer bounds work weirdly
-        bounds = GetComponent<MeshRenderer>().bounds;
+        bounds = renderer.bounds;
         
         //bounds.extents = transform.InverseTransformDirection(bounds.extents);
         Vector3 center = (bounds.center);
@@ -97,6 +104,11 @@ public class Inspectable : Interactable
 
     void CalculateBounds(Transform cameraTransform)
     {
+        if (!renderer)
+        {
+            Debug.LogError("Inspectable object missing MeshRenderer!");
+            return;
+        }
         // Calculate bounding box in camera space to determine how far the camera can move
         float maxX = 0;
         float maxY = 0;
@@ -118,6 +130,11 @@ public class Inspectable : Interactable
 
     void DrawBox()
     {
+        if (!renderer)
+        {
+            Debug.LogError("Inspectable object missing MeshRenderer!");
+            return;
+        }
         // Draw bounding box for debugging
         for (int i = 0; i < originalCorners.Length; i++)
         {
@@ -170,7 +187,7 @@ public class Inspectable : Interactable
             OnUpdate();
         }
 
-        DrawBox();
+        //DrawBox();
         //CalculateBounds(Camera.main.transform);
     }
 
@@ -271,7 +288,7 @@ public class Inspectable : Interactable
 
     Vector3 GetCenter()
     {
-        Debug.Log(localCenter);
+        //Debug.Log(localCenter);
         return transform.TransformPoint(localCenter);
     }
 

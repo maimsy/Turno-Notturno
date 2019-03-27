@@ -176,9 +176,14 @@ public class ObjectiveManager : MonoBehaviour
             PlayDialogue("06", 0.5f);
             StartCoroutine(RemoveObjective("artpiece1"));
             multiObjectives.Remove("artpiece1");
-            StartCoroutine(NewObjective("clue1", "Inspect the artwork for damage", 4, 0));
-            //FindObjectOfType<MigrainEffect>().EndMigrain();
+            Invoke("AddClue1Objectives", delayTime);
         }
+    }
+
+    private void AddClue1Objectives()
+    {
+        StartCoroutine(NewObjective("clue1", "Inspect the artwork for damage", 4, 0));
+        GameObject.Find("art_main_01_mesh").GetComponent<Painting>().EnableClues(true);
     }
 
     public void InspectClues1(int propertyType)

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Painting : Inspectable
 {
-    public bool enableClues = false;
+    private bool cluesEnabled = false;
 
     private PaintingUI ui;
     private List<Interactable> clues;
@@ -23,22 +23,26 @@ public class Painting : Inspectable
         //foundClues = new List<Interactable>();
 
         player = FindObjectOfType<Player>();
+        EnableClues(false); // Enabled in objective manager
     }
 
-    void EnableClues(bool value)
+    public void EnableClues(bool value)
     {
+        cluesEnabled = value;
+        /*
         foreach (Interactable clue in clues)
         {
 
-            if(clue) clue.gameObject.SetActive(value);
+            if(clue && clue.gameObject != this.gameObject) clue.gameObject.SetActive(value);
 
         }
+        */
     }
 
     // Update is called once per frame
     protected override void OnUpdate()
     {
-        if (!enableClues) return;
+        if (!cluesEnabled) return;
         //if (ui) ui.SetCluesRemainingText("Clues remaining: " + (clues.Count - foundClues.Count));
         if (ui) ui.EnableHintCursor(false);
         if (ui) ui.SetTooltip("");
@@ -75,7 +79,7 @@ public class Painting : Inspectable
 
     protected override void OnStartInspect()
     {
-        if (!enableClues) return;
+        if (!cluesEnabled) return;
         /*foreach (Transform child in transform)
         {
             child.gameObject.SetActive(true);
@@ -84,7 +88,7 @@ public class Painting : Inspectable
 
     protected override void OnStopInspect()
     {
-        if (!enableClues) return;
+        if (!cluesEnabled) return;
         //if (ui) ui.gameObject.SetActive(false);
         /*foreach (Transform child in transform)
         {

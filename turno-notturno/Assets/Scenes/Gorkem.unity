@@ -2862,7 +2862,6 @@ MonoBehaviour:
   inspectDirection: 1
   flipDirection: 0
   name: 
-  enableClues: 1
 --- !u!1 &866492999 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2438634480208218738, guid: 3b27d1fb834eca94ebc0a0335d37efc9,
@@ -5953,7 +5952,6 @@ MonoBehaviour:
   inspectDirection: 1
   flipDirection: 0
   name: 
-  enableClues: 1
 --- !u!1 &1503306229
 GameObject:
   m_ObjectHideFlags: 0
@@ -10440,21 +10438,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4463229174394157340, guid: 41046802f6063014d896e88ab6f130eb,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4463229174394157340, guid: 41046802f6063014d896e88ab6f130eb,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4463229174394157340, guid: 41046802f6063014d896e88ab6f130eb,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3412154375834540458, guid: 41046802f6063014d896e88ab6f130eb,
         type: 3}
       propertyPath: interactionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -10465,21 +10448,59 @@ PrefabInstance:
       propertyPath: inspectDistance
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4463229174391864316, guid: 41046802f6063014d896e88ab6f130eb,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3242d52b4595d0b44a8ca3b7eb420848, type: 2}
-    - target: {fileID: 4463229174391864316, guid: 41046802f6063014d896e88ab6f130eb,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: d822fa356d4a3754eb94a91452847e17, type: 2}
-    - target: {fileID: 4463229174391864316, guid: 41046802f6063014d896e88ab6f130eb,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 2636cabaf09ba1f4495c19917177fd67, type: 2}
+    - target: {fileID: 3412154376471907900, guid: 41046802f6063014d896e88ab6f130eb,
+        type: 3}
+      propertyPath: interactionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1180025608}
+    - target: {fileID: 170754694, guid: 41046802f6063014d896e88ab6f130eb, type: 3}
+      propertyPath: interactionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1180025608}
+    - target: {fileID: 170754694, guid: 41046802f6063014d896e88ab6f130eb, type: 3}
+      propertyPath: interactionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InspectClues1
+      objectReference: {fileID: 0}
+    - target: {fileID: 170754694, guid: 41046802f6063014d896e88ab6f130eb, type: 3}
+      propertyPath: triggersOnce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 289022360, guid: 41046802f6063014d896e88ab6f130eb, type: 3}
+      propertyPath: interactionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1180025608}
+    - target: {fileID: 289022360, guid: 41046802f6063014d896e88ab6f130eb, type: 3}
+      propertyPath: interactionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InspectClues1
+      objectReference: {fileID: 0}
+    - target: {fileID: 783580818, guid: 41046802f6063014d896e88ab6f130eb, type: 3}
+      propertyPath: interactionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1180025608}
+    - target: {fileID: 783580818, guid: 41046802f6063014d896e88ab6f130eb, type: 3}
+      propertyPath: interactionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InspectClues1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1926991740, guid: 41046802f6063014d896e88ab6f130eb, type: 3}
+      propertyPath: interactionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1180025608}
+    - target: {fileID: 1926991740, guid: 41046802f6063014d896e88ab6f130eb, type: 3}
+      propertyPath: interactionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InspectClues1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41046802f6063014d896e88ab6f130eb, type: 3}
 --- !u!1001 &4603253116964409762
