@@ -68,6 +68,12 @@ public class Inspectable : Interactable
         Quaternion originalRotation = transform.rotation;
         transform.rotation = Quaternion.identity; // Rotate temporarily to (0,0,0), because MeshRenderer bounds work weirdly
         bounds = renderer.bounds;
+        foreach (var childRenderer in GetComponentsInChildren<MeshRenderer>())
+        {
+            // Add bounds from all child mesh renderers
+            Bounds b = childRenderer.bounds;
+            bounds.Encapsulate(b);
+        }
         
         //bounds.extents = transform.InverseTransformDirection(bounds.extents);
         Vector3 center = (bounds.center);
