@@ -19,7 +19,7 @@ public class Inspectable : Interactable
         zy
     }
 
-    private Vector3 center;
+    private Vector3 localCenter;
 
     private bool inspecting;
     private float hor;
@@ -35,6 +35,14 @@ public class Inspectable : Interactable
     private Quaternion prevCameraRotation;
 
     private GameManager manager;
+    private Bounds bounds;
+    private Vector3[] originalCorners;
+    private Vector3[] rotatedCorners;
+
+    void Awake()
+    {
+        InitialBounds();
+    }
 
     protected override void Start()
     {
@@ -47,55 +55,83 @@ public class Inspectable : Interactable
         OnStart();
     }
 
-    void CalculateBounds(Transform cameraTransform)
+    void InitialBounds()
     {
-        // Find the bounds to determine how far the camera can move
-        //Bounds bounds = GetComponent<MeshRenderer>().bounds;
-        transform.rotation = Quaternion.identity;
-        Bounds bounds = GetComponent<MeshFilter>().mesh.bounds;
-        Debug.Log(bounds);
-        center = bounds.center;
-        Vector3 centeredBounds = bounds.extents;// - center;
-        //bounds.
-        Debug.Log(bounds.extents);
-        //centeredBounds = cameraTransform.InverseTransformDirection(centeredBounds);
-        centeredBounds = transform.InverseTransformDirection(centeredBounds);
-        Vector3 centeredBounds2 = cameraTransform.InverseTransformDirection(-bounds.extents);
-        //centeredBounds = bounds.extents;
-
-
-        //centeredBounds.x = Mathf.Abs(centeredBounds.x);
-        //centeredBounds.y = Mathf.Abs(centeredBounds.y);
-        //centeredBounds.z = Mathf.Abs(centeredBounds.z);
-        Debug.Log(centeredBounds);
-        Debug.Log(centeredBounds2);
-
-        maxHor = centeredBounds.x;
-        maxVert = centeredBounds.y;
-        distanceOffset = centeredBounds.z;
-
-        //Vector3 v3Center = transform.InverseTransformPoint(bounds.center);
-        //Vector3 v3Extents = transform.InverseTransformDirection(bounds.extents);
-        Vector3 v3Center = (bounds.center);
+        // Calculate bounding box in local space
+        Quaternion originalRotation = transform.rotation;
+        transform.rotation = Quaternion.identity; // Rotate temporarily to (0,0,0), because MeshRenderer bounds work weirdly
+        bounds = GetComponent<MeshRenderer>().bounds;
+        
+        //bounds.extents = transform.InverseTransformDirection(bounds.extents);
+        Vector3 center = (bounds.center);
+        localCenter = transform.InverseTransformPoint(center);
         Vector3 v3Extents = (bounds.extents);
 
-        Vector3 v3FrontTopLeft = new Vector3(v3Center.x - v3Extents.x, v3Center.y + v3Extents.y, v3Center.z - v3Extents.z);  // Front top left corner
-        Vector3 v3FrontTopRight = new Vector3(v3Center.x + v3Extents.x, v3Center.y + v3Extents.y, v3Center.z - v3Extents.z);  // Front top right corner
-        Vector3 v3FrontBottomLeft = new Vector3(v3Center.x - v3Extents.x, v3Center.y - v3Extents.y, v3Center.z - v3Extents.z);  // Front bottom left corner
-        Vector3 v3FrontBottomRight = new Vector3(v3Center.x + v3Extents.x, v3Center.y - v3Extents.y, v3Center.z - v3Extents.z);  // Front bottom right corner
-        Vector3 v3BackTopLeft = new Vector3(v3Center.x - v3Extents.x, v3Center.y + v3Extents.y, v3Center.z + v3Extents.z);  // Back top left corner
-        Vector3 v3BackTopRight = new Vector3(v3Center.x + v3Extents.x, v3Center.y + v3Extents.y, v3Center.z + v3Extents.z);  // Back top right corner
-        Vector3 v3BackBottomLeft = new Vector3(v3Center.x - v3Extents.x, v3Center.y - v3Extents.y, v3Center.z + v3Extents.z);  // Back bottom left corner
-        Vector3 v3BackBottomRight = new Vector3(v3Center.x + v3Extents.x, v3Center.y - v3Extents.y, v3Center.z + v3Extents.z);  // Back bottom right corner
+        Vector3 v3FrontTopLeft = new Vector3(center.x - v3Extents.x, center.y + v3Extents.y, center.z - v3Extents.z);
+        Vector3 v3FrontTopRight = new Vector3(center.x + v3Extents.x, center.y + v3Extents.y, center.z - v3Extents.z);
+        Vector3 v3FrontBottomLeft = new Vector3(center.x - v3Extents.x, center.y - v3Extents.y, center.z - v3Extents.z);
+        Vector3 v3FrontBottomRight = new Vector3(center.x + v3Extents.x, center.y - v3Extents.y, center.z - v3Extents.z);
+        Vector3 v3BackTopLeft = new Vector3(center.x - v3Extents.x, center.y + v3Extents.y, center.z + v3Extents.z);
+        Vector3 v3BackTopRight = new Vector3(center.x + v3Extents.x, center.y + v3Extents.y, center.z + v3Extents.z);
+        Vector3 v3BackBottomLeft = new Vector3(center.x - v3Extents.x, center.y - v3Extents.y, center.z + v3Extents.z);
+        Vector3 v3BackBottomRight = new Vector3(center.x + v3Extents.x, center.y - v3Extents.y, center.z + v3Extents.z);
 
-        v3FrontTopLeft = transform.TransformPoint(v3FrontTopLeft);
-        v3FrontTopRight = transform.TransformPoint(v3FrontTopRight);
-        v3FrontBottomLeft = transform.TransformPoint(v3FrontBottomLeft);
-        v3FrontBottomRight = transform.TransformPoint(v3FrontBottomRight);
-        v3BackTopLeft = transform.TransformPoint(v3BackTopLeft);
-        v3BackTopRight = transform.TransformPoint(v3BackTopRight);
-        v3BackBottomLeft = transform.TransformPoint(v3BackBottomLeft);
-        v3BackBottomRight = transform.TransformPoint(v3BackBottomRight);
+        originalCorners = new[]
+        {
+            v3FrontTopLeft, v3FrontTopRight, v3FrontBottomLeft, v3FrontBottomRight, v3BackTopLeft, v3BackTopRight,
+            v3BackBottomLeft, v3BackBottomRight
+        };
+
+        rotatedCorners = new[]
+        {
+            v3FrontTopLeft, v3FrontTopRight, v3FrontBottomLeft, v3FrontBottomRight, v3BackTopLeft, v3BackTopRight,
+            v3BackBottomLeft, v3BackBottomRight
+        };
+
+        for (int i = 0; i < originalCorners.Length; i++)
+        {
+            originalCorners[i] = transform.InverseTransformPoint(originalCorners[i]); // Transform to local space
+        }
+        transform.rotation = originalRotation;
+    }
+
+    void CalculateBounds(Transform cameraTransform)
+    {
+        // Calculate bounding box in camera space to determine how far the camera can move
+        float maxX = 0;
+        float maxY = 0;
+        float maxZ = 0;
+
+        for (int i = 0; i < originalCorners.Length; i++)
+        {
+            rotatedCorners[i] = transform.TransformPoint(originalCorners[i]);  // World space
+            rotatedCorners[i] = cameraTransform.InverseTransformPoint(rotatedCorners[i]);  // Camera space
+            maxX = Mathf.Max(maxX, Mathf.Abs(rotatedCorners[i].x));
+            maxY = Mathf.Max(maxY, Mathf.Abs(rotatedCorners[i].y));
+            maxZ = Mathf.Max(maxZ, Mathf.Abs(rotatedCorners[i].z));
+        }
+
+        maxHor = maxX;
+        maxVert = maxY;
+        distanceOffset = maxZ - (Vector3.Distance(cameraTransform.position, GetCenter()));
+    }
+
+    void DrawBox()
+    {
+        // Draw bounding box for debugging
+        for (int i = 0; i < originalCorners.Length; i++)
+        {
+            rotatedCorners[i] = transform.TransformPoint(originalCorners[i]);  // World space
+        }
+
+        Vector3 v3FrontTopLeft = rotatedCorners[0];
+        Vector3 v3FrontTopRight = rotatedCorners[1];
+        Vector3 v3FrontBottomLeft = rotatedCorners[2];
+        Vector3 v3FrontBottomRight = rotatedCorners[3];
+        Vector3 v3BackTopLeft = rotatedCorners[4];
+        Vector3 v3BackTopRight = rotatedCorners[5];
+        Vector3 v3BackBottomLeft = rotatedCorners[6];
+        Vector3 v3BackBottomRight = rotatedCorners[7];
 
         Debug.DrawLine(v3FrontTopLeft, v3FrontTopRight, Color.red, 0.1f);
         Debug.DrawLine(v3FrontTopRight, v3FrontBottomRight, Color.red, 0.1f);
@@ -111,41 +147,6 @@ public class Inspectable : Interactable
         Debug.DrawLine(v3FrontTopRight, v3BackTopRight, Color.red, 0.1f);
         Debug.DrawLine(v3FrontBottomRight, v3BackBottomRight, Color.red, 0.1f);
         Debug.DrawLine(v3FrontBottomLeft, v3BackBottomLeft, Color.red, 0.1f);
-    }
-
-    void DrawBox()
-    {
-        //if (Input.GetKey (KeyCode.S)) {
-        
-
-        /*switch (inspectDirection)
-        {
-            case InspectDirection.xy:
-                maxHor = centeredBounds.x;
-                maxVert = centeredBounds.y;
-                distanceOffset = centeredBounds.z;
-                break;
-            case InspectDirection.xz:
-                maxHor = centeredBounds.x;
-                maxVert = centeredBounds.z;
-                distanceOffset = centeredBounds.y;
-                break;
-            case InspectDirection.zy:
-                maxHor = centeredBounds.z;
-                maxVert = centeredBounds.y;
-                distanceOffset = centeredBounds.x;
-                break;
-        }
-        Debug.DrawRay(transform.position, new Vector3(centeredBounds.x, 0, 0), Color.red, 5f);
-        Debug.DrawRay(transform.position, new Vector3(0, centeredBounds.y, 0), Color.red, 5f);
-        Debug.DrawRay(transform.position, new Vector3(0, 0, centeredBounds.z), Color.red, 5f);
-        Debug.DrawRay(transform.position, new Vector3(-centeredBounds.x, 0, 0), Color.red, 5f);
-        Debug.DrawRay(transform.position, new Vector3(0, -centeredBounds.y, 0), Color.red, 5f);
-        Debug.DrawRay(transform.position, new Vector3(0, 0, -centeredBounds.z), Color.red, 5f);
-        */
-        // Add a little more room
-        maxHor *= 1.2f;
-        maxVert *= 1.2f;
     }
 
     protected override void Update()
@@ -169,7 +170,8 @@ public class Inspectable : Interactable
             OnUpdate();
         }
 
-        CalculateBounds(Camera.main.transform);
+        DrawBox();
+        //CalculateBounds(Camera.main.transform);
     }
 
     public override void OnInteract()
@@ -185,11 +187,11 @@ public class Inspectable : Interactable
 
     public void StartInspect()
     {
-        center = transform.position;
+        //center = transform.position;
         prevCameraPosition = Camera.main.transform.position;
         prevCameraRotation = Camera.main.transform.rotation;
         Camera.main.transform.position = GetStartingPosition();
-        Camera.main.transform.LookAt(center);
+        Camera.main.transform.LookAt(GetCenter());
         CalculateBounds(Camera.main.transform);
         Camera.main.transform.position = GetStartingPosition(); // Calculate bounds might change the zoom distance
         inspecting = true;
@@ -237,6 +239,7 @@ public class Inspectable : Interactable
         float mouseX = -Input.GetAxis("Mouse X");
         float mouseY = -Input.GetAxis("Mouse Y");
 
+        /*
         if (mouseX > 0)
         {
             hSpeed = Mathf.Clamp(maxHor - hor, 0, 1);
@@ -253,6 +256,7 @@ public class Inspectable : Interactable
         {
             vSpeed = Mathf.Clamp(maxVert + vert, 0, 1);
         }
+        */
 
         float h = inspectSpeed * hSpeed * mouseX * zoom * maxHor;
         float v = inspectSpeed * vSpeed * mouseY * zoom * maxVert;
@@ -263,6 +267,12 @@ public class Inspectable : Interactable
         Camera.main.transform.position = GetStartingPosition();
         Camera.main.transform.position -= Camera.main.transform.right * hor;
         Camera.main.transform.position -= Camera.main.transform.up * vert;
+    }
+
+    Vector3 GetCenter()
+    {
+        Debug.Log(localCenter);
+        return transform.TransformPoint(localCenter);
     }
 
     Vector3 GetStartingPosition()
@@ -281,8 +291,9 @@ public class Inspectable : Interactable
                 break;
         }
         if (flipDirection) direction = -direction;
-        return center + direction * distanceOffset + direction * inspectDistance * zoom;
+        return GetCenter() + direction * distanceOffset + direction * inspectDistance * zoom;
     }
+
 
     [ContextMenu("Visualize")]
     public void Visualize()
