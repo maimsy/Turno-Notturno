@@ -179,6 +179,11 @@ public class Player : Character
         playerCamera.localRotation = Quaternion.Slerp(playerCamera.localRotation, cameraTargetRotation, cameraSmoothing);
     }
 
+    public void RotateTo(Quaternion rotation)
+    {
+        characterTargetRotation = rotation;
+    }
+
     public void HideCursor(bool value)
     {
         m_cursorIsLocked = value;

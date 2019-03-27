@@ -54,12 +54,28 @@ public class ObjectiveManager : MonoBehaviour
             Debug.LogError("Alarm manager is missing!");
         }
         StartCoroutine(NewObjective("room1", "Check the alarm", 1, delayTime));
+        GameObject.Find("Act1MigraineTrigger").GetComponent<BoxCollider>().enabled = true;
     }
 
     // set up objectives for act 2
     private void Act2()
     {
-        FindObjectOfType<Player>().transform.position = GameObject.Find("WakeUpPosition1").transform.position;
+        //PlayDialogue("14", 2f, abortPrevious: false);
+        GameObject obj = GameObject.Find("WakeUpPosition1");
+        if (obj)
+        {
+            FindObjectOfType<Player>().transform.position = obj.transform.position;
+            FindObjectOfType<Player>().RotateTo(obj.transform.rotation);
+        }
+        else Debug.LogError("Could not find Wake up position for player!");
+        obj = GameObject.Find("door_04_group");
+        if (obj)
+        {
+            obj.GetComponent<Door>().locked = false;
+            obj.GetComponent<Door>().UpdateTooltip();
+        }
+        else Debug.LogError("Could not find storage door!");
+        
         StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
         AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
@@ -75,7 +91,10 @@ public class ObjectiveManager : MonoBehaviour
     //Spawn new objective UI after delay
     IEnumerator NewObjective(string name, string description, int targetAmount, float delay)
     {
-        yield return new WaitForSeconds(delay);
+        if(delay != 0)
+        {
+            yield return new WaitForSeconds(delay);
+        }
         GameObject obj = Instantiate(objectivePredab, transform);
         Objective objective = obj.GetComponent<Objective>();
         objective.SetUp(description, objectives.Count, targetAmount);
@@ -119,13 +138,18 @@ public class ObjectiveManager : MonoBehaviour
         {
             PlayDialogue("03", 0f);
             StartCoroutine(RemoveObjective("room1"));
-            StartCoroutine(NewObjective("alarm1", "Turn off the alarm",  1, 0));
-            StartCoroutine(NewObjective("artpiece1", "Find the cause of the alarm", 1, delayTime));
-            string[] names = { "alarm1", "artpiece1" };
-            MultiObjective(names);
+            Invoke("Room1Objectives",delayTime);
             //FindObjectOfType<MigrainEffect>().StartMigrain();
             //GameObject.Find("alarm-box").GetComponent<Interactable>().isInteractable = true;
         }
+    }
+    private void Room1Objectives()
+    {
+        StartCoroutine(NewObjective("alarm1", "Turn off the alarm", 1, 0));
+        StartCoroutine(NewObjective("artpiece1", "Find the cause of the alarm", 1, 0));
+        string[] names = { "alarm1", "artpiece1" };
+        MultiObjective(names);
+        GameObject.Find("control_alarm_02").GetComponent<Interactable>().isInteractable = true;
     }
 
     //Player turned off alarm
@@ -241,11 +265,17 @@ public class ObjectiveManager : MonoBehaviour
         if (UpdateProgress("room2"))
         {
             StartCoroutine(RemoveObjective("room2"));
-            StartCoroutine(NewObjective("alarm2", "Turn off the alarm", 1, 0));
-            StartCoroutine(NewObjective("artpiece2", "Find the cause of the alarm", 2, delayTime));
-            string[] names = { "alarm2", "artpiece2" };
-            MultiObjective(names);
+            Invoke("Room2Objectives", delayTime);
         }
+    }
+    private void Room2Objectives()
+    {
+
+        StartCoroutine(NewObjective("alarm2", "Turn off the alarm", 1, 0));
+        StartCoroutine(NewObjective("artpiece2", "Find the cause of the alarm", 2, delayTime));
+        string[] names = { "alarm2", "artpiece2" };
+        MultiObjective(names);
+        GameObject.Find("control_alarm_04").GetComponent<Interactable>().isInteractable = true;
     }
 
     //player inspects one of the paintings
@@ -258,10 +288,10 @@ public class ObjectiveManager : MonoBehaviour
             {
                 //PlayDialogue("06", 0.5f);
                 StartCoroutine(RemoveObjective("artpiece2"));
-                multiObjectives.Remove("artpiece1");
+                multiObjectives.Remove("artpiece2");
                 if (multiObjectives.Count == 0)
                 {
-                    Locking();
+                    StorageRoomSetUp();
                 }
             }
         }
@@ -277,10 +307,31 @@ public class ObjectiveManager : MonoBehaviour
             multiObjectives.Remove("alarm2");
             if (multiObjectives.Count == 0)
             {
-                Locking();
+                StorageRoomSetUp();
             }
             //GameObject.Find("artpiece").GetComponent<Interactable>().isInteractable = true;
         }
+    }
+
+    private void StorageRoomSetUp()
+    {
+        StartCoroutine(NewObjective("storage", "Check the storage room", 1, delayTime));
+    }
+
+    //player arrives to the storage room
+    public void StorageRoom()
+    {
+        if (UpdateProgress("storage"))
+        {
+            StartCoroutine(RemoveObjective("storage"));
+            //StartCoroutine(FadeToNextScene(5));
+        }
+    }
+
+    private IEnumerator FadeToNextScene(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
     }
 
     public void AbortDialogue()
@@ -338,6 +389,9 @@ public class ObjectiveManager : MonoBehaviour
                 break;
             case "13":
                 dialogueMessage = "*gulping sound for eating pills*";
+                break;
+            case "14":
+                dialogueMessage = "Haah! What? Where am I?";
                 break;
             default:
                 Debug.LogError("Invalid voiceline: " + filename);
