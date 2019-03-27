@@ -8,6 +8,7 @@ public class ObjectiveManager : MonoBehaviour
 {
     private List<GameObject> windowBars;
     private List<string> multiObjectives;
+    private bool[] paintingsChecked;
     private GameObject objectivePredab;
     private Dictionary<string, Objective> objectives;
     private float delayTime = 2;
@@ -15,18 +16,31 @@ public class ObjectiveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        windowBars = new List<GameObject>();
+        PlayerPrefs.SetInt("GameState", 3);
+        paintingsChecked = new bool[2] { false, false };
         multiObjectives = new List<string>();
-        if(GameObject.Find("windowBars1")) windowBars.Add(GameObject.Find("windowBars1"));
-        if(GameObject.Find("windowBars2")) windowBars.Add(GameObject.Find("windowBars2"));
         objectives = new Dictionary<string, Objective>();
         objectivePredab = Resources.Load<GameObject>("Objective");
-        Act1();
+        int actNum = PlayerPrefs.GetInt("GameState", 0);
+        switch (actNum)
+        {
+            case 1:
+                Act1();
+                break;
+            case 3:
+                Act2();
+                break;
+        }
+        
+
     }
 
     // set up objectives for act 1
-    public void Act1()
+    private void Act1()
     {
+        windowBars = new List<GameObject>();
+        if (GameObject.Find("windowBars1")) windowBars.Add(GameObject.Find("windowBars1"));
+        if (GameObject.Find("windowBars2")) windowBars.Add(GameObject.Find("windowBars2"));
         PlayDialogue("01", 2f, abortPrevious: false);
         PlayDialogue("02", 6f, abortPrevious: false);
         //PlayDialogue("03", 20f, abortPrevious: false);
@@ -42,7 +56,23 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("room1", "Check the alarm", 1, delayTime));
     }
 
-    //Spawn new objective UI after animations
+    // set up objectives for act 2
+    private void Act2()
+    {
+        FindObjectOfType<Player>().transform.position = GameObject.Find("WakeUpPosition1").transform.position;
+        StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
+        AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
+        if (alarmManager)
+        {
+            alarmManager.ActivateAlarm(AlarmManager.Act.act_2);
+        }
+        else
+        {
+            Debug.LogError("Alarm manager is missing!");
+        }
+    }
+
+    //Spawn new objective UI after delay
     IEnumerator NewObjective(string name, string description, int targetAmount, float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -200,6 +230,56 @@ public class ObjectiveManager : MonoBehaviour
             StartCoroutine(RemoveObjective("pills1"));
             //fall asleep for act 2 minigame 
             GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
+        }
+    }
+
+    //ACT 2 OBJECTIVES
+
+    //Guard arrived to the alarm room
+    public void Room2()
+    {
+        if (UpdateProgress("room2"))
+        {
+            StartCoroutine(RemoveObjective("room2"));
+            StartCoroutine(NewObjective("alarm2", "Turn off the alarm", 1, 0));
+            StartCoroutine(NewObjective("artpiece2", "Find the cause of the alarm", 2, delayTime));
+            string[] names = { "alarm2", "artpiece2" };
+            MultiObjective(names);
+        }
+    }
+
+    //player inspects one of the paintings
+    public void InspectPainting2(int whichPainting)
+    {
+        if(!paintingsChecked[whichPainting])
+        {
+            paintingsChecked[whichPainting] = true;
+            if (UpdateProgress("artpiece2"))
+            {
+                //PlayDialogue("06", 0.5f);
+                StartCoroutine(RemoveObjective("artpiece2"));
+                multiObjectives.Remove("artpiece1");
+                if (multiObjectives.Count == 0)
+                {
+                    Locking();
+                }
+            }
+        }
+    }
+
+    //Player turned off alarm
+    public void TurnOffAlarm2()
+    {
+        if (UpdateProgress("alarm2"))
+        {
+            //PlayDialogue("04", 0f);
+            StartCoroutine(RemoveObjective("alarm2"));
+            multiObjectives.Remove("alarm2");
+            if (multiObjectives.Count == 0)
+            {
+                Locking();
+            }
+            //GameObject.Find("artpiece").GetComponent<Interactable>().isInteractable = true;
         }
     }
 

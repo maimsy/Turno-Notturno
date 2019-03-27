@@ -21,7 +21,7 @@ public class Painting : Inspectable
         foundClues = new List<Clue>();
         foreach (Transform child in transform)
         {
-            child.gameObject.SetActive(false);
+            //child.gameObject.SetActive(false);
         }
         
     }

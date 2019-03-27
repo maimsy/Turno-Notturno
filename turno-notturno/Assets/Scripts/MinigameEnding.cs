@@ -10,19 +10,13 @@ public class MinigameEnding : MonoBehaviour
 
     private bool ending = false;
     private bool winning = false;
-    private string sceneToLoadAfter = "MainScene";
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         if(ending)
         {
-            if (Input.GetKeyUp(KeyCode.E))
+            if (Input.GetKeyUp(KeyCode.Mouse0))
             {
                 ending = false;
                 if (winning)
@@ -39,7 +33,8 @@ public class MinigameEnding : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.Escape))
         {
-            SceneManager.LoadScene(sceneToLoadAfter);
+            GameManager gameManager = GameManager.GetInstance();
+            gameManager.LoadNextAct();
         }
     }
 
@@ -48,13 +43,13 @@ public class MinigameEnding : MonoBehaviour
         //player won the minigame
         if (win)
         {
-            infoText.GetComponent<Text>().text = "You win!! Press E to continue";
+            infoText.GetComponent<Text>().text = "You win!! Left click to continue";
             infoText.SetActive(true);
         }
         //he lost
         else
         {
-            infoText.GetComponent<Text>().text = "You lost.. Press E to restart";
+            infoText.GetComponent<Text>().text = "You lost.. Left click to restart";
             infoText.SetActive(true);
         }
         GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
