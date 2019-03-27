@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public enum PropertyType
 {
-    Theme,
-    Material,
-    Color,
-    Special
+    Color = 0,
+    Theme = 1,
+    Material = 2,
+    Special = 3
 }
 public enum ArtTheme
 {
