@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
         if (!instance)
         {
             GameObject obj = Resources.Load<GameObject>("GameManager");
+            obj = Instantiate(obj);
             instance = obj.GetComponent<GameManager>();
         }
         return instance;
@@ -95,7 +96,7 @@ public class GameManager : MonoBehaviour
         pauseMenu = FindObjectOfType<PauseMenu>();
         if (!pauseMenu)
         {
-            GameObject obj = Resources.Load<GameObject>("Canvas");
+            GameObject obj = Resources.Load<GameObject>("PauseMenuCanvas");
             obj = Instantiate(obj);
             pauseMenu = obj.GetComponentInChildren<PauseMenu>();
             pauseMenu.gameObject.SetActive(false);
@@ -214,6 +215,7 @@ public class GameManager : MonoBehaviour
     {
         // Loads the scene associated with the current GameState
         GameState state = GetGameState();
+        Debug.Log("Loading " + state);
         foreach (SceneStatePair pair in scenes)
         {
             if (state == pair.state)

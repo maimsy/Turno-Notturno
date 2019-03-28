@@ -11,6 +11,11 @@ public class MinigameEnding : MonoBehaviour
     private bool ending = false;
     private bool winning = false;
 
+    void Start()
+    {
+        GameManager gameManager = GameManager.GetInstance(); // Make sure game manager is loaded so pause menu works
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -21,39 +26,50 @@ public class MinigameEnding : MonoBehaviour
                 ending = false;
                 if (winning)
                 {
-                    GameManager gameManager = GameManager.GetInstance();
-                    gameManager.LoadNextAct();
-                    //SceneManager.LoadScene(sceneToLoadAfter);
+                    LoadNextScene();
                 }
                 else
                 {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                    Restart();
                 }
             }
         }
-        else if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            GameManager gameManager = GameManager.GetInstance();
-            gameManager.LoadNextAct();
-        }
+    }
+
+    private void LoadNextScene()
+    {
+        GameManager gameManager = GameManager.GetInstance();
+        gameManager.LoadNextAct();
+    }
+
+    private void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void EndGame(bool win)
     {
         //player won the minigame
+
+        FadeIn fadeIn = GameObject.Find("FadeOut").GetComponent<FadeIn>();
+        fadeIn.enabled = true;
         if (win)
         {
-            infoText.GetComponent<Text>().text = "You win!! Left click to continue";
-            infoText.SetActive(true);
+            //infoText.GetComponent<Text>().text = "You win!! Left click to continue";
+            //infoText.SetActive(true);
+            //Invoke("LoadNextScene", 4f);
+            //enabled = false; // Avoid ending game multiple times
+            fadeIn.changeSceneAfterDone = true;
         }
         //he lost
         else
         {
-            infoText.GetComponent<Text>().text = "You lost.. Left click to restart";
-            infoText.SetActive(true);
+            //infoText.GetComponent<Text>().text = "You lost.. Left click to restart";
+            //infoText.SetActive(true);
+            Invoke("Restart", 4f);
+            fadeIn.changeSceneAfterDone = false;
         }
-        GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
-        winning = win;
-        ending = true;
+        //winning = win;
+        //ending = true;
     }
 }

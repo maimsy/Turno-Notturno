@@ -4,8 +4,25 @@ using UnityEngine;
 
 public class ArtPieceDragging : MonoBehaviour
 {
-
+    private Vector3 originalPosition;
+    private Color originalColor;
     private bool isDraggable = true;
+
+    void Awake()
+    {
+        originalColor = GetComponent<SpriteRenderer>().color;
+        originalPosition = transform.position;
+    }
+
+    public void Reset()
+    {
+        isDraggable = true;
+        GetComponent<BoxCollider2D>().enabled = true;
+        GetComponent<BoxCollider2D>().isTrigger = true;
+        GetComponent<SpriteRenderer>().color = originalColor;
+        transform.position = originalPosition;
+    }
+
     private void OnMouseDown()
     {
         if (isDraggable)

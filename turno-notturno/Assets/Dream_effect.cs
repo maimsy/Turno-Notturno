@@ -18,10 +18,35 @@ public class Dream_effect : MonoBehaviour
     {
         ismigrain = false;
         isincreasing = false;
+        if (!Dream)
+        {
+            Debug.LogError("Dream_effect is missing PostProcessProfile");
+            enabled = false;  // Disable this script
+            return;
+        }
         Dream.TryGetSettings(out chromeaticthing);
         Dream.TryGetSettings(out grainthing);
         Dream.TryGetSettings(out AmbientOcclusionthing);
+        if (!chromeaticthing)
+        {
+            Debug.LogError("Dream_effect is missing ChromaticAberration");
+            enabled = false;  // Disable this script
+            return;
+        }
 
+        if (!grainthing)
+        {
+            Debug.LogError("Dream_effect is missing Grain");
+            enabled = false;  // Disable this script
+            return;
+        }
+
+        if (!AmbientOcclusionthing)
+        {
+            Debug.LogError("Dream_effect is missing AmbientOcclusion");
+            enabled = false;  // Disable this script
+            return;
+        }
     }
 
     // Update is called once per frame

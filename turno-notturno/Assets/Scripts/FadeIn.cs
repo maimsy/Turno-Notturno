@@ -7,7 +7,7 @@ public class FadeIn : MonoBehaviour
 {
     [SerializeField] float fadeTime;
     [SerializeField] bool fadeIn;
-    [SerializeField] bool changeSceneAfterDone;
+    public bool changeSceneAfterDone;
 
     private float timer;
 

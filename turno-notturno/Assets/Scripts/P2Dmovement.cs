@@ -21,12 +21,13 @@ public class P2Dmovement : MonoBehaviour
     void Update()
     {
         Move();
-        Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 10));
+        Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(-2, 0, 10));
         losingXY = new Vector2(pos.x, pos.y);
         if (transform.position.x < losingXY.x || transform.position.y < losingXY.y)
         {
-            GetComponent<MinigameEnding>().EndGame(false);
-            enabled = false;
+            //GetComponent<MinigameEnding>().EndGame(false);
+            //enabled = false;
+            FindObjectOfType<EnvironmentMove>().SmoothReset();
         }
     }
 
