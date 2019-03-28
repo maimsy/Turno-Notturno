@@ -75,7 +75,13 @@ public class ObjectiveManager : MonoBehaviour
             obj.GetComponent<Door>().UpdateTooltip();
         }
         else Debug.LogError("Could not find storage door!");
-        
+        obj = GameObject.Find("RoomTrigger2");
+        if (obj)
+        {
+            obj.GetComponent<BoxCollider>().enabled = true;
+        }
+        else Debug.LogError("Could not find Room trigger for art room!");
+
         StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
         AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
