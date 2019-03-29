@@ -993,6 +993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalText: {fileID: 1730076762}
+  resetTime: 1
 --- !u!212 &853981207
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2298,7 +2299,7 @@ GameObject:
   - component: {fileID: 1506504882}
   m_Layer: 0
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: Layer1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
