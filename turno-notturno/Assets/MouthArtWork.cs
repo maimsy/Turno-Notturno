@@ -91,7 +91,7 @@ public class MouthArtWork : MonoBehaviour
         joint2.localRotation =
             Quaternion.RotateTowards(joint2.localRotation, targetRotation2, degreesPerSecond * Time.deltaTime);
         joint3.localRotation =
-            Quaternion.RotateTowards(joint3.localRotation, targetRotation3, degreesPerSecond * Time.deltaTime);
+            Quaternion.RotateTowards(joint3.localRotation, targetRotation3, degreesPerSecond * Time.deltaTime * 2);  // Double speed for mouth makes it look better
     }
 
 
