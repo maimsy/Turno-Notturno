@@ -8,19 +8,27 @@ using Vector3 = UnityEngine.Vector3;
 
 public class MouthArtWork : MonoBehaviour
 {
+    public bool disabled = false;
+    public float degreesPerSecond = 45f;
+    public float maxDistanceFromCamera = 6f;
     public float minDistanceFromCamera = 0.5f;
     
-    public bool a = false;
-    public bool b = false;
-    public bool c = false;
+    private Transform joint0; // Yaw
+    private Transform joint1; // Pitch 1
+    private Transform joint2; // Pitch 2
+    private Transform joint3; // Pitch 3
+    private Transform joint4; // Center of mouth (rotation does nothing)
     
-    public Transform joint0; // Yaw
-    public Transform joint1; // Pitch 1
-    public Transform joint2; // Pitch 2
-    public Transform joint3; // Pitch 3
-    public Transform joint4; // Center of mouth (rotation does nothing)
+    private Quaternion targetRotation0;
+    private Quaternion targetRotation1;
+    private Quaternion targetRotation2;
+    private Quaternion targetRotation3;
+
+    private Quaternion originalRotation0;
+    private Quaternion originalRotation1;
+    private Quaternion originalRotation2;
+    private Quaternion originalRotation3;
     
-    private float targetHeight = 1.8f;
     private float targetDistance;
     private float targetYaw;
 
@@ -48,10 +56,46 @@ public class MouthArtWork : MonoBehaviour
         lengthMouth = Vector3.Distance(joint3.position, joint4.position) * 2; // Joint 4 is in middle of mouth
         totalLength = lengthArm1 + lengthArm2 + lengthMouth;  // Base is static and does not affect length
         target = Camera.main.transform;
+
+        originalRotation0 = joint0.localRotation;
+        originalRotation1 = joint1.localRotation;
+        originalRotation2 = joint2.localRotation;
+        originalRotation3 = joint3.localRotation;
     }
 
     // Update is called once per frame
     void Update()
+    {
+        if (!disabled && Vector3.Distance(joint0.position, target.position) < maxDistanceFromCamera)
+        {
+            ComputeTargetRotations();
+        }
+        else
+        {
+            targetRotation0 = originalRotation0;
+            targetRotation1 = originalRotation1;
+            targetRotation2 = originalRotation2;
+            targetRotation3 = originalRotation3;
+        }
+
+        SmoothRotate();
+
+    }
+
+    void SmoothRotate()
+    {
+        joint0.localRotation =
+            Quaternion.RotateTowards(joint0.localRotation, targetRotation0, degreesPerSecond * Time.deltaTime);
+        joint1.localRotation =
+            Quaternion.RotateTowards(joint1.localRotation, targetRotation1, degreesPerSecond * Time.deltaTime);
+        joint2.localRotation =
+            Quaternion.RotateTowards(joint2.localRotation, targetRotation2, degreesPerSecond * Time.deltaTime);
+        joint3.localRotation =
+            Quaternion.RotateTowards(joint3.localRotation, targetRotation3, degreesPerSecond * Time.deltaTime);
+    }
+
+
+    void ComputeTargetRotations()
     {
         // Add offset to target position, so the mouth does not clip inside the target
         Vector3 baseToAdjustedTarget = target.position - joint1.position;
@@ -96,17 +140,17 @@ public class MouthArtWork : MonoBehaviour
         float yaw = Vector3.SignedAngle(new Vector3(0, 0, 1), baseToTarget, Vector3.up);
         
         // Set rotations based on their original rotations in the 3d-model
-        joint0.localRotation = Quaternion.Euler(new Vector3(0, yaw, 0));
-        joint1.localRotation = Quaternion.Euler(new Vector3(angle1, 0, -90));
-        joint2.localRotation = Quaternion.Euler(new Vector3(-90, 0, angle2));
+        targetRotation0 = Quaternion.Euler(new Vector3(0, yaw, 0));
+        targetRotation1 = Quaternion.Euler(new Vector3(angle1, 0, -90));
+        targetRotation2 = Quaternion.Euler(new Vector3(-90, 0, angle2));
         
         // Mouth angle
         Vector3 mouthForward = joint3.position - joint2.position;
         Vector3 mouthToTarget = target.position - joint3.position;
         float mouthAngle = Vector3.SignedAngle(mouthForward, mouthToTarget, joint3.right);
-        joint3.localRotation = Quaternion.Euler(mouthAngle, -90, 0);
-        //Debug.Log(x);
+        targetRotation3 = Quaternion.Euler(mouthAngle, -90, 0);
     }
+    
 
     float LawOfCosines(float a, float b, float c)
     {
