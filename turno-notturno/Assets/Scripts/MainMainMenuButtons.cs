@@ -107,7 +107,7 @@ public class MainMainMenuButtons : MonoBehaviour
 
     void OpenBook() {
         Animator anim = Book.GetComponent<Animator>();
-        anim.Play("Open");
+        anim.Play("TurnToPage1");
     }
 
     // Start is called before the first frame update
