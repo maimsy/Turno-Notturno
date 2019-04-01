@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{d749156b-e85c-465e-82b5-247ca91e71cd}">
+        <property name="name">
+            <value>artRotateStartStop</value>
+        </property>
+        <relationship name="folder">
+            <destination>{f81e462a-9d36-408c-9b99-269f6f7ddbca}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{eccb71c7-c22e-4437-992b-f1e0fdcb62a2}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{eccb71c7-c22e-4437-992b-f1e0fdcb62a2}">
+        <property name="initialValue">
+            <value>0</value>
+        </property>
+        <property name="seekSpeed">
+            <value>0.50000005960464478</value>
+        </property>
+    </object>
+</objects>
