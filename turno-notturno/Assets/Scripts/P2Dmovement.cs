@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class P2Dmovement : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class P2Dmovement : MonoBehaviour
     [SerializeField] bool reDragging = false;
     private GameObject goal;
     private Vector2 losingXY;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +29,8 @@ public class P2Dmovement : MonoBehaviour
         {
             //GetComponent<MinigameEnding>().EndGame(false);
             //enabled = false;
-            FindObjectOfType<EnvironmentMove>().SmoothReset();
+ 
+                FindObjectOfType<EnvironmentMove>().SmoothReset();
         }
     }
 

@@ -40,6 +40,11 @@ public class ObjectiveManager : MonoBehaviour
         windowBars = new List<GameObject>();
         if (GameObject.Find("windowBars1")) windowBars.Add(GameObject.Find("windowBars1"));
         if (GameObject.Find("windowBars2")) windowBars.Add(GameObject.Find("windowBars2"));
+
+        GameObject obj = GameObject.Find("RoomTrigger");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+        else Debug.LogError("Room trigger is missing!");
+
         PlayDialogue("01", 2f, abortPrevious: false);
         PlayDialogue("02", 6f, abortPrevious: false);
         //PlayDialogue("03", 20f, abortPrevious: false);
@@ -351,11 +356,18 @@ public class ObjectiveManager : MonoBehaviour
     {
         StartCoroutine(NewObjective("storage", "Check the storage room", 1, 5f));
         PlayDialogue("17", 3f, abortPrevious: false);
+        Invoke("BleachFall", 2f);
+    }
+
+    private void BleachFall()
+    {
+        GameObject.Find("bleachFall").SetActive(false);
     }
 
     //player arrives to the storage room
     public void StorageRoom()
     {
+        
         if (UpdateProgress("storage"))
         {
             StartCoroutine(RemoveObjective("storage"));

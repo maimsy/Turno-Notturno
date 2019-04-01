@@ -166,6 +166,8 @@
     <object class="MixerBusEffectChain" id="{a9443c17-3dfc-4d33-8f27-9c1c04355dd6}">
         <relationship name="effects">
             <destination>{d4a98f55-f363-4f35-b05b-df815b147a55}</destination>
+            <destination>{9ed28365-84a7-43d7-b946-1053392defd7}</destination>
+            <destination>{7a83d690-69f0-4de3-a600-2164eda7068b}</destination>
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{7b350b67-f9ae-4195-b6b2-0b057c6c2c1e}"/>
@@ -186,6 +188,40 @@
         </relationship>
     </object>
     <object class="MixerBusFader" id="{d4a98f55-f363-4f35-b05b-df815b147a55}"/>
+    <object class="ThreeEQEffect" id="{9ed28365-84a7-43d7-b946-1053392defd7}">
+        <property name="lowGain">
+            <value>-6</value>
+        </property>
+        <property name="midGain">
+            <value>-80</value>
+        </property>
+        <property name="highCrossover">
+            <value>2800</value>
+        </property>
+    </object>
+    <object class="TremoloEffect" id="{7a83d690-69f0-4de3-a600-2164eda7068b}">
+        <property name="frequency">
+            <value>14</value>
+        </property>
+        <property name="depth">
+            <value>0.37500003</value>
+        </property>
+        <property name="shape">
+            <value>0.275000006</value>
+        </property>
+        <property name="skew">
+            <value>0.539999962</value>
+        </property>
+        <property name="duty">
+            <value>0.280000031</value>
+        </property>
+        <property name="square">
+            <value>0.940000057</value>
+        </property>
+        <property name="phase">
+            <value>0.560000062</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{aacaf85d-5721-426f-99ba-f047902b166f}"/>
     <object class="AutomationPoint" id="{5ae8aa31-8384-424b-812f-1c54dd7999c5}">
         <property name="position">
