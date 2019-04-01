@@ -39,13 +39,14 @@ public class EnvironmentMove : MonoBehaviour
         layerSpeeds.Add(gameSpeed * 0.8f);
         layerSpeeds.Add(gameSpeed * 0.9f);
         layerSpeeds.Add(gameSpeed);
-        layers.Add(GameObject.FindGameObjectsWithTag("Layer1"));
-        layers.Add(GameObject.FindGameObjectsWithTag("Layer2"));
-        layers.Add(GameObject.FindGameObjectsWithTag("Layer3"));
-        layers.Add(GameObject.FindGameObjectsWithTag("Layer4"));
-        layers.Add(GameObject.FindGameObjectsWithTag("Layer5"));
-        Debug.Log("layers " + layers.Count);
-        Debug.Log("objects " + layers[0].Length);
+        int i = 1;
+        while(GameObject.FindGameObjectsWithTag("Layer"+i.ToString()).Length != 0)
+        {
+            layers.Add(GameObject.FindGameObjectsWithTag("Layer" + i.ToString()));
+            i++;
+        }
+        //Debug.Log("layers " + layers.Count);
+        //Debug.Log("objects " + layers[0].Length);
         playerMovement = FindObjectOfType<P2Dmovement>();
         playerMovement.speed = gameSpeed * 60;
 
@@ -154,11 +155,13 @@ public class EnvironmentMove : MonoBehaviour
         state = MinigameState.falling;
         playerMovement.speed = gameSpeed * 60;
         playerMovement.GetComponent<CircleCollider2D>().isTrigger = true;
+        Debug.Log("whooowhoo");
         //Invoke("Reset", 1f);
     }
 
     private void Reset()
     {
+        Debug.Log("OHE");
         state = MinigameState.playing;
         GameObject start = GameObject.Find("PlayerSpawn");
         playerMovement.transform.position = start.transform.position;
