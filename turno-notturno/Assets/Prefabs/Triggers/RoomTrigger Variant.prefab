@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3462980385224831567, guid: 80c3f346b4e0b6b4b85c875f668fa439,
         type: 3}
       propertyPath: m_Name
-      value: RoomTrigger
+      value: RoomTrigger Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3462980385224831564, guid: 80c3f346b4e0b6b4b85c875f668fa439,
         type: 3}
@@ -86,6 +86,11 @@ PrefabInstance:
         type: 3}
       propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462980385224831565, guid: 80c3f346b4e0b6b4b85c875f668fa439,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80c3f346b4e0b6b4b85c875f668fa439, type: 3}
