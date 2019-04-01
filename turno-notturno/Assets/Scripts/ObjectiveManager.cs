@@ -356,12 +356,18 @@ public class ObjectiveManager : MonoBehaviour
     {
         StartCoroutine(NewObjective("storage", "Check the storage room", 1, 5f));
         PlayDialogue("17", 3f, abortPrevious: false);
-        GameObject.Find("bleachFall").SetActive(true);
+        Invoke("BleachFall", 2f);
+    }
+
+    private void BleachFall()
+    {
+        GameObject.Find("bleachFall").SetActive(false);
     }
 
     //player arrives to the storage room
     public void StorageRoom()
     {
+        
         if (UpdateProgress("storage"))
         {
             StartCoroutine(RemoveObjective("storage"));
