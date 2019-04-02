@@ -393,8 +393,20 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("artpiece3", "Find the cause of the alarm", 2, delayTime));
         string[] names = { "alarm3", "artpiece3" };
         MultiObjective(names);
-        GameObject.Find("control_alarm_04").GetComponent<Interactable>().isInteractable = true;
+        GameObject.Find("control_alarm_05").GetComponent<Interactable>().isInteractable = true;
     }
+
+    public void TurnOffAlarm3()
+    {
+        if (UpdateProgress("alarm3"))
+        {
+            if (multiObjectives.Count == 0)
+            {
+                Leave();
+            }
+        }
+    }
+
 
     //player inspects one of the paintings in act 3
     public void InspectPainting3(int whichPainting)
@@ -408,7 +420,6 @@ public class ObjectiveManager : MonoBehaviour
             paintingsChecked[whichPainting] = true;
             if (UpdateProgress("artpiece3"))
             {
-                //PlayDialogue("06", 0.5f);
                 if (multiObjectives.Count == 0)
                 {
                     Leave();
@@ -421,7 +432,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         PlayDialogue("20", 1f, abortPrevious: false);
         PlayDialogue("21", 3f, abortPrevious: false);
-        //panic breathing after the dialogue
+        //panic breathing effect after the dialogue
         PlayDialogue("22", 6f, abortPrevious: false);
         
         StartCoroutine(NewObjective("leave", "Leave the museum", 1, 6f));
@@ -441,14 +452,15 @@ public class ObjectiveManager : MonoBehaviour
         if (UpdateProgress("phone"))
         {
             //phone sound
-            PlayDialogue("20", 2f, abortPrevious: false);
-            //Play heartbeat sound after dialogue
-            //Grunt in pain during the heartbeat sound
-            PlayDialogue("21", 8f, abortPrevious: false);
+            PlayDialogue("24", 2f, abortPrevious: false);
+            //play footsteps approaching sound
+            PlayDialogue("25", 4f, abortPrevious: false);
             //Lights go out
+            //phone dies because of batteries run out
+            //HeartBeat sound from minigame comes back
             //Video installation sound starts playing
             //Disable notebook opening
-            StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 10f));
+            StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 6f));
         }
     }
 
@@ -557,7 +569,10 @@ public class ObjectiveManager : MonoBehaviour
                 dialogueMessage = "Shit";
                 break;
             case "24":
-                dialogueMessage = "Hey, it's me. Someone is in the museum destroying the artworks. There's something weird going on. Call the police. Okay.";
+                dialogueMessage = "Hey, it's me. There's something weird going on. I need help";
+                break;
+            case "25":
+                dialogueMessage = "There's someone here, hur-";
                 break;
             default:
                 Debug.LogError("Invalid voiceline: " + filename);
