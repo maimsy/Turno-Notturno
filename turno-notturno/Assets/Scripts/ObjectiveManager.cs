@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using FMODUnity;
 
 public class ObjectiveManager : MonoBehaviour
 {
@@ -110,7 +111,19 @@ public class ObjectiveManager : MonoBehaviour
             FindObjectOfType<Player>().transform.position = obj.transform.position;
             FindObjectOfType<Player>().RotateTo(obj.transform.rotation);
         }
+        obj = GameObject.Find("RoomTrigger4");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+        else Debug.LogError("RoomTrigger4 is missing!");
         StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
+        AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
+        if (alarmManager)
+        {
+            alarmManager.ActivateAlarm(AlarmManager.Act.act_3);
+        }
+        else
+        {
+            Debug.LogError("Alarm manager is missing!");
+        }
     }
 
     //Spawn new objective UI after delay
@@ -322,7 +335,7 @@ public class ObjectiveManager : MonoBehaviour
     //player inspects one of the paintings
     public void InspectPainting2(int whichPainting)
     {
-        if(!paintingsChecked[whichPainting])
+        if(!paintingsChecked[whichPainting] && objectives.ContainsKey("artpiece2"))
         {
             if(paintingsChecked[0] == false && paintingsChecked[1] == false)
             {
@@ -363,7 +376,7 @@ public class ObjectiveManager : MonoBehaviour
 
     private void BleachFall()
     {
-        GameObject.Find("bleachFall").SetActive(false);
+        GameObject.Find("bleachFall").GetComponent<StudioEventEmitter>().enabled = true;
     }
 
     //player arrives to the storage room
@@ -411,7 +424,7 @@ public class ObjectiveManager : MonoBehaviour
     //player inspects one of the paintings in act 3
     public void InspectPainting3(int whichPainting)
     {
-        if (!paintingsChecked[whichPainting])
+        if (!paintingsChecked[whichPainting] && objectives.ContainsKey("artpiece3"))
         {
             if (paintingsChecked[0] == false && paintingsChecked[1] == false)
             {
