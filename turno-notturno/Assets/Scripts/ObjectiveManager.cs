@@ -111,6 +111,8 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Act3()
     {
+        PlayDialogue("25", 1f);
+        PlayDialogue("26", 3f);
         StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
 
         GameObject obj = GetObject("WakeUpPosition_Act3");
@@ -486,10 +488,16 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (!paintingsChecked[whichPainting] && objectives.ContainsKey("artpiece3"))
         {
-            if (paintingsChecked[0] == false && paintingsChecked[1] == false)
+            if (whichPainting == 0)
             {
-                PlayDialogue("20", 1f, abortPrevious: false);
+                PlayDialogue("w07", 1f, abortPrevious: false);
+                PlayDialogue("28", 2f, abortPrevious: false);
             }
+            if (whichPainting == 1)
+            {
+                PlayDialogue("w08", 1f, abortPrevious: false);
+            }
+
             paintingsChecked[whichPainting] = true;
             if (UpdateProgress("artpiece3"))
             {
@@ -503,22 +511,22 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Leave()
     {
-        PlayDialogue("20", 1f, abortPrevious: false);
-        PlayDialogue("21", 3f, abortPrevious: false);
+        PlayDialogue("30", 3f, abortPrevious: false);
+        PlayDialogue("w09", 4f, abortPrevious: false);
         //panic breathing effect after the dialogue
         PlayDialogue("22", 6f, abortPrevious: false);
         GameObject obj = GetObject("door_02_group");
         if (obj) obj.GetComponent<Interactable>().SetTooltip("Escape");
         obj = GetObject("door_03_group");
         if (obj) obj.GetComponent<Interactable>().SetTooltip("Escape");
-        StartCoroutine(NewObjective("leave", "Leave the museum", 1, 6f));
+        StartCoroutine(NewObjective("leave", "Leave the museum", 1, 5f));
     }
 
     public void Leave2()
     {
         if(UpdateProgress("leave"))
         {
-            PlayDialogue("23", 0f, abortPrevious: false);
+            PlayDialogue("32", 0f, abortPrevious: false);
             StartCoroutine(NewObjective("phone", "Use phone in guard room", 1, 1f));
         }
     }
@@ -528,15 +536,15 @@ public class ObjectiveManager : MonoBehaviour
         if (UpdateProgress("phone"))
         {
             //phone sound
-            PlayDialogue("24", 2f, abortPrevious: false);
+            PlayDialogue("35", 2f, abortPrevious: false);
             //play footsteps approaching sound
-            PlayDialogue("25", 4f, abortPrevious: false);
+            PlayDialogue("36", 4f, abortPrevious: false);
             //Lights go out
             //phone dies because of batteries run out
             //HeartBeat sound from minigame comes back
             //Video installation sound starts playing
             //Disable notebook opening
-            StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 6f));
+            StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 8f));
 
         }
     }
@@ -556,6 +564,19 @@ public class ObjectiveManager : MonoBehaviour
         if (UpdateProgress("room4"))
         {
             StartCoroutine(NewObjective("artpiece4", "Analyze the artwork", 1, delayTime));
+        }
+    }
+
+    public void InspectPainting4()
+    {
+        if (objectives.ContainsKey("artpiece4"))
+        {
+
+            if (UpdateProgress("artpiece4"))
+            {
+                PlayDialogue("w11", 2f, abortPrevious: false);
+                StartCoroutine(NewObjective("???", "(TODO)", 1, 5f));
+            }
         }
     }
 
