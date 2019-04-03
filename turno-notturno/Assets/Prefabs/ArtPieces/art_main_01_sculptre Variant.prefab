@@ -234,62 +234,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &807885015
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 807885016}
-  - component: {fileID: 807885017}
-  m_Layer: 0
-  m_Name: art01_sound
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &807885016
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 807885015}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4463229174394157340}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &807885017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 807885015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: event:/fx/artRotate
-  PlayEvent: 1
-  StopEvent: 2
-  CollisionTag: 
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params:
-  - Name: artRotateStartStop
-    Value: 1
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 7
 --- !u!1 &1926991737
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,8 +425,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1976450044}
-        m_MethodName: SetSpeed
-        m_Mode: 4
+        m_MethodName: StartRotation
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -496,8 +440,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1976450044}
-        m_MethodName: SetSpeed
-        m_Mode: 4
+        m_MethodName: StopRotation
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -547,6 +491,7 @@ GameObject:
   - component: {fileID: 5894375041883715740}
   - component: {fileID: 1976450044}
   - component: {fileID: 3412154376471907900}
+  - component: {fileID: 1210694937846747711}
   m_Layer: 0
   m_Name: art_main_01_mesh
   m_TagString: Untagged
@@ -644,8 +589,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffb6891c105c4694d9cc55b7bc4b1c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
-  speedChangeTime: 2
+  rotationEnabled: 0
+  useArtwork1Sound: 1
+  maxSpeed: 50
+  speedChangeRate: 25
 --- !u!114 &3412154376471907900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,6 +632,31 @@ MonoBehaviour:
   inspectDirection: 1
   flipDirection: 0
   name: 
+--- !u!114 &1210694937846747711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4463229173957489322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/fx/artRotate
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params:
+  - Name: artRotateStartStop
+    Value: 1
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 7
 --- !u!1001 &4463229174394020764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -694,7 +666,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
       propertyPath: m_Name
-      value: art_main_01_sculptre
+      value: art_main_01_sculptre Variant
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
       propertyPath: m_LocalPosition.x
@@ -740,7 +712,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3300000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
+    - {fileID: 2300000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9bed740f7b9302049ab159fb6073c526, type: 3}
 --- !u!4 &4463229174394157340 stripped
 Transform:

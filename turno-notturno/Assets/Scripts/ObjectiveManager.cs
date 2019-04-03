@@ -50,6 +50,9 @@ public class ObjectiveManager : MonoBehaviour
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         obj = GetObject("Act1MigraineTrigger");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+        obj = GetObject("art_main_01_sculptre");
+        if (obj) obj.GetComponentInChildren<Rotate>().StartRotation();
+
 
         foreach (GameObject windowBar in windowBars)
         {

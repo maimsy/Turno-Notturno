@@ -92,7 +92,7 @@ public class AlarmManager : MonoBehaviour
     private void ActivateAlarm(AlarmSystem alarmSystem)
     {
         Rotate rotate = alarmSystem.light.GetComponentInParent<Rotate>();
-        if (rotate) rotate.enabled = true;
+        if (rotate) rotate.StartRotation();
         if (alarmSystem.light) alarmSystem.light.SetActive(true);
         if (alarmSystem.sound) alarmSystem.sound.SetActive(true);
         alarmMinimap = alarmSystem.alarmMinimap;
@@ -101,7 +101,7 @@ public class AlarmManager : MonoBehaviour
     private void StopAlarm(AlarmSystem alarmSystem)
     {
         Rotate rotate = alarmSystem.light.GetComponentInParent<Rotate>();
-        if (rotate) rotate.enabled = false;
+        if (rotate) rotate.StopRotation();
         if (alarmSystem.light) alarmSystem.light.SetActive(false);
         if (alarmSystem.sound) alarmSystem.sound.SetActive(false);
     }

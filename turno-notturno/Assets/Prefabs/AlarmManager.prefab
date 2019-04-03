@@ -61,16 +61,16 @@ MonoBehaviour:
     sound: {fileID: 6110013324529545217}
     alarmMinimap: {fileID: 2100000, guid: 5afeb0b932a3fe1449335bfbaaeb571c, type: 2}
   act2Alarm:
-    light: {fileID: 7576157120820520399}
-    sound: {fileID: 6110013324790061177}
+    light: {fileID: 7576157119871874066}
+    sound: {fileID: 6110013325721733540}
     alarmMinimap: {fileID: 2100000, guid: 5afeb0b932a3fe1449335bfbaaeb571c, type: 2}
   act3Alarm:
-    light: {fileID: 7576157119871874066}
+    light: {fileID: 7576157120662401455}
     sound: {fileID: 6110013324901911577}
     alarmMinimap: {fileID: 2100000, guid: 5afeb0b932a3fe1449335bfbaaeb571c, type: 2}
   act4Alarm:
-    light: {fileID: 7576157120662401455}
-    sound: {fileID: 6110013325721733540}
+    light: {fileID: 7576157120820520399}
+    sound: {fileID: 6110013324790061177}
     alarmMinimap: {fileID: 2100000, guid: 5afeb0b932a3fe1449335bfbaaeb571c, type: 2}
 --- !u!1001 &431557253180192631
 PrefabInstance:
@@ -138,6 +138,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227455440965725579, guid: 11295edee2bd3f745a1e42a6c372e0bb,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227455440965725579, guid: 11295edee2bd3f745a1e42a6c372e0bb,
+        type: 3}
+      propertyPath: speedChangeRate
+      value: 360
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11295edee2bd3f745a1e42a6c372e0bb, type: 3}
@@ -226,6 +236,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8227455440965725579, guid: 11295edee2bd3f745a1e42a6c372e0bb,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227455440965725579, guid: 11295edee2bd3f745a1e42a6c372e0bb,
+        type: 3}
+      propertyPath: speedChangeRate
+      value: 360
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11295edee2bd3f745a1e42a6c372e0bb, type: 3}
 --- !u!4 &1945775742396177463 stripped
@@ -313,6 +333,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8227455440965725579, guid: 11295edee2bd3f745a1e42a6c372e0bb,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227455440965725579, guid: 11295edee2bd3f745a1e42a6c372e0bb,
+        type: 3}
+      propertyPath: speedChangeRate
+      value: 360
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11295edee2bd3f745a1e42a6c372e0bb, type: 3}
 --- !u!4 &1945775742574250071 stripped
@@ -399,6 +429,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227455440965725579, guid: 11295edee2bd3f745a1e42a6c372e0bb,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227455440965725579, guid: 11295edee2bd3f745a1e42a6c372e0bb,
+        type: 3}
+      propertyPath: speedChangeRate
+      value: 360
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11295edee2bd3f745a1e42a6c372e0bb, type: 3}
@@ -492,6 +532,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8227455440965725579, guid: 11295edee2bd3f745a1e42a6c372e0bb,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227455440965725579, guid: 11295edee2bd3f745a1e42a6c372e0bb,
+        type: 3}
+      propertyPath: speedChangeRate
+      value: 360
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11295edee2bd3f745a1e42a6c372e0bb, type: 3}
 --- !u!4 &1945775743886527773 stripped
@@ -566,6 +616,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227455440965725579, guid: 11295edee2bd3f745a1e42a6c372e0bb,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227455440965725579, guid: 11295edee2bd3f745a1e42a6c372e0bb,
+        type: 3}
+      propertyPath: speedChangeRate
+      value: 360
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11295edee2bd3f745a1e42a6c372e0bb, type: 3}
