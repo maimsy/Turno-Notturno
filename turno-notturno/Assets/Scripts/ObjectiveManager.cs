@@ -14,7 +14,7 @@ public class ObjectiveManager : MonoBehaviour
     private Dictionary<string, Objective> objectives;
     private float delayTime = 2;
 
-    private bool w01Played = false;
+    private int act2ArtVoiceline = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -375,14 +375,31 @@ public class ObjectiveManager : MonoBehaviour
     {
         if(!paintingsChecked[whichPainting] && objectives.ContainsKey("artpiece2"))
         {
-            if(paintingsChecked[0] == false && paintingsChecked[1] == false)
+            if (whichPainting == 0)
             {
-                PlayDialogue("16", 1f, abortPrevious: false);
+                PlayDialogue("w03", 1f, abortPrevious: false);
+                
             }
+            if (whichPainting == 0)
+            {
+                PlayDialogue("w03", 1f, abortPrevious: false);
+                PlayDialogue("w03", 1f, abortPrevious: false);
+            }
+
+            // Order of players response to whispers should be the same regardless of which art is inspected first
+            if (act2ArtVoiceline == 0)
+            {
+                PlayDialogue("17", 2f, abortPrevious: false);
+                act2ArtVoiceline = 1;
+            }
+            else if (act2ArtVoiceline == 1)
+            {
+                PlayDialogue("18", 2f, abortPrevious: false);
+            }
+
             paintingsChecked[whichPainting] = true;
             if (UpdateProgress("artpiece2"))
             {
-                //PlayDialogue("06", 0.5f);
                 if (multiObjectives.Count == 0)
                 {
                     StorageRoomSetUp();
@@ -407,15 +424,16 @@ public class ObjectiveManager : MonoBehaviour
 
     private void StorageRoomSetUp()
     {
-        StartCoroutine(NewObjective("storage", "Check the storage room", 1, 5f));
-        PlayDialogue("17", 3f, abortPrevious: false);
-        Invoke("BleachFall", 2f);
+        StartCoroutine(NewObjective("storage", "Check the storage room", 1, 8f));
+        
+        Invoke("BleachFall", 6f);
     }
 
     private void BleachFall()
     {
         GameObject obj = GetObject("bleachFall");
         if (obj) obj.GetComponent<StudioEventEmitter>().Play();
+        PlayDialogue("19", 7f, abortPrevious: false);
     }
 
     //player arrives to the storage room
@@ -424,9 +442,11 @@ public class ObjectiveManager : MonoBehaviour
         
         if (UpdateProgress("storage"))
         {
-            PlayDialogue("18", 0.5f, abortPrevious: false);
-            PlayDialogue("19", 6f, abortPrevious: false);
-            StartCoroutine(FadeToNextScene(9f));
+            PlayDialogue("21", 0.5f, abortPrevious: false);
+            PlayDialogue("w05", 1f, abortPrevious: false);
+            PlayDialogue("23", 14f, abortPrevious: false);
+            StartCoroutine(FadeToNextScene(20f));
+            PlayDialogue("w06", 20f, abortPrevious: false);
         }
     }
 
