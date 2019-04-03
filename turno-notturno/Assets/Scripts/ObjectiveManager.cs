@@ -42,12 +42,14 @@ public class ObjectiveManager : MonoBehaviour
     private void Act1()
     {
         windowBars = new List<GameObject>();
-        if (GameObject.Find("windowBars1")) windowBars.Add(GameObject.Find("windowBars1"));
-        if (GameObject.Find("windowBars2")) windowBars.Add(GameObject.Find("windowBars2"));
-
-        GameObject obj = GameObject.Find("RoomTrigger");
+        GameObject obj = GetObject("windowBars1");
+        if (obj) windowBars.Add(obj);
+        obj = GetObject("windowBars2");
+        if (obj) windowBars.Add(obj);
+        obj = GetObject("RoomTrigger");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
-        else Debug.LogError("Room trigger is missing!");
+        obj = GetObject("Act1MigraineTrigger");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
 
         PlayDialogue("01", 2f, abortPrevious: false);
         PlayDialogue("02", 6f, abortPrevious: false);
@@ -62,7 +64,6 @@ public class ObjectiveManager : MonoBehaviour
             Debug.LogError("Alarm manager is missing!");
         }
         StartCoroutine(NewObjective("room1", "Check the alarm", 1, delayTime));
-        GameObject.Find("Act1MigraineTrigger").GetComponent<BoxCollider>().enabled = true;
     }
 
     // set up objectives for act 2
@@ -70,28 +71,22 @@ public class ObjectiveManager : MonoBehaviour
     {
         PlayDialogue("14", 2f, abortPrevious: false);
         PlayDialogue("15", 6f, abortPrevious: false);
-        GameObject obj = GameObject.Find("WakeUpPosition_Act2");
+        StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
+
+        GameObject obj = GetObject("WakeUpPosition_Act2");
         if (obj)
         {
             FindObjectOfType<Player>().transform.position = obj.transform.position;
             FindObjectOfType<Player>().RotateTo(obj.transform.rotation);
         }
-        else Debug.LogError("Could not find Wake up position for player!");
-        obj = GameObject.Find("door_04_group");
+        obj = GetObject("door_04_group");
         if (obj)
         {
             obj.GetComponent<Door>().locked = false;
             obj.GetComponent<Door>().UpdateTooltip();
         }
-        else Debug.LogError("Could not find storage door!");
-        obj = GameObject.Find("RoomTrigger2");
-        if (obj)
-        {
-            obj.GetComponent<BoxCollider>().enabled = true;
-        }
-        else Debug.LogError("Could not find Room trigger for art room!");
-
-        StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
+        obj = GetObject("RoomTrigger2");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
         {
@@ -105,16 +100,31 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Act3()
     {
-        GameObject obj = GameObject.Find("WakeUpPosition_Act3");
+        StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
+
+        GameObject obj = GetObject("WakeUpPosition_Act3");
         if (obj)
         {
             FindObjectOfType<Player>().transform.position = obj.transform.position;
             FindObjectOfType<Player>().RotateTo(obj.transform.rotation);
         }
-        obj = GameObject.Find("RoomTrigger4");
+        obj = GetObject("RoomTrigger4");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
-        else Debug.LogError("RoomTrigger4 is missing!");
-        StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
+        obj = GetObject("door_04_group");
+        if (obj)
+        {
+            obj.GetComponent<Door>().locked = false;
+            obj.GetComponent<Door>().UpdateTooltip();
+        }
+        Vector3 pos = Vector3.zero;
+        obj = GetObject("FlashLightPos_Act3");
+        if (obj) pos = obj.transform.position;
+        obj = GetObject("flashlight_01");
+        if (obj)
+        {
+            obj.transform.position = pos;
+            obj.GetComponent<Interactable>().isInteractable = true;
+        }
         AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
         {
@@ -181,8 +191,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             PlayDialogue("03", 0f);
             Invoke("Room1Objectives",delayTime);
-            //FindObjectOfType<MigrainEffect>().StartMigrain();
-            //GameObject.Find("alarm-box").GetComponent<Interactable>().isInteractable = true;
+
         }
     }
     private void Room1Objectives()
@@ -191,7 +200,8 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("artpiece1", "Find the cause of the alarm", 1, 0));
         string[] names = { "alarm1", "artpiece1" };
         MultiObjective(names);
-        GameObject.Find("control_alarm_02").GetComponent<Interactable>().isInteractable = true;
+        GameObject obj = GetObject("control_alarm_02");
+        if (obj) obj.GetComponent<Interactable>().isInteractable = true;
     }
 
     //Player turned off alarm
@@ -221,7 +231,8 @@ public class ObjectiveManager : MonoBehaviour
     private void AddClue1Objectives()
     {
         StartCoroutine(NewObjective("clue1", "Inspect the artwork for damage", 4, 0));
-        GameObject.Find("art_main_01_mesh").GetComponent<Painting>().EnableClues(true);
+        GameObject obj = GetObject("art_main_01_mesh");
+        if (obj) obj.GetComponent<Painting>().EnableClues(true);
     }
 
     public void InspectClues1(int propertyType)
@@ -247,10 +258,14 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("door1", "Check the main door", 1, delayTime));
         string[] names = { "window1", "door1" };
         MultiObjective(names);
-        GameObject.Find("control_windows_01").GetComponent<Interactable>().isInteractable = true;
-        GameObject.Find("control_windows_02").GetComponent<Interactable>().isInteractable = true;
-        GameObject.Find("door_02_group").GetComponent<Interactable>().SetTooltip("check doors");
-        GameObject.Find("door_03_group").GetComponent<Interactable>().SetTooltip("check doors");
+        GameObject obj = GetObject("control_windows_01");
+        if (obj) obj.GetComponent<Interactable>().isInteractable = true;
+        obj = GetObject("control_windows_02");
+        if (obj) obj.GetComponent<Interactable>().isInteractable = true;
+        obj = GetObject("door_02_group");
+        if (obj) obj.GetComponent<Interactable>().SetTooltip("check doors");
+        obj = GetObject("door_03_group");
+        if (obj) obj.GetComponent<Interactable>().SetTooltip("check doors");
     }
 
     //One window was locked
@@ -298,7 +313,9 @@ public class ObjectiveManager : MonoBehaviour
     }
     private void PillsInteractable()
     {
-        GameObject.Find("bottle_pill_01").GetComponent<Interactable>().isInteractable = true;
+        GameObject obj = GetObject("bottle_pill_01");
+        if (obj)
+            obj.GetComponent<Interactable>().isInteractable = true;
     }
 
     //player takes pills
@@ -308,7 +325,9 @@ public class ObjectiveManager : MonoBehaviour
         {
             PlayDialogue("13", 0f);
             //fall asleep for act 2 minigame 
-            GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
+            GameObject obj = GetObject("FadeOut");
+            if (obj) obj.GetComponent<FadeIn>().enabled = true;
+
         }
     }
 
@@ -329,7 +348,8 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("artpiece2", "Find the cause of the alarm", 2, delayTime));
         string[] names = { "alarm2", "artpiece2" };
         MultiObjective(names);
-        GameObject.Find("control_alarm_04").GetComponent<Interactable>().isInteractable = true;
+        GameObject obj = GetObject("control_alarm_04");
+        if (obj) obj.GetComponent<Interactable>().isInteractable = true;
     }
 
     //player inspects one of the paintings
@@ -376,7 +396,8 @@ public class ObjectiveManager : MonoBehaviour
 
     private void BleachFall()
     {
-        GameObject.Find("bleachFall").GetComponent<StudioEventEmitter>().Play();
+        GameObject obj = GetObject("bleachFall");
+        if (obj) obj.GetComponent<StudioEventEmitter>().Play();
     }
 
     //player arrives to the storage room
@@ -406,7 +427,8 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("artpiece3", "Find the cause of the alarm", 2, delayTime));
         string[] names = { "alarm3", "artpiece3" };
         MultiObjective(names);
-        GameObject.Find("control_alarm_05").GetComponent<Interactable>().isInteractable = true;
+        GameObject obj = GetObject("control_alarm_05");
+        if(obj) obj.GetComponent<Interactable>().isInteractable = true;
     }
 
     public void TurnOffAlarm3()
@@ -447,7 +469,10 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("21", 3f, abortPrevious: false);
         //panic breathing effect after the dialogue
         PlayDialogue("22", 6f, abortPrevious: false);
-        
+        GameObject obj = GetObject("door_02_group");
+        if (obj) obj.GetComponent<Interactable>().SetTooltip("Escape");
+        obj = GetObject("door_03_group");
+        if (obj) obj.GetComponent<Interactable>().SetTooltip("Escape");
         StartCoroutine(NewObjective("leave", "Leave the museum", 1, 6f));
     }
 
@@ -474,13 +499,33 @@ public class ObjectiveManager : MonoBehaviour
             //Video installation sound starts playing
             //Disable notebook opening
             StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 6f));
+
+        }
+    }
+
+    public void FlashLight()
+    {
+        if (UpdateProgress("flashlight"))
+        {
+            GameObject obj = GetObject("RoomTrigger5");
+            if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+            StartCoroutine(NewObjective("room4", "Check the noise", 1, delayTime));
+        }
+     }
+
+    public void Room4()
+    {
+        if (UpdateProgress("room4"))
+        {
+            StartCoroutine(NewObjective("artpiece4", "Analyze the artwork", 1, delayTime));
         }
     }
 
     private IEnumerator FadeToNextScene(float delay)
     {
         yield return new WaitForSeconds(delay);
-        GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
+        GameObject obj = GetObject("FadeOut");
+        if(obj) obj.GetComponent<FadeIn>().enabled = true;
     }
 
     public void AbortDialogue()
@@ -604,5 +649,19 @@ public class ObjectiveManager : MonoBehaviour
             dialogue.DisplayText(dialogueMessage);
         }
         FMODUnity.RuntimeManager.PlayOneShot("event:/placeholderSpeaks/" + filename + "_placeholder");
+    }
+
+    public GameObject GetObject(string name)
+    {
+        GameObject obj = GameObject.Find(name);
+        if (obj)
+        {
+            return obj;
+        }
+        else
+        {
+            Debug.LogError(name + " is missing!");
+            return null;
+        }
     }
 }
