@@ -48,17 +48,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_MethodName: LockWindow
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Maimuna2DOppositePlatformer
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: LockWindow
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -116,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
     - target: {fileID: 400000, guid: df1cc3d39f629554181cb7c0e5df46ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.161826
+      value: 8.112
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: df1cc3d39f629554181cb7c0e5df46ce, type: 3}
       propertyPath: m_LocalPosition.y
@@ -124,23 +113,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: df1cc3d39f629554181cb7c0e5df46ce, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.7160378
+      value: 10.283
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: df1cc3d39f629554181cb7c0e5df46ce, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 6.123234e-17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: df1cc3d39f629554181cb7c0e5df46ce, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: df1cc3d39f629554181cb7c0e5df46ce, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -6.123234e-17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: df1cc3d39f629554181cb7c0e5df46ce, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -5.0532154e-16
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: df1cc3d39f629554181cb7c0e5df46ce, type: 3}
       propertyPath: m_RootOrder

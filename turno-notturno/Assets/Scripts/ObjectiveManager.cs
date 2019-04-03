@@ -42,14 +42,20 @@ public class ObjectiveManager : MonoBehaviour
     private void Act1()
     {
         windowBars = new List<GameObject>();
-        GameObject obj = GetObject("windowBars1");
+        GameObject obj = GetObject("windows_bars_art_room");
         if (obj) windowBars.Add(obj);
-        obj = GetObject("windowBars2");
+        obj = GetObject("windows_bars_shop");
         if (obj) windowBars.Add(obj);
         obj = GetObject("RoomTrigger");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         obj = GetObject("Act1MigraineTrigger");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+
+        foreach (GameObject windowBar in windowBars)
+        {
+            Animator animator = windowBar.GetComponent<Animator>();
+            if (animator) animator.Play("ForceOpen");
+        }
 
         PlayDialogue("01", 2f, abortPrevious: false);
         PlayDialogue("02", 6f, abortPrevious: false);
@@ -273,7 +279,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (whichWindow == 0) PlayDialogue("07", 0.5f);
         if (whichWindow == 1) PlayDialogue("09", 0.5f);
-        windowBars[whichWindow].GetComponent<Animator>().enabled = true;
+        windowBars[whichWindow].GetComponent<Animator>().Play("Close");
         if (UpdateProgress("window1"))
         {
             if (multiObjectives.Count == 0)
