@@ -733,44 +733,44 @@ public class ObjectiveManager : MonoBehaviour
 
             /*************          WHISPERS           *************/
             case "w01":
-                dialogueMessage = "One day I will take you to the highest skyscraper there is. " +
-                                  "We will sleep on the rooftop under a blanket of stars. " +
-                                  "Feel the world spinning. " +
-                                  "Stare into the eternity of the Universe. " +
-                                  "Like the freest man alive, without the worries of the world underneath us.";
+                //dialogueMessage = "One day I will take you to the highest skyscraper there is. " +
+                //                  "We will sleep on the rooftop under a blanket of stars. " +
+                //                  "Feel the world spinning. " +
+                //                  "Stare into the eternity of the Universe. " +
+                //                  "Like the freest man alive, without the worries of the world underneath us.";
                 break;
             case "w02":
-                dialogueMessage = "Will you come with me? Do you trust me? Let’s run away.";
+                //dialogueMessage = "Will you come with me? Do you trust me? Let’s run away.";
                 break;
             case "w03":
-                dialogueMessage = "Your father was the kindest man I had ever met. I really, really miss him. I’m lucky to have you. You have the same eyes as him.";
+                //dialogueMessage = "Your father was the kindest man I had ever met. I really, really miss him. I’m lucky to have you. You have the same eyes as him.";
                 break;
             case "w04":
-                dialogueMessage = "I told you many times, your teeth will rot and decay and blacken " +
-                                  "and fill with worms and fall all over the floor if you don’t take care of them. " +
-                                  "Now go wash your teeth. I will check when it’s time to sleep.";
+                //dialogueMessage = "I told you many times, your teeth will rot and decay and blacken " +
+                //                  "and fill with worms and fall all over the floor if you don’t take care of them. " +
+                //                  "Now go wash your teeth. I will check when it’s time to sleep.";
                 break;
             case "w05":
-                dialogueMessage = "Oh my God, there you are!! Why were you hiding?!?!? Come back out and stop crying! " +
-                                  "Don’t you ever dare hide from me again!\r\n(loving tone) I love you.";
+                //dialogueMessage = "Oh my God, there you are!! Why were you hiding?!?!? Come back out and stop crying! " +
+                //                  "Don’t you ever dare hide from me again!\r\n(loving tone) I love you.";
                 break;
             case "w06":
-                dialogueMessage = "How could you.";
+                //dialogueMessage = "How could you.";
                 break;
             case "w07":
-                dialogueMessage = "Come inside";
+                //dialogueMessage = "Come inside";
                 break;
             case "w08":
-                dialogueMessage = "It’s coming to get you";
+                //dialogueMessage = "It’s coming to get you";
                 break;
             case "w09":
-                dialogueMessage = "Run";
+                //dialogueMessage = "Run";
                 break;
             case "w10":
-                dialogueMessage = "Do you remember what you’ve done?";
+                //dialogueMessage = "Do you remember what you’ve done?";
                 break;
             case "w11":
-                dialogueMessage = "They don’t understand.";
+                //dialogueMessage = "They don’t understand.";
                 break;
             default:
                 Debug.LogError("Invalid voiceline: " + filename);
