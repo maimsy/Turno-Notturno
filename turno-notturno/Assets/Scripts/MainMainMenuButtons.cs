@@ -114,6 +114,8 @@ public class MainMainMenuButtons : MonoBehaviour
     public void StartGame()
     {
         isFade = true;
+        GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
+        PlayerPrefs.SetInt("GameState", -1);
     }
 
     // Update is called once per frame
