@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class EnvironmentMove : MonoBehaviour
 {
@@ -153,7 +154,11 @@ public class EnvironmentMove : MonoBehaviour
 
     public void SmoothReset()
     {
-        Debug.Log("smoothReset");
+        StudioEventEmitter sound = GameObject.Find("BirthSound").GetComponent<StudioEventEmitter>();
+        if (!sound.IsPlaying())
+        {
+            sound.Play();
+        }
         if (state == MinigameState.falling) return;  // Reset already in progress
         fallFollowVelocity = Vector3.zero;
         speedUp = 1f;
@@ -166,11 +171,9 @@ public class EnvironmentMove : MonoBehaviour
 
     private void Reset()
     {
-        
         state = MinigameState.playing;
         GameObject start = GameObject.Find("PlayerSpawn");
         playerMovement.transform.position = start.transform.position;
-        Debug.Log("Reset ");
         transform.position = originalPos;
         transform.position += new Vector3(0, 10, 0);
         playerMovement.GetComponent<CircleCollider2D>().isTrigger = false;

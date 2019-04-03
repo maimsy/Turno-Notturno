@@ -376,7 +376,7 @@ public class ObjectiveManager : MonoBehaviour
 
     private void BleachFall()
     {
-        GameObject.Find("bleachFall").GetComponent<StudioEventEmitter>().enabled = true;
+        GameObject.Find("bleachFall").GetComponent<StudioEventEmitter>().Play();
     }
 
     //player arrives to the storage room
