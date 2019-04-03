@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 2
+  m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 9669016cef2004f49b36b65d5a0c4d55, type: 2}
@@ -2000,6 +2000,7 @@ Transform:
   - {fileID: 881035379}
   - {fileID: 1978524968}
   - {fileID: 2079207358}
+  - {fileID: 1435465257}
   m_Father: {fileID: 0}
   m_RootOrder: 113
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4805,6 +4806,75 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5914240946979943145}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1435465256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1435465257}
+  - component: {fileID: 1435465258}
+  m_Layer: 0
+  m_Name: light_storage_01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1435465257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435465256}
+  m_LocalRotation: {x: 0.058263563, y: 0.14467697, z: 0.74211276, w: 0.6518764}
+  m_LocalPosition: {x: 7.62, y: 37.35, z: -8.13}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 547368977}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: -7.977, y: 16.128, z: 96.276}
+--- !u!108 &1435465258
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435465256}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 22
+  m_Range: 4
+  m_SpotAngle: 93
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 1
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 2
+  m_ColorTemperature: 3949
+  m_UseColorTemperature: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1001 &1456273528
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8042,7 +8112,7 @@ Light:
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 8
+  m_BounceIntensity: 10
   m_ColorTemperature: 5672
   m_UseColorTemperature: 1
   m_ShadowRadius: 0
@@ -8323,7 +8393,7 @@ Light:
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 8
+  m_BounceIntensity: 10
   m_ColorTemperature: 5578
   m_UseColorTemperature: 1
   m_ShadowRadius: 0
