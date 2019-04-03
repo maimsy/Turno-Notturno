@@ -555,22 +555,22 @@ public class ObjectiveManager : MonoBehaviour
         switch (filename)
         {
             case "01":
-                dialogueMessage = "Ugh...what the...?";
+                dialogueMessage = "... a dream?";
                 break;
             case "02":
-                dialogueMessage = "Why the hell is the alarm on…? Did someone break in?";
+                dialogueMessage = "Wait… someone broke in?";
                 break;
             case "03":
-                dialogueMessage = "Uhh, my head is gonna split open from this bloody sound!";
+                dialogueMessage = "03"; // Empty in latest script
                 break;
             case "04":
-                dialogueMessage = "Finally. What could have caused this?";
+                dialogueMessage = "It’s not supposed to be on… What if it’s damaged";
                 break;
             case "05":
-                dialogueMessage = "Hngggh…";
+                dialogueMessage = "05"; // Empty in latest script
                 break;
             case "06":
-                dialogueMessage = "Someone’s been messing with this. It’s not supposed to be on";
+                dialogueMessage = "What… what was that?\r\nA-anyways [stuttering], I should go secure the place";
                 break;
             case "06a":
                 dialogueMessage = "Comment on color";
@@ -585,61 +585,142 @@ public class ObjectiveManager : MonoBehaviour
                 dialogueMessage = "Comment on spiral";
                 break;
             case "07":
-                dialogueMessage = "Why would you break in and not steal the art? Such a waste of fine criminal activity";
+                dialogueMessage = "07"; // Empty in latest script
                 break;
             case "08":
-                dialogueMessage = "I guess I should check the doors and windows.";
+                dialogueMessage = "08"; // Empty in latest script
                 break;
             case "09":
-                dialogueMessage = "Why did they only mess that one artwork...it’s not like it’s that great.";
+                dialogueMessage = "It’s weird only one room was activated. I guess whoever it was got scared by the alarm and fled?... what a weird thief";
                 break;
             case "10":
-                dialogueMessage = "Why is the door open? I’m sure I locked it earlier.";
+                dialogueMessage = "I’m sure I locked the door when I arrived";
                 break;
             case "11":
-                dialogueMessage = "Ugh...not again!";
+                dialogueMessage = "Ugh...what is happening!!";
                 break;
             case "12":
-                dialogueMessage = "Where did I leave my pills…?";
+                dialogueMessage = "*gulping sound*";
                 break;
+
+            /*************          ACT 2           *************/
             case "13":
-                dialogueMessage = "*gulping sound for eating pills*";
+                dialogueMessage = "Haah! What? What the fuck. (intimidated tone)\r\nWhy am I here? (low voice, breathing)";
                 break;
             case "14":
-                dialogueMessage = "Haah! What? Where am I?";
+                dialogueMessage = "Again?";
                 break;
             case "15":
-                dialogueMessage = "What the fuck.";
+                dialogueMessage = "15"; // Empty in latest script
                 break;
             case "16":
-                dialogueMessage = "So there is someone in here";
+                dialogueMessage = "16"; // Empty in latest script
                 break;
             case "17":
-                dialogueMessage = "Gotcha. I'll teach you not to mess with me.";
+                dialogueMessage = "This isn’t funny...";
                 break;
             case "18":
-                dialogueMessage = "Where are you hiding you little rat...";
+                dialogueMessage = "Stop… [shaking]";
                 break;
             case "19":
-                dialogueMessage = "What is this smell?";
+                dialogueMessage = "What was that? It sounds like it came from downstairs";
                 break;
             case "20":
-                dialogueMessage = "Whispers";
+                dialogueMessage = "That door wasn’t open before...";
                 break;
             case "21":
-                dialogueMessage = "Unknown voice: It's coming to get you";
+                dialogueMessage = "Is that… (confused, little surprised)";
                 break;
             case "22":
-                dialogueMessage = "Unknown voice: Run";
+                dialogueMessage = "22"; // Empty in latest script
                 break;
             case "23":
-                dialogueMessage = "Shit";
+                dialogueMessage = "Stop, stop! Please stop! I can’t take it anymore. I’m sorry, I’m sorry, I’m sorry...\r\n...What is this smell…? Ammonia?\r\n";
                 break;
+
+
+            /*************          ACT 3           *************/
             case "24":
-                dialogueMessage = "Hey, it's me. There's something weird going on. I need help";
+                dialogueMessage = "24"; // Empty in latest script
                 break;
             case "25":
-                dialogueMessage = "There's someone here, hur-";
+                dialogueMessage = "(heavy breathing) … Still having those weird dreams….";
+                break;
+            case "26":
+                dialogueMessage = "What the hell. I’m tired of this.\r\n(shouting) Wherever you are, come out!!";
+                break;
+            case "27":
+                dialogueMessage = "27"; // Empty in latest script
+                break;
+            case "28":
+                dialogueMessage = "...";
+                break;
+            case "29":
+                dialogueMessage = "29"; // Empty in latest script
+                break;
+            case "30":
+                dialogueMessage = "*panicked breathing of the guard*";
+                break;
+            case "31":
+                dialogueMessage = "31"; // Empty in latest script
+                break;
+            case "32":
+                dialogueMessage = "Shit!";
+                break;
+            case "33":
+                dialogueMessage = "Something different here too";
+                break;
+            case "34":
+                dialogueMessage = "34"; // Empty in latest script
+                break;
+            case "35":
+                dialogueMessage = "Hey, it’s me. There’s something weird going on. I need help.";
+                break;
+            case "36":
+                dialogueMessage = "There’s someone here, hur-";
+                break;
+
+
+            /*************          WHISPERS           *************/
+            case "W01":
+                dialogueMessage = "One day I will take you to the highest skyscraper there is. " +
+                                  "We will sleep on the rooftop under a blanket of stars. " +
+                                  "Feel the world spinning. " +
+                                  "Stare into the eternity of the Universe. " +
+                                  "Like the freest man alive, without the worries of the world underneath us.";
+                break;
+            case "W02":
+                dialogueMessage = "Will you come with me? Do you trust me? Let’s run away.";
+                break;
+            case "W03":
+                dialogueMessage = "Your father was the kindest man I had ever met. I really, really miss him. I’m lucky to have you. You have the same eyes as him.";
+                break;
+            case "W04":
+                dialogueMessage = "I told you many times, your teeth will rot and decay and blacken " +
+                                  "and fill with worms and fall all over the floor if you don’t take care of them. " +
+                                  "Now go wash your teeth. I will check when it’s time to sleep.";
+                break;
+            case "W05":
+                dialogueMessage = "Oh my God, there you are!! Why were you hiding?!?!? Come back out and stop crying! " +
+                                  "Don’t you ever dare hide from me again!\r\n(loving tone) I love you.";
+                break;
+            case "W06":
+                dialogueMessage = "How could you.";
+                break;
+            case "W07":
+                dialogueMessage = "Come inside";
+                break;
+            case "W08":
+                dialogueMessage = "It’s coming to get you";
+                break;
+            case "W09":
+                dialogueMessage = "Run";
+                break;
+            case "W10":
+                dialogueMessage = "Do you remember what you’ve done?";
+                break;
+            case "W11":
+                dialogueMessage = "They don’t understand.";
                 break;
             default:
                 Debug.LogError("Invalid voiceline: " + filename);
