@@ -13,6 +13,8 @@ public class ObjectiveManager : MonoBehaviour
     private GameObject objectivePredab;
     private Dictionary<string, Objective> objectives;
     private float delayTime = 2;
+
+    private bool w01Played = false;
     
     // Start is called before the first frame update
     void Start()
@@ -60,8 +62,8 @@ public class ObjectiveManager : MonoBehaviour
             if (animator) animator.Play("ForceOpen");
         }
 
-        PlayDialogue("01", 2f, abortPrevious: false);
-        PlayDialogue("02", 6f, abortPrevious: false);
+        PlayDialogue("01", 1f, abortPrevious: false);
+        PlayDialogue("02", 3f, abortPrevious: false);
         //PlayDialogue("03", 20f, abortPrevious: false);
         AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
@@ -78,8 +80,8 @@ public class ObjectiveManager : MonoBehaviour
     // set up objectives for act 2
     private void Act2()
     {
-        PlayDialogue("14", 2f, abortPrevious: false);
-        PlayDialogue("15", 6f, abortPrevious: false);
+        PlayDialogue("13", 2f, abortPrevious: false);
+        PlayDialogue("14", 5f, abortPrevious: false);
         StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
 
         GameObject obj = GetObject("WakeUpPosition_Act2");
@@ -198,7 +200,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("room1"))
         {
-            PlayDialogue("03", 0f);
+            //PlayDialogue("03", 0f);
             Invoke("Room1Objectives",delayTime);
 
         }
@@ -232,7 +234,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("artpiece1"))
         {
-            PlayDialogue("06", 0.5f);
+            PlayDialogue("04", 0.0f);
             Invoke("AddClue1Objectives", delayTime);
         }
     }
@@ -247,15 +249,21 @@ public class ObjectiveManager : MonoBehaviour
     public void InspectClues1(int propertyType)
     {
         PropertyType property = (PropertyType)propertyType;
-        if (property == PropertyType.Color) PlayDialogue("06a", 0.5f);
+        /*if (!w01Played)
+        {
+            PlayDialogue("w01", 0.5f);
+            w01Played = true;
+        }*/
+        /*if (property == PropertyType.Color) PlayDialogue("w01", 0.5f);
         if (property == PropertyType.Theme) PlayDialogue("06b", 0.5f);
         if (property == PropertyType.Material) PlayDialogue("06c", 0.5f);
-        if (property == PropertyType.Special) PlayDialogue("06d", 0.5f);
+        if (property == PropertyType.Special) PlayDialogue("06d", 0.5f);*/
         if (UpdateProgress("clue1"))
         {
             if (multiObjectives.Count == 0)
             {
-                Locking();
+                PlayDialogue("w01", 0.5f);
+                Invoke("Locking", 4f);
             }
         }
     }
@@ -263,6 +271,7 @@ public class ObjectiveManager : MonoBehaviour
     //Start the locking objectives
     public void Locking()
     {
+        PlayDialogue("06", 0f);
         StartCoroutine(NewObjective("window1", "Secure the windows", windowBars.Count, delayTime));
         StartCoroutine(NewObjective("door1", "Check the main door", 1, delayTime));
         string[] names = { "window1", "door1" };
@@ -280,7 +289,7 @@ public class ObjectiveManager : MonoBehaviour
     //One window was locked
     public void LockWindow(int whichWindow)
     {
-        if (whichWindow == 0) PlayDialogue("07", 0.5f);
+        //if (whichWindow == 0) PlayDialogue("07", 0.5f);
         if (whichWindow == 1) PlayDialogue("09", 0.5f);
         windowBars[whichWindow].GetComponent<Animator>().Play("Close");
         if (UpdateProgress("window1"))
@@ -311,13 +320,13 @@ public class ObjectiveManager : MonoBehaviour
 
     void AddPillObjective()
     {
-        float migraineDelay = 6f;
+        float migraineDelay = 10f;
         MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
         if (migraine) migraine.StartMigrainDelayed(migraineDelay);
 
         StartCoroutine(NewObjective("pills1", "Find migraine pills in guard room", 1, migraineDelay + delayTime));
-        PlayDialogue("11", migraineDelay);
-        PlayDialogue("12", migraineDelay + 3f);
+        PlayDialogue("w02", migraineDelay);
+        PlayDialogue("11", migraineDelay + 3f);
         Invoke("PillsInteractable", migraineDelay + delayTime);
     }
     private void PillsInteractable()
@@ -332,7 +341,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("pills1"))
         {
-            PlayDialogue("13", 0f);
+            PlayDialogue("12", 0f);
             //fall asleep for act 2 minigame 
             GameObject obj = GetObject("FadeOut");
             if (obj) obj.GetComponent<FadeIn>().enabled = true;
@@ -682,44 +691,44 @@ public class ObjectiveManager : MonoBehaviour
 
 
             /*************          WHISPERS           *************/
-            case "W01":
+            case "w01":
                 dialogueMessage = "One day I will take you to the highest skyscraper there is. " +
                                   "We will sleep on the rooftop under a blanket of stars. " +
                                   "Feel the world spinning. " +
                                   "Stare into the eternity of the Universe. " +
                                   "Like the freest man alive, without the worries of the world underneath us.";
                 break;
-            case "W02":
+            case "w02":
                 dialogueMessage = "Will you come with me? Do you trust me? Let’s run away.";
                 break;
-            case "W03":
+            case "w03":
                 dialogueMessage = "Your father was the kindest man I had ever met. I really, really miss him. I’m lucky to have you. You have the same eyes as him.";
                 break;
-            case "W04":
+            case "w04":
                 dialogueMessage = "I told you many times, your teeth will rot and decay and blacken " +
                                   "and fill with worms and fall all over the floor if you don’t take care of them. " +
                                   "Now go wash your teeth. I will check when it’s time to sleep.";
                 break;
-            case "W05":
+            case "w05":
                 dialogueMessage = "Oh my God, there you are!! Why were you hiding?!?!? Come back out and stop crying! " +
                                   "Don’t you ever dare hide from me again!\r\n(loving tone) I love you.";
                 break;
-            case "W06":
+            case "w06":
                 dialogueMessage = "How could you.";
                 break;
-            case "W07":
+            case "w07":
                 dialogueMessage = "Come inside";
                 break;
-            case "W08":
+            case "w08":
                 dialogueMessage = "It’s coming to get you";
                 break;
-            case "W09":
+            case "w09":
                 dialogueMessage = "Run";
                 break;
-            case "W10":
+            case "w10":
                 dialogueMessage = "Do you remember what you’ve done?";
                 break;
-            case "W11":
+            case "w11":
                 dialogueMessage = "They don’t understand.";
                 break;
             default:
