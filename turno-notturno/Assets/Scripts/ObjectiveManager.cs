@@ -81,7 +81,7 @@ public class ObjectiveManager : MonoBehaviour
     private void Act2()
     {
         PlayDialogue("13", 2f, abortPrevious: false);
-        PlayDialogue("14", 5f, abortPrevious: false);
+        PlayDialogue("14", 7f, abortPrevious: false);
         StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
 
         GameObject obj = GetObject("WakeUpPosition_Act2");
@@ -222,7 +222,6 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("alarm1"))
         {
-            PlayDialogue("04", 0f);
             if (multiObjectives.Count == 0)
             {
                 Locking();
@@ -435,7 +434,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         GameObject obj = GetObject("bleachFall");
         if (obj) obj.GetComponent<StudioEventEmitter>().Play();
-        PlayDialogue("19", 7f, abortPrevious: false);
+        PlayDialogue("19", 1f, abortPrevious: false);
     }
 
     //player arrives to the storage room
@@ -514,7 +513,7 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("30", 3f, abortPrevious: false);
         PlayDialogue("w09", 4f, abortPrevious: false);
         //panic breathing effect after the dialogue
-        PlayDialogue("22", 6f, abortPrevious: false);
+        //PlayDialogue("22", 6f, abortPrevious: false);
         GameObject obj = GetObject("door_02_group");
         if (obj) obj.GetComponent<Interactable>().SetTooltip("Escape");
         obj = GetObject("door_03_group");
