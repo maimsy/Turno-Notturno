@@ -94,7 +94,7 @@ public class ObjectiveManager : MonoBehaviour
         if (obj)
         {
             obj.GetComponent<Door>().locked = false;
-            obj.GetComponent<Door>().UpdateTooltip();
+            //obj.GetComponent<Door>().UpdateTooltip();
         }
         obj = GetObject("RoomTrigger2");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
@@ -127,7 +127,7 @@ public class ObjectiveManager : MonoBehaviour
         if (obj)
         {
             obj.GetComponent<Door>().locked = false;
-            obj.GetComponent<Door>().UpdateTooltip();
+            //obj.GetComponent<Door>().UpdateTooltip();
         }
         Vector3 pos = Vector3.zero;
         obj = GetObject("FlashLightPos_Act3");
@@ -180,9 +180,15 @@ public class ObjectiveManager : MonoBehaviour
         
     }
 
+    public bool IsObjectiveActive(string name)
+    {
+        return objectives.ContainsKey(name);
+    }
+
     public bool UpdateProgress(string name)
     {
-        if(objectives.ContainsKey(name)){
+        if(IsObjectiveActive(name))
+        {
             if (objectives[name].UpdateProgress(1))
             {
                 StartCoroutine(RemoveObjective(name));

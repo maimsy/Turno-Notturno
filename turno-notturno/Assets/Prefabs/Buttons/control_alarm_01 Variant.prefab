@@ -13,24 +13,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.18, y: 0.26313218, z: 0.020000001}
   m_Center: {x: -5.144555e-33, y: 0.04156609, z: 0}
---- !u!114 &3206110802427731414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5731401834992054612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c99e24f316af8754ebc98703b30a2856, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggersOnce: 0
-  tooltip: 
-  interactionDisabledTooltip: Alarm control panel (Inactive)
-  interactionEvents: []
-  isInteractable: 0
-  soundEmitter: {fileID: 6809143057226391237}
 --- !u!114 &6809143057226391237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,6 +36,30 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &89800291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5731401834992054612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33a527b5ad8b05242a9302959d8a497c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  soundEmitter: {fileID: 6809143057226391237}
+  triggersOnce: 0
+  isEnabled: 0
+  enabledTooltip: Turn off alarm
+  disabledTooltip: Alarm control panel (Inactive)
+  requireObjective: 0
+  objective: 
 --- !u!1001 &5731401834992023540
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69,6 +75,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: e3ecf47accbac974ba514506ece30e4c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
     - target: {fileID: 400000, guid: e3ecf47accbac974ba514506ece30e4c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.161826
@@ -125,10 +135,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.09
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: e3ecf47accbac974ba514506ece30e4c, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3ecf47accbac974ba514506ece30e4c, type: 3}
 --- !u!1 &5731401834992054612 stripped
