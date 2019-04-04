@@ -54,6 +54,19 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!65 &4654155248282150045
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4603253116450572273}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5558636, y: 2.98, z: 0.12883075}
+  m_Center: {x: 0.76593673, y: 1.5, z: 0.025681004}
 --- !u!54 &5301782146863322154
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -101,12 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79a2336c02401794a9f1fea1b5fa9d73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggersOnce: 0
-  tooltip: Close door
-  interactionDisabledTooltip: 
-  interactionEvents: []
-  isInteractable: 1
-  soundEmitter: {fileID: 0}
+  openTooltip: close door
   closedTooltip: Open door
   lockedTooltip: Open door (locked)
   openingTime: 1
@@ -117,19 +125,6 @@ MonoBehaviour:
   closeDoorSound: {fileID: 7047702957639772375}
   openDoorSound: {fileID: 6463069587107328164}
   lockedDoorSound: {fileID: 3622301420709539101}
---- !u!65 &4654155248282150045
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4603253116450572273}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5558636, y: 2.98, z: 0.12883075}
-  m_Center: {x: 0.76593673, y: 1.5, z: 0.025681004}
 --- !u!65 &6145771207935816545
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -260,7 +255,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100002, guid: 94730a426026e7f40bb4ed0acf065f3a, type: 3}
       propertyPath: m_Name
-      value: door_04_group Variant
+      value: door_04_group
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 94730a426026e7f40bb4ed0acf065f3a, type: 3}
       propertyPath: m_Layer

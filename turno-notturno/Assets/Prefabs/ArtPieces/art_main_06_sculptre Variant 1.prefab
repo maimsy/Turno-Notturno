@@ -16,6 +16,41 @@ MonoBehaviour:
   degreesPerSecond: 45
   maxDistanceFromCamera: 6
   minDistanceFromCamera: 0.5
+--- !u!114 &277003598152100461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277003598884229194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f864aadcc9947049949f268f5cc554c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inspectDistance: 1
+  inspectSpeed: 0.05
+  maxZoom: 0.4
+  inspectDirection: 1
+  flipDirection: 0
+  displayName: artwork
+  objectiveEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: InspectPainting3
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  objective: artpiece3
 --- !u!65 &5665805633478664750
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38,7 +73,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100012, guid: e03ff915c66f6c740836aea2a65052fb, type: 3}
       propertyPath: m_Name
-      value: art_main_06_sculptre Variant 1
+      value: art_main_06_sculptre
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: e03ff915c66f6c740836aea2a65052fb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -136,8 +171,7 @@ PrefabInstance:
       propertyPath: m_RootBone
       value: 
       objectReference: {fileID: 277003598883736676}
-    m_RemovedComponents:
-    - {fileID: 9500000, guid: e03ff915c66f6c740836aea2a65052fb, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e03ff915c66f6c740836aea2a65052fb, type: 3}
 --- !u!1 &277003598884229194 stripped
 GameObject:

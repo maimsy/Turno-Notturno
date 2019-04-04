@@ -54,7 +54,7 @@ public class ObjectiveManager : MonoBehaviour
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         obj = GetObject("art_main_01_sculptre");
         if (obj) obj.GetComponentInChildren<Rotate>().StartRotation();
-
+        SetMainDoorTooltip("Main doors");
 
         foreach (GameObject windowBar in windowBars)
         {
@@ -127,6 +127,7 @@ public class ObjectiveManager : MonoBehaviour
         if (obj)
         {
             obj.GetComponent<Door>().locked = false;
+            obj.GetComponent<Door>().Open();
             //obj.GetComponent<Door>().UpdateTooltip();
         }
         Vector3 pos = Vector3.zero;
@@ -136,7 +137,7 @@ public class ObjectiveManager : MonoBehaviour
         if (obj)
         {
             obj.transform.position = pos;
-            obj.GetComponent<Interactable>().isInteractable = true;
+            //obj.GetComponent<Interactable>().isInteractable = true;
         }
         AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
@@ -283,6 +284,7 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("door1", "Check the main door", 1, delayTime));
         string[] names = { "window1", "door1" };
         MultiObjective(names);
+        SetMainDoorTooltip("Lock main doors");
         GameObject obj;
         //GameObject obj = GetObject("control_windows_01");
         //if (obj) obj.GetComponent<Interactable>().isInteractable = true;
@@ -314,6 +316,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("door1"))
         {
+            SetMainDoorTooltip("");
             PlayDialogue("10", 0.5f);
             if (multiObjectives.Count == 0)
             {
@@ -335,14 +338,8 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("pills1", "Find migraine pills in guard room", 1, migraineDelay + delayTime));
         PlayDialogue("w02", migraineDelay);
         PlayDialogue("11", migraineDelay + 3f);
-        Invoke("PillsInteractable", migraineDelay + delayTime);
     }
-    private void PillsInteractable()
-    {
-        GameObject obj = GetObject("bottle_pill_01");
-        if (obj)
-            obj.GetComponent<Interactable>().isInteractable = true;
-    }
+
 
     //player takes pills
     public void TakePills()
@@ -375,7 +372,7 @@ public class ObjectiveManager : MonoBehaviour
         string[] names = { "alarm2", "artpiece2" };
         MultiObjective(names);
         GameObject obj = GetObject("control_alarm_04");
-        if (obj) obj.GetComponent<Interactable>().isInteractable = true;
+        //if (obj) obj.GetComponent<Interactable>().isInteractable = true;
     }
 
     //player inspects one of the paintings
@@ -432,8 +429,13 @@ public class ObjectiveManager : MonoBehaviour
 
     private void StorageRoomSetUp()
     {
+        GameObject obj = GetObject("door_04_group");
+        if (obj)
+        {
+            // Open door immediately, so the player wont see it opening
+            obj.GetComponent<Door>().Open();
+        }
         StartCoroutine(NewObjective("storage", "Check the storage room", 1, 8f));
-        
         Invoke("BleachFall", 6f);
     }
 
@@ -474,7 +476,7 @@ public class ObjectiveManager : MonoBehaviour
         string[] names = { "alarm3", "artpiece3" };
         MultiObjective(names);
         GameObject obj = GetObject("control_alarm_05");
-        if(obj) obj.GetComponent<Interactable>().isInteractable = true;
+        //if(obj) obj.GetComponent<Interactable>().isInteractable = true;
     }
 
     public void TurnOffAlarm3()
@@ -521,10 +523,7 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("w09", 4f, abortPrevious: false);
         //panic breathing effect after the dialogue
         //PlayDialogue("22", 6f, abortPrevious: false);
-        GameObject obj = GetObject("door_02_group");
-        if (obj) obj.GetComponent<Interactable>().SetTooltip("Escape");
-        obj = GetObject("door_03_group");
-        if (obj) obj.GetComponent<Interactable>().SetTooltip("Escape");
+        SetMainDoorTooltip("Escape");
         StartCoroutine(NewObjective("leave", "Leave the museum", 1, 5f));
     }
 
@@ -808,6 +807,14 @@ public class ObjectiveManager : MonoBehaviour
         {
             Debug.LogError(name + " is missing!");
             return null;
+        }
+    }
+
+    private void SetMainDoorTooltip(string tooltip)
+    {
+        foreach (MainDoor door in FindObjectsOfType<MainDoor>())
+        {
+            door.forcedTooltip = tooltip;
         }
     }
 }
