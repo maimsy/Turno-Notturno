@@ -24,7 +24,7 @@ public class Button : BaseInteractable
 
     public override void Interact()
     {
-        if (GetActive())
+        if (IsInteractable())
         {
             if (soundEmitter) soundEmitter.Play();
             interactionEvent.Invoke();
@@ -34,7 +34,7 @@ public class Button : BaseInteractable
 
     public override string GetTooltip()
     {
-        if (GetActive())
+        if (IsInteractable())
         {
             return enabledTooltip;
         }
@@ -44,7 +44,7 @@ public class Button : BaseInteractable
         }
     }
 
-    private bool GetActive()
+    public override bool IsInteractable()
     {
         return isEnabled && GetObjectiveActive();
     }

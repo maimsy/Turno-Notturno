@@ -90,9 +90,9 @@ public class Player : Character
             if (interactable != null)
             {
                 String tooltip = interactable.GetTooltip();
-                if (tipString.Length > 0)
+                if (tipString.Length > 0 && interactable.IsInteractable())
                 {
-                    // Force lowercase first letter 
+                    // Add tooltip and force lowercase first letter 
                     if (tooltip.Length > 0) tooltip = char.ToLower(tooltip[0]) + tooltip.Substring(1);
                     tooltip = tipString + tooltip;
                 }
@@ -106,7 +106,7 @@ public class Player : Character
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
                     interactable.Interact();
-                    tipString = "";
+                    if (interactable.IsInteractable()) tipString = "";
                 }
             }
 

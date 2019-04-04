@@ -31,4 +31,9 @@ public class ArtworkRotateControl : BaseInteractable
             return "Broken plz fix";
         }
     }
+
+    public override bool IsInteractable()
+    {
+        return true;
+    }
 }

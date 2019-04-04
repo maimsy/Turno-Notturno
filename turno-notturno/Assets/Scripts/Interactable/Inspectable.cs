@@ -223,6 +223,11 @@ public class Inspectable : BaseInteractable
         return "Inspect " + displayName;
     }
 
+    public override bool IsInteractable()
+    {
+        return true;
+    }
+
     public void StartInspect()
     {
         //center = transform.position;

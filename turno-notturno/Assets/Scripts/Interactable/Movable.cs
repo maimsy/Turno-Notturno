@@ -101,6 +101,11 @@ public class Movable : BaseInteractable
         return "";
     }
 
+    public override bool IsInteractable()
+    {
+        return true;
+    }
+
     public override void HighLight()
     {
         if (!playerIsHolding) base.HighLight();

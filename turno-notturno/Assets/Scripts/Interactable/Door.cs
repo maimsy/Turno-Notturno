@@ -147,4 +147,9 @@ public class Door : BaseInteractable
         else tooltip = openTooltip;
         return tooltip;
     }
+
+    public override bool IsInteractable()
+    {
+        return true;
+    }
 }

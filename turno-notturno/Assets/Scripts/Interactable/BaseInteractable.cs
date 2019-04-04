@@ -38,6 +38,8 @@ public abstract class BaseInteractable : MonoBehaviour
 
     public abstract String GetTooltip();
 
+    public abstract bool IsInteractable();
+
     public virtual void HighLight()
     {
         if (highlightRenderer) highlightRenderer.material.shader = highLightShader;
