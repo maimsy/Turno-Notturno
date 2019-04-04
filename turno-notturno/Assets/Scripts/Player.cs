@@ -85,23 +85,28 @@ public class Player : Character
         if (Physics.Raycast(ray, out hit, maxInteractDistance, mask)) 
         {
             GameObject objectHit = hit.transform.gameObject;
-            Interactable interactable = objectHit.GetComponent<Interactable>();
-            if (!interactable) interactable = objectHit.GetComponentInParent<Interactable>();
+            BaseInteractable interactable = objectHit.GetComponent<BaseInteractable>();
+            if (!interactable) interactable = objectHit.GetComponentInParent<BaseInteractable>();
             if (interactable != null)
             {
-                if(interactable.isInteractable)
+                String tooltip = interactable.GetTooltip();
+                if (tipString.Length > 0)
                 {
-                    interactable.HighLight();
-                    if (interactTooltip) interactTooltip.text = tipString + interactable.GetTooltip();
-                    if (Input.GetKeyDown(KeyCode.Mouse0))
-                    {
-                        interactable.OnInteract();
-                        tipString = "";
-                    }
+                    // Force lowercase first letter 
+                    tooltip = char.ToLower(tooltip[0]) + tooltip.Substring(1);
+                    tooltip = tipString + tooltip;
                 }
                 else
                 {
-                    if (interactTooltip) interactTooltip.text = interactable.GetTooltip();
+                    // Force uppercase first letter 
+                    tooltip = char.ToUpper(tooltip[0]) + tooltip.Substring(1);
+                }
+                interactable.HighLight();
+                if (interactTooltip) interactTooltip.text = tooltip;
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    interactable.Interact();
+                    tipString = "";
                 }
             }
 

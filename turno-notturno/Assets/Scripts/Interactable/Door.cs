@@ -5,8 +5,9 @@ using FMODUnity;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Door : Interactable
+public class Door : BaseInteractable
 {
+    [SerializeField] String openTooltip = "close door";
     [SerializeField] String closedTooltip = "open door";
     [SerializeField] String lockedTooltip = "open door (locked)";
     public float openingTime = 1f;
@@ -25,9 +26,9 @@ public class Door : Interactable
     private Animator animator;
     
 
-    void Awake()
+    protected override void Awake()
     {
-        originalTooltip = tooltip;
+        base.Awake();
         animator = GetComponent<Animator>();
         if (!animator) Debug.LogError("Door does not have animation!");
         rbody = GetComponent<Rigidbody>();
@@ -35,8 +36,6 @@ public class Door : Interactable
         rbody.useGravity = false;
         moving = false;
         originalPosition = transform.position;
-        UpdateTooltip();
-        
     }
 
     void FixedUpdate()
@@ -123,40 +122,29 @@ public class Door : Interactable
             }
             else
             {
+                if (moving == false)
+                {
+                    // Only play animation/sound if the door was completely closed
+                    if (animator) animator.Play("DoorHandleOpen");
+                    if (openDoorSound) openDoorSound.Play();
+                }
                 Open();
-                if (animator) animator.Play("DoorHandleOpen");
-                if (openDoorSound) openDoorSound.Play();
             }
         }
         else Close();
-
-        UpdateTooltip();
     }
 
-    public override void OnInteract()
+    public override void Interact()
     {
         ToggleDoor();
-        base.OnInteract();
     }
 
-    public void UpdateTooltip()
-    {
-        if (closed && locked) tooltip = lockedTooltip;
-        else if (closed) tooltip = closedTooltip;
-        else tooltip = originalTooltip;
-    }
-
-    /*
     public override string GetTooltip()
     {
-        if (closed && locked) return lockedTooltip;
-        else if (closed) return closedTooltip;
+        String tooltip;
+        if (closed && locked) tooltip = lockedTooltip;
+        else if (closed) tooltip = closedTooltip;
+        else tooltip = openTooltip;
         return tooltip;
-    }
-    */
-
-    void Reset()
-    {
-        tooltip = "close door";
     }
 }
