@@ -18,6 +18,7 @@ public class AlarmManager : MonoBehaviour
     {
         public GameObject light;
         public GameObject sound;
+        public GameObject alarmLight;
         public Material alarmMinimap;
     }
 
@@ -95,6 +96,7 @@ public class AlarmManager : MonoBehaviour
         if (rotate) rotate.StartRotation();
         if (alarmSystem.light) alarmSystem.light.SetActive(true);
         if (alarmSystem.sound) alarmSystem.sound.SetActive(true);
+        if (alarmSystem.alarmLight) alarmSystem.alarmLight.SetActive(true);
         alarmMinimap = alarmSystem.alarmMinimap;
     }
 
@@ -104,5 +106,6 @@ public class AlarmManager : MonoBehaviour
         if (rotate) rotate.StopRotation();
         if (alarmSystem.light) alarmSystem.light.SetActive(false);
         if (alarmSystem.sound) alarmSystem.sound.SetActive(false);
+        if (alarmSystem.alarmLight) alarmSystem.alarmLight.SetActive(false);
     }
 }
