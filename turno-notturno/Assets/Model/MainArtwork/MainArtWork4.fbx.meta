@@ -1,43 +1,15 @@
 fileFormatVersion: 2
-guid: e03ff915c66f6c740836aea2a65052fb
+guid: f9e20bcd5465a8b438e837f2e075ed2a
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Base
-    100002: joint0
-    100004: joint1
-    100006: joint2
-    100008: joint3
-    100010: joint4
-    100012: //RootNode
-    100014: MainArtwork4
-    100016: Mouth
-    100018: Part1
-    100020: Part2
-    400000: Base
-    400002: joint0
-    400004: joint1
-    400006: joint2
-    400008: joint3
-    400010: joint4
-    400012: //RootNode
-    400014: MainArtwork4
-    400016: Mouth
-    400018: Part1
-    400020: Part2
-    2100000: lambert1
-    2100002: lambert8
-    2100004: blinn1
-    4300000: Base
-    4300002: Part1
-    4300004: Part2
-    4300006: Mouth
-    9500000: //RootNode
-    13700000: Base
-    13700002: Mouth
-    13700004: Part1
-    13700006: Part2
-    2186277476908879412: ImportLogs
+    100000: //RootNode
+    400000: //RootNode
+    2100000: lambert2
+    2100002: lambert1
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: pCube1
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -69,7 +41,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 2
+    globalScale: 8
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -90,8 +62,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.018
-    hasPreviousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -118,7 +90,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
