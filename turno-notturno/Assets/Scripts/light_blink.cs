@@ -19,7 +19,7 @@ public class light_blink : MonoBehaviour
         timer += Time.deltaTime;
         if(timer > blinkSpeed)
         {
-            Debug.Log(GetComponent<Light>().enabled);
+            //Debug.Log(GetComponent<Light>().enabled);
             timer = 0;
             GetComponent<Light>().enabled = !GetComponent<Light>().enabled;
         }

@@ -219,8 +219,8 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("artpiece1", "Find the cause of the alarm", 1, 0));
         string[] names = { "alarm1", "artpiece1" };
         MultiObjective(names);
-        GameObject obj = GetObject("control_alarm_02");
-        if (obj) obj.GetComponent<Interactable>().isInteractable = true;
+        //GameObject obj = GetObject("control_alarm_02");
+        //if (obj) obj.GetComponent<Interactable>().isInteractable = true;
     }
 
     //Player turned off alarm
@@ -283,14 +283,15 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("door1", "Check the main door", 1, delayTime));
         string[] names = { "window1", "door1" };
         MultiObjective(names);
-        GameObject obj = GetObject("control_windows_01");
-        if (obj) obj.GetComponent<Interactable>().isInteractable = true;
-        obj = GetObject("control_windows_02");
-        if (obj) obj.GetComponent<Interactable>().isInteractable = true;
-        obj = GetObject("door_02_group");
-        if (obj) obj.GetComponent<Interactable>().SetTooltip("check doors");
-        obj = GetObject("door_03_group");
-        if (obj) obj.GetComponent<Interactable>().SetTooltip("check doors");
+        GameObject obj;
+        //GameObject obj = GetObject("control_windows_01");
+        //if (obj) obj.GetComponent<Interactable>().isInteractable = true;
+        //obj = GetObject("control_windows_02");
+        //if (obj) obj.GetComponent<Interactable>().isInteractable = true;
+        //obj = GetObject("door_02_group");
+        //if (obj) obj.GetComponent<Interactable>().SetTooltip("check doors");
+        //obj = GetObject("door_03_group");
+        //if (obj) obj.GetComponent<Interactable>().SetTooltip("check doors");
     }
 
     //One window was locked
@@ -789,7 +790,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         Dialogue dialogue = FindObjectOfType<Dialogue>();
-        if (dialogue)
+        if (dialogue && dialogueMessage.Length > 0)
         {
             dialogue.DisplayText(dialogueMessage);
         }

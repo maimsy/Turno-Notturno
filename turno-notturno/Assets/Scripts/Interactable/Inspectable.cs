@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Inspectable : Interactable
+public class Inspectable : BaseInteractable
 {
     [SerializeField] float inspectDistance = 3f;
     [SerializeField] float inspectSpeed = 0.05f;
     [SerializeField] float maxZoom = 0.4f;
     [SerializeField] InspectDirection inspectDirection = InspectDirection.xy;
     [SerializeField] bool flipDirection = false;
-    [SerializeField] string name;
+    [SerializeField] string displayName = "artwork";
+    [SerializeField] UnityEvent objectiveEvent;
+    [SerializeField] string objective = "";
 
     public enum InspectDirection
     {
@@ -26,7 +28,7 @@ public class Inspectable : Interactable
     private float vert;
     private float maxHor = 4;
     private float maxVert = 4;
-    private float distanceOffset = 0f; 
+    private float distanceOffset = 0f;
 
     private float zoom = 1;
 
@@ -34,47 +36,53 @@ public class Inspectable : Interactable
     private Vector3 prevCameraPosition;
     private Quaternion prevCameraRotation;
 
-    private GameManager manager;
+    private GameManager gameManager;
     private Bounds bounds;
     private Vector3[] originalCorners;
     private Vector3[] rotatedCorners;
-    private MeshRenderer renderer;
+    private MeshRenderer meshRenderer;
 
-    void Awake()
+    private ObjectiveManager objectiveManager;
+
+    protected override void Awake()
     {
-        renderer = GetComponentInChildren<MeshRenderer>();
+        base.Awake();
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
         InitialBounds();
     }
 
-    protected override void Start()
+    void Start()
     {
-        base.Start();
-        manager = GameManager.GetInstance();
-        if (!manager)
+        objectiveManager = FindObjectOfType<ObjectiveManager>();
+        gameManager = GameManager.GetInstance();
+        if (!gameManager)
         {
             Debug.LogError("GameManager is missing from the scene!");
         }
+
         OnStart();
     }
 
     void InitialBounds()
     {
-        if (!renderer)
+        if (!meshRenderer)
         {
             Debug.LogError("Inspectable object missing MeshRenderer!");
             return;
         }
+
         // Calculate bounding box in local space
         Quaternion originalRotation = transform.rotation;
-        transform.rotation = Quaternion.identity; // Rotate temporarily to (0,0,0), because MeshRenderer bounds work weirdly
-        bounds = renderer.bounds;
+        transform.rotation =
+            Quaternion.identity; // Rotate temporarily to (0,0,0), because MeshRenderer bounds work weirdly
+        bounds = meshRenderer.bounds;
         foreach (var childRenderer in GetComponentsInChildren<MeshRenderer>())
         {
             // Add bounds from all child mesh renderers
             Bounds b = childRenderer.bounds;
             bounds.Encapsulate(b);
         }
-        
+
         //bounds.extents = transform.InverseTransformDirection(bounds.extents);
         Vector3 center = (bounds.center);
         localCenter = transform.InverseTransformPoint(center);
@@ -83,7 +91,8 @@ public class Inspectable : Interactable
         Vector3 v3FrontTopLeft = new Vector3(center.x - v3Extents.x, center.y + v3Extents.y, center.z - v3Extents.z);
         Vector3 v3FrontTopRight = new Vector3(center.x + v3Extents.x, center.y + v3Extents.y, center.z - v3Extents.z);
         Vector3 v3FrontBottomLeft = new Vector3(center.x - v3Extents.x, center.y - v3Extents.y, center.z - v3Extents.z);
-        Vector3 v3FrontBottomRight = new Vector3(center.x + v3Extents.x, center.y - v3Extents.y, center.z - v3Extents.z);
+        Vector3 v3FrontBottomRight =
+            new Vector3(center.x + v3Extents.x, center.y - v3Extents.y, center.z - v3Extents.z);
         Vector3 v3BackTopLeft = new Vector3(center.x - v3Extents.x, center.y + v3Extents.y, center.z + v3Extents.z);
         Vector3 v3BackTopRight = new Vector3(center.x + v3Extents.x, center.y + v3Extents.y, center.z + v3Extents.z);
         Vector3 v3BackBottomLeft = new Vector3(center.x - v3Extents.x, center.y - v3Extents.y, center.z + v3Extents.z);
@@ -105,16 +114,18 @@ public class Inspectable : Interactable
         {
             originalCorners[i] = transform.InverseTransformPoint(originalCorners[i]); // Transform to local space
         }
+
         transform.rotation = originalRotation;
     }
 
     void CalculateBounds(Transform cameraTransform)
     {
-        if (!renderer)
+        if (!meshRenderer)
         {
             Debug.LogError("Inspectable object missing MeshRenderer!");
             return;
         }
+
         // Calculate bounding box in camera space to determine how far the camera can move
         float maxX = 0;
         float maxY = 0;
@@ -122,8 +133,8 @@ public class Inspectable : Interactable
 
         for (int i = 0; i < originalCorners.Length; i++)
         {
-            rotatedCorners[i] = transform.TransformPoint(originalCorners[i]);  // World space
-            rotatedCorners[i] = cameraTransform.InverseTransformPoint(rotatedCorners[i]);  // Camera space
+            rotatedCorners[i] = transform.TransformPoint(originalCorners[i]); // World space
+            rotatedCorners[i] = cameraTransform.InverseTransformPoint(rotatedCorners[i]); // Camera space
             maxX = Mathf.Max(maxX, Mathf.Abs(rotatedCorners[i].x));
             maxY = Mathf.Max(maxY, Mathf.Abs(rotatedCorners[i].y));
             maxZ = Mathf.Max(maxZ, Mathf.Abs(rotatedCorners[i].z));
@@ -136,15 +147,16 @@ public class Inspectable : Interactable
 
     void DrawBox()
     {
-        if (!renderer)
+        if (!meshRenderer)
         {
             Debug.LogError("Inspectable object missing MeshRenderer!");
             return;
         }
+
         // Draw bounding box for debugging
         for (int i = 0; i < originalCorners.Length; i++)
         {
-            rotatedCorners[i] = transform.TransformPoint(originalCorners[i]);  // World space
+            rotatedCorners[i] = transform.TransformPoint(originalCorners[i]); // World space
         }
 
         Vector3 v3FrontTopLeft = rotatedCorners[0];
@@ -175,7 +187,7 @@ public class Inspectable : Interactable
     protected override void Update()
     {
         base.Update();
-        if (manager.IsPaused()) return;
+        if (gameManager.IsPaused()) return;
         if (inspecting)
         {
             if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -197,15 +209,18 @@ public class Inspectable : Interactable
         //CalculateBounds(Camera.main.transform);
     }
 
-    public override void OnInteract()
+    public override void Interact()
     {
-        base.OnInteract();
         StartInspect();
+        if (objectiveManager && objectiveManager.IsObjectiveActive(objective))
+        {
+            objectiveEvent.Invoke();
+        }
     }
 
     public override string GetTooltip()
     {
-        return "Inspect " + name;
+        return "Inspect " + displayName;
     }
 
     public void StartInspect()
@@ -218,8 +233,8 @@ public class Inspectable : Interactable
         CalculateBounds(Camera.main.transform);
         Camera.main.transform.position = GetStartingPosition(); // Calculate bounds might change the zoom distance
         inspecting = true;
-        manager.DisableControls();
-        manager.HideCursor();
+        gameManager.DisableControls();
+        gameManager.HideCursor();
         hor = 0;
         vert = 0;
         OnStartInspect();
@@ -230,7 +245,7 @@ public class Inspectable : Interactable
         inspecting = false;
         Camera.main.transform.position = prevCameraPosition;
         Camera.main.transform.rotation = prevCameraRotation;
-        manager.EnableControls();
+        gameManager.EnableControls();
         OnStopInspect();
     }
 
@@ -313,6 +328,7 @@ public class Inspectable : Interactable
                 direction = transform.right;
                 break;
         }
+
         if (flipDirection) direction = -direction;
         return GetCenter() + direction * distanceOffset + direction * inspectDistance * zoom;
     }
