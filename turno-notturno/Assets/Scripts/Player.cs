@@ -12,6 +12,7 @@ public class Player : Character
     [SerializeField] Text interactTooltip;
     [SerializeField] float maxInteractDistance = 4f;
 
+    [SerializeField] float runSpeedMultiplier = 1.5f;
     [SerializeField] float maxMovementSpeed = 5f;
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float XSensitivity = 1f;
@@ -134,8 +135,14 @@ public class Player : Character
         {
             move = move.normalized;
         }
-        move.x *= movementSpeed;
-        move.z *= movementSpeed;
+
+        float speed = movementSpeed;
+        if (Input.GetButton("Run"))
+        {
+            speed *= runSpeedMultiplier;
+        }
+        move.x *= speed;
+        move.z *= speed;
         move = transform.TransformDirection(move);
 
         //rb.MovePosition(rb.position + move * Time.fixedDeltaTime);
@@ -151,7 +158,11 @@ public class Player : Character
         velo.x = rb.velocity.x;
         velo.z = rb.velocity.z;
 
-        if (velo.magnitude > maxMovementSpeed)
+        if (Input.GetButton("Run") && velo.magnitude > maxMovementSpeed * runSpeedMultiplier)
+        {
+            velo = velo.normalized * maxMovementSpeed * runSpeedMultiplier;
+        }
+        else if (velo.magnitude > maxMovementSpeed)
         {
             velo = velo.normalized * maxMovementSpeed;
         }
