@@ -1,44 +1,59 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 
 public class Rotate : MonoBehaviour
 {
-    public float speed;
+    public bool rotationEnabled;
+    public bool useArtwork1Sound;
+    public float maxSpeed;
 
-    public float speedChangeTime = 2f;
+    public float speedChangeRate = 50f;
+
+    private float speed = 0;
+    private StudioEventEmitter soundEmitter;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        soundEmitter = GetComponent<StudioEventEmitter>();
+        if (rotationEnabled) StartRotation();  // Ensure sound works correctly
+        else StopRotation();
     }
 
-    public void SetSpeed(float value)
+    public void StartRotation()
     {
-        StartCoroutine(SmoothSpeedChange(value));
+        rotationEnabled = true;
+        if (useArtwork1Sound && soundEmitter)
+        {
+            soundEmitter.SetParameter("artRotateStartStop", 1);
+        }
+    }
+
+    public void StopRotation()
+    {
+        rotationEnabled = false;
+        if (useArtwork1Sound && soundEmitter)
+        {
+            soundEmitter.SetParameter("artRotateStartStop", 0);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-       
-            // Rotate the object around its local X axis at 1 degree per second
-            transform.Rotate(Vector3.up * speed* Time.deltaTime);
-
-            // ...also rotate around the World's Y axis
-           // transform.Rotate(Vector3.up * speed* Time.deltaTime, Space.World);
-    }
-
-    IEnumerator SmoothSpeedChange(float target)
-    {
-        float direction = target - speed;
-        float stepsize = direction / speedChangeTime;
-        while (speed != target)
+        if (rotationEnabled)
         {
-            speed += stepsize * Time.deltaTime;
-            if (direction > 0 && speed > target) speed = target;
-            if (direction < 0 && speed < target) speed = target;
-            yield return null;
+            if (speed < maxSpeed) speed += speedChangeRate * Time.deltaTime;
+            speed = Mathf.Min(speed, maxSpeed);
         }
+        else
+        {
+            if (speed > 0) speed -= speedChangeRate * Time.deltaTime;
+            speed = Mathf.Max(speed, 0);
+        }
+
+        transform.Rotate(Vector3.up * speed* Time.deltaTime);
     }
 }

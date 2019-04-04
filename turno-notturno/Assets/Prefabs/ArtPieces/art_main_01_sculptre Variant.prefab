@@ -425,8 +425,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1976450044}
-        m_MethodName: SetSpeed
-        m_Mode: 4
+        m_MethodName: StartRotation
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -440,8 +440,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1976450044}
-        m_MethodName: SetSpeed
-        m_Mode: 4
+        m_MethodName: StopRotation
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -491,6 +491,7 @@ GameObject:
   - component: {fileID: 5894375041883715740}
   - component: {fileID: 1976450044}
   - component: {fileID: 3412154376471907900}
+  - component: {fileID: 1210694937846747711}
   m_Layer: 0
   m_Name: art_main_01_mesh
   m_TagString: Untagged
@@ -588,8 +589,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffb6891c105c4694d9cc55b7bc4b1c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 360
-  speedChangeTime: 2
+  rotationEnabled: 0
+  useArtwork1Sound: 1
+  maxSpeed: 50
+  speedChangeRate: 25
 --- !u!114 &3412154376471907900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -629,6 +632,31 @@ MonoBehaviour:
   inspectDirection: 1
   flipDirection: 0
   name: 
+--- !u!114 &1210694937846747711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4463229173957489322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/fx/artRotate
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params:
+  - Name: artRotateStartStop
+    Value: 1
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 7
 --- !u!1001 &4463229174394020764
 PrefabInstance:
   m_ObjectHideFlags: 0
