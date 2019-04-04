@@ -93,13 +93,13 @@ public class Player : Character
                 if (tipString.Length > 0)
                 {
                     // Force lowercase first letter 
-                    tooltip = char.ToLower(tooltip[0]) + tooltip.Substring(1);
+                    if (tooltip.Length > 0) tooltip = char.ToLower(tooltip[0]) + tooltip.Substring(1);
                     tooltip = tipString + tooltip;
                 }
                 else
                 {
                     // Force uppercase first letter 
-                    tooltip = char.ToUpper(tooltip[0]) + tooltip.Substring(1);
+                    if (tooltip.Length > 0) tooltip = char.ToUpper(tooltip[0]) + tooltip.Substring(1);
                 }
                 interactable.HighLight();
                 if (interactTooltip) interactTooltip.text = tooltip;
