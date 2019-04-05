@@ -13,6 +13,7 @@ public class Inspectable : BaseInteractable
     [SerializeField] string displayName = "artwork";
     [SerializeField] UnityEvent objectiveEvent;
     [SerializeField] string objective = "";
+    static public bool playerIsInspecting = false;
 
     public enum InspectDirection
     {
@@ -51,8 +52,9 @@ public class Inspectable : BaseInteractable
         InitialBounds();
     }
 
-    void Start()
+    protected virtual void Start()
     {
+        playerIsInspecting = false;
         objectiveManager = FindObjectOfType<ObjectiveManager>();
         gameManager = GameManager.GetInstance();
         if (!gameManager)
@@ -199,7 +201,7 @@ public class Inspectable : BaseInteractable
             HandleInspectMovement();
 
             // Set zoom
-            if (Input.GetKey(KeyCode.Mouse0)) zoom = maxZoom;
+            if (Input.GetKey(KeyCode.Space)) zoom = maxZoom;
             else zoom = 1;
 
             OnUpdate();
@@ -238,6 +240,7 @@ public class Inspectable : BaseInteractable
         CalculateBounds(Camera.main.transform);
         Camera.main.transform.position = GetStartingPosition(); // Calculate bounds might change the zoom distance
         inspecting = true;
+        playerIsInspecting = true;
         gameManager.DisableControls();
         gameManager.HideCursor();
         hor = 0;
@@ -247,6 +250,7 @@ public class Inspectable : BaseInteractable
 
     public void StopInspect()
     {
+        playerIsInspecting = false;
         inspecting = false;
         Camera.main.transform.position = prevCameraPosition;
         Camera.main.transform.rotation = prevCameraRotation;

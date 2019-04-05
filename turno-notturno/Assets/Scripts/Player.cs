@@ -81,12 +81,11 @@ public class Player : Character
         if (interactTooltip) interactTooltip.text = "";
         RaycastHit hit;
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        int mask = ~(1 << LayerMask.NameToLayer("InspectOnly")); // Ignore "InspectOnly" layer, which is handled by Inspectable objects
+        LayerMask mask = ~(1 << LayerMask.NameToLayer("InspectOnly") | 1 << LayerMask.NameToLayer("Ignore Raycast")); // Ignore "InspectOnly" layer, which is handled by Inspectable objects
         if (Physics.Raycast(ray, out hit, maxInteractDistance, mask)) 
         {
             GameObject objectHit = hit.transform.gameObject;
-            BaseInteractable interactable = objectHit.GetComponent<BaseInteractable>();
-            if (!interactable) interactable = objectHit.GetComponentInParent<BaseInteractable>();
+            BaseInteractable interactable = GetInteractable(objectHit);
             if (interactable != null)
             {
                 String tooltip = interactable.GetTooltip();
@@ -111,6 +110,28 @@ public class Player : Character
             }
 
         }
+    }
+
+    private BaseInteractable GetInteractable(GameObject obj)
+    {
+        BaseInteractable[] interactables = obj.GetComponentsInParent<BaseInteractable>();
+
+        // Prefer interactables that are currently active
+        foreach (BaseInteractable interactable in interactables)
+        {
+            if (interactable.isActiveAndEnabled && interactable.IsInteractable()) return interactable;
+        }
+
+
+        // Otherwise return the first enabled interactable found
+        if (interactables.Length > 0)
+        {
+            foreach (BaseInteractable interactable in interactables)
+            {
+                if (interactable.isActiveAndEnabled) return interactable;
+            }
+        }
+        return null;
     }
 
     public void SetTooltip(String str)

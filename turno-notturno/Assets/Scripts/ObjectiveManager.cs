@@ -15,6 +15,37 @@ public class ObjectiveManager : MonoBehaviour
     private float delayTime = 2;
 
     private int act2ArtVoiceline = 0;
+
+    public enum ClueObjective
+    {
+        NotImplemented = 0,
+
+        // Act 1
+        SpinningCityDescription = 10, // Numbering is used to simplify checking for active objective
+        SpinningCityMesh = 11,
+
+        // Act 2
+        ToothTreeTrunk = 21,
+        ToothTreeBase = 22,
+        ToothTreeTeeth = 23,
+        ToothTreeDescription = 24,
+
+        BallsyPortraitBalls = 31,
+        BallsyPortraitSpiral = 32,
+        BallsyPortraitShadow = 33,
+        BallsyPortraitDescription = 34,
+
+        // Act 3-1
+        MouthRobotTeeth = 41,
+
+        PaintingRedSpiral = 51,
+        PaintingPart2 = 52,
+
+        // Act 3-2
+        VideoPart1 = 61,
+        VideoPart2 = 62,
+        VideoPart3 = 63
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -164,39 +195,45 @@ public class ObjectiveManager : MonoBehaviour
     }
 
     //Remove objective after animations
-    IEnumerator RemoveObjective(string name)
+    IEnumerator RemoveObjective(string objectiveName)
     {
         yield return new WaitForSeconds(0);
-        objectives.Remove(name);
+        objectives.Remove(objectiveName);
     }
 
     //multiple objectives
     private void MultiObjective(string[] names)
     {
         multiObjectives.Clear();
-        foreach (string name in names)
+        foreach (string objectiveName in names)
         {
-            multiObjectives.Add(name);
+            multiObjectives.Add(objectiveName);
         }
         
     }
 
-    public bool IsObjectiveActive(string name)
+    public bool IsObjectiveActive(string objectiveName)
     {
-        return objectives.ContainsKey(name);
+        return objectives.ContainsKey(objectiveName);
     }
 
-    public bool UpdateProgress(string name)
+    public bool IsObjectiveActive(ClueObjective clueObjective)
     {
-        if(IsObjectiveActive(name))
+        string objectiveName = ClueToString(clueObjective);
+        return objectives.ContainsKey(objectiveName);
+    }
+
+    public bool UpdateProgress(string objectiveName)
+    {
+        if(IsObjectiveActive(objectiveName))
         {
-            if (objectives[name].UpdateProgress(1))
+            if (objectives[objectiveName].UpdateProgress(1))
             {
-                StartCoroutine(RemoveObjective(name));
-                objectives[name].Complete();
-                if(multiObjectives.Contains(name))
+                StartCoroutine(RemoveObjective(objectiveName));
+                objectives[objectiveName].Complete();
+                if(multiObjectives.Contains(objectiveName))
                 {
-                    multiObjectives.Remove(name);
+                    multiObjectives.Remove(objectiveName);
                 }
                 return true;
             }
@@ -231,7 +268,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             if (multiObjectives.Count == 0)
             {
-                Locking();
+                //Locking();
             }
             //GameObject.Find("artpiece").GetComponent<Interactable>().isInteractable = true;
         } 
@@ -249,29 +286,129 @@ public class ObjectiveManager : MonoBehaviour
 
     private void AddClue1Objectives()
     {
-        StartCoroutine(NewObjective("clue1", "Inspect the artwork for damage", 4, 0));
-        GameObject obj = GetObject("art_main_01_mesh");
-        if (obj) obj.GetComponent<Painting>().EnableClues(true);
+        int amount = CountClues("clue1");
+        StartCoroutine(NewObjective("clue1", "Inspect the artwork for clues", amount, 0));
     }
 
-    public void InspectClues1(int propertyType)
+    private void AddClue2Objectives()
     {
-        PropertyType property = (PropertyType)propertyType;
-        /*if (!w01Played)
+        int amount = CountClues("clue2");
+        StartCoroutine(NewObjective("clue2", "Inspect the artwork for clues", amount, 0));
+    }
+
+    private void AddClue3Objectives()
+    {
+        int amount = CountClues("clue3");
+        StartCoroutine(NewObjective("clue3", "Inspect the artwork for clues", amount, 0));
+    }
+
+    private void AddClue4Objectives()
+    {
+        int amount = CountClues("clue4");
+        StartCoroutine(NewObjective("clue4", "Inspect the artwork for clues", amount, 0));
+    }
+
+    private void AddClue5Objectives()
+    {
+        int amount = CountClues("clue5");
+        StartCoroutine(NewObjective("clue5", "Inspect the artwork for clues", amount, 0));
+    }
+
+    private void AddClue6Objectives()
+    {
+        int amount = CountClues("clue6");
+        StartCoroutine(NewObjective("clue6", "Inspect the artwork for clues", amount, 0));
+    }
+
+    private int CountClues(string objective)
+    {
+        int found = 0;
+        foreach (Clue clue in FindObjectsOfType<Clue>())
         {
-            PlayDialogue("w01", 0.5f);
-            w01Played = true;
-        }*/
-        /*if (property == PropertyType.Color) PlayDialogue("w01", 0.5f);
-        if (property == PropertyType.Theme) PlayDialogue("06b", 0.5f);
-        if (property == PropertyType.Material) PlayDialogue("06c", 0.5f);
-        if (property == PropertyType.Special) PlayDialogue("06d", 0.5f);*/
-        if (UpdateProgress("clue1"))
+            if (clue.isActiveAndEnabled && objective == ClueToString(clue.objective))
+            {
+                found += 1;
+            }
+        }
+
+        return found;
+    }
+
+    public string ClueToString(ClueObjective objective)
+    {
+        // Returns something between "clue1" and "clue6"
+        int i = (Int16) objective;
+        return "clue" + i.ToString()[0];
+    }
+
+    
+
+    public void InspectCluesGlobal(ClueObjective objective)
+    {
+        // Act 1
+        string s = ClueToString(objective);
+
+        // Spinning city
+        if (s == "clue1" && UpdateProgress(s))
+        {
+            if (objective == ClueObjective.SpinningCityMesh)
+            {
+                PlayDialogue("w01", 0.5f);
+            }
+            else if (objective == ClueObjective.SpinningCityDescription)
+            {
+                // Player reads the description out loud?
+            }
+            if (multiObjectives.Count == 0)
+            {
+                Invoke("Locking", 4f);
+            }
+        }
+
+        // Tooth-tree
+        if (s == "clue2" && UpdateProgress(s))
         {
             if (multiObjectives.Count == 0)
             {
-                PlayDialogue("w01", 0.5f);
-                Invoke("Locking", 4f);
+                StorageRoomSetUp();
+            }
+        }
+
+        // Ballsy-portrait
+        if (s == "clue3" && UpdateProgress(s))
+        {
+            if (multiObjectives.Count == 0)
+            {
+                StorageRoomSetUp();
+            }
+        }
+
+
+        // Mouth-robot
+        if (s == "clue4" && UpdateProgress(s))
+        {
+            if (multiObjectives.Count == 0)
+            {
+                // TODO
+            }
+        }
+
+
+        // Painting
+        if (s == "clue5" && UpdateProgress(s))
+        {
+            if (multiObjectives.Count == 0)
+            {
+                // TODO
+            }
+        }
+
+        // Video-art
+        if (s == "clue6" && UpdateProgress(s))
+        {
+            if (multiObjectives.Count == 0)
+            {
+                // TODO
             }
         }
     }
@@ -383,12 +520,7 @@ public class ObjectiveManager : MonoBehaviour
             if (whichPainting == 0)
             {
                 PlayDialogue("w03", 1f, abortPrevious: false);
-                
-            }
-            if (whichPainting == 0)
-            {
-                PlayDialogue("w03", 1f, abortPrevious: false);
-                PlayDialogue("w03", 1f, abortPrevious: false);
+                AddClue2Objectives();
             }
 
             // Order of players response to whispers should be the same regardless of which art is inspected first
@@ -396,6 +528,7 @@ public class ObjectiveManager : MonoBehaviour
             {
                 PlayDialogue("17", 2f, abortPrevious: false);
                 act2ArtVoiceline = 1;
+                AddClue3Objectives();
             }
             else if (act2ArtVoiceline == 1)
             {
@@ -403,13 +536,7 @@ public class ObjectiveManager : MonoBehaviour
             }
 
             paintingsChecked[whichPainting] = true;
-            if (UpdateProgress("artpiece2"))
-            {
-                if (multiObjectives.Count == 0)
-                {
-                    StorageRoomSetUp();
-                }
-            }
+            UpdateProgress("artpiece2");
         }
     }
 
