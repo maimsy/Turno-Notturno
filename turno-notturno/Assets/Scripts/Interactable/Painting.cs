@@ -18,9 +18,9 @@ public class Painting : Inspectable
     protected override void OnUpdate()
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-        //int mask = (1 << LayerMask.NameToLayer("InspectOnly")); // Ignore everything else except "InspectOnly" 
+        int mask = (1 << LayerMask.NameToLayer("InspectOnly") | 1 << LayerMask.NameToLayer("InspectAndNormal")); // Ignore everything else except "InspectOnly" 
 
-        if (Physics.Raycast(ray, out var hit, 2f))
+        if (Physics.Raycast(ray, out var hit, 2f, mask))
         {
             GameObject objectHit = hit.transform.gameObject;
             Clue interactable = GetInteractable(objectHit);

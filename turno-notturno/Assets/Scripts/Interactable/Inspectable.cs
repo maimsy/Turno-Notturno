@@ -41,7 +41,7 @@ public class Inspectable : BaseInteractable
     private Bounds bounds;
     private Vector3[] originalCorners;
     private Vector3[] rotatedCorners;
-    private MeshRenderer meshRenderer;
+    protected MeshRenderer meshRenderer;
 
     private ObjectiveManager objectiveManager;
 
@@ -49,11 +49,12 @@ public class Inspectable : BaseInteractable
     {
         base.Awake();
         meshRenderer = GetComponentInChildren<MeshRenderer>();
-        InitialBounds();
+        
     }
 
     protected virtual void Start()
     {
+        InitialBounds();
         playerIsInspecting = false;
         objectiveManager = FindObjectOfType<ObjectiveManager>();
         gameManager = GameManager.GetInstance();

@@ -389,7 +389,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             if (multiObjectives.Count == 0)
             {
-                // TODO
+                Leave();
             }
         }
 
@@ -399,7 +399,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             if (multiObjectives.Count == 0)
             {
-                // TODO
+                Leave();
             }
         }
 
@@ -627,20 +627,16 @@ public class ObjectiveManager : MonoBehaviour
             {
                 PlayDialogue("w07", 1f, abortPrevious: false);
                 PlayDialogue("28", 2f, abortPrevious: false);
+                AddClue4Objectives();
             }
             if (whichPainting == 1)
             {
                 PlayDialogue("w08", 1f, abortPrevious: false);
+                AddClue5Objectives();
             }
 
             paintingsChecked[whichPainting] = true;
-            if (UpdateProgress("artpiece3"))
-            {
-                if (multiObjectives.Count == 0)
-                {
-                    Leave();
-                }
-            }
+            UpdateProgress("artpiece3");
         }
     }
 
@@ -707,7 +703,7 @@ public class ObjectiveManager : MonoBehaviour
             if (UpdateProgress("artpiece4"))
             {
                 PlayDialogue("w11", 2f, abortPrevious: false);
-                StartCoroutine(NewObjective("???", "(TODO)", 1, 5f));
+                AddClue6Objectives();
             }
         }
     }
