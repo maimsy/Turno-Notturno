@@ -79,6 +79,7 @@ public class Player : Character
     void Interact()
     {
         if (interactTooltip) interactTooltip.text = "";
+        BaseInteractable.StopPreviousHighlight();
         RaycastHit hit;
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
         LayerMask mask = ~(1 << LayerMask.NameToLayer("InspectOnly") | 1 << LayerMask.NameToLayer("Ignore Raycast")); // Ignore "InspectOnly" layer, which is handled by Inspectable objects
