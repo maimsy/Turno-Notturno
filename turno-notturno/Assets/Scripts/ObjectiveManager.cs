@@ -14,6 +14,7 @@ public class ObjectiveManager : MonoBehaviour
     private Dictionary<string, Objective> objectives;
     private float delayTime = 2;
     private FMOD.Studio.EventInstance currentVoiceLine;
+    private FMOD.Studio.EventInstance currentWhisper; // Guard voice and whispers are allowed to overlap
     private int act2ArtVoiceline = 0;
 
     public enum ClueObjective
@@ -898,44 +899,44 @@ public class ObjectiveManager : MonoBehaviour
 
             /*************          WHISPERS           *************/
             case "w01":
-                //dialogueMessage = "One day I will take you to the highest skyscraper there is. " +
-                //                  "We will sleep on the rooftop under a blanket of stars. " +
-                //                  "Feel the world spinning. " +
-                //                  "Stare into the eternity of the Universe. " +
-                //                  "Like the freest man alive, without the worries of the world underneath us.";
+                dialogueMessage = "One day I will take you to the highest skyscraper there is. " +
+                                  "We will sleep on the rooftop under a blanket of stars. " +
+                                  "Feel the world spinning. " +
+                                  "Stare into the eternity of the Universe. " +
+                                  "Like the freest man alive, without the worries of the world underneath us.";
                 break;
             case "w02":
-                //dialogueMessage = "Will you come with me? Do you trust me? Let’s run away.";
+                dialogueMessage = "Will you come with me? Do you trust me? Let’s run away.";
                 break;
             case "w03":
-                //dialogueMessage = "Your father was the kindest man I had ever met. I really, really miss him. I’m lucky to have you. You have the same eyes as him.";
+                dialogueMessage = "Your father was the kindest man I had ever met. I really, really miss him. I’m lucky to have you. You have the same eyes as him.";
                 break;
             case "w04":
-                //dialogueMessage = "I told you many times, your teeth will rot and decay and blacken " +
-                //                  "and fill with worms and fall all over the floor if you don’t take care of them. " +
-                //                  "Now go wash your teeth. I will check when it’s time to sleep.";
+                dialogueMessage = "I told you many times, your teeth will rot and decay and blacken " +
+                                  "and fill with worms and fall all over the floor if you don’t take care of them. " +
+                                  "Now go wash your teeth. I will check when it’s time to sleep.";
                 break;
             case "w05":
-                //dialogueMessage = "Oh my God, there you are!! Why were you hiding?!?!? Come back out and stop crying! " +
-                //                  "Don’t you ever dare hide from me again!\r\n(loving tone) I love you.";
+                dialogueMessage = "Oh my God, there you are!! Why were you hiding?!?!? Come back out and stop crying! " +
+                                  "Don’t you ever dare hide from me again!\r\n(loving tone) I love you.";
                 break;
             case "w06":
-                //dialogueMessage = "How could you.";
+                dialogueMessage = "How could you.";
                 break;
             case "w07":
-                //dialogueMessage = "Come inside";
+                dialogueMessage = "Come inside";
                 break;
             case "w08":
-                //dialogueMessage = "It’s coming to get you";
+                dialogueMessage = "It’s coming to get you";
                 break;
             case "w09":
-                //dialogueMessage = "Run";
+                dialogueMessage = "Run";
                 break;
             case "w10":
-                //dialogueMessage = "Do you remember what you’ve done?";
+                dialogueMessage = "Do you remember what you’ve done?";
                 break;
             case "w11":
-                //dialogueMessage = "They don’t understand.";
+                dialogueMessage = "They don’t understand.";
                 break;
             default:
                 Debug.LogError("Invalid voiceline: " + filename);
@@ -948,16 +949,46 @@ public class ObjectiveManager : MonoBehaviour
     IEnumerator DelayedVoiceline(String dialogueMessage, String filename, float delay)
     {
         yield return new WaitForSeconds(delay);
-        Dialogue dialogue = FindObjectOfType<Dialogue>();
-        if (dialogue && dialogueMessage.Length > 0)
+        Dialogue[] dialogues = FindObjectsOfType<Dialogue>();
+        Dialogue normalDialogue = null;
+        Dialogue whisperDialogue = null;
+        foreach (Dialogue dialogue in dialogues)
         {
-            dialogue.DisplayText(dialogueMessage);
+            if (dialogue.name == "DialogueText")
+            {
+                normalDialogue = dialogue;
+            }
+            else
+            {
+                whisperDialogue = dialogue;
+            }
         }
-        //FMODUnity.RuntimeManager.PlayOneShot("event:/placeholderSpeaks/" + filename + "_placeholder");
-        currentVoiceLine.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-        currentVoiceLine = FMODUnity.RuntimeManager.CreateInstance("event:/placeholderSpeaks/" + filename + "_placeholder");
-        currentVoiceLine.start();
+        if (filename.StartsWith("w") || filename.StartsWith("W"))
+        {
+            // Whispers
+            if (whisperDialogue && dialogueMessage.Length > 0)
+            {
+                dialogueMessage = filename + ": " + dialogueMessage;
+                whisperDialogue.DisplayText(dialogueMessage);
+            }
+            filename = filename.ToUpper();
+            currentWhisper.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            currentWhisper = FMODUnity.RuntimeManager.CreateInstance("event:/whispers/" + filename);
+            currentWhisper.start();
+        }
+        else
+        {
+            // Normal
+            if (normalDialogue && dialogueMessage.Length > 0)
+            {
+                normalDialogue.DisplayText(dialogueMessage);
+            }
+            currentVoiceLine.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            currentVoiceLine = FMODUnity.RuntimeManager.CreateInstance("event:/placeholderSpeaks/" + filename + "_placeholder");
+            currentVoiceLine.start();
+        }
     }
+
 
     public GameObject GetObject(string name)
     {
