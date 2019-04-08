@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1746127, g: 0.20185384, b: 0.27143335, a: 1}
+  m_IndirectSpecularColor: {r: 0.07710386, g: 0.09074352, b: 0.15012401, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -112,6 +112,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &34918854 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 34e36de2e8813d34eaa68d0925f9bfa9,
+    type: 3}
+  m_PrefabInstance: {fileID: 38195013}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &38195013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -985,6 +991,7 @@ RectTransform:
   m_Children:
   - {fileID: 1947124314}
   - {fileID: 229189470}
+  - {fileID: 2079741498}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1217,11 +1224,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1512917897}
     m_Modifications:
-    - target: {fileID: 1941302679760127932, guid: 4f7803de0514bdd4a909b48451f1ee75,
-        type: 3}
-      propertyPath: m_Name
-      value: FadeOut
-      objectReference: {fileID: 0}
     - target: {fileID: 1941302679760127933, guid: 4f7803de0514bdd4a909b48451f1ee75,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1326,6 +1328,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941302679760127932, guid: 4f7803de0514bdd4a909b48451f1ee75,
+        type: 3}
+      propertyPath: m_Name
+      value: FadeOut
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941302679760127932, guid: 4f7803de0514bdd4a909b48451f1ee75,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1941302679760127928, guid: 4f7803de0514bdd4a909b48451f1ee75,
         type: 3}
@@ -1437,13 +1449,13 @@ MonoBehaviour:
   ArrowImage1: {fileID: 1588551052}
   ArrowImage2: {fileID: 1624742862}
   ArrowImage3: {fileID: 514134304}
-  StartButton: {fileID: 1986474426}
-  ContinueButton: {fileID: 2012073373}
-  OptionsButton: {fileID: 1033735852}
+  StartButton: {fileID: 1986474424}
+  ContinueButton: {fileID: 2012073371}
+  OptionsButton: {fileID: 1033735850}
   StartText: {fileID: 2062966954}
   ContinueText: {fileID: 410591747}
   ExitText: {fileID: 152244167}
-  Book: {fileID: 0}
+  Book: {fileID: 34918854}
 --- !u!4 &1947124314
 Transform:
   m_ObjectHideFlags: 0
@@ -1801,4 +1813,88 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062966952}
+  m_CullTransparentMesh: 0
+--- !u!1 &2079741497
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2079741498}
+  - component: {fileID: 2079741500}
+  - component: {fileID: 2079741499}
+  m_Layer: 0
+  m_Name: StartText (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2079741498
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079741497}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -89.848236}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1512917897}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 243, y: 13.4}
+  m_SizeDelta: {x: 299, y: 315}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2079741499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079741497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: b54db2d64b087e04c8ee7edc876b79cd, type: 3}
+    m_FontSize: 15
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "I finally found a job as a guard in an art gallery.. The previous guard
+    died of heart attack and the replacement has a family to take care of. So I will
+    be taking the night shifts.\r\nThis place unsettles me. I hear creaks from the
+    walls. The artwork is not one you would find anywhere. The pieces are quite unique,
+    but\u2026 weird. \r\nBut I need the money. So I will stay. At least my dreams
+    should help me carry through this night. "
+--- !u!222 &2079741500
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079741497}
   m_CullTransparentMesh: 0
