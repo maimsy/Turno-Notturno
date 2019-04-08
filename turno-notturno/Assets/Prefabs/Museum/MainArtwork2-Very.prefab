@@ -312,6 +312,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f24925e9caf722408bffa65f6f89f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightChildren: 0
+  highlightParents: 0
+  overrideDefaultHighlight: 1
+  overrideHighlightMaterial: {fileID: 2100000, guid: 8e5abd6ee46f70945867443eb14e8477,
+    type: 2}
   inspectOnly: 0
   tooltip: Collect clues
   objective: 33
@@ -510,6 +515,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f24925e9caf722408bffa65f6f89f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightChildren: 1
+  highlightParents: 0
+  overrideDefaultHighlight: 0
+  overrideHighlightMaterial: {fileID: 0}
   inspectOnly: 0
   tooltip: Collect clues
   objective: 33
@@ -618,6 +627,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f24925e9caf722408bffa65f6f89f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightChildren: 1
+  highlightParents: 0
+  overrideDefaultHighlight: 0
+  overrideHighlightMaterial: {fileID: 0}
   inspectOnly: 0
   tooltip: Collect clues
   objective: 33
@@ -726,6 +739,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f24925e9caf722408bffa65f6f89f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightChildren: 1
+  highlightParents: 0
+  overrideDefaultHighlight: 0
+  overrideHighlightMaterial: {fileID: 0}
   inspectOnly: 0
   tooltip: Collect clues
   objective: 34
@@ -1018,6 +1035,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a527b5ad8b05242a9302959d8a497c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightChildren: 1
+  highlightParents: 0
+  overrideDefaultHighlight: 0
+  overrideHighlightMaterial: {fileID: 0}
   interactionEvent:
     m_PersistentCalls:
       m_Calls:
@@ -1156,6 +1177,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f24925e9caf722408bffa65f6f89f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightChildren: 1
+  highlightParents: 0
+  overrideDefaultHighlight: 1
+  overrideHighlightMaterial: {fileID: 2100000, guid: 4bf055297316c434aa02ef2c81582441,
+    type: 2}
   inspectOnly: 0
-  tooltip: Collect clue
+  tooltip: Collect clues
   objective: 31
