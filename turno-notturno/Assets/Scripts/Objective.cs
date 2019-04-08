@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Objective : MonoBehaviour
 {
-    private string description;
+    public string description;
     private bool isDone;
     private Text text;
     private int progressAmount = 0;
@@ -15,14 +15,22 @@ public class Objective : MonoBehaviour
     private float timer = 0;
     private float animSpeed = 0.05f;
     private int textIndex = 0;
-    private int pos = 0;
+    private float pos = 0;
     private float fadeTime = 2.0f;
     private float fadeTimer = 0;
-    
+    private float moveSpeed = 0.03f;
+    private float moveDelay = 2f;
+    private float moveTimer = 0;
+    private int targetPos = 0;
+
     private bool animate = false;
     private bool hasStarted = false;
     private bool completed = false;
-   
+    private bool moving = false;
+
+    private Vector2 topRight;
+    private Vector2 botLeft;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -41,6 +49,10 @@ public class Objective : MonoBehaviour
         if (completed)
         {
             Fade();
+        }
+        if(moving)
+        {
+            Move();
         }
     }
     
@@ -68,13 +80,13 @@ public class Objective : MonoBehaviour
     public void SetUp(string descr, int position, int target)
     {
         pos = position;
+        targetPos = position;
+        moveTimer = moveDelay;
+        topRight = GetComponent<RectTransform>().offsetMax;
+        botLeft = GetComponent<RectTransform>().offsetMin;
         description = descr;
         targetAmount = target;
-        Vector2 topRight = GetComponent<RectTransform>().offsetMax;
-        Vector2 botLeft = GetComponent<RectTransform>().offsetMin;
-        float height = GetComponent<RectTransform>().rect.height;
-        GetComponent<RectTransform>().offsetMax = new Vector2(topRight.x, topRight.y - position*height);
-        GetComponent<RectTransform>().offsetMin = new Vector2(botLeft.x, botLeft.y - position*height);
+        Move();
         animate = true;
         hasStarted = true;
     }
@@ -136,5 +148,35 @@ public class Objective : MonoBehaviour
     public float GetFadeTime()
     {
         return fadeTime;
+    }
+
+    //Move up if there is space
+    public void StartMoving(int amount)
+    {
+        if(pos > amount)
+        {
+            targetPos = amount;
+            moving = true;
+        }
+    }
+    private void Move()
+    {
+        moveTimer += Time.deltaTime;
+        if(moveTimer > moveDelay)
+        {
+            pos = Mathf.Max(targetPos, pos - moveSpeed);
+            if (pos <= targetPos)
+            {
+                moving = false;
+                moveTimer = 0;
+            }
+            float height = GetComponent<RectTransform>().rect.height;
+            GetComponent<RectTransform>().offsetMax = new Vector2(topRight.x, topRight.y - pos * height);
+            GetComponent<RectTransform>().offsetMin = new Vector2(botLeft.x, botLeft.y - pos * height);
+        }
+    }
+    public float GetPos()
+    {
+        return pos;
     }
 }

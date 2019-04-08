@@ -13,7 +13,7 @@ public class ObjectiveManager : MonoBehaviour
     private GameObject objectivePredab;
     private Dictionary<string, Objective> objectives;
     private float delayTime = 2;
-
+    private FMOD.Studio.EventInstance currentVoiceLine;
     private int act2ArtVoiceline = 0;
 
     public enum ClueObjective
@@ -195,10 +195,41 @@ public class ObjectiveManager : MonoBehaviour
     }
 
     //Remove objective after animations
-    IEnumerator RemoveObjective(string objectiveName)
+    private void RemoveObjective(string objectiveName)
     {
-        yield return new WaitForSeconds(0);
         objectives.Remove(objectiveName);
+        FillGap();
+    }
+
+    //fills the empty space left by the removed objective
+    private void FillGap()
+    {
+        List<int> nums = new List<int>();
+        int gap = -1;
+        int max = 0;
+        foreach (Objective obj in objectives.Values)
+        {
+            int pos = (int)obj.GetPos();
+            nums.Add(pos);
+            max = pos > max ? pos : max;
+        }
+        for(int i = 0; i < max+1; i++)
+        {
+            if(!nums.Contains(i))
+            {
+                gap = i;
+            }
+        }
+
+        foreach (Objective obj in objectives.Values)
+        {
+
+            float pos = obj.GetPos();
+            if (pos > gap && gap != -1)
+            {
+                obj.StartMoving((int)pos - 1);
+            }
+        }
     }
 
     //multiple objectives
@@ -229,8 +260,8 @@ public class ObjectiveManager : MonoBehaviour
         {
             if (objectives[objectiveName].UpdateProgress(1))
             {
-                StartCoroutine(RemoveObjective(objectiveName));
                 objectives[objectiveName].Complete();
+                RemoveObjective(objectiveName);
                 if(multiObjectives.Contains(objectiveName))
                 {
                     multiObjectives.Remove(objectiveName);
@@ -268,9 +299,8 @@ public class ObjectiveManager : MonoBehaviour
         {
             if (multiObjectives.Count == 0)
             {
-                //Locking();
+                Locking();
             }
-            //GameObject.Find("artpiece").GetComponent<Interactable>().isInteractable = true;
         } 
     }
 
@@ -294,24 +324,28 @@ public class ObjectiveManager : MonoBehaviour
     {
         int amount = CountClues("clue2");
         StartCoroutine(NewObjective("clue2", "Inspect the artwork for clues", amount, 0));
+        multiObjectives.Add("clue2");
     }
 
     private void AddClue3Objectives()
     {
         int amount = CountClues("clue3");
         StartCoroutine(NewObjective("clue3", "Inspect the artwork for clues", amount, 0));
+        multiObjectives.Add("clue3");
     }
 
     private void AddClue4Objectives()
     {
         int amount = CountClues("clue4");
         StartCoroutine(NewObjective("clue4", "Inspect the artwork for clues", amount, 0));
+        multiObjectives.Add("clue4");
     }
 
     private void AddClue5Objectives()
     {
         int amount = CountClues("clue5");
         StartCoroutine(NewObjective("clue5", "Inspect the artwork for clues", amount, 0));
+        multiObjectives.Add("clue5");
     }
 
     private void AddClue6Objectives()
@@ -522,13 +556,16 @@ public class ObjectiveManager : MonoBehaviour
                 PlayDialogue("w03", 1f, abortPrevious: false);
                 AddClue2Objectives();
             }
+            else
+            {
+                AddClue3Objectives();
+            }
 
             // Order of players response to whispers should be the same regardless of which art is inspected first
             if (act2ArtVoiceline == 0)
             {
                 PlayDialogue("17", 2f, abortPrevious: false);
                 act2ArtVoiceline = 1;
-                AddClue3Objectives();
             }
             else if (act2ArtVoiceline == 1)
             {
@@ -916,7 +953,10 @@ public class ObjectiveManager : MonoBehaviour
         {
             dialogue.DisplayText(dialogueMessage);
         }
-        FMODUnity.RuntimeManager.PlayOneShot("event:/placeholderSpeaks/" + filename + "_placeholder");
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/placeholderSpeaks/" + filename + "_placeholder");
+        currentVoiceLine.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        currentVoiceLine = FMODUnity.RuntimeManager.CreateInstance("event:/placeholderSpeaks/" + filename + "_placeholder");
+        currentVoiceLine.start();
     }
 
     public GameObject GetObject(string name)
