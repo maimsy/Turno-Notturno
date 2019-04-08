@@ -12,7 +12,8 @@ public class ArtworkRotateControl : BaseInteractable
     {
         if (artworkRotate)
         {
-            artworkRotate.rotationEnabled = !artworkRotate.rotationEnabled;
+            if (artworkRotate.rotationEnabled) artworkRotate.StopRotation();
+            else artworkRotate.StartRotation();
         }
     }
 
