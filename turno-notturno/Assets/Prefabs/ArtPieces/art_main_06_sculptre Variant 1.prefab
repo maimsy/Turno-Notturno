@@ -57,6 +57,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17eef109ac676754480938e58a01e389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightChildren: 1
+  highlightParents: 0
+  overrideDefaultHighlight: 0
+  overrideHighlightMaterial: {fileID: 0}
   inspectOnly: 0
   tooltip: Collect clue
   objective: 41
@@ -120,6 +124,14 @@ MonoBehaviour:
   degreesPerSecond: 45
   maxDistanceFromCamera: 6
   minDistanceFromCamera: 0.5
+  EventEmitter1: {fileID: 1267189445}
+  EventEmitter2: {fileID: 871430744}
+  EventEmitter3: {fileID: 1988338339}
+  EventEmitter4: {fileID: 1684670209}
+  enableSound1: 1
+  enableSound2: 1
+  enableSound3: 1
+  enableSound4: 1
 --- !u!114 &1888835028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a527b5ad8b05242a9302959d8a497c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightChildren: 1
+  highlightParents: 0
+  overrideDefaultHighlight: 0
+  overrideHighlightMaterial: {fileID: 0}
   interactionEvent:
     m_PersistentCalls:
       m_Calls:
@@ -178,6 +194,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 603dfeb29e551624990be3eb16e6f8b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightChildren: 1
+  highlightParents: 0
+  overrideDefaultHighlight: 0
+  overrideHighlightMaterial: {fileID: 0}
   inspectDistance: 3
   inspectSpeed: 0.05
   maxZoom: 0.4
@@ -202,6 +222,110 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   objective: 
   mouth: {fileID: 0}
+--- !u!114 &1267189445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277003598884229188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/fx/mouthArt/joint1
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params:
+  - Name: joint1On
+    Value: 0
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 7
+--- !u!114 &871430744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277003598884229186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/fx/mouthArt/joint2
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params:
+  - Name: joint4On
+    Value: 0
+  - Name: joint2On
+    Value: 0
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 7
+--- !u!114 &1988338339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277003598884229184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/fx/mouthArt/joint3
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params:
+  - Name: joint4On
+    Value: 0
+  - Name: joint3On
+    Value: 0
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 7
+--- !u!114 &1684670209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277003598884229198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/fx/mouthArt/joint4
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params:
+  - Name: joint4On
+    Value: 0
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 7
 --- !u!65 &5665805633478664750
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -224,7 +348,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100012, guid: e03ff915c66f6c740836aea2a65052fb, type: 3}
       propertyPath: m_Name
-      value: art_main_06_sculptre
+      value: art_main_06_sculptre Variant 1
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: e03ff915c66f6c740836aea2a65052fb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -322,11 +446,25 @@ PrefabInstance:
       propertyPath: m_RootBone
       value: 
       objectReference: {fileID: 277003598883736676}
+    - target: {fileID: 400000, guid: e03ff915c66f6c740836aea2a65052fb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.223
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e03ff915c66f6c740836aea2a65052fb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.117
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e03ff915c66f6c740836aea2a65052fb, type: 3}
 --- !u!1 &277003598884229194 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100012, guid: e03ff915c66f6c740836aea2a65052fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 277003598884132582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &277003598884229188 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100002, guid: e03ff915c66f6c740836aea2a65052fb,
     type: 3}
   m_PrefabInstance: {fileID: 277003598884132582}
   m_PrefabAsset: {fileID: 0}
@@ -336,15 +474,33 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 277003598884132582}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &277003598884229186 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100004, guid: e03ff915c66f6c740836aea2a65052fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 277003598884132582}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &277003598883736674 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: e03ff915c66f6c740836aea2a65052fb,
     type: 3}
   m_PrefabInstance: {fileID: 277003598884132582}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &277003598884229184 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100006, guid: e03ff915c66f6c740836aea2a65052fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 277003598884132582}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &277003598883736672 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400006, guid: e03ff915c66f6c740836aea2a65052fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 277003598884132582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &277003598884229198 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100008, guid: e03ff915c66f6c740836aea2a65052fb,
     type: 3}
   m_PrefabInstance: {fileID: 277003598884132582}
   m_PrefabAsset: {fileID: 0}
