@@ -263,4 +263,22 @@ public class Player : Character
 
         return q;
     }
+
+    private void OnCollisionStay(Collision collision)
+    {
+
+        ContactPoint contact = collision.contacts[0];
+        if (Vector3.Dot(contact.normal, Vector3.up) > 0.5)
+        {
+            //collision was from below
+            if (collision.collider.tag == "Stairs")
+            {
+                FindObjectOfType<SoundManager>().footstepsound = "event:/footstepsStairs";
+            }
+            else
+            {
+                FindObjectOfType<SoundManager>().footstepsound = "event:/footsteps";
+            }
+        }
+    }
 }
