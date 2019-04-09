@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{0b36e3a0-c3ac-4c94-8899-f2137b1c0d60}">
+        <property name="name">
+            <value>joint2On</value>
+        </property>
+        <relationship name="folder">
+            <destination>{f81e462a-9d36-408c-9b99-269f6f7ddbca}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{bcf57d16-80c5-4878-bfd1-58c86c445a28}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{bcf57d16-80c5-4878-bfd1-58c86c445a28}">
+        <property name="initialValue">
+            <value>0</value>
+        </property>
+    </object>
+</objects>
