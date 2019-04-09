@@ -137,6 +137,9 @@
         </relationship>
     </object>
     <object class="EventMixerGroup" id="{31d798b3-9619-43ff-b12f-18a92ae25b13}">
+        <property name="volume">
+            <value>-80</value>
+        </property>
         <property name="name">
             <value>Audio 1</value>
         </property>
@@ -242,8 +245,14 @@
     <object class="MixerBusPanner" id="{3395db99-b563-4860-9182-ecb7c8898234}"/>
     <object class="MixerBusFader" id="{9250e659-06ef-4885-9d87-a5404855bb11}"/>
     <object class="SpatialiserEffect" id="{d377328b-2db5-417c-9b1c-fb11b2ee9fb0}">
+        <property name="distanceRolloffType">
+            <value>1</value>
+        </property>
         <property name="maximumDistance">
-            <value>7</value>
+            <value>10</value>
+        </property>
+        <property name="extentMode">
+            <value>1</value>
         </property>
     </object>
     <object class="AutomationCurve" id="{ad6d29a9-c217-4f4d-88e5-b1a33ba119c6}">
@@ -280,7 +289,7 @@
             <value>0.33634126333059883</value>
         </property>
         <property name="value">
-            <value>0</value>
+            <value>12</value>
         </property>
     </object>
     <object class="AutomationPoint" id="{428bbfa5-7032-411a-953e-5f0fec5e49e6}">
