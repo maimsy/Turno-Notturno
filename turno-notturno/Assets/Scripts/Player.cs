@@ -157,7 +157,6 @@ public class Player : Character
     void FixedUpdate()
     {
         Vector3 move = MovementVector();
-
         if (move.magnitude > 1)
         {
             move = move.normalized;
@@ -170,6 +169,7 @@ public class Player : Character
         }
         move.x *= speed;
         move.z *= speed;
+        
         move = transform.TransformDirection(move);
 
         //rb.MovePosition(rb.position + move * Time.fixedDeltaTime);
@@ -184,7 +184,7 @@ public class Player : Character
         Vector3 velo = Vector3.zero;
         velo.x = rb.velocity.x;
         velo.z = rb.velocity.z;
-
+        
         if (Input.GetButton("Run") && velo.magnitude > maxMovementSpeed * runSpeedMultiplier)
         {
             velo = velo.normalized * maxMovementSpeed * runSpeedMultiplier;
@@ -193,7 +193,7 @@ public class Player : Character
         {
             velo = velo.normalized * maxMovementSpeed;
         }
-
+        
         velo.y = rb.velocity.y;
         if (velo.y > 0)
         {
@@ -280,5 +280,7 @@ public class Player : Character
                 FindObjectOfType<SoundManager>().footstepsound = "event:/footsteps";
             }
         }
+
+
     }
 }
