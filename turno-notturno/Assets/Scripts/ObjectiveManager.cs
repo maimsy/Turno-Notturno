@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using FMODUnity;
+using UnityEngine.Rendering.PostProcessing;
 
 public class ObjectiveManager : MonoBehaviour
 {
+    
     private List<GameObject> windowBars;
     private List<string> multiObjectives;
     private bool[] paintingsChecked;
@@ -619,12 +621,23 @@ public class ObjectiveManager : MonoBehaviour
         {
             PlayDialogue("21", 0.5f, abortPrevious: false);
             PlayDialogue("w05", 1f, abortPrevious: false);
+            Invoke("Dizzyness", 2f);
             PlayDialogue("23", 14f, abortPrevious: false);
             StartCoroutine(FadeToNextScene(20f));
+            Invoke("StopDizzyness", 22f);
             PlayDialogue("w06", 20f, abortPrevious: false);
         }
     }
 
+    private void Dizzyness()
+    {
+        FindObjectOfType<DizzyEffect1>().StartDizzy();
+    }
+
+    private void StopDizzyness()
+    {
+        FindObjectOfType<DizzyEffect1>().EndDizzy();
+    }
     //Enters the middle area upstairs
     public void Room3()
     {

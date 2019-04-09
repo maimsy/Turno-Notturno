@@ -914,7 +914,7 @@ PrefabInstance:
     - target: {fileID: 2096429552, guid: 99ae2410abf849140bcc1c3e37a7a047, type: 3}
       propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 541056433}
+      objectReference: {fileID: 0}
     - target: {fileID: 2096429552, guid: 99ae2410abf849140bcc1c3e37a7a047, type: 3}
       propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1509,6 +1509,26 @@ PrefabInstance:
       propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 1180025608}
+    - target: {fileID: 2079634885, guid: e4b3c3c339472a041a9b525dc1913327, type: 3}
+      propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartMigrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079634885, guid: e4b3c3c339472a041a9b525dc1913327, type: 3}
+      propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079634885, guid: e4b3c3c339472a041a9b525dc1913327, type: 3}
+      propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079634885, guid: e4b3c3c339472a041a9b525dc1913327, type: 3}
+      propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: EndMigrainDelayed
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079634885, guid: e4b3c3c339472a041a9b525dc1913327, type: 3}
+      propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_FloatArgument
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2079634886, guid: e4b3c3c339472a041a9b525dc1913327, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -4414,6 +4434,10 @@ PrefabInstance:
       propertyPath: fadeSpeed
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 541056433, guid: 97aacfd06ef7dbc4b9e67cd9d5957df4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4385973204083051891, guid: 97aacfd06ef7dbc4b9e67cd9d5957df4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4482,6 +4506,11 @@ PrefabInstance:
       propertyPath: weight
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 541056430, guid: 97aacfd06ef7dbc4b9e67cd9d5957df4, type: 3}
+      propertyPath: sharedProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: b507261a255fd7a40a0a0f10c2b50e47,
+        type: 2}
     - target: {fileID: 541056431, guid: 97aacfd06ef7dbc4b9e67cd9d5957df4, type: 3}
       propertyPath: m_ShowCustomSorter
       value: 1
@@ -4829,6 +4858,25 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1062192154}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1195706558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195706557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f8568fa2dd84149acfe7287701d596, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Dizzy: {fileID: 11400000, guid: 1d3bd90ef124529448f2ae67e5a0878d, type: 2}
+  speed: 0.15
+  rotateSpeed: 0.1
+  isDizzy: 0
+  isincreasing: 0
+  fadeSpeed: 0.005
+  EffectStrength: 1.5
 --- !u!114 &1195706565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10751,6 +10799,11 @@ PrefabInstance:
       propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 541056433}
+    - target: {fileID: 1896467963832948033, guid: 95e6beddfeb062145bd0f50ea673716b,
+        type: 3}
+      propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: StartMigrain
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95e6beddfeb062145bd0f50ea673716b, type: 3}
 --- !u!1001 &3098663507147547468
@@ -11469,7 +11522,7 @@ PrefabInstance:
         type: 3}
       propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 541056433}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcfb19fe26c635546a3c52bb5c24abe4, type: 3}
 --- !u!1001 &4097667434574243915
@@ -12737,7 +12790,7 @@ PrefabInstance:
         type: 3}
       propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 541056433}
+      objectReference: {fileID: 0}
     - target: {fileID: 6507004784353351644, guid: 5d802120a10712e4d81024c6fbe6eb5e,
         type: 3}
       propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName

@@ -34,8 +34,13 @@ public class Player : Character
     AudioSource Death;
     public AudioClip[] Aw;
     public AudioClip Player_Death;
+    public bool dizzy = false;
 
     private string tipString = "Left click to ";
+    private bool rotatingRight = false;
+    private float rotator = 0;
+    private float rotateLimit = 1;
+    private float rotateSpeed = 0.01f;
 
     void Start()
     {
@@ -223,6 +228,26 @@ public class Player : Character
 
         transform.rotation = Quaternion.Slerp(transform.localRotation, characterTargetRotation, cameraSmoothing);
         playerCamera.localRotation = Quaternion.Slerp(playerCamera.localRotation, cameraTargetRotation, cameraSmoothing);
+        if(dizzy)
+        {
+            Dizzyness();
+        }
+    }
+
+    private void Dizzyness()
+    {
+        if (rotatingRight)
+        {
+            gameObject.transform.Rotate(Vector3.forward, 0.01f * 10);
+            rotator += rotateSpeed;
+            if (rotator > rotateLimit) rotatingRight = false;
+        }
+        else
+        {
+            gameObject.transform.Rotate(Vector3.forward, -0.01f * 10);
+            rotator -= rotateSpeed;
+            if (rotator < 0) rotatingRight = true;
+        }
     }
 
     public void RotateTo(Quaternion rotation)

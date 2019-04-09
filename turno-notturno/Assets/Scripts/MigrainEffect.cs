@@ -83,15 +83,19 @@ public class MigrainEffect : MonoBehaviour
         }
     }
     public void StartMigrain() {
-       // Camera.main.GetComponent<StudioEventEmitter>().enabled = true;
+        // Camera.main.GetComponent<StudioEventEmitter>().enabled = true;
+        Debug.Log("QHAA");
         ismigrain = true;
         PostProcessVolume ppVolume = GetComponent<PostProcessVolume>();
+        GetComponent<PostProcessVolume>().profile = Migraint;
+        GetComponent<DizzyEffect1>().enabled = false;
     }
     public void EndMigrain()
     {
         //Camera.main.GetComponent<StudioEventEmitter>().enabled = false;
         ismigrain = false;
         PostProcessVolume ppVolume = GetComponent<PostProcessVolume>();
+        GetComponent<DizzyEffect1>().enabled = true;
         ResetValues();
     }
 
