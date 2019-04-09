@@ -15,7 +15,7 @@ public class MainMainMenuButtons : MonoBehaviour
     public GameObject StartButton;
     public GameObject ContinueButton;
     public GameObject OptionsButton;
-
+    
     public Text StartText;
     public Text ContinueText;
     public Text ExitText;
@@ -102,6 +102,19 @@ public class MainMainMenuButtons : MonoBehaviour
             Destroy(ExitText);
             isBookOpen = true;
         }
+    }
+
+
+    void FadeTextIn(Text text)
+    {
+        fadeTimer += Time.deltaTime;
+        float fade = fadeTimer / fadeTime;                 
+        Color Color1 = StartText.color; 
+        text.color = new Color(Color1.r, Color1.g, Color1.b, 1 - fade);
+        if (fadeTimer > fadeTime)
+        {
+
+        } 
     }
 
 
