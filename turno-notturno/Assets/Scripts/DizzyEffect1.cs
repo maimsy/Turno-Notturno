@@ -9,6 +9,8 @@ public class DizzyEffect1 : MonoBehaviour
     public PostProcessProfile Dizzy;
     public float speed;
     public float rotateSpeed;
+    public float rotateMax;
+    public float rotateAcceleration;
     public bool isDizzy;
     public bool isincreasing;
     public float fadeSpeed;
@@ -20,6 +22,7 @@ public class DizzyEffect1 : MonoBehaviour
     private float rotator = 0;
     private float rotateLimit = 0;
     private PostProcessVolume ppVolume;
+    private GameManager gameManager;
     ChromaticAberration chromeaticthing;
     LensDistortion lensDistortion;
     // Start is called before the first frame update
@@ -30,6 +33,7 @@ public class DizzyEffect1 : MonoBehaviour
         isincreasing = false;
         Dizzy.TryGetSettings(out chromeaticthing);
         Dizzy.TryGetSettings(out lensDistortion);
+        gameManager = FindObjectOfType<GameManager>();
         EndDizzy();
     }
 
@@ -56,7 +60,7 @@ public class DizzyEffect1 : MonoBehaviour
                 lensDistortion.intensity.value -= speed*30;
                 gameObject.transform.Rotate(Vector3.forward, -speed * 1);
             }
-            ppVolume.weight = Mathf.Min(ppVolume.weight + fadeSpeed, 0.9f);
+            ppVolume.weight = Mathf.Min(ppVolume.weight + fadeSpeed, 1);
             effectLimit = Mathf.Min(effectLimit + fadeSpeed * EffectStrength, EffectStrength);
             soundVolume = Mathf.Min(soundVolume + fadeSpeed * maximumSound, maximumSound);
             Camera.main.GetComponent<StudioEventEmitter>().EventInstance.setParameterValue("migraineVolume", soundVolume);
@@ -80,23 +84,20 @@ public class DizzyEffect1 : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(isDizzy)
+        if(!gameManager.IsPaused())
         {
-            if (rotatingRight)
+            if (isDizzy)
             {
-                gameObject.transform.Rotate(Vector3.forward, rotator * 1);
+                Debug.Log("rotateLimit " + rotateLimit);
                 rotator += rotateSpeed;
-                if (rotator > rotateLimit) rotatingRight = false;
+                gameObject.transform.Rotate(Vector3.forward, Mathf.Cos(rotator) * rotateLimit);
+                rotateLimit = Mathf.Min(rotateLimit + rotateSpeed * rotateAcceleration, rotateMax);
             }
             else
             {
-                
-                gameObject.transform.Rotate(Vector3.forward, rotator * 1);
-                rotator -= rotateSpeed;
-                if (rotator < -rotateLimit) rotatingRight = true;
+                rotateLimit = 0;
+                rotator = 0;
             }
-            Debug.Log("rotateLimit " + rotateLimit);
-            rotateLimit = Mathf.Min(rotateLimit + rotateSpeed * 0.3f, 4);
         }
 
     }

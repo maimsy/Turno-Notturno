@@ -621,10 +621,10 @@ public class ObjectiveManager : MonoBehaviour
         {
             PlayDialogue("21", 0.5f, abortPrevious: false);
             PlayDialogue("w05", 1f, abortPrevious: false);
-            Invoke("Dizzyness", 2f);
+            Invoke("Dizzyness", 8f);
             PlayDialogue("23", 14f, abortPrevious: false);
             StartCoroutine(FadeToNextScene(20f));
-            Invoke("StopDizzyness", 22f);
+            Invoke("StopDizzyness", 24f);
             PlayDialogue("w06", 20f, abortPrevious: false);
         }
     }
