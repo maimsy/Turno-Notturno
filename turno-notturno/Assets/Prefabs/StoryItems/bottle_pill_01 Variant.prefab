@@ -14,39 +14,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
---- !u!114 &164958997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3159124603097490897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c99e24f316af8754ebc98703b30a2856, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggersOnce: 1
-  tooltip: Take pills
-  interactionDisabledTooltip: Migraine pills
-  interactionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: TakePills
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  isInteractable: 0
-  soundEmitter: {fileID: 2369412107192312922}
 --- !u!114 &2369412107192312922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,6 +37,41 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &603859394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3159124603097490897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33a527b5ad8b05242a9302959d8a497c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: TakePills
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  soundEmitter: {fileID: 0}
+  triggersOnce: 0
+  isEnabled: 1
+  enabledTooltip: Take pills
+  disabledTooltip: Migraine pills
+  requireObjective: 1
+  objective: pills1
 --- !u!1001 &3159124603097523057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79,7 +81,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
       propertyPath: m_Name
-      value: bottle_pill_01 Variant
+      value: bottle_pill_01
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f26b2db8deb23a48971b6eda9ed0c8d, type: 3}
       propertyPath: m_LocalPosition.x

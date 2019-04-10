@@ -12,10 +12,10 @@ public class MainMainMenuButtons : MonoBehaviour
     public GameObject ArrowImage2;
     public GameObject ArrowImage3;
 
-    public Button StartButton;
-    public Button ContinueButton;
-    public Button OptionsButton;
-
+    public GameObject StartButton;
+    public GameObject ContinueButton;
+    public GameObject OptionsButton;
+    
     public Text StartText;
     public Text ContinueText;
     public Text ExitText;
@@ -48,19 +48,19 @@ public class MainMainMenuButtons : MonoBehaviour
 
         GameObject selected = EventSystem.current.currentSelectedGameObject;
 
-        if (selected == StartButton.gameObject)
+        if (selected == StartButton)
         {
             ArrowImage1.SetActive(true);
             ArrowImage2.SetActive(false);
             ArrowImage3.SetActive(false);
         }
-        else if (selected == ContinueButton.gameObject)
+        else if (selected == ContinueButton)
         {
             ArrowImage1.SetActive(false);
             ArrowImage2.SetActive(true);
             ArrowImage3.SetActive(false);
         }
-        else if (selected == OptionsButton.gameObject)
+        else if (selected == OptionsButton)
         {
             ArrowImage1.SetActive(false);
             ArrowImage2.SetActive(false);
@@ -105,6 +105,19 @@ public class MainMainMenuButtons : MonoBehaviour
     }
 
 
+    void FadeTextIn(Text text)
+    {
+        fadeTimer += Time.deltaTime;
+        float fade = fadeTimer / fadeTime;                 
+        Color Color1 = StartText.color; 
+        text.color = new Color(Color1.r, Color1.g, Color1.b, 1 - fade);
+        if (fadeTimer > fadeTime)
+        {
+
+        } 
+    }
+
+
     void OpenBook() {
         Animator anim = Book.GetComponent<Animator>();
         anim.Play("TurnToPage1");
@@ -113,10 +126,12 @@ public class MainMainMenuButtons : MonoBehaviour
     // Start is called before the first frame update
     public void StartGame()
     {
-        isFade = true;
-        GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
-        PlayerPrefs.SetInt("GameState", -1);
+         isFade = true;
+        //GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
+        //PlayerPrefs.SetInt("GameState", -1);
     }
+
+    
 
     // Update is called once per frame
     public void Continue()

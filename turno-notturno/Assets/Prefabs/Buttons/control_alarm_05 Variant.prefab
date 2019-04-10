@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!64 &1825069194868543093
+--- !u!64 &1831632720
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,8 +13,8 @@ MeshCollider:
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 0498ad0b6f043cc4f98299f343dd19f5, type: 3}
---- !u!114 &4738901658227560589
+  m_Mesh: {fileID: 4300002, guid: e3ecf47accbac974ba514506ece30e4c, type: 3}
+--- !u!114 &1831632719
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -23,15 +23,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1825069194868543092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c99e24f316af8754ebc98703b30a2856, type: 3}
+  m_Script: {fileID: 11500000, guid: 33a527b5ad8b05242a9302959d8a497c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggersOnce: 0
-  tooltip: Turn off alarm
-  interactionDisabledTooltip: Alarm control panel (Inactive)
-  interactionEvents: []
-  isInteractable: 0
+  interactionEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   soundEmitter: {fileID: 8143762424525364751}
+  triggersOnce: 1
+  isEnabled: 0
+  enabledTooltip: Turn off alarm
+  disabledTooltip: Alarm control panel (Inactive)
+  requireObjective: 0
+  objective: 
 --- !u!114 &8143762424525364751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +70,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 0498ad0b6f043cc4f98299f343dd19f5, type: 3}
       propertyPath: m_Name
-      value: control_alarm_05 Variant
+      value: control_alarm_03
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 0498ad0b6f043cc4f98299f343dd19f5, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -74,6 +80,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
+    - target: {fileID: 3300000, guid: 0498ad0b6f043cc4f98299f343dd19f5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: e3ecf47accbac974ba514506ece30e4c, type: 3}
     - target: {fileID: 400000, guid: 0498ad0b6f043cc4f98299f343dd19f5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -19.95

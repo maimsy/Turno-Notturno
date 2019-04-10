@@ -7,11 +7,11 @@ using Random = UnityEngine.Random;
 
 public class Player : Character
 {
-
     [SerializeField] Transform playerCamera;
     [SerializeField] Text interactTooltip;
     [SerializeField] float maxInteractDistance = 4f;
 
+    [SerializeField] float runSpeedMultiplier = 1.5f;
     [SerializeField] float maxMovementSpeed = 5f;
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float XSensitivity = 1f;
@@ -33,8 +33,15 @@ public class Player : Character
     AudioSource Death;
     public AudioClip[] Aw;
     public AudioClip Player_Death;
+    public bool dizzy = false;
 
     private string tipString = "Left click to ";
+    private bool rotatingRight = false;
+    private float rotator = 0;
+    private float rotateLimit = 1;
+    private float rotateSpeed = 0.01f;
+
+    private bool running = false;
 
     void Start()
     {
@@ -78,33 +85,60 @@ public class Player : Character
     void Interact()
     {
         if (interactTooltip) interactTooltip.text = "";
+        BaseInteractable.StopPreviousHighlight();
         RaycastHit hit;
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        int mask = ~(1 << LayerMask.NameToLayer("InspectOnly")); // Ignore "InspectOnly" layer, which is handled by Inspectable objects
+        LayerMask mask = ~(1 << LayerMask.NameToLayer("InspectOnly") | 1 << LayerMask.NameToLayer("Ignore Raycast")); // Ignore "InspectOnly" layer, which is handled by Inspectable objects
         if (Physics.Raycast(ray, out hit, maxInteractDistance, mask)) 
         {
             GameObject objectHit = hit.transform.gameObject;
-            Interactable interactable = objectHit.GetComponent<Interactable>();
-            if (!interactable) interactable = objectHit.GetComponentInParent<Interactable>();
+            BaseInteractable interactable = GetInteractable(objectHit);
             if (interactable != null)
             {
-                if(interactable.isInteractable)
+                String tooltip = interactable.GetTooltip();
+                if (tipString.Length > 0 && interactable.IsInteractable())
                 {
-                    interactable.HighLight();
-                    if (interactTooltip) interactTooltip.text = tipString + interactable.GetTooltip();
-                    if (Input.GetKeyDown(KeyCode.Mouse0))
-                    {
-                        interactable.OnInteract();
-                        tipString = "";
-                    }
+                    // Add tooltip and force lowercase first letter 
+                    if (tooltip.Length > 0) tooltip = char.ToLower(tooltip[0]) + tooltip.Substring(1);
+                    tooltip = tipString + tooltip;
                 }
                 else
                 {
-                    if (interactTooltip) interactTooltip.text = interactable.GetTooltip();
+                    // Force uppercase first letter 
+                    if (tooltip.Length > 0) tooltip = char.ToUpper(tooltip[0]) + tooltip.Substring(1);
+                }
+                interactable.HighLight();
+                if (interactTooltip) interactTooltip.text = tooltip;
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    interactable.Interact();
+                    if (interactable.IsInteractable()) tipString = "";
                 }
             }
 
         }
+    }
+
+    private BaseInteractable GetInteractable(GameObject obj)
+    {
+        BaseInteractable[] interactables = obj.GetComponentsInParent<BaseInteractable>();
+
+        // Prefer interactables that are currently active
+        foreach (BaseInteractable interactable in interactables)
+        {
+            if (interactable.isActiveAndEnabled && interactable.IsInteractable()) return interactable;
+        }
+
+
+        // Otherwise return the first enabled interactable found
+        if (interactables.Length > 0)
+        {
+            foreach (BaseInteractable interactable in interactables)
+            {
+                if (interactable.isActiveAndEnabled) return interactable;
+            }
+        }
+        return null;
     }
 
     public void SetTooltip(String str)
@@ -129,13 +163,24 @@ public class Player : Character
     void FixedUpdate()
     {
         Vector3 move = MovementVector();
-
         if (move.magnitude > 1)
         {
             move = move.normalized;
         }
-        move.x *= movementSpeed;
-        move.z *= movementSpeed;
+
+        float speed = movementSpeed;
+        if (Input.GetButton("Run"))
+        {
+            running = true;
+            speed *= runSpeedMultiplier;
+        }
+        else
+        {
+            running = false;
+        }
+        move.x *= speed;
+        move.z *= speed;
+        
         move = transform.TransformDirection(move);
 
         //rb.MovePosition(rb.position + move * Time.fixedDeltaTime);
@@ -150,12 +195,16 @@ public class Player : Character
         Vector3 velo = Vector3.zero;
         velo.x = rb.velocity.x;
         velo.z = rb.velocity.z;
-
-        if (velo.magnitude > maxMovementSpeed)
+        
+        if (Input.GetButton("Run") && velo.magnitude > maxMovementSpeed * runSpeedMultiplier)
+        {
+            velo = velo.normalized * maxMovementSpeed * runSpeedMultiplier;
+        }
+        else if (velo.magnitude > maxMovementSpeed)
         {
             velo = velo.normalized * maxMovementSpeed;
         }
-
+        
         velo.y = rb.velocity.y;
         if (velo.y > 0)
         {
@@ -185,6 +234,26 @@ public class Player : Character
 
         transform.rotation = Quaternion.Slerp(transform.localRotation, characterTargetRotation, cameraSmoothing);
         playerCamera.localRotation = Quaternion.Slerp(playerCamera.localRotation, cameraTargetRotation, cameraSmoothing);
+        if(dizzy)
+        {
+            Dizzyness();
+        }
+    }
+
+    private void Dizzyness()
+    {
+        if (rotatingRight)
+        {
+            gameObject.transform.Rotate(Vector3.forward, 0.01f * 10);
+            rotator += rotateSpeed;
+            if (rotator > rotateLimit) rotatingRight = false;
+        }
+        else
+        {
+            gameObject.transform.Rotate(Vector3.forward, -0.01f * 10);
+            rotator -= rotateSpeed;
+            if (rotator < 0) rotatingRight = true;
+        }
     }
 
     public void RotateTo(Quaternion rotation)
@@ -224,5 +293,30 @@ public class Player : Character
         q.x = Mathf.Tan(0.5f * Mathf.Deg2Rad * angleX);
 
         return q;
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+
+        ContactPoint contact = collision.contacts[0];
+        if (Vector3.Dot(contact.normal, Vector3.up) > 0.5)
+        {
+            //collision was from below
+            if (collision.collider.tag == "Stairs")
+            {
+                FindObjectOfType<SoundManager>().footstepsound = "event:/footstepsStairs";
+            }
+            else
+            {
+                FindObjectOfType<SoundManager>().footstepsound = "event:/footsteps";
+            }
+        }
+
+
+    }
+
+    public bool IsRunning()
+    {
+        return running;
     }
 }

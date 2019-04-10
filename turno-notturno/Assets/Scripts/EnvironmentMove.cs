@@ -179,6 +179,16 @@ public class EnvironmentMove : MonoBehaviour
         playerMovement.GetComponent<CircleCollider2D>().isTrigger = false;
         ResetArt();
         ResetLayers();
+        GameObject[] letters = GameObject.FindGameObjectsWithTag("Letter");
+        foreach(GameObject letter in letters)
+        {
+            Destroy(letter);
+        }
+        DrawingLogic drawingLogic = FindObjectOfType<DrawingLogic>();
+        if (drawingLogic)
+        {
+            drawingLogic.Reset();
+        }
     }
 
     private void ResetArt()

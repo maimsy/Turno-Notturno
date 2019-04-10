@@ -8,7 +8,7 @@ public class Dialogue : MonoBehaviour
 {
     public float letterPause = 0.1f;
     public float initialPause = 0f;
-    public float endPause = 1f;
+    public float endPause = 3f;
 
     string message;
     Text textComp;
@@ -24,11 +24,11 @@ public class Dialogue : MonoBehaviour
 
     public void DisplayText(String text)
     {
-        StopCoroutine(TypeText()); // Stop any previous texts
+        StopCoroutine("TypeText"); // Stop any previous texts
         textComp = GetComponent<Text>();
         message = text;
         textComp.text = "";
-        StartCoroutine(TypeText());
+        StartCoroutine("TypeText");
     }
 
     IEnumerator TypeText()

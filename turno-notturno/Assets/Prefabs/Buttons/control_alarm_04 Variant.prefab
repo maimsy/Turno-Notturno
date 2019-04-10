@@ -13,8 +13,8 @@ MeshCollider:
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
-  m_Mesh: {fileID: 4300002, guid: 46969f27efd3be441bacbe058bd8114d, type: 3}
---- !u!114 &436307065784201653
+  m_Mesh: {fileID: 4300002, guid: e3ecf47accbac974ba514506ece30e4c, type: 3}
+--- !u!114 &2096429552
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -23,29 +23,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 436307065784201651}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c99e24f316af8754ebc98703b30a2856, type: 3}
+  m_Script: {fileID: 11500000, guid: 33a527b5ad8b05242a9302959d8a497c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggersOnce: 1
-  tooltip: Turn off alarm
-  interactionDisabledTooltip: Alarm control panel (Inactive)
-  interactionEvents:
-  - m_PersistentCalls:
+  interactionEvent:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: StopAlarm
+        m_MethodName: EndMigrain
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 436307065784201653}
-        m_MethodName: set_enabled
-        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -66,7 +52,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_MethodName: EndMigrain
+        m_MethodName: StopAlarm
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -78,8 +64,13 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  isInteractable: 1
   soundEmitter: {fileID: 8907124021518777821}
+  triggersOnce: 1
+  isEnabled: 1
+  enabledTooltip: Turn off alarm
+  disabledTooltip: Alarm control panel (Inactive)
+  requireObjective: 1
+  objective: alarm1
 --- !u!114 &8907124021518777821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +103,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 46969f27efd3be441bacbe058bd8114d, type: 3}
       propertyPath: m_Name
-      value: control_alarm_04 Variant
+      value: control_alarm_02
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 46969f27efd3be441bacbe058bd8114d, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -124,7 +115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 46969f27efd3be441bacbe058bd8114d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5887318
+      value: 1.619
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 46969f27efd3be441bacbe058bd8114d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -166,6 +157,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
+    - target: {fileID: 3300000, guid: 46969f27efd3be441bacbe058bd8114d, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: e3ecf47accbac974ba514506ece30e4c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46969f27efd3be441bacbe058bd8114d, type: 3}
 --- !u!1 &436307065784201651 stripped

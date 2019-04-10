@@ -4,17 +4,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using FMODUnity;
+using UnityEngine.Rendering.PostProcessing;
 
 public class ObjectiveManager : MonoBehaviour
 {
+    
     private List<GameObject> windowBars;
     private List<string> multiObjectives;
     private bool[] paintingsChecked;
     private GameObject objectivePredab;
     private Dictionary<string, Objective> objectives;
     private float delayTime = 2;
-
+    private FMOD.Studio.EventInstance currentVoiceLine;
+    private FMOD.Studio.EventInstance currentWhisper; // Guard voice and whispers are allowed to overlap
     private int act2ArtVoiceline = 0;
+
+    public enum ClueObjective
+    {
+        NotImplemented = 0,
+
+        // Act 1
+        SpinningCityDescription = 10, // Numbering is used to simplify checking for active objective
+        SpinningCityMesh = 11,
+
+        // Act 2
+        ToothTreeTrunk = 21,
+        ToothTreeBase = 22,
+        ToothTreeTeeth = 23,
+        ToothTreeDescription = 24,
+
+        BallsyPortraitBalls = 31,
+        BallsyPortraitSpiral = 32,
+        BallsyPortraitShadow = 33,
+        BallsyPortraitDescription = 34,
+
+        // Act 3-1
+        MouthRobotTeeth = 41,
+
+        PaintingRedSpiral = 51,
+        PaintingPart2 = 52,
+
+        // Act 3-2
+        VideoPart1 = 61,
+        VideoPart2 = 62,
+        VideoPart3 = 63
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -54,7 +88,7 @@ public class ObjectiveManager : MonoBehaviour
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         obj = GetObject("art_main_01_sculptre");
         if (obj) obj.GetComponentInChildren<Rotate>().StartRotation();
-
+        SetMainDoorTooltip("Main doors");
 
         foreach (GameObject windowBar in windowBars)
         {
@@ -83,7 +117,16 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("13", 2f, abortPrevious: false);
         PlayDialogue("14", 7f, abortPrevious: false);
         StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
-
+        GameObject[] paintings = GameObject.FindGameObjectsWithTag("Droppable");
+        float forceDirection = GetObject("GroundColliderPaintingRoom").transform.position.x;
+        foreach(GameObject painting in paintings)
+        {
+            painting.AddComponent<Rigidbody>();
+            Vector3 force = new Vector3(0, 0, 0);
+            Vector3 pos = painting.transform.position;
+            force.x = pos.x < forceDirection ? 1.5f : -1.5f;
+            painting.GetComponent<Rigidbody>().AddForceAtPosition(force, pos, ForceMode.Impulse);
+        }
         GameObject obj = GetObject("WakeUpPosition_Act2");
         if (obj)
         {
@@ -94,7 +137,6 @@ public class ObjectiveManager : MonoBehaviour
         if (obj)
         {
             obj.GetComponent<Door>().locked = false;
-            obj.GetComponent<Door>().UpdateTooltip();
         }
         obj = GetObject("RoomTrigger2");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
@@ -127,7 +169,8 @@ public class ObjectiveManager : MonoBehaviour
         if (obj)
         {
             obj.GetComponent<Door>().locked = false;
-            obj.GetComponent<Door>().UpdateTooltip();
+            obj.GetComponent<Door>().Open();
+            //obj.GetComponent<Door>().UpdateTooltip();
         }
         Vector3 pos = Vector3.zero;
         obj = GetObject("FlashLightPos_Act3");
@@ -136,7 +179,7 @@ public class ObjectiveManager : MonoBehaviour
         if (obj)
         {
             obj.transform.position = pos;
-            obj.GetComponent<Interactable>().isInteractable = true;
+            //obj.GetComponent<Interactable>().isInteractable = true;
         }
         AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
@@ -163,33 +206,76 @@ public class ObjectiveManager : MonoBehaviour
     }
 
     //Remove objective after animations
-    IEnumerator RemoveObjective(string name)
+    private void RemoveObjective(string objectiveName)
     {
-        yield return new WaitForSeconds(0);
-        objectives.Remove(name);
+        objectives.Remove(objectiveName);
+        FillGap();
+    }
+
+    //fills the empty space left by the removed objective
+    private void FillGap()
+    {
+        List<int> nums = new List<int>();
+        int gap = -1;
+        int max = 0;
+        foreach (Objective obj in objectives.Values)
+        {
+            int pos = (int)obj.GetPos();
+            nums.Add(pos);
+            max = pos > max ? pos : max;
+        }
+        for(int i = 0; i < max+1; i++)
+        {
+            if(!nums.Contains(i))
+            {
+                gap = i;
+            }
+        }
+
+        foreach (Objective obj in objectives.Values)
+        {
+
+            float pos = obj.GetPos();
+            if (pos > gap && gap != -1)
+            {
+                obj.StartMoving((int)pos - 1);
+            }
+        }
     }
 
     //multiple objectives
     private void MultiObjective(string[] names)
     {
         multiObjectives.Clear();
-        foreach (string name in names)
+        foreach (string objectiveName in names)
         {
-            multiObjectives.Add(name);
+            multiObjectives.Add(objectiveName);
         }
         
     }
 
-    public bool UpdateProgress(string name)
+    public bool IsObjectiveActive(string objectiveName)
     {
-        if(objectives.ContainsKey(name)){
-            if (objectives[name].UpdateProgress(1))
+        return objectives.ContainsKey(objectiveName);
+    }
+
+    public bool IsObjectiveActive(ClueObjective clueObjective)
+    {
+        string objectiveName = ClueToString(clueObjective);
+        return objectives.ContainsKey(objectiveName);
+    }
+
+    public bool UpdateProgress(string objectiveName)
+    {
+        if(IsObjectiveActive(objectiveName))
+        {
+            if (objectives[objectiveName].UpdateProgress(1))
             {
-                StartCoroutine(RemoveObjective(name));
-                objectives[name].Complete();
-                if(multiObjectives.Contains(name))
+                objectives[objectiveName].Complete();
+                RemoveObjective(objectiveName);
+                if(multiObjectives.Contains(objectiveName))
                 {
-                    multiObjectives.Remove(name);
+                    multiObjectives.Remove(objectiveName);
                 }
                 return true;
             }
@@ -213,8 +299,8 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("artpiece1", "Find the cause of the alarm", 1, 0));
         string[] names = { "alarm1", "artpiece1" };
         MultiObjective(names);
-        GameObject obj = GetObject("control_alarm_02");
-        if (obj) obj.GetComponent<Interactable>().isInteractable = true;
+        //GameObject obj = GetObject("control_alarm_02");
+        //if (obj) obj.GetComponent<Interactable>().isInteractable = true;
     }
 
     //Player turned off alarm
@@ -226,7 +312,6 @@ public class ObjectiveManager : MonoBehaviour
             {
                 Locking();
             }
-            //GameObject.Find("artpiece").GetComponent<Interactable>().isInteractable = true;
         } 
     }
 
@@ -242,29 +327,133 @@ public class ObjectiveManager : MonoBehaviour
 
     private void AddClue1Objectives()
     {
-        StartCoroutine(NewObjective("clue1", "Inspect the artwork for damage", 4, 0));
-        GameObject obj = GetObject("art_main_01_mesh");
-        if (obj) obj.GetComponent<Painting>().EnableClues(true);
+        int amount = CountClues("clue1");
+        StartCoroutine(NewObjective("clue1", "Inspect the artwork for clues", amount, 0));
     }
 
-    public void InspectClues1(int propertyType)
+    private void AddClue2Objectives()
     {
-        PropertyType property = (PropertyType)propertyType;
-        /*if (!w01Played)
+        int amount = CountClues("clue2");
+        StartCoroutine(NewObjective("clue2", "Inspect the artwork for clues", amount, 0));
+        multiObjectives.Add("clue2");
+    }
+
+    private void AddClue3Objectives()
+    {
+        int amount = CountClues("clue3");
+        StartCoroutine(NewObjective("clue3", "Inspect the artwork for clues", amount, 0));
+        multiObjectives.Add("clue3");
+    }
+
+    private void AddClue4Objectives()
+    {
+        int amount = CountClues("clue4");
+        StartCoroutine(NewObjective("clue4", "Inspect the artwork for clues", amount, 0));
+        multiObjectives.Add("clue4");
+    }
+
+    private void AddClue5Objectives()
+    {
+        int amount = CountClues("clue5");
+        StartCoroutine(NewObjective("clue5", "Inspect the artwork for clues", amount, 0));
+        multiObjectives.Add("clue5");
+    }
+
+    private void AddClue6Objectives()
+    {
+        int amount = CountClues("clue6");
+        StartCoroutine(NewObjective("clue6", "Inspect the artwork for clues", amount, 0));
+    }
+
+    private int CountClues(string objective)
+    {
+        int found = 0;
+        foreach (Clue clue in FindObjectsOfType<Clue>())
         {
-            PlayDialogue("w01", 0.5f);
-            w01Played = true;
-        }*/
-        /*if (property == PropertyType.Color) PlayDialogue("w01", 0.5f);
-        if (property == PropertyType.Theme) PlayDialogue("06b", 0.5f);
-        if (property == PropertyType.Material) PlayDialogue("06c", 0.5f);
-        if (property == PropertyType.Special) PlayDialogue("06d", 0.5f);*/
-        if (UpdateProgress("clue1"))
+            if (clue.isActiveAndEnabled && objective == ClueToString(clue.objective))
+            {
+                found += 1;
+            }
+        }
+
+        return found;
+    }
+
+    public string ClueToString(ClueObjective objective)
+    {
+        // Returns something between "clue1" and "clue6"
+        int i = (Int16) objective;
+        return "clue" + i.ToString()[0];
+    }
+
+    
+
+    public void InspectCluesGlobal(ClueObjective objective)
+    {
+        // Act 1
+        string s = ClueToString(objective);
+
+        // Spinning city
+        if (s == "clue1" && UpdateProgress(s))
+        {
+            if (objective == ClueObjective.SpinningCityMesh)
+            {
+                PlayDialogue("w01", 0.5f);
+            }
+            else if (objective == ClueObjective.SpinningCityDescription)
+            {
+                // Player reads the description out loud?
+            }
+            if (multiObjectives.Count == 0)
+            {
+                Invoke("Locking", 4f);
+            }
+        }
+
+        // Tooth-tree
+        if (s == "clue2" && UpdateProgress(s))
         {
             if (multiObjectives.Count == 0)
             {
-                PlayDialogue("w01", 0.5f);
-                Invoke("Locking", 4f);
+                StorageRoomSetUp();
+            }
+        }
+
+        // Ballsy-portrait
+        if (s == "clue3" && UpdateProgress(s))
+        {
+            if (multiObjectives.Count == 0)
+            {
+                StorageRoomSetUp();
+            }
+        }
+
+
+        // Mouth-robot
+        if (s == "clue4" && UpdateProgress(s))
+        {
+            if (multiObjectives.Count == 0)
+            {
+                Leave();
+            }
+        }
+
+
+        // Painting
+        if (s == "clue5" && UpdateProgress(s))
+        {
+            if (multiObjectives.Count == 0)
+            {
+                Leave();
+            }
+        }
+
+        // Video-art
+        if (s == "clue6" && UpdateProgress(s))
+        {
+            if (multiObjectives.Count == 0)
+            {
+                // TODO
             }
         }
     }
@@ -277,14 +466,16 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("door1", "Check the main door", 1, delayTime));
         string[] names = { "window1", "door1" };
         MultiObjective(names);
-        GameObject obj = GetObject("control_windows_01");
-        if (obj) obj.GetComponent<Interactable>().isInteractable = true;
-        obj = GetObject("control_windows_02");
-        if (obj) obj.GetComponent<Interactable>().isInteractable = true;
-        obj = GetObject("door_02_group");
-        if (obj) obj.GetComponent<Interactable>().SetTooltip("check doors");
-        obj = GetObject("door_03_group");
-        if (obj) obj.GetComponent<Interactable>().SetTooltip("check doors");
+        SetMainDoorTooltip("Lock main doors");
+        GameObject obj;
+        //GameObject obj = GetObject("control_windows_01");
+        //if (obj) obj.GetComponent<Interactable>().isInteractable = true;
+        //obj = GetObject("control_windows_02");
+        //if (obj) obj.GetComponent<Interactable>().isInteractable = true;
+        //obj = GetObject("door_02_group");
+        //if (obj) obj.GetComponent<Interactable>().SetTooltip("check doors");
+        //obj = GetObject("door_03_group");
+        //if (obj) obj.GetComponent<Interactable>().SetTooltip("check doors");
     }
 
     //One window was locked
@@ -307,6 +498,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("door1"))
         {
+            SetMainDoorTooltip("");
             PlayDialogue("10", 0.5f);
             if (multiObjectives.Count == 0)
             {
@@ -328,14 +520,8 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(NewObjective("pills1", "Find migraine pills in guard room", 1, migraineDelay + delayTime));
         PlayDialogue("w02", migraineDelay);
         PlayDialogue("11", migraineDelay + 3f);
-        Invoke("PillsInteractable", migraineDelay + delayTime);
     }
-    private void PillsInteractable()
-    {
-        GameObject obj = GetObject("bottle_pill_01");
-        if (obj)
-            obj.GetComponent<Interactable>().isInteractable = true;
-    }
+
 
     //player takes pills
     public void TakePills()
@@ -368,7 +554,7 @@ public class ObjectiveManager : MonoBehaviour
         string[] names = { "alarm2", "artpiece2" };
         MultiObjective(names);
         GameObject obj = GetObject("control_alarm_04");
-        if (obj) obj.GetComponent<Interactable>().isInteractable = true;
+        //if (obj) obj.GetComponent<Interactable>().isInteractable = true;
     }
 
     //player inspects one of the paintings
@@ -379,12 +565,11 @@ public class ObjectiveManager : MonoBehaviour
             if (whichPainting == 0)
             {
                 PlayDialogue("w03", 1f, abortPrevious: false);
-                
+                AddClue2Objectives();
             }
-            if (whichPainting == 0)
+            else
             {
-                PlayDialogue("w03", 1f, abortPrevious: false);
-                PlayDialogue("w03", 1f, abortPrevious: false);
+                AddClue3Objectives();
             }
 
             // Order of players response to whispers should be the same regardless of which art is inspected first
@@ -399,13 +584,7 @@ public class ObjectiveManager : MonoBehaviour
             }
 
             paintingsChecked[whichPainting] = true;
-            if (UpdateProgress("artpiece2"))
-            {
-                if (multiObjectives.Count == 0)
-                {
-                    StorageRoomSetUp();
-                }
-            }
+            UpdateProgress("artpiece2");
         }
     }
 
@@ -425,8 +604,13 @@ public class ObjectiveManager : MonoBehaviour
 
     private void StorageRoomSetUp()
     {
+        GameObject obj = GetObject("door_04_group");
+        if (obj)
+        {
+            // Open door immediately, so the player wont see it opening
+            obj.GetComponent<Door>().Open();
+        }
         StartCoroutine(NewObjective("storage", "Check the storage room", 1, 8f));
-        
         Invoke("BleachFall", 6f);
     }
 
@@ -445,12 +629,23 @@ public class ObjectiveManager : MonoBehaviour
         {
             PlayDialogue("21", 0.5f, abortPrevious: false);
             PlayDialogue("w05", 1f, abortPrevious: false);
+            Invoke("Dizzyness", 8f);
             PlayDialogue("23", 14f, abortPrevious: false);
             StartCoroutine(FadeToNextScene(20f));
+            Invoke("StopDizzyness", 24f);
             PlayDialogue("w06", 20f, abortPrevious: false);
         }
     }
 
+    private void Dizzyness()
+    {
+        FindObjectOfType<DizzyEffect1>().StartDizzy();
+    }
+
+    private void StopDizzyness()
+    {
+        FindObjectOfType<DizzyEffect1>().EndDizzy();
+    }
     //Enters the middle area upstairs
     public void Room3()
     {
@@ -467,7 +662,7 @@ public class ObjectiveManager : MonoBehaviour
         string[] names = { "alarm3", "artpiece3" };
         MultiObjective(names);
         GameObject obj = GetObject("control_alarm_05");
-        if(obj) obj.GetComponent<Interactable>().isInteractable = true;
+        //if(obj) obj.GetComponent<Interactable>().isInteractable = true;
     }
 
     public void TurnOffAlarm3()
@@ -491,20 +686,16 @@ public class ObjectiveManager : MonoBehaviour
             {
                 PlayDialogue("w07", 1f, abortPrevious: false);
                 PlayDialogue("28", 2f, abortPrevious: false);
+                AddClue4Objectives();
             }
             if (whichPainting == 1)
             {
                 PlayDialogue("w08", 1f, abortPrevious: false);
+                AddClue5Objectives();
             }
 
             paintingsChecked[whichPainting] = true;
-            if (UpdateProgress("artpiece3"))
-            {
-                if (multiObjectives.Count == 0)
-                {
-                    Leave();
-                }
-            }
+            UpdateProgress("artpiece3");
         }
     }
 
@@ -514,10 +705,7 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("w09", 4f, abortPrevious: false);
         //panic breathing effect after the dialogue
         //PlayDialogue("22", 6f, abortPrevious: false);
-        GameObject obj = GetObject("door_02_group");
-        if (obj) obj.GetComponent<Interactable>().SetTooltip("Escape");
-        obj = GetObject("door_03_group");
-        if (obj) obj.GetComponent<Interactable>().SetTooltip("Escape");
+        SetMainDoorTooltip("Escape");
         StartCoroutine(NewObjective("leave", "Leave the museum", 1, 5f));
     }
 
@@ -574,7 +762,7 @@ public class ObjectiveManager : MonoBehaviour
             if (UpdateProgress("artpiece4"))
             {
                 PlayDialogue("w11", 2f, abortPrevious: false);
-                StartCoroutine(NewObjective("???", "(TODO)", 1, 5f));
+                AddClue6Objectives();
             }
         }
     }
@@ -732,44 +920,44 @@ public class ObjectiveManager : MonoBehaviour
 
             /*************          WHISPERS           *************/
             case "w01":
-                //dialogueMessage = "One day I will take you to the highest skyscraper there is. " +
-                //                  "We will sleep on the rooftop under a blanket of stars. " +
-                //                  "Feel the world spinning. " +
-                //                  "Stare into the eternity of the Universe. " +
-                //                  "Like the freest man alive, without the worries of the world underneath us.";
+                dialogueMessage = "One day I will take you to the highest skyscraper there is. " +
+                                  "We will sleep on the rooftop under a blanket of stars. " +
+                                  "Feel the world spinning. " +
+                                  "Stare into the eternity of the Universe. " +
+                                  "Like the freest man alive, without the worries of the world underneath us.";
                 break;
             case "w02":
-                //dialogueMessage = "Will you come with me? Do you trust me? Let’s run away.";
+                dialogueMessage = "Will you come with me? Do you trust me? Let’s run away.";
                 break;
             case "w03":
-                //dialogueMessage = "Your father was the kindest man I had ever met. I really, really miss him. I’m lucky to have you. You have the same eyes as him.";
+                dialogueMessage = "Your father was the kindest man I had ever met. I really, really miss him. I’m lucky to have you. You have the same eyes as him.";
                 break;
             case "w04":
-                //dialogueMessage = "I told you many times, your teeth will rot and decay and blacken " +
-                //                  "and fill with worms and fall all over the floor if you don’t take care of them. " +
-                //                  "Now go wash your teeth. I will check when it’s time to sleep.";
+                dialogueMessage = "I told you many times, your teeth will rot and decay and blacken " +
+                                  "and fill with worms and fall all over the floor if you don’t take care of them. " +
+                                  "Now go wash your teeth. I will check when it’s time to sleep.";
                 break;
             case "w05":
-                //dialogueMessage = "Oh my God, there you are!! Why were you hiding?!?!? Come back out and stop crying! " +
-                //                  "Don’t you ever dare hide from me again!\r\n(loving tone) I love you.";
+                dialogueMessage = "Oh my God, there you are!! Why were you hiding?!?!? Come back out and stop crying! " +
+                                  "Don’t you ever dare hide from me again!\r\n(loving tone) I love you.";
                 break;
             case "w06":
-                //dialogueMessage = "How could you.";
+                dialogueMessage = "How could you.";
                 break;
             case "w07":
-                //dialogueMessage = "Come inside";
+                dialogueMessage = "Come inside";
                 break;
             case "w08":
-                //dialogueMessage = "It’s coming to get you";
+                dialogueMessage = "It’s coming to get you";
                 break;
             case "w09":
-                //dialogueMessage = "Run";
+                dialogueMessage = "Run";
                 break;
             case "w10":
-                //dialogueMessage = "Do you remember what you’ve done?";
+                dialogueMessage = "Do you remember what you’ve done?";
                 break;
             case "w11":
-                //dialogueMessage = "They don’t understand.";
+                dialogueMessage = "They don’t understand.";
                 break;
             default:
                 Debug.LogError("Invalid voiceline: " + filename);
@@ -782,13 +970,46 @@ public class ObjectiveManager : MonoBehaviour
     IEnumerator DelayedVoiceline(String dialogueMessage, String filename, float delay)
     {
         yield return new WaitForSeconds(delay);
-        Dialogue dialogue = FindObjectOfType<Dialogue>();
-        if (dialogue)
+        Dialogue[] dialogues = FindObjectsOfType<Dialogue>();
+        Dialogue normalDialogue = null;
+        Dialogue whisperDialogue = null;
+        foreach (Dialogue dialogue in dialogues)
         {
-            dialogue.DisplayText(dialogueMessage);
+            if (dialogue.name == "DialogueText")
+            {
+                normalDialogue = dialogue;
+            }
+            else
+            {
+                whisperDialogue = dialogue;
+            }
         }
-        FMODUnity.RuntimeManager.PlayOneShot("event:/placeholderSpeaks/" + filename + "_placeholder");
+        if (filename.StartsWith("w") || filename.StartsWith("W"))
+        {
+            // Whispers
+            if (whisperDialogue && dialogueMessage.Length > 0)
+            {
+                dialogueMessage = filename + ": " + dialogueMessage;
+                whisperDialogue.DisplayText(dialogueMessage);
+            }
+            filename = filename.ToUpper();
+            currentWhisper.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            currentWhisper = FMODUnity.RuntimeManager.CreateInstance("event:/whispers/" + filename);
+            currentWhisper.start();
+        }
+        else
+        {
+            // Normal
+            if (normalDialogue && dialogueMessage.Length > 0)
+            {
+                normalDialogue.DisplayText(dialogueMessage);
+            }
+            currentVoiceLine.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            currentVoiceLine = FMODUnity.RuntimeManager.CreateInstance("event:/placeholderSpeaks/" + filename + "_placeholder");
+            currentVoiceLine.start();
+        }
     }
+
 
     public GameObject GetObject(string name)
     {
@@ -801,6 +1022,14 @@ public class ObjectiveManager : MonoBehaviour
         {
             Debug.LogError(name + " is missing!");
             return null;
+        }
+    }
+
+    private void SetMainDoorTooltip(string tooltip)
+    {
+        foreach (MainDoor door in FindObjectsOfType<MainDoor>())
+        {
+            door.forcedTooltip = tooltip;
         }
     }
 }

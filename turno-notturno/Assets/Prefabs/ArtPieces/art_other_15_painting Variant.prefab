@@ -26,18 +26,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511c2d37fd806484b92cc1fb3d3f22e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggersOnce: 0
-  tooltip: 
-  interactionDisabledTooltip: 
-  interactionEvents: []
-  isInteractable: 1
-  soundEmitter: {fileID: 0}
-  inspectDistance: 2
+  inspectDistance: 1
   inspectSpeed: 0.05
   maxZoom: 0.4
   inspectDirection: 2
   flipDirection: 0
-  name: 
+  displayName: artwork
+  objectiveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  objective: 
 --- !u!1001 &4229481826005296800
 PrefabInstance:
   m_ObjectHideFlags: 0
