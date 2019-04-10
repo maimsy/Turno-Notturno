@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using FMODUnity;
+using UnityEngine.Rendering.PostProcessing;
 
 public class ObjectiveManager : MonoBehaviour
 {
+    
     private List<GameObject> windowBars;
     private List<string> multiObjectives;
     private bool[] paintingsChecked;
@@ -115,7 +117,16 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("13", 2f, abortPrevious: false);
         PlayDialogue("14", 7f, abortPrevious: false);
         StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
-
+        GameObject[] paintings = GameObject.FindGameObjectsWithTag("Droppable");
+        float forceDirection = GetObject("GroundColliderPaintingRoom").transform.position.x;
+        foreach(GameObject painting in paintings)
+        {
+            painting.AddComponent<Rigidbody>();
+            Vector3 force = new Vector3(0, 0, 0);
+            Vector3 pos = painting.transform.position;
+            force.x = pos.x < forceDirection ? 1.5f : -1.5f;
+            painting.GetComponent<Rigidbody>().AddForceAtPosition(force, pos, ForceMode.Impulse);
+        }
         GameObject obj = GetObject("WakeUpPosition_Act2");
         if (obj)
         {
@@ -126,7 +137,6 @@ public class ObjectiveManager : MonoBehaviour
         if (obj)
         {
             obj.GetComponent<Door>().locked = false;
-            //obj.GetComponent<Door>().UpdateTooltip();
         }
         obj = GetObject("RoomTrigger2");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
@@ -619,12 +629,23 @@ public class ObjectiveManager : MonoBehaviour
         {
             PlayDialogue("21", 0.5f, abortPrevious: false);
             PlayDialogue("w05", 1f, abortPrevious: false);
+            Invoke("Dizzyness", 8f);
             PlayDialogue("23", 14f, abortPrevious: false);
             StartCoroutine(FadeToNextScene(20f));
+            Invoke("StopDizzyness", 24f);
             PlayDialogue("w06", 20f, abortPrevious: false);
         }
     }
 
+    private void Dizzyness()
+    {
+        FindObjectOfType<DizzyEffect1>().StartDizzy();
+    }
+
+    private void StopDizzyness()
+    {
+        FindObjectOfType<DizzyEffect1>().EndDizzy();
+    }
     //Enters the middle area upstairs
     public void Room3()
     {
@@ -694,6 +715,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             PlayDialogue("32", 0f, abortPrevious: false);
             StartCoroutine(NewObjective("phone", "Use phone in guard room", 1, 1f));
+            SetMainDoorTooltip("");
         }
     }
     //Player started using the phone

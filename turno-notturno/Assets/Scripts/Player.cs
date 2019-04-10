@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 
 public class Player : Character
 {
-
     [SerializeField] Transform playerCamera;
     [SerializeField] Text interactTooltip;
     [SerializeField] float maxInteractDistance = 4f;
@@ -34,8 +33,15 @@ public class Player : Character
     AudioSource Death;
     public AudioClip[] Aw;
     public AudioClip Player_Death;
+    public bool dizzy = false;
 
     private string tipString = "Left click to ";
+    private bool rotatingRight = false;
+    private float rotator = 0;
+    private float rotateLimit = 1;
+    private float rotateSpeed = 0.01f;
+
+    private bool running = false;
 
     void Start()
     {
@@ -103,7 +109,7 @@ public class Player : Character
                 }
                 interactable.HighLight();
                 if (interactTooltip) interactTooltip.text = tooltip;
-                if (Input.GetKeyDown(KeyCode.Mouse0))
+                if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.F))
                 {
                     interactable.Interact();
                     if (interactable.IsInteractable()) tipString = "";
@@ -157,7 +163,6 @@ public class Player : Character
     void FixedUpdate()
     {
         Vector3 move = MovementVector();
-
         if (move.magnitude > 1)
         {
             move = move.normalized;
@@ -166,10 +171,16 @@ public class Player : Character
         float speed = movementSpeed;
         if (Input.GetButton("Run"))
         {
+            running = true;
             speed *= runSpeedMultiplier;
+        }
+        else
+        {
+            running = false;
         }
         move.x *= speed;
         move.z *= speed;
+        
         move = transform.TransformDirection(move);
 
         //rb.MovePosition(rb.position + move * Time.fixedDeltaTime);
@@ -184,7 +195,7 @@ public class Player : Character
         Vector3 velo = Vector3.zero;
         velo.x = rb.velocity.x;
         velo.z = rb.velocity.z;
-
+        
         if (Input.GetButton("Run") && velo.magnitude > maxMovementSpeed * runSpeedMultiplier)
         {
             velo = velo.normalized * maxMovementSpeed * runSpeedMultiplier;
@@ -193,7 +204,7 @@ public class Player : Character
         {
             velo = velo.normalized * maxMovementSpeed;
         }
-
+        
         velo.y = rb.velocity.y;
         if (velo.y > 0)
         {
@@ -223,6 +234,26 @@ public class Player : Character
 
         transform.rotation = Quaternion.Slerp(transform.localRotation, characterTargetRotation, cameraSmoothing);
         playerCamera.localRotation = Quaternion.Slerp(playerCamera.localRotation, cameraTargetRotation, cameraSmoothing);
+        if(dizzy)
+        {
+            Dizzyness();
+        }
+    }
+
+    private void Dizzyness()
+    {
+        if (rotatingRight)
+        {
+            gameObject.transform.Rotate(Vector3.forward, 0.01f * 10);
+            rotator += rotateSpeed;
+            if (rotator > rotateLimit) rotatingRight = false;
+        }
+        else
+        {
+            gameObject.transform.Rotate(Vector3.forward, -0.01f * 10);
+            rotator -= rotateSpeed;
+            if (rotator < 0) rotatingRight = true;
+        }
     }
 
     public void RotateTo(Quaternion rotation)
@@ -280,5 +311,12 @@ public class Player : Character
                 FindObjectOfType<SoundManager>().footstepsound = "event:/footsteps";
             }
         }
+
+
+    }
+
+    public bool IsRunning()
+    {
+        return running;
     }
 }

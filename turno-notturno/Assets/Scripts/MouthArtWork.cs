@@ -12,7 +12,17 @@ public class MouthArtWork : MonoBehaviour
     public float degreesPerSecond = 45f;
     public float maxDistanceFromCamera = 6f;
     public float minDistanceFromCamera = 0.5f;
-    
+
+    public FMODUnity.StudioEventEmitter EventEmitter1;
+    public FMODUnity.StudioEventEmitter EventEmitter2;
+    public FMODUnity.StudioEventEmitter EventEmitter3;
+    public FMODUnity.StudioEventEmitter EventEmitter4;
+
+    public bool enableSound1 = true;
+    public bool enableSound2 = true;
+    public bool enableSound3 = true;
+    public bool enableSound4 = true;
+
     private Transform joint0; // Yaw
     private Transform joint1; // Pitch 1
     private Transform joint2; // Pitch 2
@@ -39,8 +49,13 @@ public class MouthArtWork : MonoBehaviour
 
     private float totalLength;
     private Transform target;
-    
-    
+
+    private bool soundPlaying1;
+    private bool soundPlaying2;
+    private bool soundPlaying3;
+    private bool soundPlaying4;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,20 +93,89 @@ public class MouthArtWork : MonoBehaviour
             targetRotation3 = originalRotation3;
         }
 
-        SmoothRotate();
+        
 
+    }
+
+    void FixedUpdate()
+    {
+        HandleSounds();
+        SmoothRotate();
     }
 
     void SmoothRotate()
     {
         joint0.localRotation =
-            Quaternion.RotateTowards(joint0.localRotation, targetRotation0, degreesPerSecond * Time.deltaTime);
+            Quaternion.RotateTowards(joint0.localRotation, targetRotation0, degreesPerSecond * Time.fixedDeltaTime);
         joint1.localRotation =
-            Quaternion.RotateTowards(joint1.localRotation, targetRotation1, degreesPerSecond * Time.deltaTime);
+            Quaternion.RotateTowards(joint1.localRotation, targetRotation1, degreesPerSecond * Time.fixedDeltaTime);
         joint2.localRotation =
-            Quaternion.RotateTowards(joint2.localRotation, targetRotation2, degreesPerSecond * Time.deltaTime);
+            Quaternion.RotateTowards(joint2.localRotation, targetRotation2, degreesPerSecond * Time.fixedDeltaTime);
         joint3.localRotation =
-            Quaternion.RotateTowards(joint3.localRotation, targetRotation3, degreesPerSecond * Time.deltaTime * 2);  // Double speed for mouth makes it look better
+            Quaternion.RotateTowards(joint3.localRotation, targetRotation3, degreesPerSecond * Time.fixedDeltaTime* 2);  // Double speed for mouth makes it look better
+
+        
+    }
+
+    void HandleSounds()
+    {
+        
+        if (!soundPlaying1 && enableSound1 && Quaternion.Angle(joint0.localRotation, targetRotation0) > 0.1f)
+        {
+            //FMODUnity.RuntimeManager.PlayOneShot("event:/fx/joint1");
+            StartSound(EventEmitter1, "joint1On");
+            soundPlaying1 = true;
+        }
+        if (!soundPlaying2 && enableSound2 && Quaternion.Angle(joint1.localRotation, targetRotation1) > 0.1f)
+        {
+            StartSound(EventEmitter2, "joint2On");
+            soundPlaying2 = true;
+        }
+        if (!soundPlaying3 && enableSound3 && Quaternion.Angle(joint2.localRotation, targetRotation2) > 0.1f)
+        {
+            StartSound(EventEmitter3, "joint3On");
+            soundPlaying3 = true;
+        }
+        if (!soundPlaying4 && enableSound4 && Quaternion.Angle(joint3.localRotation, targetRotation3) > 0.1f)
+        {
+            StartSound(EventEmitter4, "joint4On");
+            soundPlaying4 = true;
+        }
+
+        if (soundPlaying1 && Quaternion.Angle(joint0.localRotation, targetRotation0) < 0.001f)
+        {
+            //FMODUnity.RuntimeManager.PlayOneShot("event:/fx/joint1");
+            StopSound(EventEmitter1, "joint1On");
+            soundPlaying1 = false;
+        }
+        if (soundPlaying2 && Quaternion.Angle(joint1.localRotation, targetRotation1) < 0.001f)
+        {
+            StopSound(EventEmitter2, "joint2On");
+            soundPlaying2 = false;
+        }
+        if (soundPlaying3 && Quaternion.Angle(joint2.localRotation, targetRotation2) < 0.001f)
+        {
+            StopSound(EventEmitter3, "joint3On");
+            soundPlaying3 = false;
+        }
+        if (soundPlaying4 && Quaternion.Angle(joint3.localRotation, targetRotation3) < 0.001f)
+        {
+            StopSound(EventEmitter4, "joint4On");
+            soundPlaying4 = false;
+        }
+    }
+
+    void StartSound(FMODUnity.StudioEventEmitter emitter, string parameterName)
+    {
+
+        //Debug.Log("Start" + parameterName);
+        emitter.Play();
+        emitter.SetParameter(parameterName, 1);
+    }
+
+    void StopSound(FMODUnity.StudioEventEmitter emitter, string parameterName)
+    {
+        emitter.SetParameter(parameterName, 0);
     }
 
 

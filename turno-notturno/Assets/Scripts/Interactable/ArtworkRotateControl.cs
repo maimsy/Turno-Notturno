@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class ArtworkRotateControl : BaseInteractable
 {
@@ -12,6 +13,7 @@ public class ArtworkRotateControl : BaseInteractable
     {
         if (artworkRotate)
         {
+            GetComponent<StudioEventEmitter>().Play();
             if (artworkRotate.rotationEnabled) artworkRotate.StopRotation();
             else artworkRotate.StartRotation();
         }
