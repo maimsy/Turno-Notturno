@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 
 public class Player : Character
 {
-
     [SerializeField] Transform playerCamera;
     [SerializeField] Text interactTooltip;
     [SerializeField] float maxInteractDistance = 4f;
@@ -41,6 +40,8 @@ public class Player : Character
     private float rotator = 0;
     private float rotateLimit = 1;
     private float rotateSpeed = 0.01f;
+
+    private bool running = false;
 
     void Start()
     {
@@ -170,7 +171,12 @@ public class Player : Character
         float speed = movementSpeed;
         if (Input.GetButton("Run"))
         {
+            running = true;
             speed *= runSpeedMultiplier;
+        }
+        else
+        {
+            running = false;
         }
         move.x *= speed;
         move.z *= speed;
@@ -307,5 +313,10 @@ public class Player : Character
         }
 
 
+    }
+
+    public bool IsRunning()
+    {
+        return running;
     }
 }

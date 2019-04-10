@@ -5,18 +5,22 @@ using UnityEngine;
 public class headbobber : MonoBehaviour
 {
     public AudioClip[] WalkNoises;
-    public float bobbingSpeed = 0.18f;
-    public float bobbingAmount = 0.2f;
+    public float stepsPerMinute = 100;
+    public float runningStepsPerMinute = 170;
+    public float bobbingAmount = 0.04f;
+    public float runningBobbingAmount = 0.05f;
     public float midpoint = 2.0f;
     private float waveslice,horizontal, vertical, translateChange, totalAxes;
     
     private float timer = 0.0f;
     private Player player;
 
+    private bool stepSoundPlayed;
+
     private void Start()
     {
         player = FindObjectOfType<Player>();
-        InvokeRepeating("PlaySound", 0.0f, 0.5f);
+        //InvokeRepeating("PlaySound", 0.0f, 0.5f);
     }
     void Update()
     {
@@ -24,34 +28,54 @@ public class headbobber : MonoBehaviour
         waveslice = 0f;
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
+
+        // Advance bobbing timer
         if (Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0)
         {
             timer = 0.0f;
         }
         else
         {
+            float spm = stepsPerMinute;
+            if (player.IsRunning()) spm = runningStepsPerMinute;
             waveslice = Mathf.Sin(timer);
-            timer = timer + bobbingSpeed;
+            timer = timer + spm / 60 * Time.deltaTime * (Mathf.PI * 2);
             if (timer > Mathf.PI * 2)
             {
                 timer = timer - (Mathf.PI * 2);
             }
         }
+
+        // Play sounds
+        if (waveslice > 0)
+        {
+            stepSoundPlayed = false;
+        }
+        else if (waveslice < -0.9 && !stepSoundPlayed)
+        {
+            stepSoundPlayed = true;
+            PlaySound();
+        }
+
+        // Move camera
         if (waveslice != 0)
         {
-            translateChange = waveslice * bobbingAmount;
+            if (player.IsRunning())
+            {
+                translateChange = waveslice * runningBobbingAmount;
+            }
+            else
+            {
+                translateChange = waveslice * bobbingAmount;
+            }
             totalAxes = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
             totalAxes = Mathf.Clamp(totalAxes, 0.0f, 1.0f);
             translateChange = totalAxes * translateChange;
-            transform.localPosition =  new Vector3(0, midpoint+translateChange, 0);
-
-
-           
+            transform.localPosition =  new Vector3(0, midpoint+translateChange, 0); 
         }
         else
         {
             transform.localPosition =new Vector3(0, midpoint, 0);
-
         }
     }
     void PlaySound()

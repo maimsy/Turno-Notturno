@@ -51,6 +51,7 @@ MonoBehaviour:
   playerCamera: {fileID: 4385973204570830745}
   interactTooltip: {fileID: 0}
   maxInteractDistance: 2.5
+  runSpeedMultiplier: 1.5
   maxMovementSpeed: 2
   movementSpeed: 3000
   XSensitivity: 8
@@ -63,6 +64,7 @@ MonoBehaviour:
   shootingCooldown: 0.5
   Aw: []
   Player_Death: {fileID: 0}
+  dizzy: 0
 --- !u!54 &4385973204031555678
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -219,8 +221,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ea5f4c04e2b8086418dda125b37bcc9f, type: 3}
   - {fileID: 8300000, guid: fa65b2525d9aaa64187253b17a0b32b0, type: 3}
   - {fileID: 8300000, guid: 0e9efa7579c05b044961c591b3059abc, type: 3}
-  bobbingSpeed: 0.18
-  bobbingAmount: 0.05
+  stepsPerMinute: 100
+  runningStepsPerMinute: 170
+  bobbingAmount: 0.03
+  runningBobbingAmount: 0.05
   midpoint: 0.7
 --- !u!114 &1067764645
 MonoBehaviour:
@@ -345,4 +349,5 @@ MonoBehaviour:
   Migraint: {fileID: 11400000, guid: b507261a255fd7a40a0a0f10c2b50e47, type: 2}
   speed: 0.15
   ismigrain: 0
+  fadeSpeed: 0
   EffectStrength: 1.5
