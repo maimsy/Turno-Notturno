@@ -8,6 +8,7 @@ public class DizzyEffect1 : MonoBehaviour
 {
     public PostProcessProfile Dizzy;
     public float speed;
+    public float rotateSpeed;
     public bool isDizzy;
     public bool isincreasing;
     public float fadeSpeed;
@@ -15,6 +16,9 @@ public class DizzyEffect1 : MonoBehaviour
     public float EffectStrength;
     private float effectLimit = 1;
     private float soundVolume = 0;
+    private bool rotatingRight = true;
+    private float rotator = 0;
+    private float rotateLimit = 0;
     private PostProcessVolume ppVolume;
     ChromaticAberration chromeaticthing;
     LensDistortion lensDistortion;
@@ -33,8 +37,6 @@ public class DizzyEffect1 : MonoBehaviour
     void Update()
     {
 
-        
-
         if (isDizzy)
         {
             // judge the state
@@ -46,19 +48,15 @@ public class DizzyEffect1 : MonoBehaviour
             {
                 chromeaticthing.intensity.value += speed;
                 lensDistortion.intensity.value += speed* 30;
-                gameObject.transform.Rotate(Vector3.forward, speed * 10);
+                gameObject.transform.Rotate(Vector3.forward, speed * 1);
             }
             else
             {
                 chromeaticthing.intensity.value -= speed;
                 lensDistortion.intensity.value -= speed*30;
-                gameObject.transform.Rotate(Vector3.forward, -speed * 10);
-
+                gameObject.transform.Rotate(Vector3.forward, -speed * 1);
             }
-
-
-
-            ppVolume.weight = Mathf.Min(ppVolume.weight + fadeSpeed, 1);
+            ppVolume.weight = Mathf.Min(ppVolume.weight + fadeSpeed, 0.9f);
             effectLimit = Mathf.Min(effectLimit + fadeSpeed * EffectStrength, EffectStrength);
             soundVolume = Mathf.Min(soundVolume + fadeSpeed * maximumSound, maximumSound);
             Camera.main.GetComponent<StudioEventEmitter>().EventInstance.setParameterValue("migraineVolume", soundVolume);
@@ -69,7 +67,6 @@ public class DizzyEffect1 : MonoBehaviour
             effectLimit = Mathf.Max(effectLimit - fadeSpeed * EffectStrength, 0);
             soundVolume = Mathf.Max(soundVolume - fadeSpeed * maximumSound, 0);
             Camera.main.GetComponent<StudioEventEmitter>().EventInstance.setParameterValue("migraineVolume", soundVolume);
-
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -80,16 +77,42 @@ public class DizzyEffect1 : MonoBehaviour
              //EndDizzy();
         }
     }
+
+    private void LateUpdate()
+    {
+        if(isDizzy)
+        {
+            if (rotatingRight)
+            {
+                gameObject.transform.Rotate(Vector3.forward, rotator * 1);
+                rotator += rotateSpeed;
+                if (rotator > rotateLimit) rotatingRight = false;
+            }
+            else
+            {
+                
+                gameObject.transform.Rotate(Vector3.forward, rotator * 1);
+                rotator -= rotateSpeed;
+                if (rotator < -rotateLimit) rotatingRight = true;
+            }
+            Debug.Log("rotateLimit " + rotateLimit);
+            rotateLimit = Mathf.Min(rotateLimit + rotateSpeed * 0.3f, 4);
+        }
+
+    }
     public void StartDizzy() {
         // Camera.main.GetComponent<StudioEventEmitter>().enabled = true;
         isDizzy = true;
         PostProcessVolume ppVolume = GetComponent<PostProcessVolume>();
+        GetComponent<PostProcessVolume>().profile = Dizzy;
+        GetComponent<MigrainEffect>().enabled = false;
     }
     public void EndDizzy()
     {
         //Camera.main.GetComponent<StudioEventEmitter>().enabled = false;
         isDizzy = false;
         PostProcessVolume ppVolume = GetComponent<PostProcessVolume>();
+        GetComponent<MigrainEffect>().enabled = true;
         ResetValues();
     }
 
