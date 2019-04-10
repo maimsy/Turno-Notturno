@@ -715,6 +715,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             PlayDialogue("32", 0f, abortPrevious: false);
             StartCoroutine(NewObjective("phone", "Use phone in guard room", 1, 1f));
+            SetMainDoorTooltip("");
         }
     }
     //Player started using the phone

@@ -109,7 +109,7 @@ public class Player : Character
                 }
                 interactable.HighLight();
                 if (interactTooltip) interactTooltip.text = tooltip;
-                if (Input.GetKeyDown(KeyCode.Mouse0))
+                if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.F))
                 {
                     interactable.Interact();
                     if (interactable.IsInteractable()) tipString = "";
