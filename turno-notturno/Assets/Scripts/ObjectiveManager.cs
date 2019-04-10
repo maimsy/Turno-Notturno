@@ -117,7 +117,16 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("13", 2f, abortPrevious: false);
         PlayDialogue("14", 7f, abortPrevious: false);
         StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
-
+        GameObject[] paintings = GameObject.FindGameObjectsWithTag("Droppable");
+        float forceDirection = GetObject("GroundColliderPaintingRoom").transform.position.x;
+        foreach(GameObject painting in paintings)
+        {
+            painting.AddComponent<Rigidbody>();
+            Vector3 force = new Vector3(0, 0, 0);
+            Vector3 pos = painting.transform.position;
+            force.x = pos.x < forceDirection ? 1.5f : -1.5f;
+            painting.GetComponent<Rigidbody>().AddForceAtPosition(force, pos, ForceMode.Impulse);
+        }
         GameObject obj = GetObject("WakeUpPosition_Act2");
         if (obj)
         {
@@ -128,7 +137,6 @@ public class ObjectiveManager : MonoBehaviour
         if (obj)
         {
             obj.GetComponent<Door>().locked = false;
-            //obj.GetComponent<Door>().UpdateTooltip();
         }
         obj = GetObject("RoomTrigger2");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
