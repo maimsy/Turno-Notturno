@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using FMODUnity;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Video;
 
 public class ObjectiveManager : MonoBehaviour
 {
@@ -743,6 +744,8 @@ public class ObjectiveManager : MonoBehaviour
         {
             GameObject obj = GetObject("RoomTrigger5");
             if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+            obj = GetObject("art_main_04_video");
+            if (obj) obj.GetComponent<VideoPlayer>().enabled = true;
             StartCoroutine(NewObjective("room4", "Check the noise", 1, delayTime));
         }
      }
