@@ -23,7 +23,7 @@ public class RoomTrigger : MonoBehaviour
             if (triggersOnce)
             {
                 //hasTriggered = true;
-                Destroy(gameObject);
+                GetComponent<BoxCollider>().enabled = false;
             }
         }
     }

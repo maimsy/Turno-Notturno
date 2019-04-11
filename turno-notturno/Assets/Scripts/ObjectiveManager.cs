@@ -767,6 +767,31 @@ public class ObjectiveManager : MonoBehaviour
             {
                 PlayDialogue("w11", 2f, abortPrevious: false);
                 AddClue6Objectives();
+                StartCoroutine(NewObjective("notebook", "Check the notebook", 1, delayTime));
+            }
+        }
+    }
+
+    public void NoteBook()
+    {
+        if (objectives.ContainsKey("notebook"))
+        {
+            if (UpdateProgress("notebook"))
+            {
+                StartCoroutine(NewObjective("storage2", "Go to the storage room", 1, delayTime));
+                GameObject obj = GetObject("RoomTrigger3");
+                if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+            }
+        }
+    }
+
+    public void StorageRoom2()
+    {
+        if (objectives.ContainsKey("storage2"))
+        {
+            if (UpdateProgress("storage2"))
+            {
+                StartCoroutine(NewObjective("finish", "Finish the artwork", 1, delayTime));
             }
         }
     }
