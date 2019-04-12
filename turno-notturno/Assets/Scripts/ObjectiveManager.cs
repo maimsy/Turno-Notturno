@@ -505,10 +505,6 @@ public class ObjectiveManager : MonoBehaviour
             {
                 AddPillObjective();
             }
-            else
-            {
-                
-            }
         }
     }
 
@@ -731,11 +727,25 @@ public class ObjectiveManager : MonoBehaviour
             //Lights go out
             //phone dies because of batteries run out
             //HeartBeat sound from minigame comes back
-            //Video installation sound starts playing
+            Invoke("StartVideo", 6f);
             //Disable notebook opening
             StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 8f));
 
         }
+    }
+
+    private void StartVideo()
+    {
+        GameObject obj = GetObject("art_main_04_video");
+        if (obj) obj.GetComponent<VideoPlayer>().enabled = true;
+        GameObject[] sounds = GameObject.FindGameObjectsWithTag("VideoSound");
+        foreach(GameObject sound in sounds)
+        {
+            sound.GetComponent<StudioEventEmitter>().Play();
+        }
+        obj = GetObject("notebook");
+        GameObject pos = GetObject("NotebookPos");
+        if (obj && pos) obj.transform.position = pos.transform.position;
     }
 
     public void FlashLight()
@@ -743,9 +753,7 @@ public class ObjectiveManager : MonoBehaviour
         if (UpdateProgress("flashlight"))
         {
             GameObject obj = GetObject("RoomTrigger5");
-            if (obj) obj.GetComponent<BoxCollider>().enabled = true;
-            obj = GetObject("art_main_04_video");
-            if (obj) obj.GetComponent<VideoPlayer>().enabled = true;
+            if (obj) obj.GetComponent<BoxCollider>().enabled = true; 
             StartCoroutine(NewObjective("room4", "Check the noise", 1, delayTime));
         }
      }
