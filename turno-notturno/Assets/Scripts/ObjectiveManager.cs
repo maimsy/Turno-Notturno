@@ -311,7 +311,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             if (multiObjectives.Count == 0)
             {
-                Locking();
+                WhispersBeforeLocking();
             }
         } 
     }
@@ -330,6 +330,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         int amount = CountClues("clue1");
         StartCoroutine(NewObjective("clue1", "Inspect the artwork for clues", amount, 0));
+        multiObjectives.Add("clue1");
     }
 
     private void AddClue2Objectives()
@@ -395,25 +396,27 @@ public class ObjectiveManager : MonoBehaviour
         string s = ClueToString(objective);
 
         // Spinning city
-        if (s == "clue1" && UpdateProgress(s))
+        if (s == "clue1" && IsObjectiveActive(s))
         {
+            
             if (objective == ClueObjective.SpinningCityMesh)
             {
-                PlayDialogue("w01", 0.5f);
+                
             }
             else if (objective == ClueObjective.SpinningCityDescription)
             {
                 // Player reads the description out loud?
             }
-            if (multiObjectives.Count == 0)
+            if (UpdateProgress(s) && multiObjectives.Count == 0)
             {
-                Invoke("Locking", 4f);
+                WhispersBeforeLocking();
             }
         }
 
         // Tooth-tree
-        if (s == "clue2" && UpdateProgress(s))
+        if (s == "clue2" && IsObjectiveActive(s))
         {
+            UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
                 StorageRoomSetUp();
@@ -421,8 +424,9 @@ public class ObjectiveManager : MonoBehaviour
         }
 
         // Ballsy-portrait
-        if (s == "clue3" && UpdateProgress(s))
+        if (s == "clue3" && IsObjectiveActive(s))
         {
+            UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
                 StorageRoomSetUp();
@@ -431,8 +435,9 @@ public class ObjectiveManager : MonoBehaviour
 
 
         // Mouth-robot
-        if (s == "clue4" && UpdateProgress(s))
+        if (s == "clue4" && IsObjectiveActive(s))
         {
+            UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
                 Leave();
@@ -442,8 +447,9 @@ public class ObjectiveManager : MonoBehaviour
 
 
         // Painting
-        if (s == "clue5" && UpdateProgress(s))
+        if (s == "clue5" && IsObjectiveActive(s))
         {
+            UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
                 Leave();
@@ -451,13 +457,20 @@ public class ObjectiveManager : MonoBehaviour
         }
 
         // Video-art
-        if (s == "clue6" && UpdateProgress(s))
+        if (s == "clue6" && IsObjectiveActive(s))
         {
+            UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
                 // TODO
             }
         }
+    }
+
+    public void WhispersBeforeLocking()
+    {
+        PlayDialogue("w01", 0.1f);
+        Invoke("Locking", 20f);
     }
 
     //Start the locking objectives
