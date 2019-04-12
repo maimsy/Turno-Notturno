@@ -9243,6 +9243,10 @@ PrefabInstance:
       propertyPath: objectiveEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1180025608}
+    - target: {fileID: 611498625, guid: fa8d6f6b6a5616440a06c53c8e1420ee, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa8d6f6b6a5616440a06c53c8e1420ee, type: 3}
 --- !u!1 &1832474376 stripped
@@ -13372,6 +13376,80 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4463229174391864316, guid: 41046802f6063014d896e88ab6f130eb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 41046802f6063014d896e88ab6f130eb, type: 3}
+--- !u!1001 &4497977529427202724
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4497977529446073183, guid: 362032acf0769ae488f856966fd7778a,
+        type: 3}
+      propertyPath: m_Name
+      value: Act2VoicelineTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497977529446073180, guid: 362032acf0769ae488f856966fd7778a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.629
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497977529446073180, guid: 362032acf0769ae488f856966fd7778a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497977529446073180, guid: 362032acf0769ae488f856966fd7778a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497977529446073180, guid: 362032acf0769ae488f856966fd7778a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497977529446073180, guid: 362032acf0769ae488f856966fd7778a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497977529446073180, guid: 362032acf0769ae488f856966fd7778a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497977529446073180, guid: 362032acf0769ae488f856966fd7778a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497977529446073180, guid: 362032acf0769ae488f856966fd7778a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 141
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497977529446073180, guid: 362032acf0769ae488f856966fd7778a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497977529446073180, guid: 362032acf0769ae488f856966fd7778a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497977529446073180, guid: 362032acf0769ae488f856966fd7778a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497977529446073182, guid: 362032acf0769ae488f856966fd7778a,
+        type: 3}
+      propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1180025608}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 362032acf0769ae488f856966fd7778a, type: 3}
 --- !u!1001 &4603253116964409762
 PrefabInstance:
   m_ObjectHideFlags: 0

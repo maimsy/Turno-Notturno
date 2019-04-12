@@ -54,6 +54,10 @@ public class ObjectiveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject obj = GetObject("Act2VoicelineTrigger");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = false;
+        MouthArtWork robot = FindObjectOfType<MouthArtWork>();
+        if (robot) robot.disabled = true;
         paintingsChecked = new bool[2] { false, false };
         multiObjectives = new List<string>();
         objectives = new Dictionary<string, Objective>();
@@ -154,6 +158,8 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Act3()
     {
+        MouthArtWork robot = FindObjectOfType<MouthArtWork>();
+        if (robot) robot.disabled = false;
         PlayDialogue("25", 1f);
         PlayDialogue("26", 3f);
         StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
@@ -628,8 +634,11 @@ public class ObjectiveManager : MonoBehaviour
 
     private void BleachFall()
     {
+        //Act2VoicelineTrigger
         GameObject obj = GetObject("bleachFall");
         if (obj) obj.GetComponent<StudioEventEmitter>().Play();
+        obj = GetObject("Act2VoicelineTrigger");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         PlayDialogue("19", 1f, abortPrevious: false);
     }
 
