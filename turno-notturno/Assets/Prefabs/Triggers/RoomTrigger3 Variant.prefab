@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3462980385224831567, guid: 80c3f346b4e0b6b4b85c875f668fa439,
         type: 3}
       propertyPath: m_Name
-      value: RoomTrigger3
+      value: RoomTrigger3 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3462980385224831564, guid: 80c3f346b4e0b6b4b85c875f668fa439,
         type: 3}
@@ -67,6 +67,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3462980385224831565, guid: 80c3f346b4e0b6b4b85c875f668fa439,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 10.713894
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462980385224831565, guid: 80c3f346b4e0b6b4b85c875f668fa439,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -9.173098
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462980385224831565, guid: 80c3f346b4e0b6b4b85c875f668fa439,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 7.836506
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462980385224831565, guid: 80c3f346b4e0b6b4b85c875f668fa439,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -3.35
+      objectReference: {fileID: 0}
     - target: {fileID: 3462980385224831566, guid: 80c3f346b4e0b6b4b85c875f668fa439,
         type: 3}
       propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
@@ -91,26 +111,6 @@ PrefabInstance:
         type: 3}
       propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StorageRoom
-      objectReference: {fileID: 0}
-    - target: {fileID: 3462980385224831565, guid: 80c3f346b4e0b6b4b85c875f668fa439,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 10.713894
-      objectReference: {fileID: 0}
-    - target: {fileID: 3462980385224831565, guid: 80c3f346b4e0b6b4b85c875f668fa439,
-        type: 3}
-      propertyPath: m_Center.z
-      value: -9.173098
-      objectReference: {fileID: 0}
-    - target: {fileID: 3462980385224831565, guid: 80c3f346b4e0b6b4b85c875f668fa439,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 7.836506
-      objectReference: {fileID: 0}
-    - target: {fileID: 3462980385224831565, guid: 80c3f346b4e0b6b4b85c875f668fa439,
-        type: 3}
-      propertyPath: m_Center.x
-      value: -5.8724117
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80c3f346b4e0b6b4b85c875f668fa439, type: 3}

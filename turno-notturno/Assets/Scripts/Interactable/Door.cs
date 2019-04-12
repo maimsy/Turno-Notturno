@@ -10,6 +10,7 @@ public class Door : BaseInteractable
     [SerializeField] String openTooltip = "close door";
     [SerializeField] String closedTooltip = "open door";
     [SerializeField] String lockedTooltip = "open door (locked)";
+    public float slamTime = 0.1f;
     public float openingTime = 1f;
     public bool locked = false;
     public bool closed = false;
@@ -20,6 +21,7 @@ public class Door : BaseInteractable
     public StudioEventEmitter openDoorSound;
     public StudioEventEmitter lockedDoorSound;
 
+    private float curTime;
     private bool moving = false;
     private Rigidbody rbody;
     private Vector3 originalPosition;
@@ -29,6 +31,7 @@ public class Door : BaseInteractable
     protected override void Awake()
     {
         base.Awake();
+        curTime = openingTime;
         animator = GetComponent<Animator>();
         if (!animator) Debug.LogError("Door does not have animation!");
         rbody = GetComponent<Rigidbody>();
@@ -43,7 +46,7 @@ public class Door : BaseInteractable
         if (moving)
         {
             FixPosition();
-            float degreesPerSecond =  (openAngle - closedAngle) / openingTime;
+            float degreesPerSecond =  (openAngle - closedAngle) / curTime;
             float radPerSecond = degreesPerSecond * Mathf.Deg2Rad;
             transform.position = originalPosition;
 
@@ -101,12 +104,21 @@ public class Door : BaseInteractable
 
     public void Close()
     {
+        curTime = openingTime;
+        closed = true;
+        moving = true;
+    }
+
+    public void SlamClose()
+    {
+        curTime = slamTime;
         closed = true;
         moving = true;
     }
 
     public void Open()
     {
+        curTime = openingTime;
         closed = false;
         moving = true;
     }

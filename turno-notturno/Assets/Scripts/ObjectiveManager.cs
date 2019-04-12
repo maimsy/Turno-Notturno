@@ -575,23 +575,24 @@ public class ObjectiveManager : MonoBehaviour
         {
             if (whichPainting == 0)
             {
-                PlayDialogue("w03", 1f, abortPrevious: false);
+                PlayDialogue("w04", 0f, abortPrevious: false);
                 AddClue2Objectives();
             }
             else
             {
+                PlayDialogue("w03", 0f, abortPrevious: false);
                 AddClue3Objectives();
             }
 
             // Order of players response to whispers should be the same regardless of which art is inspected first
             if (act2ArtVoiceline == 0)
             {
-                PlayDialogue("17", 2f, abortPrevious: false);
+                PlayDialogue("17", 7f, abortPrevious: false);
                 act2ArtVoiceline = 1;
             }
             else if (act2ArtVoiceline == 1)
             {
-                PlayDialogue("18", 2f, abortPrevious: false);
+                PlayDialogue("18", 7f, abortPrevious: false);
             }
 
             paintingsChecked[whichPainting] = true;
@@ -638,8 +639,15 @@ public class ObjectiveManager : MonoBehaviour
         
         if (UpdateProgress("storage"))
         {
+            GameObject obj = GetObject("door_04_group");
+            
             PlayDialogue("21", 0.5f, abortPrevious: false);
             PlayDialogue("w05", 1f, abortPrevious: false);
+            if (obj)
+            {
+                obj.GetComponent<Door>().SlamClose();
+                obj.GetComponent<Door>().locked = true;
+            }
             Invoke("Dizzyness", 8f);
             PlayDialogue("23", 14f, abortPrevious: false);
             StartCoroutine(FadeToNextScene(20f));
