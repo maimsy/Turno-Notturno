@@ -436,6 +436,7 @@ public class ObjectiveManager : MonoBehaviour
             if (multiObjectives.Count == 0)
             {
                 Leave();
+
             }
         }
 
@@ -669,6 +670,7 @@ public class ObjectiveManager : MonoBehaviour
             if (multiObjectives.Count == 0)
             {
                 Leave();
+
             }
         }
     }
@@ -698,6 +700,8 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Leave()
     {
+        MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
+        if (migraine) migraine.StartMigrainDelayed(1);
         PlayDialogue("30", 3f, abortPrevious: false);
         PlayDialogue("w09", 4f, abortPrevious: false);
         //panic breathing effect after the dialogue
@@ -746,6 +750,8 @@ public class ObjectiveManager : MonoBehaviour
         obj = GetObject("notebook");
         GameObject pos = GetObject("NotebookPos");
         if (obj && pos) obj.transform.position = pos.transform.position;
+        MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
+        if (migraine) migraine.EndMigrain();
     }
 
     public void FlashLight()
