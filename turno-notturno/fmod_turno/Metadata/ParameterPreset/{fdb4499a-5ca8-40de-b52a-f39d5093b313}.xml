@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{fdb4499a-5ca8-40de-b52a-f39d5093b313}">
+        <property name="name">
+            <value>panicSoundVol</value>
+        </property>
+        <relationship name="folder">
+            <destination>{f81e462a-9d36-408c-9b99-269f6f7ddbca}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{7de1b14e-1141-4823-a4e3-54d4883a30ff}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{7de1b14e-1141-4823-a4e3-54d4883a30ff}">
+        <property name="initialValue">
+            <value>0</value>
+        </property>
+        <property name="seekSpeedDescending">
+            <value>0.34000003337860107</value>
+        </property>
+        <property name="seekSpeedAsymmetric">
+            <value>true</value>
+        </property>
+    </object>
+</objects>
