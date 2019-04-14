@@ -1,38 +1,76 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!95 &5848191636364696090
-Animator:
-  serializedVersion: 3
+--- !u!1 &714861863673545410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 714861863673519842}
+  - component: {fileID: 3471593446582315497}
+  m_Layer: 0
+  m_Name: windows_bars_shop Variant
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &714861863673519842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714861863673545410}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.3, y: 0, z: 10.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3255865857384848704}
+  - {fileID: 714861863147603666}
+  - {fileID: 714861862869579371}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3471593446582315497
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 714861863673545410}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a86ca3ba9df3dc245a6bb212348619c6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f930f8fcfc568a5398f533fd6c521f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windows:
+  - {fileID: 3255865857384848704}
+  - {fileID: 714861863147603666}
+  - {fileID: 714861862869579371}
+  closeDelayPerWindow: 2
+  closeDurationPerWindow: 5
+  minY: -5
 --- !u!1001 &714861862869970155
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 714861863147603666}
+    m_TransformParent: {fileID: 714861863673519842}
     m_Modifications:
     - target: {fileID: 100000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
       propertyPath: m_Name
       value: windows_bars_02
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
     - target: {fileID: 400000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.5001001
+      value: -5.0009995
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -60,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -74,12 +112,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
+--- !u!4 &714861862869579371 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 49b5c6a2f2dd60140beb9f802a5d335c,
+    type: 3}
+  m_PrefabInstance: {fileID: 714861862869970155}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &714861863147740242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -91,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: windows_bars_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
     - target: {fileID: 400000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5008993
@@ -121,7 +165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -135,10 +179,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
 --- !u!4 &714861863147603666 stripped
@@ -147,20 +187,20 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 714861863147740242}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &714861863673644130
+--- !u!1001 &3255865857384449984
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 714861863673519842}
     m_Modifications:
     - target: {fileID: 100000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
       propertyPath: m_Name
-      value: windows_bars_shop
+      value: windows_bars_00
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -168,11 +208,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
       propertyPath: m_LocalRotation.y
@@ -204,15 +244,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49b5c6a2f2dd60140beb9f802a5d335c, type: 3}
---- !u!1 &714861863673545410 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 49b5c6a2f2dd60140beb9f802a5d335c,
-    type: 3}
-  m_PrefabInstance: {fileID: 714861863673644130}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &714861863673519842 stripped
+--- !u!4 &3255865857384848704 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 49b5c6a2f2dd60140beb9f802a5d335c,
     type: 3}
-  m_PrefabInstance: {fileID: 714861863673644130}
+  m_PrefabInstance: {fileID: 3255865857384449984}
   m_PrefabAsset: {fileID: 0}
