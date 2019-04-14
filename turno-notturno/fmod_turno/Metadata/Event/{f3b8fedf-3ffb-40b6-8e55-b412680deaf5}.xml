@@ -113,9 +113,9 @@
     <object class="MixerBusEffectChain" id="{10b01ec6-ed50-476a-a331-51b1d33319eb}">
         <relationship name="effects">
             <destination>{5d50edce-dc64-426b-a1be-937446aac476}</destination>
+            <destination>{d75c2423-1637-418d-8276-cbeb3b1da955}</destination>
             <destination>{e2641445-7562-4c61-8b52-7fda07d7e085}</destination>
             <destination>{ccf9c323-7fb4-4258-9ce9-9086de8ac7de}</destination>
-            <destination>{8d2ef8df-2ef8-4fdd-a89f-726b040cbd53}</destination>
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{0c203117-abb6-48d7-ad27-fa41b83f7a82}">
@@ -134,6 +134,29 @@
     </object>
     <object class="MixerBusPanner" id="{e71acb09-9a41-4fb2-8e16-ceb2438ebf60}"/>
     <object class="MixerBusFader" id="{5d50edce-dc64-426b-a1be-937446aac476}"/>
+    <object class="SFXReverbEffect" id="{d75c2423-1637-418d-8276-cbeb3b1da955}">
+        <property name="earlyDelay">
+            <value>17</value>
+        </property>
+        <property name="lateDelay">
+            <value>17.5</value>
+        </property>
+        <property name="HFDecayRatio">
+            <value>64.5</value>
+        </property>
+        <property name="diffusion">
+            <value>78.5</value>
+        </property>
+        <property name="highCut">
+            <value>7000</value>
+        </property>
+        <property name="earlyLateMix">
+            <value>71</value>
+        </property>
+        <property name="wetLevel">
+            <value>3</value>
+        </property>
+    </object>
     <object class="SpatialiserEffect" id="{e2641445-7562-4c61-8b52-7fda07d7e085}">
         <property name="maximumDistance">
             <value>550</value>
@@ -146,17 +169,6 @@
         <property name="highGain">
             <value>-9</value>
         </property>
-    </object>
-    <object class="MixerSend" id="{8d2ef8df-2ef8-4fdd-a89f-726b040cbd53}">
-        <property name="level">
-            <value>3</value>
-        </property>
-        <property name="inputFormat">
-            <value>2</value>
-        </property>
-        <relationship name="mixerReturn">
-            <destination>{5cf0d417-9f9d-4c77-bc56-0357a0ac108f}</destination>
-        </relationship>
     </object>
     <object class="MixerBusFader" id="{9eb9de64-46cf-4ad9-95c0-6fea16ea27a7}"/>
 </objects>

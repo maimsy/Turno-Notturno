@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using FMODUnity;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Video;
 
 public class ObjectiveManager : MonoBehaviour
 {
@@ -53,6 +54,10 @@ public class ObjectiveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject obj = GetObject("Act2VoicelineTrigger");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = false;
+        MouthArtWork robot = FindObjectOfType<MouthArtWork>();
+        if (robot) robot.disabled = true;
         paintingsChecked = new bool[2] { false, false };
         multiObjectives = new List<string>();
         objectives = new Dictionary<string, Objective>();
@@ -164,6 +169,8 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Act3()
     {
+        MouthArtWork robot = FindObjectOfType<MouthArtWork>();
+        if (robot) robot.disabled = false;
         PlayDialogue("25", 1f);
         PlayDialogue("26", 3f);
         StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
@@ -321,7 +328,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             if (multiObjectives.Count == 0)
             {
-                Locking();
+                WhispersBeforeLocking();
             }
         } 
     }
@@ -340,6 +347,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         int amount = CountClues("clue1");
         StartCoroutine(NewObjective("clue1", "Inspect the artwork for clues", amount, 0));
+        multiObjectives.Add("clue1");
     }
 
     private void AddClue2Objectives()
@@ -405,25 +413,27 @@ public class ObjectiveManager : MonoBehaviour
         string s = ClueToString(objective);
 
         // Spinning city
-        if (s == "clue1" && UpdateProgress(s))
+        if (s == "clue1" && IsObjectiveActive(s))
         {
+            
             if (objective == ClueObjective.SpinningCityMesh)
             {
-                PlayDialogue("w01", 0.5f);
+                
             }
             else if (objective == ClueObjective.SpinningCityDescription)
             {
                 // Player reads the description out loud?
             }
-            if (multiObjectives.Count == 0)
+            if (UpdateProgress(s) && multiObjectives.Count == 0)
             {
-                Invoke("Locking", 4f);
+                WhispersBeforeLocking();
             }
         }
 
         // Tooth-tree
-        if (s == "clue2" && UpdateProgress(s))
+        if (s == "clue2" && IsObjectiveActive(s))
         {
+            UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
                 StorageRoomSetUp();
@@ -431,8 +441,9 @@ public class ObjectiveManager : MonoBehaviour
         }
 
         // Ballsy-portrait
-        if (s == "clue3" && UpdateProgress(s))
+        if (s == "clue3" && IsObjectiveActive(s))
         {
+            UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
                 StorageRoomSetUp();
@@ -441,18 +452,21 @@ public class ObjectiveManager : MonoBehaviour
 
 
         // Mouth-robot
-        if (s == "clue4" && UpdateProgress(s))
+        if (s == "clue4" && IsObjectiveActive(s))
         {
+            UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
                 Leave();
+
             }
         }
 
 
         // Painting
-        if (s == "clue5" && UpdateProgress(s))
+        if (s == "clue5" && IsObjectiveActive(s))
         {
+            UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
                 Leave();
@@ -460,13 +474,20 @@ public class ObjectiveManager : MonoBehaviour
         }
 
         // Video-art
-        if (s == "clue6" && UpdateProgress(s))
+        if (s == "clue6" && IsObjectiveActive(s))
         {
+            UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
                 // TODO
             }
         }
+    }
+
+    public void WhispersBeforeLocking()
+    {
+        PlayDialogue("w01", 0.1f);
+        Invoke("Locking", 20f);
     }
 
     //Start the locking objectives
@@ -514,10 +535,6 @@ public class ObjectiveManager : MonoBehaviour
             if (multiObjectives.Count == 0)
             {
                 AddPillObjective();
-            }
-            else
-            {
-                
             }
         }
     }
@@ -575,23 +592,24 @@ public class ObjectiveManager : MonoBehaviour
         {
             if (whichPainting == 0)
             {
-                PlayDialogue("w03", 1f, abortPrevious: false);
+                PlayDialogue("w04", 0f, abortPrevious: false);
                 AddClue2Objectives();
             }
             else
             {
+                PlayDialogue("w03", 0f, abortPrevious: false);
                 AddClue3Objectives();
             }
 
             // Order of players response to whispers should be the same regardless of which art is inspected first
             if (act2ArtVoiceline == 0)
             {
-                PlayDialogue("17", 2f, abortPrevious: false);
+                PlayDialogue("17", 7f, abortPrevious: false);
                 act2ArtVoiceline = 1;
             }
             else if (act2ArtVoiceline == 1)
             {
-                PlayDialogue("18", 2f, abortPrevious: false);
+                PlayDialogue("18", 7f, abortPrevious: false);
             }
 
             paintingsChecked[whichPainting] = true;
@@ -627,8 +645,11 @@ public class ObjectiveManager : MonoBehaviour
 
     private void BleachFall()
     {
+        //Act2VoicelineTrigger
         GameObject obj = GetObject("bleachFall");
         if (obj) obj.GetComponent<StudioEventEmitter>().Play();
+        obj = GetObject("Act2VoicelineTrigger");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         PlayDialogue("19", 1f, abortPrevious: false);
     }
 
@@ -638,8 +659,15 @@ public class ObjectiveManager : MonoBehaviour
         
         if (UpdateProgress("storage"))
         {
+            GameObject obj = GetObject("door_04_group");
+            
             PlayDialogue("21", 0.5f, abortPrevious: false);
             PlayDialogue("w05", 1f, abortPrevious: false);
+            if (obj)
+            {
+                obj.GetComponent<Door>().SlamClose();
+                obj.GetComponent<Door>().locked = true;
+            }
             Invoke("Dizzyness", 8f);
             PlayDialogue("23", 14f, abortPrevious: false);
             StartCoroutine(FadeToNextScene(20f));
@@ -683,6 +711,7 @@ public class ObjectiveManager : MonoBehaviour
             if (multiObjectives.Count == 0)
             {
                 Leave();
+
             }
         }
     }
@@ -712,6 +741,8 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Leave()
     {
+        MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
+        if (migraine) migraine.StartMigrainDelayed(1);
         PlayDialogue("30", 3f, abortPrevious: false);
         PlayDialogue("w09", 4f, abortPrevious: false);
         //panic breathing effect after the dialogue
@@ -741,11 +772,27 @@ public class ObjectiveManager : MonoBehaviour
             //Lights go out
             //phone dies because of batteries run out
             //HeartBeat sound from minigame comes back
-            //Video installation sound starts playing
+            Invoke("StartVideo", 6f);
             //Disable notebook opening
             StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 8f));
 
         }
+    }
+
+    private void StartVideo()
+    {
+        GameObject obj = GetObject("art_main_04_video");
+        if (obj) obj.GetComponent<VideoPlayer>().enabled = true;
+        GameObject[] sounds = GameObject.FindGameObjectsWithTag("VideoSound");
+        foreach(GameObject sound in sounds)
+        {
+            sound.GetComponent<StudioEventEmitter>().Play();
+        }
+        obj = GetObject("notebook");
+        GameObject pos = GetObject("NotebookPos");
+        if (obj && pos) obj.transform.position = pos.transform.position;
+        MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
+        if (migraine) migraine.EndMigrain();
     }
 
     public void FlashLight()
@@ -753,7 +800,7 @@ public class ObjectiveManager : MonoBehaviour
         if (UpdateProgress("flashlight"))
         {
             GameObject obj = GetObject("RoomTrigger5");
-            if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+            if (obj) obj.GetComponent<BoxCollider>().enabled = true; 
             StartCoroutine(NewObjective("room4", "Check the noise", 1, delayTime));
         }
      }
@@ -775,6 +822,31 @@ public class ObjectiveManager : MonoBehaviour
             {
                 PlayDialogue("w11", 2f, abortPrevious: false);
                 AddClue6Objectives();
+                StartCoroutine(NewObjective("notebook", "Check the notebook", 1, delayTime));
+            }
+        }
+    }
+
+    public void NoteBook()
+    {
+        if (objectives.ContainsKey("notebook"))
+        {
+            if (UpdateProgress("notebook"))
+            {
+                StartCoroutine(NewObjective("storage2", "Go to the storage room", 1, delayTime));
+                GameObject obj = GetObject("RoomTrigger3");
+                if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+            }
+        }
+    }
+
+    public void StorageRoom2()
+    {
+        if (objectives.ContainsKey("storage2"))
+        {
+            if (UpdateProgress("storage2"))
+            {
+                StartCoroutine(NewObjective("finish", "Finish the artwork", 1, delayTime));
             }
         }
     }
