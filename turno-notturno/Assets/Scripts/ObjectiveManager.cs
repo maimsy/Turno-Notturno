@@ -154,8 +154,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             obj.GetComponent<Door>().locked = false;
         }
-        obj = GetObject("RoomTrigger2");
-        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+        
         AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
         {
@@ -651,6 +650,8 @@ public class ObjectiveManager : MonoBehaviour
         obj = GetObject("Act2VoicelineTrigger");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         PlayDialogue("19", 1f, abortPrevious: false);
+        obj = GetObject("RoomTrigger2");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;  
     }
 
     //player arrives to the storage room
