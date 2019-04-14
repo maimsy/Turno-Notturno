@@ -89,12 +89,7 @@ public class ObjectiveManager : MonoBehaviour
         obj = GetObject("art_main_01_sculptre");
         if (obj) obj.GetComponentInChildren<Rotate>().StartRotation();
         SetMainDoorTooltip("Main doors");
-
-        foreach (GameObject windowBar in windowBars)
-        {
-            Animator animator = windowBar.GetComponent<Animator>();
-            if (animator) animator.Play("ForceOpen");
-        }
+        OpenWindows();
 
         PlayDialogue("01", 1f, abortPrevious: false);
         PlayDialogue("02", 3f, abortPrevious: false);
@@ -109,6 +104,22 @@ public class ObjectiveManager : MonoBehaviour
             Debug.LogError("Alarm manager is missing!");
         }
         StartCoroutine(NewObjective("room1", "Check the alarm", 1, delayTime));
+    }
+
+    private void OpenWindows()
+    {
+        foreach (WindowAnimator windowAnimator in FindObjectsOfType<WindowAnimator>())
+        {
+            windowAnimator.ForceOpen();
+        }
+    }
+
+    private void CloseWindows()
+    {
+        foreach (WindowAnimator windowAnimator in FindObjectsOfType<WindowAnimator>())
+        {
+            windowAnimator.ForceClose();
+        }
     }
 
     // set up objectives for act 2
@@ -483,7 +494,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         //if (whichWindow == 0) PlayDialogue("07", 0.5f);
         if (whichWindow == 1) PlayDialogue("09", 0.5f);
-        windowBars[whichWindow].GetComponent<Animator>().Play("Close");
+        windowBars[whichWindow].GetComponent<WindowAnimator>().SmoothClose();
         if (UpdateProgress("window1"))
         {
             if (multiObjectives.Count == 0)
