@@ -742,14 +742,22 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Leave()
     {
-        MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
-        if (migraine) migraine.StartMigrainDelayed(1);
+        
         PlayDialogue("30", 3f, abortPrevious: false);
+        //run
         PlayDialogue("w09", 4f, abortPrevious: false);
-        //panic breathing effect after the dialogue
+        Invoke("PanicSound", 4f);
+        MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
+        if (migraine) migraine.StartMigrainDelayed(4f);
+        
         //PlayDialogue("22", 6f, abortPrevious: false);
         SetMainDoorTooltip("Escape");
         StartCoroutine(NewObjective("leave", "Leave the museum", 1, 5f));
+    }
+    private void PanicSound()
+    {
+        GameObject sound = GetObject("PanicSound");
+        if (sound) sound.GetComponent<StudioEventEmitter>().Play();
     }
 
     public void Leave2()
@@ -759,6 +767,7 @@ public class ObjectiveManager : MonoBehaviour
             PlayDialogue("32", 0f, abortPrevious: false);
             StartCoroutine(NewObjective("phone", "Use phone in guard room", 1, 1f));
             SetMainDoorTooltip("");
+            
         }
     }
     //Player started using the phone
@@ -766,18 +775,27 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("phone"))
         {
+            GameObject sound = GetObject("PanicSound");
+            if (sound) sound.GetComponent<SoundFader>().FadeAway(13f, "panicSoundVol");
             //phone sound
             PlayDialogue("35", 2f, abortPrevious: false);
-            //play footsteps approaching sound
-            PlayDialogue("36", 4f, abortPrevious: false);
+            Invoke("FootStepStart", 4f);
+            PlayDialogue("36", 7f, abortPrevious: false);
             //Lights go out
             //phone dies because of batteries run out
             //HeartBeat sound from minigame comes back
-            Invoke("StartVideo", 6f);
+            Invoke("StartVideo", 8f);
             //Disable notebook opening
             StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 8f));
 
         }
+    }
+
+    private void FootStepStart()
+    {
+        FindObjectOfType<FootSteps>().StartSound();
+        MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
+        if (migraine) migraine.EndMigrain();
     }
 
     private void StartVideo()
@@ -792,8 +810,7 @@ public class ObjectiveManager : MonoBehaviour
         obj = GetObject("notebook");
         GameObject pos = GetObject("NotebookPos");
         if (obj && pos) obj.transform.position = pos.transform.position;
-        MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
-        if (migraine) migraine.EndMigrain();
+        
     }
 
     public void FlashLight()

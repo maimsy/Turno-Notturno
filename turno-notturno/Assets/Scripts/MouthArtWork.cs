@@ -170,7 +170,6 @@ public class MouthArtWork : MonoBehaviour
 
     void StartSound(FMODUnity.StudioEventEmitter emitter, string parameterName)
     {
-
         //Debug.Log("Start" + parameterName);
         emitter.Play();
         emitter.SetParameter(parameterName, 1);
