@@ -13,7 +13,7 @@ public class Button : BaseInteractable
     [SerializeField] string enabledTooltip = "Press button";
     [SerializeField] string disabledTooltip = "Button";
     [SerializeField] bool requireObjective = false;
-    [SerializeField] string objective = "";
+    [SerializeField] string[] objective;
 
     private ObjectiveManager objectiveManager;
 
@@ -51,7 +51,15 @@ public class Button : BaseInteractable
 
     private bool GetObjectiveActive()
     {
-        if (objectiveManager) return objectiveManager.IsObjectiveActive(objective);
+        if (objectiveManager)
+        {
+            foreach(string obj in objective)
+            {
+                if (objectiveManager.IsObjectiveActive(obj)) return true;
+            }
+            return false;
+            
+        }
         else
         {
             Debug.LogError("Button cannot find ObjectiveManager!");

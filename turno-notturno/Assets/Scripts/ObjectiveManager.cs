@@ -151,14 +151,16 @@ public class ObjectiveManager : MonoBehaviour
         }
         obj = GetObject("door_04_group");
         if (obj)
-        {
+        { 
             obj.GetComponent<Door>().locked = false;
         }
-        
+        obj = GetObject("RoomTrigger2");
+        if(obj) obj.GetComponent<BoxCollider>().enabled = true;
         AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
         {
             alarmManager.ActivateAlarm(AlarmManager.Act.act_2);
+            alarmManager.ActivateAlarm(AlarmManager.Act.act_3);
         }
         else
         {

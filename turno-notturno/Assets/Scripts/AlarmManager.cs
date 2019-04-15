@@ -74,6 +74,27 @@ public class AlarmManager : MonoBehaviour
         SwapMinimapImage();
     }
 
+    public void StopAlarm(int act)
+    {
+        switch(act)
+        {
+            case 1:
+                StopAlarm(act1Alarm);
+                break;
+            case 2:
+                StopAlarm(act2Alarm);
+                break;
+            case 3:
+                StopAlarm(act3Alarm);
+                break;
+            case 4:
+                StopAlarm(act4Alarm);
+                break;
+        }
+        alarmIsEnabled = false;
+        SwapMinimapImage();
+    }
+
     public void ActivateAlarm(Act act)
     {
         ActivateAlarm(guardRoomAlarm);
