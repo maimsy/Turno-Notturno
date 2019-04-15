@@ -84,7 +84,6 @@ public class MigrainEffect : MonoBehaviour
     }
     public void StartMigrain() {
         // Camera.main.GetComponent<StudioEventEmitter>().enabled = true;
-        Debug.Log("QHAA");
         ismigrain = true;
         PostProcessVolume ppVolume = GetComponent<PostProcessVolume>();
         GetComponent<PostProcessVolume>().profile = Migraint;

@@ -119,50 +119,53 @@ public class MouthArtWork : MonoBehaviour
 
     void HandleSounds()
     {
-        
-        if (!soundPlaying1 && enableSound1 && Quaternion.Angle(joint0.localRotation, targetRotation0) > 0.1f)
+        if(!disabled)
         {
-            //FMODUnity.RuntimeManager.PlayOneShot("event:/fx/joint1");
-            StartSound(EventEmitter1, "joint1On");
-            soundPlaying1 = true;
-        }
-        if (!soundPlaying2 && enableSound2 && Quaternion.Angle(joint1.localRotation, targetRotation1) > 0.1f)
-        {
-            StartSound(EventEmitter2, "joint2On");
-            soundPlaying2 = true;
-        }
-        if (!soundPlaying3 && enableSound3 && Quaternion.Angle(joint2.localRotation, targetRotation2) > 0.1f)
-        {
-            StartSound(EventEmitter3, "joint3On");
-            soundPlaying3 = true;
-        }
-        if (!soundPlaying4 && enableSound4 && Quaternion.Angle(joint3.localRotation, targetRotation3) > 0.1f)
-        {
-            StartSound(EventEmitter4, "joint4On");
-            soundPlaying4 = true;
-        }
+            if (!soundPlaying1 && enableSound1 && Quaternion.Angle(joint0.localRotation, targetRotation0) > 0.1f)
+            {
+                //FMODUnity.RuntimeManager.PlayOneShot("event:/fx/joint1");
+                StartSound(EventEmitter1, "joint1On");
+                soundPlaying1 = true;
+            }
+            if (!soundPlaying2 && enableSound2 && Quaternion.Angle(joint1.localRotation, targetRotation1) > 0.1f)
+            {
+                StartSound(EventEmitter2, "joint2On");
+                soundPlaying2 = true;
+            }
+            if (!soundPlaying3 && enableSound3 && Quaternion.Angle(joint2.localRotation, targetRotation2) > 0.1f)
+            {
+                StartSound(EventEmitter3, "joint3On");
+                soundPlaying3 = true;
+            }
+            if (!soundPlaying4 && enableSound4 && Quaternion.Angle(joint3.localRotation, targetRotation3) > 0.1f)
+            {
+                StartSound(EventEmitter4, "joint4On");
+                soundPlaying4 = true;
+            }
 
-        if (soundPlaying1 && Quaternion.Angle(joint0.localRotation, targetRotation0) < 0.001f)
-        {
-            //FMODUnity.RuntimeManager.PlayOneShot("event:/fx/joint1");
-            StopSound(EventEmitter1, "joint1On");
-            soundPlaying1 = false;
+            if (soundPlaying1 && Quaternion.Angle(joint0.localRotation, targetRotation0) < 0.001f)
+            {
+                //FMODUnity.RuntimeManager.PlayOneShot("event:/fx/joint1");
+                StopSound(EventEmitter1, "joint1On");
+                soundPlaying1 = false;
+            }
+            if (soundPlaying2 && Quaternion.Angle(joint1.localRotation, targetRotation1) < 0.001f)
+            {
+                StopSound(EventEmitter2, "joint2On");
+                soundPlaying2 = false;
+            }
+            if (soundPlaying3 && Quaternion.Angle(joint2.localRotation, targetRotation2) < 0.001f)
+            {
+                StopSound(EventEmitter3, "joint3On");
+                soundPlaying3 = false;
+            }
+            if (soundPlaying4 && Quaternion.Angle(joint3.localRotation, targetRotation3) < 0.001f)
+            {
+                StopSound(EventEmitter4, "joint4On");
+                soundPlaying4 = false;
+            }
         }
-        if (soundPlaying2 && Quaternion.Angle(joint1.localRotation, targetRotation1) < 0.001f)
-        {
-            StopSound(EventEmitter2, "joint2On");
-            soundPlaying2 = false;
-        }
-        if (soundPlaying3 && Quaternion.Angle(joint2.localRotation, targetRotation2) < 0.001f)
-        {
-            StopSound(EventEmitter3, "joint3On");
-            soundPlaying3 = false;
-        }
-        if (soundPlaying4 && Quaternion.Angle(joint3.localRotation, targetRotation3) < 0.001f)
-        {
-            StopSound(EventEmitter4, "joint4On");
-            soundPlaying4 = false;
-        }
+        
     }
 
     void StartSound(FMODUnity.StudioEventEmitter emitter, string parameterName)
