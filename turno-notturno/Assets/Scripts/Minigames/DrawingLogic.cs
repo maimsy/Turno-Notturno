@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FMODUnity;
 
 
 public class DrawingLogic : MonoBehaviour
@@ -9,6 +10,7 @@ public class DrawingLogic : MonoBehaviour
     public GameObject drawingPrefab;
     public GameObject drawingLetterPrefab;
     public GameObject inkMeter;
+    public StudioEventEmitter letterSound;
 
     private string letters = "Someverycreepystuffthatcreepsyououtverymuch";
     private float drawDistance = 0.1f;
@@ -46,6 +48,7 @@ public class DrawingLogic : MonoBehaviour
             letter.transform.localScale = new Vector2(scale, scale);
             currentLetter++;
             inkMeter.GetComponent<Slider>().value = 1 - (float) currentLetter / letters.Length;
+            letterSound.Play();
             //obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, 0);
         }
     }
