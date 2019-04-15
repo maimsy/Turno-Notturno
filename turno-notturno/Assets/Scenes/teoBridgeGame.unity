@@ -485,7 +485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &152006493
 Animator:
   serializedVersion: 3
@@ -565,7 +565,7 @@ Transform:
   m_LocalScale: {x: 0.02, y: 0.02, z: 1}
   m_Children: []
   m_Father: {fileID: 1559506727}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &152006496
 MonoBehaviour:
@@ -24718,7 +24718,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213564253}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3984a93f9a6cf0c42bbcd811173b5928, type: 3}
   m_Name: 
@@ -26922,8 +26922,9 @@ Transform:
   m_GameObject: {fileID: 1559506722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.36, y: -0.94, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 6, y: 6, z: 1}
   m_Children:
+  - {fileID: 1911826522}
   - {fileID: 152006495}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -28734,6 +28735,7 @@ GameObject:
   - component: {fileID: 1911826522}
   - component: {fileID: 1911826521}
   - component: {fileID: 1911826520}
+  - component: {fileID: 1911826523}
   m_Layer: 0
   m_Name: Character-Animation-new_0000s_0000_Frame-1
   m_TagString: Untagged
@@ -28815,13 +28817,25 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911826519}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.94, y: -0.96, z: 0}
-  m_LocalScale: {x: 0.10137587, y: 0.10137587, z: 0.10137587}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.01689598, y: 0.01689598, z: 0.10137587}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_Father: {fileID: 1559506727}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1911826523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911826519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34fc11bf1addf2a40a492ff65001b105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1922746485
 PrefabInstance:
   m_ObjectHideFlags: 0
