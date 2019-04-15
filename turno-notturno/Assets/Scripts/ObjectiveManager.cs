@@ -1022,6 +1022,87 @@ public class ObjectiveManager : MonoBehaviour
                 break;
 
 
+            /*************          CLUES           *************/
+            case "c01":
+                dialogueMessage = "A blue, spiraling cityscape";
+                break;
+            case "c02":
+                dialogueMessage = "It’s made of wood";
+                break;
+            case "c03":
+                dialogueMessage = "Nothing seems to be missing or broken";
+                break;
+            case "c04":
+                dialogueMessage = "Red spheres in a spiral pattern";
+                break;
+            case "c05":
+                dialogueMessage = "It’s a portrait";
+                break;
+            case "c06":
+                dialogueMessage = "It's made of copper";
+                break;
+            case "c07":
+                dialogueMessage = "Ugh. Teeth.";
+                break;
+            case "c08":
+                dialogueMessage = "It’s all copper";
+                break;
+            case "c09":
+                dialogueMessage = "I hate this green";
+                break;
+            case "c10":
+                dialogueMessage = "From a famous abstract artist";
+                break;
+            case "c11":
+                dialogueMessage = "Spirals forming an abstract scenery";
+                break;
+            case "c12":
+                dialogueMessage = "This is red wood";
+                break;
+            case "c13":
+                dialogueMessage = "A cityscape of teeth";
+                break;
+            case "c14":
+                dialogueMessage = "Made of blue copper";
+                break;
+            case "c15":
+                dialogueMessage = "Blue, abstract, wood...what is the point of all this?";
+                break;
+
+            /*************          Secondary clues (when inspecting clues again)           *************/
+            case "c16":
+                dialogueMessage = "I feel like the artworks are connected somehow. Maybe I should see them again.";
+                break;
+            case "c17":
+                dialogueMessage = "This is made of copper.How did she make it blue?";
+                break;
+            case "c18":
+                dialogueMessage = "Spirals.That almost seems to be a theme in the exhibition";
+                break;
+            case "c19":
+                dialogueMessage = "Mother would have wanted her portrait to be abstract like this one";
+                break;
+            case "c20":
+                dialogueMessage = "This kind of abstract work...it looks like the works my mother used to do";
+                break;
+            case "c21":
+                dialogueMessage = "I remember the copper workshop.And all the dangerous equipment in there";
+                break;
+            case "c22":
+                dialogueMessage = "There was a lot of copper in the storage as well";
+                break;
+            case "c23":
+                dialogueMessage = "Spirals...if I could just remember…";
+                break;
+            case "c24":
+                dialogueMessage = "This shade of blue reminds me of something";
+                break;
+            case "c25":
+                dialogueMessage = "I used to know someone who used spirals in her work";
+                break;
+
+
+
             /*************          WHISPERS           *************/
             case "w01":
                 dialogueMessage = "One day I will take you to the highest skyscraper there is. " +
