@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.077103876, g: 0.090743534, b: 0.15012407, a: 1}
+  m_IndirectSpecularColor: {r: 0.07710386, g: 0.09074352, b: 0.15012401, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -132,7 +132,7 @@ PrefabInstance:
     - target: {fileID: 2943340082256704567, guid: 7343cb1a12f653b4093a6bdd46ab764f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.32
+      value: 1.957
       objectReference: {fileID: 0}
     - target: {fileID: 2943340082256704567, guid: 7343cb1a12f653b4093a6bdd46ab764f,
         type: 3}
@@ -183,6 +183,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2943340082256704567, guid: 7343cb1a12f653b4093a6bdd46ab764f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2943340082256704567, guid: 7343cb1a12f653b4093a6bdd46ab764f,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2943340082256704567, guid: 7343cb1a12f653b4093a6bdd46ab764f,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
@@ -1476,16 +1491,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1512917897}
     m_Modifications:
-    - target: {fileID: 1941302679760127932, guid: 4f7803de0514bdd4a909b48451f1ee75,
-        type: 3}
-      propertyPath: m_Name
-      value: FadeOut
-      objectReference: {fileID: 0}
-    - target: {fileID: 1941302679760127932, guid: 4f7803de0514bdd4a909b48451f1ee75,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1941302679760127933, guid: 4f7803de0514bdd4a909b48451f1ee75,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1590,6 +1595,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941302679760127932, guid: 4f7803de0514bdd4a909b48451f1ee75,
+        type: 3}
+      propertyPath: m_Name
+      value: FadeOut
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941302679760127932, guid: 4f7803de0514bdd4a909b48451f1ee75,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1941302679760127928, guid: 4f7803de0514bdd4a909b48451f1ee75,
         type: 3}

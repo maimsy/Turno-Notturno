@@ -43,6 +43,7 @@ public class MainMainMenuButtons : MonoBehaviour
 
     void Update()
     {
+        
         if (isFade) { FadeTextOut(); }
         if (isBookOpen) { OpenBook(); }
 
@@ -129,6 +130,8 @@ public class MainMainMenuButtons : MonoBehaviour
          isFade = true;
         //GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
         //PlayerPrefs.SetInt("GameState", -1);
+        PlayerPrefs.SetInt("ClueFoundAct11", 0);
+        PlayerPrefs.SetInt("ClueFoundAct12", 0);
     }
 
     

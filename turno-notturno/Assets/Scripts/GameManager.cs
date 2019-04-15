@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameObject finalPuzzle;
+    public GameObject Notes;
 
     [Serializable]
     public struct SceneStatePair
@@ -64,6 +65,12 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SetPaused(!paused);
+            Notes.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            Notes.SetActive(true);
         }
     }
 
