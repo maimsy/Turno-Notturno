@@ -11,7 +11,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 95b3fdbbeace3ff45bf6e863f1259aba, type: 3}
 --- !u!114 &3560021558434041566
@@ -26,7 +26,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511c2d37fd806484b92cc1fb3d3f22e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inspectDistance: 1
+  highlightChildren: 1
+  highlightParents: 0
+  overrideDefaultHighlight: 0
+  overrideHighlightMaterial: {fileID: 0}
+  inspectDistance: 3
   inspectSpeed: 0.05
   maxZoom: 0.4
   inspectDirection: 2
@@ -50,8 +54,8 @@ PrefabInstance:
       value: art_other_13_painting
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 95b3fdbbeace3ff45bf6e863f1259aba, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      propertyPath: m_TagString
+      value: Droppable
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 95b3fdbbeace3ff45bf6e863f1259aba, type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -10170,6 +10170,10 @@ PrefabInstance:
       propertyPath: objectiveEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1180025608}
+    - target: {fileID: 49163642, guid: fa8d6f6b6a5616440a06c53c8e1420ee, type: 3}
+      propertyPath: inspectDistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 611498625, guid: fa8d6f6b6a5616440a06c53c8e1420ee, type: 3}
       propertyPath: m_Convex
       value: 0
@@ -11454,16 +11458,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: art_other_13_painting
       objectReference: {fileID: 0}
-    - target: {fileID: 155154958545462197, guid: e42c3ed73bd2eef498ad177d84018b89,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 155154958545462197, guid: e42c3ed73bd2eef498ad177d84018b89,
-        type: 3}
-      propertyPath: m_TagString
-      value: Droppable
-      objectReference: {fileID: 0}
     - target: {fileID: 155154958545174421, guid: e42c3ed73bd2eef498ad177d84018b89,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11518,11 +11512,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3897823045302384066, guid: e42c3ed73bd2eef498ad177d84018b89,
-        type: 3}
-      propertyPath: m_Convex
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e42c3ed73bd2eef498ad177d84018b89, type: 3}
@@ -12181,16 +12170,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: art_other_11_collage
       objectReference: {fileID: 0}
-    - target: {fileID: 1110789594532870076, guid: 124481e4ac6de134eb5f8d2c49f212ba,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1110789594532870076, guid: 124481e4ac6de134eb5f8d2c49f212ba,
-        type: 3}
-      propertyPath: m_TagString
-      value: Droppable
-      objectReference: {fileID: 0}
     - target: {fileID: 1110789594532768668, guid: 124481e4ac6de134eb5f8d2c49f212ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12245,11 +12224,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4276130475518059325, guid: 124481e4ac6de134eb5f8d2c49f212ba,
-        type: 3}
-      propertyPath: m_Convex
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 124481e4ac6de134eb5f8d2c49f212ba, type: 3}
@@ -13665,16 +13639,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: art_other_07_painting
       objectReference: {fileID: 0}
-    - target: {fileID: 3651905414563769233, guid: 7581e343a82275f4d8bce5dde3b499e2,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3651905414563769233, guid: 7581e343a82275f4d8bce5dde3b499e2,
-        type: 3}
-      propertyPath: m_TagString
-      value: Droppable
-      objectReference: {fileID: 0}
     - target: {fileID: 3651905414563477425, guid: 7581e343a82275f4d8bce5dde3b499e2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13730,11 +13694,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1139043082538151182, guid: 7581e343a82275f4d8bce5dde3b499e2,
-        type: 3}
-      propertyPath: m_Convex
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7581e343a82275f4d8bce5dde3b499e2, type: 3}
 --- !u!1001 &3664315788509350897
@@ -13748,16 +13707,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: art_other_09_collage
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664315788398617211, guid: ab9108c219a2e7c44beb1408291b5d78,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664315788398617211, guid: ab9108c219a2e7c44beb1408291b5d78,
-        type: 3}
-      propertyPath: m_TagString
-      value: Droppable
       objectReference: {fileID: 0}
     - target: {fileID: 3664315788398788187, guid: ab9108c219a2e7c44beb1408291b5d78,
         type: 3}
@@ -13813,11 +13762,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3092304152910722935, guid: ab9108c219a2e7c44beb1408291b5d78,
-        type: 3}
-      propertyPath: m_Convex
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab9108c219a2e7c44beb1408291b5d78, type: 3}
@@ -14239,16 +14183,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: art_other_15_painting
       objectReference: {fileID: 0}
-    - target: {fileID: 4229481826005393408, guid: 4c1dedd327177a2409df68f7fc8e4cc7,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4229481826005393408, guid: 4c1dedd327177a2409df68f7fc8e4cc7,
-        type: 3}
-      propertyPath: m_TagString
-      value: Droppable
-      objectReference: {fileID: 0}
     - target: {fileID: 4229481826005171232, guid: 4c1dedd327177a2409df68f7fc8e4cc7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14303,11 +14237,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3760363618210026090, guid: 4c1dedd327177a2409df68f7fc8e4cc7,
-        type: 3}
-      propertyPath: m_Convex
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c1dedd327177a2409df68f7fc8e4cc7, type: 3}
@@ -14392,16 +14321,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: art_other_10_painting
       objectReference: {fileID: 0}
-    - target: {fileID: 4459268815990307008, guid: 006aee8557d84cb458de59df0c6e6169,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4459268815990307008, guid: 006aee8557d84cb458de59df0c6e6169,
-        type: 3}
-      propertyPath: m_TagString
-      value: Droppable
-      objectReference: {fileID: 0}
     - target: {fileID: 4459268815990269152, guid: 006aee8557d84cb458de59df0c6e6169,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14456,11 +14375,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1065223030068098876, guid: 006aee8557d84cb458de59df0c6e6169,
-        type: 3}
-      propertyPath: m_Convex
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 006aee8557d84cb458de59df0c6e6169, type: 3}
@@ -14821,16 +14735,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: art_other_14_painting
       objectReference: {fileID: 0}
-    - target: {fileID: 4768438154324151259, guid: edc84cd8f133b31498c831181b7be219,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4768438154324151259, guid: edc84cd8f133b31498c831181b7be219,
-        type: 3}
-      propertyPath: m_TagString
-      value: Droppable
-      objectReference: {fileID: 0}
     - target: {fileID: 4768438154324514811, guid: edc84cd8f133b31498c831181b7be219,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14885,11 +14789,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1435642668476443583, guid: edc84cd8f133b31498c831181b7be219,
-        type: 3}
-      propertyPath: m_Convex
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edc84cd8f133b31498c831181b7be219, type: 3}
@@ -17003,16 +16902,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: art_other_06_collage
       objectReference: {fileID: 0}
-    - target: {fileID: 8446503563773153478, guid: 349a616cccb5d864284bee0a919d5444,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8446503563773153478, guid: 349a616cccb5d864284bee0a919d5444,
-        type: 3}
-      propertyPath: m_TagString
-      value: Droppable
-      objectReference: {fileID: 0}
     - target: {fileID: 8446503563772988646, guid: 349a616cccb5d864284bee0a919d5444,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17067,11 +16956,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 626512972402326351, guid: 349a616cccb5d864284bee0a919d5444,
-        type: 3}
-      propertyPath: m_Convex
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 349a616cccb5d864284bee0a919d5444, type: 3}
@@ -17192,16 +17076,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: art_other_08_painting
       objectReference: {fileID: 0}
-    - target: {fileID: 8820422009154240141, guid: eb78126f4555be049bef5852e1af46c6,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8820422009154240141, guid: eb78126f4555be049bef5852e1af46c6,
-        type: 3}
-      propertyPath: m_TagString
-      value: Droppable
-      objectReference: {fileID: 0}
     - target: {fileID: 8820422009154134701, guid: eb78126f4555be049bef5852e1af46c6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17256,11 +17130,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3428703272477067936, guid: eb78126f4555be049bef5852e1af46c6,
-        type: 3}
-      propertyPath: m_Convex
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb78126f4555be049bef5852e1af46c6, type: 3}
