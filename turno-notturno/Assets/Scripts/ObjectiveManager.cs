@@ -41,6 +41,7 @@ public class ObjectiveManager : MonoBehaviour
 
         // Act 3-1
         MouthRobotTeeth = 41,
+        MouthRobotDescription = 42,
 
         PaintingRedSpiral = 51,
         PaintingPart2 = 52,
@@ -416,17 +417,18 @@ public class ObjectiveManager : MonoBehaviour
         // Spinning city
         if (s == "clue1" && IsObjectiveActive(s))
         {
-            
-            if (objective == ClueObjective.SpinningCityMesh)
+            switch (objective)
             {
-                
-            }
-            else if (objective == ClueObjective.SpinningCityDescription)
-            {
-                // Player reads the description out loud?
+                case ClueObjective.SpinningCityMesh:
+                    PlayDialogue("c01", 0f);
+                    break;
+                case ClueObjective.SpinningCityDescription:
+                    PlayDialogue("c02", 0f);
+                    break;
             }
             if (UpdateProgress(s) && multiObjectives.Count == 0)
             {
+                PlayDialogue("c03", 2f, false);
                 WhispersBeforeLocking();
             }
         }
@@ -434,6 +436,21 @@ public class ObjectiveManager : MonoBehaviour
         // Tooth-tree
         if (s == "clue2" && IsObjectiveActive(s))
         {
+            switch (objective)
+            {
+                case ClueObjective.ToothTreeBase:
+                    PlayDialogue("c08", 0f);
+                    break;
+                case ClueObjective.ToothTreeDescription:
+                    PlayDialogue("c10", 0f);
+                    break;
+                case ClueObjective.ToothTreeTeeth:
+                    PlayDialogue("c07", 0f);
+                    break;
+                case ClueObjective.ToothTreeTrunk:
+                    PlayDialogue("c09", 0f);
+                    break;
+            }
             UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
@@ -444,6 +461,20 @@ public class ObjectiveManager : MonoBehaviour
         // Ballsy-portrait
         if (s == "clue3" && IsObjectiveActive(s))
         {
+            switch (objective)
+            {
+                case ClueObjective.BallsyPortraitDescription:
+                    PlayDialogue("c06", 0f);
+                    break;
+                case ClueObjective.BallsyPortraitBalls:
+                    PlayDialogue("c04", 0f);
+                    break;
+                case ClueObjective.BallsyPortraitShadow:
+                    PlayDialogue("c05", 0f);
+                    break;
+                case ClueObjective.BallsyPortraitSpiral:
+                    break;
+            }
             UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
@@ -455,6 +486,15 @@ public class ObjectiveManager : MonoBehaviour
         // Mouth-robot
         if (s == "clue4" && IsObjectiveActive(s))
         {
+            switch (objective)
+            {
+                case ClueObjective.MouthRobotTeeth:
+                    PlayDialogue("c13", 0f);
+                    break;
+                case ClueObjective.MouthRobotDescription:
+                    PlayDialogue("c14", 0f);
+                    break;
+            }
             UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
@@ -467,6 +507,15 @@ public class ObjectiveManager : MonoBehaviour
         // Painting
         if (s == "clue5" && IsObjectiveActive(s))
         {
+            switch (objective)
+            {
+                case ClueObjective.PaintingRedSpiral:
+                    PlayDialogue("c11", 0f);
+                    break;
+                case ClueObjective.PaintingPart2:
+                    PlayDialogue("c12", 0f);
+                    break;
+            }
             UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
@@ -477,6 +526,16 @@ public class ObjectiveManager : MonoBehaviour
         // Video-art
         if (s == "clue6" && IsObjectiveActive(s))
         {
+            switch (objective)
+            {
+                case ClueObjective.VideoPart1:
+                    PlayDialogue("c15", 0f);
+                    break;
+                case ClueObjective.VideoPart2:
+                    break;
+                case ClueObjective.VideoPart3:
+                    break;
+            }
             UpdateProgress(s);
             if (multiObjectives.Count == 0)
             {
@@ -487,8 +546,8 @@ public class ObjectiveManager : MonoBehaviour
 
     public void WhispersBeforeLocking()
     {
-        PlayDialogue("w01", 0.1f);
-        Invoke("Locking", 20f);
+        PlayDialogue("w01", 5f);
+        Invoke("Locking", 10f);
     }
 
     //Start the locking objectives
@@ -892,6 +951,7 @@ public class ObjectiveManager : MonoBehaviour
     public void PlayDialogue(String filename, float delay, bool abortPrevious=true)
     {
         if (abortPrevious) AbortDialogue();
+        filename = filename.ToLower();
         String dialogueMessage = "";
         switch (filename)
         {
@@ -1190,7 +1250,15 @@ public class ObjectiveManager : MonoBehaviour
                 normalDialogue.DisplayText(dialogueMessage);
             }
             currentVoiceLine.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            currentVoiceLine = FMODUnity.RuntimeManager.CreateInstance("event:/placeholderSpeaks/" + filename + "_placeholder");
+            if (filename.StartsWith("c") || filename.StartsWith("C"))
+            {
+                filename = filename.ToUpper();
+                currentVoiceLine = FMODUnity.RuntimeManager.CreateInstance("event:/clueSpeaks/" + filename);
+            }
+            else
+            {
+                currentVoiceLine = FMODUnity.RuntimeManager.CreateInstance("event:/placeholderSpeaks/" + filename + "_placeholder");
+            }
             currentVoiceLine.start();
         }
     }
