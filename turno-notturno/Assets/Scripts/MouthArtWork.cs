@@ -81,7 +81,8 @@ public class MouthArtWork : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!disabled && Vector3.Distance(joint0.position, target.position) < maxDistanceFromCamera)
+        bool playerIsDownstairs = target.position.y < joint0.position.y;
+        if (!disabled && !playerIsDownstairs && Vector3.Distance(joint0.position, target.position) < maxDistanceFromCamera)
         {
             ComputeTargetRotations();
         }
