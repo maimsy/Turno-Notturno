@@ -174,7 +174,7 @@ public class ObjectiveManager : MonoBehaviour
         MouthArtWork robot = FindObjectOfType<MouthArtWork>();
         if (robot) robot.disabled = false;
         PlayDialogue("25", 1f);
-        PlayDialogue("26", 3f);
+        PlayDialogue("26", 5f);
         StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
 
         GameObject obj = GetObject("WakeUpPosition_Act3");
@@ -510,10 +510,10 @@ public class ObjectiveManager : MonoBehaviour
             switch (objective)
             {
                 case ClueObjective.PaintingRedSpiral:
-                    PlayDialogue("c11", 0f);
+                    PlayDialogue("c12", 0f);
                     break;
                 case ClueObjective.PaintingPart2:
-                    PlayDialogue("c12", 0f);
+                    PlayDialogue("c11", 0f);
                     break;
             }
             UpdateProgress(s);
@@ -825,7 +825,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if(UpdateProgress("leave"))
         {
-            PlayDialogue("32", 0f, abortPrevious: false);
+            PlayDialogue("32", 0.5f, abortPrevious: false);
             StartCoroutine(NewObjective("phone", "Use phone in guard room", 1, 1f));
             SetMainDoorTooltip("");
             
