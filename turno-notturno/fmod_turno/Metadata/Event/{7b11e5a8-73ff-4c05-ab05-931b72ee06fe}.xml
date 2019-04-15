@@ -5,7 +5,7 @@
             <value>menuClick</value>
         </property>
         <property name="outputFormat">
-            <value>0</value>
+            <value>2</value>
         </property>
         <relationship name="folder">
             <destination>{d617a909-2b22-419c-ba0f-b05575cb9cc5}</destination>
@@ -115,7 +115,14 @@
             <destination>{4fc911f7-eac9-4779-bab8-cab0e3b497b4}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{914c4372-cbd4-49c6-b5c8-8d5a03bd8267}"/>
+    <object class="MixerBusPanner" id="{914c4372-cbd4-49c6-b5c8-8d5a03bd8267}">
+        <property name="overridingOutputFormat">
+            <value>2</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{42bfc90c-4cf0-49cd-b0cd-16121f956be0}"/>
     <object class="MixerBusEffectChain" id="{e3933147-4793-4842-a205-a21bc6a929a9}">
         <relationship name="effects">

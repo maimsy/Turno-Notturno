@@ -5,7 +5,7 @@
             <value>pageTurn</value>
         </property>
         <property name="outputFormat">
-            <value>0</value>
+            <value>2</value>
         </property>
         <relationship name="folder">
             <destination>{d617a909-2b22-419c-ba0f-b05575cb9cc5}</destination>
@@ -119,7 +119,14 @@
             <destination>{c23a1896-e439-4ac2-900e-948882648e7c}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{ddb7f1a8-dd77-47b5-b8c5-0fd30f8357da}"/>
+    <object class="MixerBusPanner" id="{ddb7f1a8-dd77-47b5-b8c5-0fd30f8357da}">
+        <property name="overridingOutputFormat">
+            <value>2</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{a6b50d67-148d-4dd7-9bee-8def9dd5df1a}"/>
     <object class="SingleSound" id="{8f349e1f-f010-4a40-9dfa-da0e6476d9fb}">
         <relationship name="audioFile">

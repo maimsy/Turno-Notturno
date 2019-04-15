@@ -5,7 +5,7 @@
             <value>1MinigameRebirth</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>2</value>
         </property>
         <relationship name="folder">
             <destination>{d617a909-2b22-419c-ba0f-b05575cb9cc5}</destination>
@@ -118,7 +118,14 @@
             <destination>{2cb61fe8-fd42-4fd0-bec8-22fabda50d56}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{42a2f47d-76bd-46ca-b1b8-9756f5c28425}"/>
+    <object class="MixerBusPanner" id="{42a2f47d-76bd-46ca-b1b8-9756f5c28425}">
+        <property name="overridingOutputFormat">
+            <value>2</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{4eff9c96-505d-4bf7-977c-5ccc9f2599f9}"/>
     <object class="MixerBusEffectChain" id="{bd6aa98b-743e-40e1-a351-959d720cea23}">
         <relationship name="effects">

@@ -5,7 +5,7 @@
             <value>musicMinigame2</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>2</value>
         </property>
         <relationship name="folder">
             <destination>{d617a909-2b22-419c-ba0f-b05575cb9cc5}</destination>
@@ -153,7 +153,14 @@
             <destination>{f8ee1bd9-de64-4ded-a7f1-46492e016cb9}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{386054ce-2865-4122-b7cd-bbb287be1b8e}"/>
+    <object class="MixerBusPanner" id="{386054ce-2865-4122-b7cd-bbb287be1b8e}">
+        <property name="overridingOutputFormat">
+            <value>2</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{fd676188-fe66-4596-b421-0e64b5b555df}"/>
     <object class="MixerBusEffectChain" id="{4fc33344-ed34-42a8-a246-0c134fa4e6cf}">
         <relationship name="effects">

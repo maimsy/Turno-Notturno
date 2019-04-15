@@ -5,7 +5,7 @@
             <value>musicSceneTest</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>2</value>
         </property>
         <relationship name="folder">
             <destination>{d617a909-2b22-419c-ba0f-b05575cb9cc5}</destination>
@@ -153,7 +153,14 @@
             <destination>{c61143fd-c7be-4352-88aa-22ceffae2a25}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{3d937439-0684-41bc-b860-b92893629edf}"/>
+    <object class="MixerBusPanner" id="{3d937439-0684-41bc-b860-b92893629edf}">
+        <property name="overridingOutputFormat">
+            <value>2</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{247625bb-3513-40e3-821b-a926e4049780}"/>
     <object class="MixerBusEffectChain" id="{90f91c7b-f10f-4ce8-980c-8e08e739d677}">
         <relationship name="effects">

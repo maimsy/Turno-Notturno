@@ -5,7 +5,7 @@
             <value>footsteps</value>
         </property>
         <property name="outputFormat">
-            <value>0</value>
+            <value>2</value>
         </property>
         <relationship name="folder">
             <destination>{d617a909-2b22-419c-ba0f-b05575cb9cc5}</destination>
@@ -134,7 +134,14 @@
             <destination>{fe7ae0d6-16bf-4ecf-a0f4-765bde65126f}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{ed53b7c0-d7e7-433a-b618-31153c8be3ff}"/>
+    <object class="MixerBusPanner" id="{ed53b7c0-d7e7-433a-b618-31153c8be3ff}">
+        <property name="overridingOutputFormat">
+            <value>2</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{72e44b6a-9b48-4ce4-b629-1ab75a0e41d6}"/>
     <object class="RandomizerModulator" id="{966c539e-d7c9-42ce-8474-647c0b237528}">
         <property name="nameOfPropertyBeingModulated">

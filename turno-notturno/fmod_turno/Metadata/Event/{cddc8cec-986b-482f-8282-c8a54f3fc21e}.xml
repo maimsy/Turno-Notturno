@@ -5,7 +5,7 @@
             <value>musicMenu</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>2</value>
         </property>
         <relationship name="folder">
             <destination>{d617a909-2b22-419c-ba0f-b05575cb9cc5}</destination>
@@ -153,7 +153,14 @@
             <destination>{03f329de-73c4-4593-a7d3-76234d2c8780}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{bc13d919-85a5-4ce4-b221-4d4c8f65a1ff}"/>
+    <object class="MixerBusPanner" id="{bc13d919-85a5-4ce4-b221-4d4c8f65a1ff}">
+        <property name="overridingOutputFormat">
+            <value>2</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{56f7602c-7a87-4e7c-84e5-95a919c54140}"/>
     <object class="MixerBusEffectChain" id="{c571c8aa-7ab6-4bb0-8d32-637429ddf23c}">
         <relationship name="effects">

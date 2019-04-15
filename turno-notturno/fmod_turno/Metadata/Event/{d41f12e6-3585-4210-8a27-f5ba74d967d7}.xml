@@ -5,7 +5,7 @@
             <value>migraine2</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>2</value>
         </property>
         <relationship name="folder">
             <destination>{d617a909-2b22-419c-ba0f-b05575cb9cc5}</destination>
@@ -170,7 +170,14 @@
             <destination>{7a83d690-69f0-4de3-a600-2164eda7068b}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{7b350b67-f9ae-4195-b6b2-0b057c6c2c1e}"/>
+    <object class="MixerBusPanner" id="{7b350b67-f9ae-4195-b6b2-0b057c6c2c1e}">
+        <property name="overridingOutputFormat">
+            <value>2</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{5d57d266-23d6-4cde-8591-29faf87b3424}"/>
     <object class="MixerBusEffectChain" id="{8fbad273-9133-477b-8c58-6c7334c2b36a}">
         <relationship name="effects">

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="MixerGroup" id="{16c7af6f-5c62-4360-a8b1-55c0a701490d}">
+        <property name="name">
+            <value>thunder</value>
+        </property>
+        <relationship name="effectChain">
+            <destination>{a4ae211a-1b33-4751-bf56-9ee0689965e2}</destination>
+        </relationship>
+        <relationship name="panner">
+            <destination>{0b9f3ef2-7e1f-4852-a742-506e908876c1}</destination>
+        </relationship>
+        <relationship name="output">
+            <destination>{ba3326e9-e473-4b5a-9857-1e6766e25ad6}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusEffectChain" id="{a4ae211a-1b33-4751-bf56-9ee0689965e2}">
+        <relationship name="effects">
+            <destination>{8c5f78db-4b2a-4bfc-881a-3ffd6eca337b}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusPanner" id="{0b9f3ef2-7e1f-4852-a742-506e908876c1}"/>
+    <object class="MixerBusFader" id="{8c5f78db-4b2a-4bfc-881a-3ffd6eca337b}"/>
+</objects>
