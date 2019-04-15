@@ -664,12 +664,12 @@ public class ObjectiveManager : MonoBehaviour
             // Order of players response to whispers should be the same regardless of which art is inspected first
             if (act2ArtVoiceline == 0)
             {
-                PlayDialogue("17", 7f, abortPrevious: false);
+                PlayDialogue("17", 3f, abortPrevious: false);
                 act2ArtVoiceline = 1;
             }
             else if (act2ArtVoiceline == 1)
             {
-                PlayDialogue("18", 7f, abortPrevious: false);
+                PlayDialogue("18", 3f, abortPrevious: false);
             }
 
             paintingsChecked[whichPainting] = true;
