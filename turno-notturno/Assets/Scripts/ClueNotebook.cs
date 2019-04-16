@@ -36,7 +36,7 @@ public class ClueNotebook : MonoBehaviour
 
     private void checkClueCollectionProgress()
     {
-        Debug.Log(PlayerPrefs.GetInt("ClueFoundAct11") + PlayerPrefs.GetInt("ClueFoundAct12"));
+        //Debug.Log(PlayerPrefs.GetInt("ClueFoundAct11") + PlayerPrefs.GetInt("ClueFoundAct12"));
 
         if (PlayerPrefs.HasKey("ClueFoundAct11")) { Texts1[0].SetActive(true); }
         if (PlayerPrefs.HasKey("ClueFoundAct12")) { Texts1[1].SetActive(true); }

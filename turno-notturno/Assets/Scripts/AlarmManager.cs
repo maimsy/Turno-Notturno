@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class AlarmManager : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class AlarmManager : MonoBehaviour
     public AlarmSystem act3Alarm;
     public AlarmSystem act4Alarm;
 
+    private AlarmSystem[] alarmSystems;
     private Material alarmMinimap;
     private MeshRenderer minimapRenderer;
     private bool minimapToggle = false;
@@ -39,7 +41,9 @@ public class AlarmManager : MonoBehaviour
     void Awake()
     {
         if (minimapScreen) minimapRenderer = minimapScreen.GetComponent<MeshRenderer>();
+        alarmSystems = new AlarmSystem[] { guardRoomAlarm, act1Alarm, act2Alarm, act3Alarm, act4Alarm };
         StopAlarm();
+        
     }
 
     private void SwapMinimapImage()
@@ -126,7 +130,26 @@ public class AlarmManager : MonoBehaviour
         Rotate rotate = alarmSystem.light.GetComponentInParent<Rotate>();
         if (rotate) rotate.StopRotation();
         if (alarmSystem.light) alarmSystem.light.SetActive(false);
-        if (alarmSystem.sound) alarmSystem.sound.SetActive(false);
         if (alarmSystem.alarmLight) alarmSystem.alarmLight.SetActive(false);
+        if (alarmSystem.sound)
+        {
+            alarmSystem.sound.SetActive(false);
+            //alarmSystem.sound.GetComponent<StudioEventEmitter>().
+            /*
+            Debug.Log("alarmSystems "+ alarmSystems.Length);
+            foreach(AlarmSystem system in alarmSystems)
+            {
+                if(system.sound != null)
+                {
+                    if(system.sound.activeSelf)
+                    {
+                        system.sound.SetActive(false);
+                        system.sound.SetActive(true);
+                    }
+
+                }
+            }
+            */
+        }
     }
 }

@@ -859,7 +859,8 @@ public class ObjectiveManager : MonoBehaviour
             PlayDialogue("35", 2f, abortPrevious: false);
             Invoke("FootStepStart", 4f);
             PlayDialogue("36", 7f, abortPrevious: false);
-            //Lights go out
+            //lights go out
+            Invoke("StartStorm",8f);
             //phone dies because of batteries run out
             //HeartBeat sound from minigame comes back
             Invoke("StartVideo", 8f);
@@ -867,6 +868,11 @@ public class ObjectiveManager : MonoBehaviour
             StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 8f));
 
         }
+    }
+
+    private void StartStorm()
+    {
+        FindObjectOfType<ThunderManager>().StartStorm();
     }
 
     private void FootStepStart()
