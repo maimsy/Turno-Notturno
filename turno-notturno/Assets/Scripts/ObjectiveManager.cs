@@ -425,6 +425,8 @@ public class ObjectiveManager : MonoBehaviour
                     break;
                 case ClueObjective.SpinningCityDescription:
                     PlayerPrefs.SetInt("ClueFoundAct12", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct13", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct14", 1);
                     PlayDialogue("c02", 0f);
                     break;
             }
@@ -504,6 +506,8 @@ public class ObjectiveManager : MonoBehaviour
                     break;
                 case ClueObjective.MouthRobotDescription:
                     PlayerPrefs.SetInt("ClueFoundAct42", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct43", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct44", 1);
                     PlayDialogue("c14", 0f);
                     break;
             }
@@ -527,6 +531,8 @@ public class ObjectiveManager : MonoBehaviour
                     break;
                 case ClueObjective.PaintingPart2:
                     PlayerPrefs.SetInt("ClueFoundAct52", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct53", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct54", 1);
                     PlayDialogue("c11", 0f);
                     break;
             }
@@ -551,6 +557,7 @@ public class ObjectiveManager : MonoBehaviour
                     break;
                 case ClueObjective.VideoPart3:
                     PlayerPrefs.SetInt("ClueFoundAct63", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct64", 1);
                     break;
             }
             UpdateProgress(s);
