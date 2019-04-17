@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="MixerGroup" id="{6d5a0a43-e924-468a-b85f-e7f8cd1495d1}">
+        <property name="name">
+            <value>thunderL1</value>
+        </property>
+        <relationship name="effectChain">
+            <destination>{85192be0-2d80-4851-a4e8-d29f39c96c04}</destination>
+        </relationship>
+        <relationship name="panner">
+            <destination>{835f417c-28ef-4bec-acbf-a1c5862ccd83}</destination>
+        </relationship>
+        <relationship name="output">
+            <destination>{16c7af6f-5c62-4360-a8b1-55c0a701490d}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusEffectChain" id="{85192be0-2d80-4851-a4e8-d29f39c96c04}">
+        <relationship name="effects">
+            <destination>{630d14c4-0a98-440e-8107-81820bb9897d}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusPanner" id="{835f417c-28ef-4bec-acbf-a1c5862ccd83}">
+        <property name="overridingOutputFormat">
+            <value>1</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
+    <object class="MixerBusFader" id="{630d14c4-0a98-440e-8107-81820bb9897d}"/>
+</objects>
