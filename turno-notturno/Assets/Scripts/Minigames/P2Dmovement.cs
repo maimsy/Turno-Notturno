@@ -66,6 +66,12 @@ public class P2Dmovement : MonoBehaviour
         if (collider.tag == "Goal")
         {
             GetComponent<MinigameEnding>().EndGame(true);
+            ScribbleManager scribbleManager = FindObjectOfType<ScribbleManager>();
+            if (scribbleManager)
+            {
+                DrawingLogic logic = GetComponent<DrawingLogic>();
+                scribbleManager.SaveString(logic.GetLetters(), logic.GetPositions());
+            }
             enabled = false;
         }
     } 
