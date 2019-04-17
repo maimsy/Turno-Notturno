@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject finalPuzzle;
     public GameObject Notes;
-    public bool isBookOpen = false;
+    private bool isBookOpen = false;
 
     [Serializable]
     public struct SceneStatePair
@@ -70,9 +70,16 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            isBookOpen = !isBookOpen;
-            Notes.SetActive(isBookOpen);
+            OpenCloseBook();
         }
+    }
+
+    private void OpenCloseBook()
+    {
+        isBookOpen = !isBookOpen;
+        Notes.SetActive(isBookOpen);
+        if (isBookOpen) DisableControls();
+        else EnableControls();
     }
 
     public bool IsPaused()
