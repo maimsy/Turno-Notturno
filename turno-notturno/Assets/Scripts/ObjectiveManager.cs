@@ -430,7 +430,7 @@ public class ObjectiveManager : MonoBehaviour
             }
             if (UpdateProgress(s) && multiObjectives.Count == 0)
             {
-                PlayDialogue("c03", 2f, false);
+                PlayDialogue("c03", 3f, false);
                 WhispersBeforeLocking();
             }
         }
@@ -568,14 +568,15 @@ public class ObjectiveManager : MonoBehaviour
 
     public void WhispersBeforeLocking()
     {
-        PlayDialogue("w01", 5f);
-        Invoke("Locking", 10f);
+        PlayDialogue("w01", 9f);
+        PlayDialogue("06", 11.5f);
+        Invoke("Locking", 13f);
     }
 
     //Start the locking objectives
     public void Locking()
     {
-        PlayDialogue("06", 0f);
+        
         StartCoroutine(NewObjective("window1", "Secure the windows", windowBars.Count, delayTime));
         StartCoroutine(NewObjective("door1", "Check the main door", 1, delayTime));
         string[] names = { "window1", "door1" };
