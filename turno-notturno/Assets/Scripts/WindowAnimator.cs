@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 
 public class WindowAnimator : MonoBehaviour
@@ -16,6 +17,11 @@ public class WindowAnimator : MonoBehaviour
     void Awake()
     {
         maxY = windows[0].localPosition.y;
+        foreach (var window in windows)
+        {
+            //StudioEventEmitter emitter = window.gameObject.AddComponent<StudioEventEmitter>();
+            //emitter.
+        }
     }
 
     // Update is called once per frame
@@ -58,6 +64,7 @@ public class WindowAnimator : MonoBehaviour
     IEnumerator SmoothMove(GameObject window, float targetY, float time, float initialDelay)
     {
         yield return new WaitForSeconds(initialDelay);
+        window.GetComponent<StudioEventEmitter>().Play();
         Vector3 start = window.transform.localPosition;
         Vector3 end = new Vector3(start.x, targetY, start.z);
         for (float t = 0; t < 1; t += Time.smoothDeltaTime / time)
