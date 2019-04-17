@@ -80,7 +80,8 @@ public class AlarmManager : MonoBehaviour
 
     public void StopAlarm(int act)
     {
-        switch(act)
+        
+        switch (act)
         {
             case 1:
                 StopAlarm(act1Alarm);
@@ -134,22 +135,10 @@ public class AlarmManager : MonoBehaviour
         if (alarmSystem.sound)
         {
             alarmSystem.sound.SetActive(false);
-            //alarmSystem.sound.GetComponent<StudioEventEmitter>().
-            /*
-            Debug.Log("alarmSystems "+ alarmSystems.Length);
-            foreach(AlarmSystem system in alarmSystems)
+            if(!act1Alarm.sound.activeSelf && !act2Alarm.sound.activeSelf && !act3Alarm.sound.activeSelf && !act4Alarm.sound.activeSelf)
             {
-                if(system.sound != null)
-                {
-                    if(system.sound.activeSelf)
-                    {
-                        system.sound.SetActive(false);
-                        system.sound.SetActive(true);
-                    }
-
-                }
+                StopAlarm(guardRoomAlarm);
             }
-            */
         }
     }
 }
