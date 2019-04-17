@@ -14,8 +14,8 @@ public class Player : Character
     [SerializeField] float runSpeedMultiplier = 1.5f;
     [SerializeField] float maxMovementSpeed = 5f;
     [SerializeField] float movementSpeed = 5f;
-    [SerializeField] float XSensitivity = 1f;
-    [SerializeField] float YSensitivity = 1f;
+    //[SerializeField] float XSensitivity = 1f;
+    //[SerializeField] float YSensitivity = 1f;
     [SerializeField] bool clampVerticalRotation = true;
     [SerializeField] float MinimumX = -90F;
     [SerializeField] float MaximumX = 90F;
@@ -41,10 +41,19 @@ public class Player : Character
     private float rotateLimit = 1;
     private float rotateSpeed = 0.01f;
 
+    private float XSensitivity, YSensitivity;
+
     private bool running = false;
+
+    public void UpdateMouseSensitivity()
+    {
+        XSensitivity = PlayerPrefs.GetFloat("MouseSensitivityX", 5);
+        YSensitivity = PlayerPrefs.GetFloat("MouseSensitivityY", 5);
+    }
 
     void Start()
     {
+        UpdateMouseSensitivity();
         rb = GetComponent<Rigidbody>();
         characterTargetRotation = transform.localRotation;
         cameraTargetRotation = playerCamera.localRotation;

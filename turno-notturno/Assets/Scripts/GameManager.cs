@@ -244,7 +244,7 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
-        PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteKey("GameState");
         LoadGame();
     }
 }
