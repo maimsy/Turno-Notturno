@@ -909,13 +909,23 @@ public class ObjectiveManager : MonoBehaviour
         if (thunder) thunder.GetComponent<ThunderManager>().StartStorm();
     }
 
-    private void TurnLightsOff()
+    public void TurnLightsOff()
     {
         GameObject[] lights = GameObject.FindGameObjectsWithTag("Light");
         foreach (GameObject light in lights)
         {
             light.SetActive(false);
         }
+
+        // Disable lightmaps for all objects
+        //LightmapSettings.lightmaps = new LightmapData[0];
+        foreach (Renderer rend in FindObjectsOfType<Renderer>())
+        {
+            rend.lightmapIndex = -1;
+        }
+
+        GameObject obj = GetObject("Plane"); // Disable computer screen - didn't want to edit scene to add Light-tag
+        if (obj) obj.SetActive(false);
     }
 
     private void FootStepStart()
