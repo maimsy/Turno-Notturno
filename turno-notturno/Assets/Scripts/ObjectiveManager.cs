@@ -149,6 +149,10 @@ public class ObjectiveManager : MonoBehaviour
         }
         obj = GetObject("RoomTrigger2");
         if(obj) obj.GetComponent<BoxCollider>().enabled = true;
+        obj = GetObject("bleach_01");
+        GameObject pos = GetObject("BleachEdgePos");
+        if (pos && obj) obj.transform.position = pos.transform.position;
+        Debug.Log(obj.transform.position);
         AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
         {
@@ -159,6 +163,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             Debug.LogError("Alarm manager is missing!");
         }
+
     }
 
     private void Act3()
@@ -184,13 +189,12 @@ public class ObjectiveManager : MonoBehaviour
             obj.GetComponent<Door>().Open();
             //obj.GetComponent<Door>().UpdateTooltip();
         }
-        Vector3 pos = Vector3.zero;
-        obj = GetObject("FlashLightPos_Act3");
-        if (obj) pos = obj.transform.position;
+        GameObject pos = GetObject("FlashLightPos_Act3");
         obj = GetObject("flashlight_01");
-        if (obj)
+        if (obj && pos)
         {
-            obj.transform.position = pos;
+            obj.transform.position = pos.transform.position;
+            obj.transform.rotation = pos.transform.rotation;
             //obj.GetComponent<Interactable>().isInteractable = true;
         }
         AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
@@ -726,6 +730,15 @@ public class ObjectiveManager : MonoBehaviour
         //Act2VoicelineTrigger
         GameObject obj = GetObject("bleachFall");
         if (obj) obj.GetComponent<StudioEventEmitter>().Play();
+        obj = GetObject("bleach_01");
+        if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
+        GameObject pos = GetObject("FlashLightPos_Act3");
+        obj = GetObject("flashlight_01");
+        if (obj && pos)
+        {
+            obj.transform.position = pos.transform.position;
+            obj.transform.rotation = pos.transform.rotation;
+        }
         obj = GetObject("Act2VoicelineTrigger");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         PlayDialogue("19", 1f, abortPrevious: false);
