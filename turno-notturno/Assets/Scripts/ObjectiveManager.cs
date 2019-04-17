@@ -206,6 +206,8 @@ public class ObjectiveManager : MonoBehaviour
         {
             Debug.LogError("Alarm manager is missing!");
         }
+        obj = GetObject("ScribbleManager");
+        if (obj) obj.GetComponent<ScribbleManager>().ScribbleOnFloor();
     }
 
     //Spawn new objective UI after delay

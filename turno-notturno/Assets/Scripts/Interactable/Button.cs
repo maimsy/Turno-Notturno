@@ -46,7 +46,7 @@ public class Button : BaseInteractable
 
     public override bool IsInteractable()
     {
-        return isEnabled && GetObjectiveActive();
+        return isEnabled && (!requireObjective || GetObjectiveActive());
     }
 
     private bool GetObjectiveActive()
