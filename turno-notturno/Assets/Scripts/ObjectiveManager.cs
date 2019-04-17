@@ -737,7 +737,9 @@ public class ObjectiveManager : MonoBehaviour
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         PlayDialogue("19", 1f, abortPrevious: false);
         obj = GetObject("RoomTrigger2");
-        if (obj) obj.GetComponent<BoxCollider>().enabled = true;  
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+        obj = GetObject("bleach_01");
+        if (obj) obj.GetComponent<StudioEventEmitter>().Play();
     }
 
     //player arrives to the storage room
@@ -863,7 +865,8 @@ public class ObjectiveManager : MonoBehaviour
         {
             GameObject sound = GetObject("PanicSound");
             if (sound) sound.GetComponent<SoundFader>().FadeAway(13f, "panicSoundVol");
-            //phone sound
+            sound = GetObject("phone_01");
+            if (sound) sound.GetComponent<StudioEventEmitter>().Play();
             PlayDialogue("35", 2f, abortPrevious: false);
             Invoke("FootStepStart", 4f);
             PlayDialogue("36", 7f, abortPrevious: false);
@@ -922,6 +925,8 @@ public class ObjectiveManager : MonoBehaviour
             GameObject obj = GetObject("RoomTrigger5");
             if (obj) obj.GetComponent<BoxCollider>().enabled = true; 
             StartCoroutine(NewObjective("room4", "Check the noise", 1, delayTime));
+            GameObject sound = GetObject("flashlight_01");
+            if (sound) sound.GetComponent<StudioEventEmitter>().Play();
         }
      }
 

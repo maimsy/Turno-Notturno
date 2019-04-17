@@ -18271,12 +18271,36 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1636751122, guid: 7292da2c35035b642a7a676202173a01, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636751122, guid: 7292da2c35035b642a7a676202173a01, type: 3}
       propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1180025608}
     - target: {fileID: 1636751122, guid: 7292da2c35035b642a7a676202173a01, type: 3}
       propertyPath: objective.Array.data[0]
       value: flashlight
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636751122, guid: 7292da2c35035b642a7a676202173a01, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636751122, guid: 7292da2c35035b642a7a676202173a01, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636751122, guid: 7292da2c35035b642a7a676202173a01, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 7062213177473451054}
+    - target: {fileID: 1636751122, guid: 7292da2c35035b642a7a676202173a01, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Grab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636751122, guid: 7292da2c35035b642a7a676202173a01, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1244636451, guid: 7292da2c35035b642a7a676202173a01, type: 3}
       propertyPath: m_Shadows.m_Type
@@ -18296,7 +18320,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1244636451, guid: 7292da2c35035b642a7a676202173a01, type: 3}
       propertyPath: m_SpotAngle
-      value: 24
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244636451, guid: 7292da2c35035b642a7a676202173a01, type: 3}
+      propertyPath: m_Range
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1244636450, guid: 7292da2c35035b642a7a676202173a01, type: 3}
       propertyPath: m_LocalRotation.x
@@ -18325,6 +18353,22 @@ PrefabInstance:
     - target: {fileID: 1244636450, guid: 7292da2c35035b642a7a676202173a01, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.85800004
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244636450, guid: 7292da2c35035b642a7a676202173a01, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.006
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244636450, guid: 7292da2c35035b642a7a676202173a01, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.004
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244636450, guid: 7292da2c35035b642a7a676202173a01, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.032
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244636449, guid: 7292da2c35035b642a7a676202173a01, type: 3}
+      propertyPath: m_Name
+      value: light
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7292da2c35035b642a7a676202173a01, type: 3}
@@ -18357,6 +18401,25 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &7062213177473451054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7062213177473451046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0970ec2bcc09f9742abb3baeda619d49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightChildren: 1
+  highlightParents: 0
+  overrideDefaultHighlight: 0
+  overrideHighlightMaterial: {fileID: 0}
+  targetDistance: 0.7
+  offSetRight: 0.35
+  offSetDown: 0.3
 --- !u!1001 &7074598830947024744
 PrefabInstance:
   m_ObjectHideFlags: 0
