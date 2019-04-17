@@ -18,7 +18,7 @@ public class ThunderManager : MonoBehaviour
     private float thunderTimer = 0;
     private int previousX = 0;
 
-    private bool stormStarted = true;
+    public bool stormStarted = true;
     private bool thunder = false;
     // Start is called before the first frame update
     void Start()

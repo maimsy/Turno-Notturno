@@ -832,9 +832,9 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("30", 3f, abortPrevious: false);
         //run
         PlayDialogue("w09", 4f, abortPrevious: false);
-        Invoke("PanicSound", 4f);
+        Invoke("PanicSound", 4.5f);
         MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
-        if (migraine) migraine.StartMigrainDelayed(4f);
+        if (migraine) migraine.StartMigrainDelayed(4.5f);
         
         //PlayDialogue("22", 6f, abortPrevious: false);
         SetMainDoorTooltip("Escape");
@@ -867,20 +867,30 @@ public class ObjectiveManager : MonoBehaviour
             PlayDialogue("35", 2f, abortPrevious: false);
             Invoke("FootStepStart", 4f);
             PlayDialogue("36", 7f, abortPrevious: false);
-            //lights go out
+            Invoke("TurnLightsOff", 8f);
             Invoke("StartStorm",8f);
             //phone dies because of batteries run out
             //HeartBeat sound from minigame comes back
             Invoke("StartVideo", 8f);
             //Disable notebook opening
-            StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 8f));
+            StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 12f));
 
         }
     }
 
     private void StartStorm()
     {
-        FindObjectOfType<ThunderManager>().StartStorm();
+        GameObject thunder = GetObject("ThunderManager");
+        if (thunder) thunder.GetComponent<ThunderManager>().StartStorm();
+    }
+
+    private void TurnLightsOff()
+    {
+        GameObject[] lights = GameObject.FindGameObjectsWithTag("Light");
+        foreach (GameObject light in lights)
+        {
+            light.SetActive(false);
+        }
     }
 
     private void FootStepStart()
