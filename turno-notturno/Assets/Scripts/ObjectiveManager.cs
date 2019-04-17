@@ -925,8 +925,6 @@ public class ObjectiveManager : MonoBehaviour
             GameObject obj = GetObject("RoomTrigger5");
             if (obj) obj.GetComponent<BoxCollider>().enabled = true; 
             StartCoroutine(NewObjective("room4", "Check the noise", 1, delayTime));
-            GameObject sound = GetObject("flashlight_01");
-            if (sound) sound.GetComponent<StudioEventEmitter>().Play();
         }
      }
 

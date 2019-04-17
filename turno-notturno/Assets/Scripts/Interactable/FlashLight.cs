@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class FlashLight : BaseInteractable
 {
@@ -53,7 +54,7 @@ public class FlashLight : BaseInteractable
         target = Camera.main.transform;
         gravityWasEnabled = rbody.useGravity;
         rbody.useGravity = false;
-
+        FMODUnity.RuntimeManager.PlayOneShot("event:/fx/flashlightPickup");
     }
 
     public void Drop()
