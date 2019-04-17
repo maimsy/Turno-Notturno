@@ -5,7 +5,7 @@
             <value>thunder6R2</value>
         </property>
         <property name="outputFormat">
-            <value>2</value>
+            <value>1</value>
         </property>
         <relationship name="folder">
             <destination>{8fe59592-17dd-4235-aa0a-3e26487cf3fd}</destination>
@@ -53,7 +53,7 @@
             <destination>{5306eac7-2ac4-4d45-9ece-008344ea3ef3}</destination>
         </relationship>
         <relationship name="output">
-            <destination>{16c7af6f-5c62-4360-a8b1-55c0a701490d}</destination>
+            <destination>{0e7ecf58-0ad5-476a-a31c-49e015f779ef}</destination>
         </relationship>
     </object>
     <object class="EventAutomatableProperties" id="{9124d185-9fbd-43db-bd7c-8870653faccc}"/>
@@ -116,7 +116,14 @@
             <destination>{cfbc4b2f-74d0-49d1-a7d0-61fd33eb4b54}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{8f3fd685-76ad-4f1e-bf6d-dc867e08fe28}"/>
+    <object class="MixerBusPanner" id="{8f3fd685-76ad-4f1e-bf6d-dc867e08fe28}">
+        <property name="overridingOutputFormat">
+            <value>1</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{43a42723-0e9f-4aa6-a676-ed4c2e3112c4}"/>
     <object class="MixerBusEffectChain" id="{0c0336b3-a4cb-415f-b089-93b93e4cda99}">
         <relationship name="effects">
@@ -127,7 +134,13 @@
     <object class="MixerBusFader" id="{fd3a18d6-007d-46d8-bb47-589f1c868855}"/>
     <object class="SpatialiserEffect" id="{cfbc4b2f-74d0-49d1-a7d0-61fd33eb4b54}">
         <property name="distanceRolloffType">
-            <value>4</value>
+            <value>1</value>
+        </property>
+        <property name="maximumDistance">
+            <value>200</value>
+        </property>
+        <property name="soundSize">
+            <value>40</value>
         </property>
     </object>
     <object class="MixerBusFader" id="{ee6fb33b-e0df-4aa5-93c4-8ff664f20885}"/>
