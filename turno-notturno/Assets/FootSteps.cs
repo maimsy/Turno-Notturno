@@ -7,17 +7,17 @@ public class FootSteps : MonoBehaviour
 {
     StudioEventEmitter sound;
     public bool soundPlaying;
-    private float pauseLength = 1.2f;
-    private float pauseDecrement = 0.07f;
+    [SerializeField] float pauseLength = 1.2f;
+    [SerializeField] float pauseDecrement = 0.07f;
     private float counter = 0;
     private Transform target;
-    private float moveSpeed = 0.04f;
-    private float stopDistance = 0.05f;
+    [SerializeField] float moveSpeed = 0.04f;
+    [SerializeField] float stopDistance = 0.05f;
 
     // Start is called before the first frame update
     void Start()
     {
-        target = FindObjectOfType<Player>().gameObject.transform;
+        target = GameObject.Find("FootStepsTarget").transform;
         sound = GetComponent<StudioEventEmitter>();
     }
 

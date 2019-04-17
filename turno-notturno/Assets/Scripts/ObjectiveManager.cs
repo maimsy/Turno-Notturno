@@ -154,6 +154,7 @@ public class ObjectiveManager : MonoBehaviour
         if (obj)
         { 
             obj.GetComponent<Door>().locked = false;
+            obj.GetComponent<Door>().Open();
         }
         obj = GetObject("RoomTrigger2");
         if(obj) obj.GetComponent<BoxCollider>().enabled = true;
