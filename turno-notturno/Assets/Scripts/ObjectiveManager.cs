@@ -134,16 +134,7 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("13", 2f, abortPrevious: false);
         PlayDialogue("14", 7f, abortPrevious: false);
         StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
-        GameObject[] paintings = GameObject.FindGameObjectsWithTag("Droppable");
-        float forceDirection = GetObject("GroundColliderPaintingRoom").transform.position.x;
-        foreach(GameObject painting in paintings)
-        {
-            painting.AddComponent<Rigidbody>();
-            Vector3 force = new Vector3(0, 0, 0);
-            Vector3 pos = painting.transform.position;
-            force.x = pos.x < forceDirection ? 1.5f : -1.5f;
-            painting.GetComponent<Rigidbody>().AddForceAtPosition(force, pos, ForceMode.Impulse);
-        }
+        DropPaintings(true);
         GameObject obj = GetObject("WakeUpPosition_Act2");
         if (obj)
         {
@@ -177,7 +168,7 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("25", 1f);
         PlayDialogue("26", 5f);
         StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
-
+        DropPaintings(false);
         GameObject obj = GetObject("WakeUpPosition_Act3");
         if (obj)
         {
@@ -651,6 +642,8 @@ public class ObjectiveManager : MonoBehaviour
 
     //ACT 2 OBJECTIVES
 
+    
+
     //Guard arrived to the alarm room
     public void Room2()
     {
@@ -863,10 +856,14 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("phone"))
         {
-            GameObject sound = GetObject("PanicSound");
-            if (sound) sound.GetComponent<SoundFader>().FadeAway(13f, "panicSoundVol");
-            sound = GetObject("phone_01");
-            if (sound) sound.GetComponent<StudioEventEmitter>().Play();
+            GameObject obj = GetObject("PanicSound");
+            if (obj) obj.GetComponent<SoundFader>().FadeAway(13f, "panicSoundVol");
+            obj = GetObject("phone_01");
+            if (obj)
+            {
+                obj.GetComponent<StudioEventEmitter>().Play();
+                obj.GetComponent<MeshRenderer>().enabled = false;
+            }
             PlayDialogue("35", 2f, abortPrevious: false);
             Invoke("FootStepStart", 4f);
             PlayDialogue("36", 7f, abortPrevious: false);
@@ -875,11 +872,19 @@ public class ObjectiveManager : MonoBehaviour
             //phone dies because of batteries run out
             //HeartBeat sound from minigame comes back
             Invoke("StartVideo", 8f);
+            Invoke("PutPhoneAway", 8f);
             //Disable notebook opening
             StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 12f));
 
         }
     }
+
+    private void PutPhoneAway()
+    {
+        GameObject obj = GetObject("phone_01");
+        if (obj) obj.GetComponent<MeshRenderer>().enabled = true;
+    }
+
 
     private void StartStorm()
     {
@@ -971,6 +976,25 @@ public class ObjectiveManager : MonoBehaviour
             {
                 StartCoroutine(NewObjective("finish", "Finish the artwork", 1, delayTime));
             }
+        }
+    }
+
+    //Drop paintings on the floor
+    private void DropPaintings(bool act2)
+    {
+        GameObject[] paintings = GameObject.FindGameObjectsWithTag("Droppable");
+        float forceDirection = GetObject("GroundColliderPaintingRoom").transform.position.x;
+        foreach (GameObject painting in paintings)
+        {
+            if(act2 || painting.name != "art_main_05_collage")
+            {
+                painting.AddComponent<Rigidbody>();
+                Vector3 force = new Vector3(0, 0, 0);
+                Vector3 pos = painting.transform.position;
+                force.x = pos.x < forceDirection ? 1.5f : -1.5f;
+                painting.GetComponent<Rigidbody>().AddForceAtPosition(force, pos, ForceMode.Impulse);
+            }
+
         }
     }
 
