@@ -20,7 +20,7 @@ public class P2Dmovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Move();
         Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(-50, 0, 10));

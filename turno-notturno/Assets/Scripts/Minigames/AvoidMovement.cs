@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class AvoidMovement : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class AvoidMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (resetting)
         {
@@ -81,6 +82,11 @@ public class AvoidMovement : MonoBehaviour
 
     public void SmoothReset()
     {
+        StudioEventEmitter sound = GameObject.Find("BirthSound").GetComponent<StudioEventEmitter>();
+        if (!sound.IsPlaying())
+        {
+            sound.Play();
+        }
         resetting = true;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         GetComponent<Rigidbody2D>().angularVelocity = 0;
