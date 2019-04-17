@@ -863,10 +863,14 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("phone"))
         {
-            GameObject sound = GetObject("PanicSound");
-            if (sound) sound.GetComponent<SoundFader>().FadeAway(13f, "panicSoundVol");
-            sound = GetObject("phone_01");
-            if (sound) sound.GetComponent<StudioEventEmitter>().Play();
+            GameObject obj = GetObject("PanicSound");
+            if (obj) obj.GetComponent<SoundFader>().FadeAway(13f, "panicSoundVol");
+            obj = GetObject("phone_01");
+            if (obj)
+            {
+                obj.GetComponent<StudioEventEmitter>().Play();
+                obj.GetComponent<MeshRenderer>().enabled = false;
+            }
             PlayDialogue("35", 2f, abortPrevious: false);
             Invoke("FootStepStart", 4f);
             PlayDialogue("36", 7f, abortPrevious: false);
@@ -875,11 +879,19 @@ public class ObjectiveManager : MonoBehaviour
             //phone dies because of batteries run out
             //HeartBeat sound from minigame comes back
             Invoke("StartVideo", 8f);
+            Invoke("PutPhoneAway", 8f);
             //Disable notebook opening
             StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 12f));
 
         }
     }
+
+    private void PutPhoneAway()
+    {
+        GameObject obj = GetObject("phone_01");
+        if (obj) obj.GetComponent<MeshRenderer>().enabled = true;
+    }
+
 
     private void StartStorm()
     {
