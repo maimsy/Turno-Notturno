@@ -251,6 +251,39 @@ public class GameManager : MonoBehaviour
     public void NewGame()
     {
         PlayerPrefs.DeleteKey("GameState");
+
+        PlayerPrefs.DeleteKey("ClueGuessed");
+
+        PlayerPrefs.DeleteKey("ClueFoundAct11");
+        PlayerPrefs.DeleteKey("ClueFoundAct12");
+        PlayerPrefs.DeleteKey("ClueFoundAct13");
+        PlayerPrefs.DeleteKey("ClueFoundAct14");
+
+        PlayerPrefs.DeleteKey("ClueFoundAct21");
+        PlayerPrefs.DeleteKey("ClueFoundAct22");
+        PlayerPrefs.DeleteKey("ClueFoundAct23");
+        PlayerPrefs.DeleteKey("ClueFoundAct24");
+
+        PlayerPrefs.DeleteKey("ClueFoundAct31");
+        PlayerPrefs.DeleteKey("ClueFoundAct32");
+        PlayerPrefs.DeleteKey("ClueFoundAct33");
+        PlayerPrefs.DeleteKey("ClueFoundAct34");
+
+        PlayerPrefs.DeleteKey("ClueFoundAct41");
+        PlayerPrefs.DeleteKey("ClueFoundAct42");
+        PlayerPrefs.DeleteKey("ClueFoundAct43");
+        PlayerPrefs.DeleteKey("ClueFoundAct44");
+        PlayerPrefs.DeleteKey("ClueFoundAct51");
+        PlayerPrefs.DeleteKey("ClueFoundAct52");
+        PlayerPrefs.DeleteKey("ClueFoundAct53");
+        PlayerPrefs.DeleteKey("ClueFoundAct54");
+
+
+        PlayerPrefs.DeleteKey("ClueFoundAct61");
+        PlayerPrefs.DeleteKey("ClueFoundAct62");
+        PlayerPrefs.DeleteKey("ClueFoundAct63");
+        PlayerPrefs.DeleteKey("ClueFoundAct64");
+
         LoadGame();
     }
 }
