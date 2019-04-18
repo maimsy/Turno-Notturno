@@ -25,11 +25,27 @@ public class ThunderManager : MonoBehaviour
     public bool stormStarted = true;
     private bool thunder = false;
 
-    public GameObject light;
+    private StudioEventEmitter rainL1;
+    private StudioEventEmitter rainL2;
+    private StudioEventEmitter rainR1;
+    private StudioEventEmitter rainR2;
+
+    private StudioEventEmitter thunderL1;
+    private StudioEventEmitter thunderL2;
+    private StudioEventEmitter thunderR1;
+    private StudioEventEmitter thunderR2;
     // Start is called before the first frame update
     void Start()
     {
         soundPause = Random.Range(soundPauseMin, soundPauseMax);
+        rainL1 = GameObject.Find("rainL1").GetComponent<StudioEventEmitter>();
+        rainL2 = GameObject.Find("rainL2").GetComponent<StudioEventEmitter>();
+        rainR1 = GameObject.Find("rainR1").GetComponent<StudioEventEmitter>();
+        rainR2 = GameObject.Find("rainR2").GetComponent<StudioEventEmitter>();
+        thunderL1 = GameObject.Find("thunderL1").GetComponent<StudioEventEmitter>();
+        thunderL2 = GameObject.Find("thunderL2").GetComponent<StudioEventEmitter>();
+        thunderR1 = GameObject.Find("thunderR1").GetComponent<StudioEventEmitter>();
+        thunderR2 = GameObject.Find("thunderR2").GetComponent<StudioEventEmitter>();
     }
 
     // Update is called once per frame
@@ -62,10 +78,10 @@ public class ThunderManager : MonoBehaviour
     public void StartStorm()
     {
         stormStarted = true;
-        FMODUnity.RuntimeManager.PlayOneShot("event:/thunder/rainL1");
-        FMODUnity.RuntimeManager.PlayOneShot("event:/thunder/rainR1");
-        FMODUnity.RuntimeManager.PlayOneShot("event:/thunder/rainL2");
-        FMODUnity.RuntimeManager.PlayOneShot("event:/thunder/rainR2");
+        rainL1.Play();
+        rainL2.Play();
+        rainR1.Play();
+        rainR2.Play();
     }
 
     IEnumerator ThunderLight()
@@ -73,9 +89,9 @@ public class ThunderManager : MonoBehaviour
         int flashTimes = Random.Range(1, maxFlashes);
         for (int i = 0; i < flashTimes; i++)
         {
-            light.SetActive(true);
+            GetComponent<Light>().enabled = true;
             yield return new WaitForSeconds(Random.Range(minFlashDuration, maxFlashDuration));
-            light.SetActive(false);
+            GetComponent<Light>().enabled = false;
             yield return new WaitForSeconds(Random.Range(minFlashDuration, maxFlashDuration));
         }
         
@@ -95,10 +111,13 @@ public class ThunderManager : MonoBehaviour
             x = Random.Range(1, 7);
         }
         previousX = x;
-
-        FMODUnity.RuntimeManager.PlayOneShot("event:/thunder/thunder" + x + "L1");
-        FMODUnity.RuntimeManager.PlayOneShot("event:/thunder/thunder" + x + "R1");
-        FMODUnity.RuntimeManager.PlayOneShot("event:/thunder/thunder" + x + "L2");
-        FMODUnity.RuntimeManager.PlayOneShot("event:/thunder/thunder" + x + "R2");
+        thunderL1.Event = "event:/thunder/thunder" + x + "L1";
+        thunderL1.Play();
+        thunderL2.Event = "event:/thunder/thunder" + x + "L2";
+        thunderL2.Play();
+        thunderR1.Event = "event:/thunder/thunder" + x + "R1";
+        thunderR1.Play();
+        thunderR2.Event = "event:/thunder/thunder" + x + "R2";
+        thunderR2.Play();
     }
 }
