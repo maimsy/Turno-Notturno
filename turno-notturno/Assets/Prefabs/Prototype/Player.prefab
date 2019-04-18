@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4385973204031555676}
   - component: {fileID: 4385973204031555678}
   - component: {fileID: 4385973204031555677}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlayerCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,8 +54,6 @@ MonoBehaviour:
   runSpeedMultiplier: 1.5
   maxMovementSpeed: 2
   movementSpeed: 3000
-  XSensitivity: 8
-  YSensitivity: 8
   clampVerticalRotation: 1
   MinimumX: -90
   MaximumX: 90
@@ -104,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4385973204083051891}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
