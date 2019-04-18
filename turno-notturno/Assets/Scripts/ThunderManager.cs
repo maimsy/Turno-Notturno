@@ -7,7 +7,7 @@ public class ThunderManager : MonoBehaviour
 {
 
     public float soundPauseMin = 0.5f;
-    public float soundPauseMax = 3f;
+    public float soundPauseMax = 1.5f;
     private float soundPause = 0;
 
     public float thunderPauseMin = 3.5f;
