@@ -50,7 +50,7 @@ public class Door : BaseInteractable
             float radPerSecond = degreesPerSecond * Mathf.Deg2Rad;
             transform.position = originalPosition;
 
-            float rotY = transform.rotation.eulerAngles.y;
+            float rotY = transform.localRotation.eulerAngles.y;
             if (rotY > 180) rotY -= 360; // Wrap to 180, -180 
             if (closed && rotY < closedAngle)
             {
@@ -82,12 +82,12 @@ public class Door : BaseInteractable
     {
         if (closed)
         {
-            transform.rotation = Quaternion.Euler(new Vector3(0, closedAngle, 0));
+            transform.localRotation = Quaternion.Euler(new Vector3(0, closedAngle, 0));
             if (closeDoorSound) closeDoorSound.Play();
         }
         else
         {
-            transform.rotation = Quaternion.Euler(new Vector3(0, openAngle, 0));  
+            transform.localRotation = Quaternion.Euler(new Vector3(0, openAngle, 0));  
         }
         transform.position = originalPosition;
         rbody.angularVelocity = Vector3.zero;
@@ -98,8 +98,8 @@ public class Door : BaseInteractable
     void FixPosition()
     {
         transform.position = originalPosition;
-        float y = transform.rotation.eulerAngles.y;
-        transform.rotation = Quaternion.Euler(new Vector3(0, y, 0));
+        float y = transform.localRotation.eulerAngles.y;
+        transform.localRotation = Quaternion.Euler(new Vector3(0, y, 0));
     }
 
     public void Close()
