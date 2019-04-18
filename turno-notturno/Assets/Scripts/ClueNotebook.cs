@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ using UnityEngine.UI;
 
 public class ClueNotebook : MonoBehaviour
 {
+    public GameObject Book;
     public GameObject Act1;
     public GameObject Act2;
     public GameObject Act3;
@@ -49,14 +51,11 @@ public class ClueNotebook : MonoBehaviour
                 CluesGuessed.RemoveAt(i);
             }
         }
-
-        Debug.Log("Collection Changed! " + string.Join(", ", CluesGuessed.ToArray()));
+        
         for (int i = 0; i < CluesGuessed.Count; i++)
         {
-            Debug.Log("Collection Changed! Inside loop. Size of Clues guessed "+ CluesGuessed.Count);
             ClueTexts[i].text = CluesGuessed[i];
             
-            Debug.Log(ClueTexts[i].text + " Clue text " + i + CluesGuessed[i]);
         }
     }
 
@@ -157,7 +156,6 @@ public class ClueNotebook : MonoBehaviour
     public void onClickClue()
     {
         GameObject clueButtonObject = EventSystem.current.currentSelectedGameObject;
-        Debug.Log(clueButtonObject);
         String clueText = clueButtonObject.GetComponentInChildren<Text>().text;
 
         String par = clueButtonObject.transform.parent.name;
@@ -249,22 +247,20 @@ public class ClueNotebook : MonoBehaviour
 
     void TrackActRowForCluesChosen(ArrayList actClues, GameObject[] texts)
     {
-        Debug.Log(  string.Join(", ", actClues.ToArray()));
-        if(actClues.Count == 2)
-        { 
-            foreach(GameObject t in texts)
+        if (actClues.Count == 2)
+        {
+            foreach (GameObject t in texts)
             {
                 if (!actClues.Contains(t.GetComponent<Text>().text))
                 {
-                    t.GetComponent<Text>().text = StrikeThrough(t.GetComponent<Text>().text );
-                     
+                    t.GetComponent<Text>().text = StrikeThrough(t.GetComponent<Text>().text);
+
                 }
                 else
                 {
                     if (!CluesGuessed.Contains(t.GetComponent<Text>().text))
                     {
                         CluesGuessed.Add(t.GetComponent<Text>().text);
-                        Debug.Log("Clues guessed " + string.Join(", ", CluesGuessed.ToArray()));
                     }
                 }
             }
@@ -272,7 +268,10 @@ public class ClueNotebook : MonoBehaviour
         else
         {
             //unstrike text
-            //UnstrikeThrough(t.GetComponent<Text>().text);
+            foreach (GameObject t in texts)
+            {
+                t.GetComponent<Text>().text = UnstrikeThrough(t.GetComponent<Text>().text);
+            }
         }
     }
 
@@ -291,12 +290,17 @@ public class ClueNotebook : MonoBehaviour
     public string UnstrikeThrough(string s)
     {
         string strikethrough = "";
-        s.Replace("\u0336", "");
-        //foreach (char c in s)
-        //{
-        //    strikethrough = strikethrough + c + '\u0336';
-        //}
+        Regex rgx = new Regex("[^a-zA-Z0-9 -]");
+        strikethrough = s.Replace(s, "");
         return strikethrough;
+    }
+
+
+    public void TurnPage6To5()
+    {
+        Debug.Log("clicked");
+        Animator anim = Book.GetComponent<Animator>();
+        anim.Play("TurnPage6To5");
     }
 
 }
