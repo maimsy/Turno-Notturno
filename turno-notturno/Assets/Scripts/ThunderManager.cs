@@ -6,13 +6,17 @@ using FMODUnity;
 public class ThunderManager : MonoBehaviour
 {
 
-    private float soundPauseMin = 0.5f;
-    private float soundPauseMax = 3f;
+    public float soundPauseMin = 0.5f;
+    public float soundPauseMax = 3f;
     private float soundPause = 0;
 
-    private float thunderPauseMin = 3.5f;
-    private float thunderPauseMax = 7f;
+    public float thunderPauseMin = 3.5f;
+    public float thunderPauseMax = 7f;
     private float thunderPause = 0;
+
+    public int maxFlashes = 5;
+    public float minFlashDuration = 0.05f;
+    public float maxFlashDuration = 0.2f;
 
     private float soundTimer = 0;
     private float thunderTimer = 0;
@@ -20,6 +24,8 @@ public class ThunderManager : MonoBehaviour
 
     public bool stormStarted = true;
     private bool thunder = false;
+
+    public GameObject light;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +43,7 @@ public class ThunderManager : MonoBehaviour
                 thunder = true;
                 thunderPause = Random.Range(thunderPauseMin, thunderPauseMax);
                 thunderTimer = 0;
+                StartCoroutine("ThunderLight");
             }
         }
         if(thunder)
@@ -59,6 +66,24 @@ public class ThunderManager : MonoBehaviour
         FMODUnity.RuntimeManager.PlayOneShot("event:/thunder/rainR1");
         FMODUnity.RuntimeManager.PlayOneShot("event:/thunder/rainL2");
         FMODUnity.RuntimeManager.PlayOneShot("event:/thunder/rainR2");
+    }
+
+    IEnumerator ThunderLight()
+    {
+        int flashTimes = Random.Range(1, maxFlashes);
+        for (int i = 0; i < flashTimes; i++)
+        {
+            light.SetActive(true);
+            yield return new WaitForSeconds(Random.Range(minFlashDuration, maxFlashDuration));
+            light.SetActive(false);
+            yield return new WaitForSeconds(Random.Range(minFlashDuration, maxFlashDuration));
+        }
+        
+    }
+
+    private void ThunderLightOff()
+    {
+        
     }
 
     private void ThunderSound()

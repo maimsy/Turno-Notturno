@@ -171,7 +171,7 @@ public class ObjectiveManager : MonoBehaviour
         MouthArtWork robot = FindObjectOfType<MouthArtWork>();
         if (robot) robot.disabled = false;
         PlayDialogue("25", 1f);
-        PlayDialogue("26", 5f);
+        //PlayDialogue("26", 5f);
         StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
         DropPaintings(false);
         GameObject obj = GetObject("WakeUpPosition_Act3");
@@ -430,7 +430,7 @@ public class ObjectiveManager : MonoBehaviour
             }
             if (UpdateProgress(s) && multiObjectives.Count == 0)
             {
-                PlayDialogue("c03", 2f, false);
+                PlayDialogue("c03", 3f, false);
                 WhispersBeforeLocking();
             }
         }
@@ -568,14 +568,15 @@ public class ObjectiveManager : MonoBehaviour
 
     public void WhispersBeforeLocking()
     {
-        PlayDialogue("w01", 5f);
-        Invoke("Locking", 10f);
+        PlayDialogue("w01", 9f);
+        PlayDialogue("06", 11.5f);
+        Invoke("Locking", 13f);
     }
 
     //Start the locking objectives
     public void Locking()
     {
-        PlayDialogue("06", 0f);
+        
         StartCoroutine(NewObjective("window1", "Secure the windows", windowBars.Count, delayTime));
         StartCoroutine(NewObjective("door1", "Check the main door", 1, delayTime));
         string[] names = { "window1", "door1" };
@@ -688,12 +689,12 @@ public class ObjectiveManager : MonoBehaviour
             // Order of players response to whispers should be the same regardless of which art is inspected first
             if (act2ArtVoiceline == 0)
             {
-                PlayDialogue("17", 3f, abortPrevious: false);
+                PlayDialogue("17", 1.5f, abortPrevious: false);
                 act2ArtVoiceline = 1;
             }
             else if (act2ArtVoiceline == 1)
             {
-                PlayDialogue("18", 3f, abortPrevious: false);
+                PlayDialogue("18", 1.5f, abortPrevious: false);
             }
 
             paintingsChecked[whichPainting] = true;
@@ -827,7 +828,7 @@ public class ObjectiveManager : MonoBehaviour
             }
             if (whichPainting == 1)
             {
-                PlayDialogue("w08", 1f, abortPrevious: false);
+                //PlayDialogue("w08", 1f, abortPrevious: false);
                 AddClue5Objectives();
             }
 
@@ -839,16 +840,17 @@ public class ObjectiveManager : MonoBehaviour
     private void Leave()
     {
         
-        PlayDialogue("30", 3f, abortPrevious: false);
+        PlayDialogue("30", 7f, abortPrevious: false);
         //run
-        PlayDialogue("w09", 4f, abortPrevious: false);
-        Invoke("PanicSound", 4.5f);
+        PlayDialogue("w08", 5f, abortPrevious: false);
+        PlayDialogue("w09", 12f, abortPrevious: false);
+        Invoke("PanicSound", 12.5f);
         MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
-        if (migraine) migraine.StartMigrainDelayed(4.5f);
+        if (migraine) migraine.StartMigrainDelayed(10.5f);
         
         //PlayDialogue("22", 6f, abortPrevious: false);
         SetMainDoorTooltip("Escape");
-        StartCoroutine(NewObjective("leave", "Leave the museum", 1, 5f));
+        StartCoroutine(NewObjective("leave", "Leave the museum", 1, 13f));
     }
     private void PanicSound()
     {
@@ -907,13 +909,23 @@ public class ObjectiveManager : MonoBehaviour
         if (thunder) thunder.GetComponent<ThunderManager>().StartStorm();
     }
 
-    private void TurnLightsOff()
+    public void TurnLightsOff()
     {
         GameObject[] lights = GameObject.FindGameObjectsWithTag("Light");
         foreach (GameObject light in lights)
         {
             light.SetActive(false);
         }
+
+        // Disable lightmaps for all objects
+        //LightmapSettings.lightmaps = new LightmapData[0];
+        foreach (Renderer rend in FindObjectsOfType<Renderer>())
+        {
+            rend.lightmapIndex = -1;
+        }
+
+        GameObject obj = GetObject("Plane"); // Disable computer screen - didn't want to edit scene to add Light-tag
+        if (obj) obj.SetActive(false);
     }
 
     private void FootStepStart()
@@ -1143,7 +1155,7 @@ public class ObjectiveManager : MonoBehaviour
                 dialogueMessage = "29"; // Empty in latest script
                 break;
             case "30":
-                dialogueMessage = "*panicked breathing of the guard*";
+                dialogueMessage = ""; // "*panicked breathing of the guard*";   // Disabled as this subtitle is quite useless
                 break;
             case "31":
                 dialogueMessage = "31"; // Empty in latest script
