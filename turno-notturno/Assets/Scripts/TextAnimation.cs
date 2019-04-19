@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class TextAnimation : MonoBehaviour
 {
     public Text text;
-    public int speed = 5;
+    public int speed = 15;
 
     private void Start()
     {
@@ -21,7 +21,7 @@ public class TextAnimation : MonoBehaviour
 
     private void OnEnable()
     {;
-        StartCoroutine("WriteTextOut", 50f);
+        StartCoroutine("WriteTextOut", 500f);
     }
 
     private void OnDisable()
@@ -59,11 +59,12 @@ public class TextAnimation : MonoBehaviour
 
     IEnumerator WriteTextOut()
     {
+
         //We put color of a text on the material, for further use;
         text.material.SetColor("_Color", text.color);
 
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(4f);
         int lettersShown = 0;
         text.material.SetFloat("_IsAnimating", 1);
         while (lettersShown < text.text.Length)
