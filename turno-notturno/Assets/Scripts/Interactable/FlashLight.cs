@@ -29,12 +29,25 @@ public class FlashLight : BaseInteractable
         wasHoldingThisFrame = playerIsHolding;
         if (playerIsHolding)
         {
+            
+
             Vector3 targetPos = target.position + target.forward * targetDistance + target.right * offSetRight + -target.up * offSetDown;
             Vector3 offset = targetPos - GetCenterOfMass();
             rbody.velocity = offset * 12;
             rbody.angularVelocity = Vector3.zero;
             transform.rotation = target.rotation;
+            RaycastHit hit;
+            if(Physics.Raycast(target.transform.position, target.forward, out hit))
+            {
+                Debug.Log(hit.point);
+               // Vector3 diff = Vector3.RotateTowards(transform.forward, (hit.point-transform.forward), 0.001f, 0);
+                transform.rotation = Quaternion.LookRotation(hit.point-transform.position);
+                //Debug.DrawRay(transform.position, diff, Color.red);
+                //transform.rotation = Quaternion.LookRotation(diff);
+                //rbody.angularVelocity = diff*10;
+            }
             transform.rotation *= Quaternion.Euler(0, -90, 0);
+
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 Drop();
