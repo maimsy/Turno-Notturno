@@ -59,11 +59,12 @@ public class TextAnimation : MonoBehaviour
 
     IEnumerator WriteTextOut()
     {
+
         //We put color of a text on the material, for further use;
         text.material.SetColor("_Color", text.color);
 
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(4f);
         int lettersShown = 0;
         text.material.SetFloat("_IsAnimating", 1);
         while (lettersShown < text.text.Length)
