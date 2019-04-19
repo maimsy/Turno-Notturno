@@ -45,7 +45,12 @@ public class EnemyMovement : MonoBehaviour
 
     void RandomizeDirection()
     {
-        GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpeed, Random.Range(-moveSpeed, moveSpeed));
+        while(Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y) < moveSpeed*0.3f)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpeed, Random.Range(-moveSpeed, moveSpeed));
+        }
+        
+
     }
 
     // Update is called once per frame
