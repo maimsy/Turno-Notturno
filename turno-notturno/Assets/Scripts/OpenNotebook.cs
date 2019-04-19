@@ -5,19 +5,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class OpenNotebook : MonoBehaviour
-{  
+{
     public GameObject Canvas;
 
     private void OnEnable()
     {
-        Debug.Log("Hellloo");
         //StartCoroutine("ShowText", 4);
     }
 
     private IEnumerator ShowNoteBookText(float delay)
     {
         yield return new WaitForSeconds(delay);
-        Canvas.SetActive(true); 
+        Canvas.SetActive(true);
     }
 
     private void OnDisable()
