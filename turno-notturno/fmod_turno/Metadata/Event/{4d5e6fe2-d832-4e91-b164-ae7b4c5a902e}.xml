@@ -75,6 +75,9 @@
         </relationship>
     </object>
     <object class="EventMixerMaster" id="{ebf507ab-8754-4742-81c0-c8c2dd244bee}">
+        <property name="volume">
+            <value>1.5</value>
+        </property>
         <relationship name="effectChain">
             <destination>{ad5d0436-d6da-41f9-aa37-3579a5e077b4}</destination>
         </relationship>
@@ -102,13 +105,16 @@
             <value>2</value>
         </property>
         <property name="minimumTimeBetweenSounds">
-            <value>450</value>
+            <value>6500</value>
         </property>
         <property name="maximumTimeBetweenSounds">
-            <value>9500</value>
+            <value>40000</value>
         </property>
         <property name="maximumScatterDistance">
             <value>35</value>
+        </property>
+        <property name="pitchRandomization">
+            <value>0.99999994</value>
         </property>
         <relationship name="sound">
             <destination>{318adccd-18af-4b80-8b70-525d754a988f}</destination>
@@ -172,7 +178,7 @@
     <object class="MixerBusFader" id="{68d498ec-ac80-4812-9cc9-309255b039d3}"/>
     <object class="MixerSend" id="{396802c1-b18c-4cc7-961b-9bcf7f08e977}">
         <property name="level">
-            <value>-4.5</value>
+            <value>0</value>
         </property>
         <property name="inputFormat">
             <value>5</value>
