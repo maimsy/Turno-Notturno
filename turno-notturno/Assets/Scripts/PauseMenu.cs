@@ -58,9 +58,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     void SetMouseSensitivity(float value)
-    {
-        Debug.Log(value);
-        
+    {   
         PlayerPrefs.SetFloat("MouseSensitivityX", value);
         PlayerPrefs.SetFloat("MouseSensitivityY", value);
         Player player = FindObjectOfType<Player>();

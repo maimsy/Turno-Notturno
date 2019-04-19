@@ -22,6 +22,8 @@ public class MainMainMenuButtons : MonoBehaviour
 
     public GameObject Book;
 
+    public Text IntroText;
+
     private GameManager gameManager;
     private float fadeTime = 2.0f;
     private float fadeTimer = 0;
@@ -37,6 +39,7 @@ public class MainMainMenuButtons : MonoBehaviour
         ArrowImage3.SetActive(false);
         gameManager = GameManager.GetInstance();
         m_Animator = Book.GetComponent<Animator>();
+        IntroText.gameObject.SetActive(false);
 
     }
 
@@ -130,12 +133,10 @@ public class MainMainMenuButtons : MonoBehaviour
          isFade = true;
         //GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
         //PlayerPrefs.SetInt("GameState", -1);
-        PlayerPrefs.SetInt("ClueFoundAct11", 0);
-        PlayerPrefs.SetInt("ClueFoundAct12", 0);
+        IntroText.gameObject.SetActive(true);
     }
 
-    
-
+     
     // Update is called once per frame
     public void Continue()
     {
