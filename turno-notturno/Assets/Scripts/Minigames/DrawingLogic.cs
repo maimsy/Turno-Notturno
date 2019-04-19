@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using FMODUnity;
+using System.Linq;
 
 
 public class DrawingLogic : MonoBehaviour
@@ -12,16 +13,46 @@ public class DrawingLogic : MonoBehaviour
     public GameObject inkMeter;
     public StudioEventEmitter letterSound;
 
-    private string letters = "Someverycreepystuffthatcreepsyououtverymuch";
+    private string letters = "One day I will take you to the highest skyscraper there is. " +
+                                  "We will sleep on the rooftop under a blanket of stars. " +
+                                  "Feel the world spinning. " +
+                                  "Stare into the eternity of the Universe. " +
+                                  "Like the freest man alive, without the worries of the world underneath us." +
+        "Your father was the kindest man I had ever met. I really, really miss him. I’m lucky to have you. You have the same eyes as him." +
+        "I told you many times, your teeth will rot and decay and blacken " +
+                                  "and fill with worms and fall all over the floor if you don’t take care of them. " +
+                                  "Now go wash your teeth. I will check when it’s time to sleep.";
     private List<Vector2> positions;
     private float drawDistance = 0.1f;
     private int currentLetter = 0;
+    private int inkUsed = 0;
+    [SerializeField] int inkAmount = 42;
 
     // Start is called before the first frame update
     void Awake()
     {
         positions = new List<Vector2>();
         drawDistance = drawingPrefab.GetComponent<CircleCollider2D>().radius * drawingPrefab.transform.localScale.x;
+        letters = string.Concat(letters.Where(c => !char.IsWhiteSpace(c)));
+        int count = letters.Split('.').Length;
+        int startPoint = Random.Range(0, count);
+        int found = 0;
+        for (int i = 0; i < letters.Length; i++)
+        {
+            if(found == startPoint)
+            {
+                currentLetter = i;
+                break;
+            }
+            if(letters[i] == '.')
+            {
+                found++;
+            }
+        }
+        letters = string.Concat(letters.Where(c => '.' != c));
+        Debug.Log(letters.Length);
+        currentLetter -= startPoint;
+        Debug.Log(letters[currentLetter]);
     }
 
     // Update is called once per frame
@@ -51,8 +82,9 @@ public class DrawingLogic : MonoBehaviour
             letter.transform.GetChild(0).GetComponent<Text>().text = letters[currentLetter].ToString();
             float scale = 2*drawDistance/ letter.GetComponent<RectTransform>().sizeDelta.x;
             letter.transform.localScale = new Vector2(scale, scale);
-            currentLetter++;
-            inkMeter.GetComponent<Slider>().value = 1 - (float) currentLetter / letters.Length;
+            currentLetter = currentLetter + 1 >= letters.Length ? 0 : currentLetter + 1;
+            inkUsed++;
+            inkMeter.GetComponent<Slider>().value = 1 - (float) inkUsed / inkAmount;
             letterSound.Play();
             //obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, 0);
         }
