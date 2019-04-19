@@ -90,8 +90,6 @@ public class ObjectiveManager : MonoBehaviour
         if (obj) windowBars.Add(obj);
         obj = GetObject("RoomTrigger");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
-        obj = GetObject("Act1MigraineTrigger");
-        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         obj = GetObject("art_main_01_sculptre");
         if (obj) obj.GetComponentInChildren<Rotate>().StartRotation();
         SetMainDoorTooltip("Main doors");
@@ -135,6 +133,7 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("14", 7f, abortPrevious: false);
         StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
         DropPaintings(true);
+        ScatterTeeth();
         GameObject obj = GetObject("WakeUpPosition_Act2");
         if (obj)
         {
@@ -157,7 +156,7 @@ public class ObjectiveManager : MonoBehaviour
         if (alarmManager)
         {
             alarmManager.ActivateAlarm(AlarmManager.Act.act_2);
-            alarmManager.ActivateAlarm(AlarmManager.Act.act_3);
+           // alarmManager.ActivateAlarm(AlarmManager.Act.act_3);
         }
         else
         {
@@ -1011,18 +1010,45 @@ public class ObjectiveManager : MonoBehaviour
     {
         GameObject[] paintings = GameObject.FindGameObjectsWithTag("Droppable");
         float forceDirection = GetObject("GroundColliderPaintingRoom").transform.position.x;
+        float maxForce = 4f;
         foreach (GameObject painting in paintings)
         {
             if(act2 || painting.name != "art_main_05_collage")
             {
+
                 painting.AddComponent<Rigidbody>();
-                Vector3 force = new Vector3(0, 0, 0);
+                Vector3 force = new Vector3(0, 0, UnityEngine.Random.Range(-maxForce, maxForce));
                 Vector3 pos = painting.transform.position;
-                force.x = pos.x < forceDirection ? 1.5f : -1.5f;
+                force.x = pos.x < forceDirection ? UnityEngine.Random.Range(1.5f, maxForce) : UnityEngine.Random.Range(-1.5f, -maxForce);
                 painting.GetComponent<Rigidbody>().AddForceAtPosition(force, pos, ForceMode.Impulse);
             }
 
         }
+    }
+
+    //Scatter some teeth
+    private void ScatterTeeth()
+    {
+        GameObject area = GetObject("RoomTrigger4");
+        area.GetComponent<BoxCollider>().enabled = true;
+        for (int i = 0; i < 20; i++)
+        {
+            int which = UnityEngine.Random.Range(1, 5);
+            GameObject tooth = Resources.Load<GameObject>("tooth" + which.ToString());
+            
+            tooth = Instantiate(tooth, RandomPointInBounds(area.GetComponent<BoxCollider>().bounds), Quaternion.identity);
+
+        }
+        area.GetComponent<BoxCollider>().enabled = false;
+    }
+
+    public static Vector3 RandomPointInBounds(Bounds bounds)
+    {
+        return new Vector3(
+            UnityEngine.Random.Range(bounds.min.x, bounds.max.x),
+            UnityEngine.Random.Range(bounds.min.y, bounds.max.y),
+            UnityEngine.Random.Range(bounds.min.z, bounds.max.z)
+        );
     }
 
     private IEnumerator FadeToNextScene(float delay)

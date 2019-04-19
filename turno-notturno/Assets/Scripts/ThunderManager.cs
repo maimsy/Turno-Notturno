@@ -30,10 +30,10 @@ public class ThunderManager : MonoBehaviour
     private StudioEventEmitter rainR1;
     private StudioEventEmitter rainR2;
 
-    private StudioEventEmitter thunderL1;
-    private StudioEventEmitter thunderL2;
-    private StudioEventEmitter thunderR1;
-    private StudioEventEmitter thunderR2;
+    private StudioEventEmitter[] thunderEmittersL1;
+    private StudioEventEmitter[] thunderEmittersL2;
+    private StudioEventEmitter[] thunderEmittersR1;
+    private StudioEventEmitter[] thunderEmittersR2;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,10 +42,10 @@ public class ThunderManager : MonoBehaviour
         rainL2 = GameObject.Find("rainL2").GetComponent<StudioEventEmitter>();
         rainR1 = GameObject.Find("rainR1").GetComponent<StudioEventEmitter>();
         rainR2 = GameObject.Find("rainR2").GetComponent<StudioEventEmitter>();
-        thunderL1 = GameObject.Find("thunderL1").GetComponent<StudioEventEmitter>();
-        thunderL2 = GameObject.Find("thunderL2").GetComponent<StudioEventEmitter>();
-        thunderR1 = GameObject.Find("thunderR1").GetComponent<StudioEventEmitter>();
-        thunderR2 = GameObject.Find("thunderR2").GetComponent<StudioEventEmitter>();
+        thunderEmittersL1 = GameObject.Find("thunderL1").GetComponents<StudioEventEmitter>();
+        thunderEmittersL2 = GameObject.Find("thunderL2").GetComponents<StudioEventEmitter>();
+        thunderEmittersR1 = GameObject.Find("thunderR1").GetComponents<StudioEventEmitter>();
+        thunderEmittersR2 = GameObject.Find("thunderR2").GetComponents<StudioEventEmitter>();
     }
 
     // Update is called once per frame
@@ -89,9 +89,9 @@ public class ThunderManager : MonoBehaviour
         int flashTimes = Random.Range(1, maxFlashes);
         for (int i = 0; i < flashTimes; i++)
         {
-            GetComponent<Light>().enabled = true;
+            transform.GetChild(0).gameObject.SetActive(true);
             yield return new WaitForSeconds(Random.Range(minFlashDuration, maxFlashDuration));
-            GetComponent<Light>().enabled = false;
+            transform.GetChild(0).gameObject.SetActive(false);
             yield return new WaitForSeconds(Random.Range(minFlashDuration, maxFlashDuration));
         }
         
@@ -111,13 +111,37 @@ public class ThunderManager : MonoBehaviour
             x = Random.Range(1, 7);
         }
         previousX = x;
-        thunderL1.Event = "event:/thunder/thunder" + x + "L1";
-        thunderL1.Play();
-        thunderL2.Event = "event:/thunder/thunder" + x + "L2";
-        thunderL2.Play();
-        thunderR1.Event = "event:/thunder/thunder" + x + "R1";
-        thunderR1.Play();
-        thunderR2.Event = "event:/thunder/thunder" + x + "R2";
-        thunderR2.Play();
+        foreach(StudioEventEmitter emitter in thunderEmittersL1)
+        {
+            if(emitter.Event == "event:/thunder/thunder" + x + "L1")
+            {
+                emitter.Play();
+                break;
+            }
+        }
+        foreach (StudioEventEmitter emitter in thunderEmittersL2)
+        {
+            if (emitter.Event == "event:/thunder/thunder" + x + "R1")
+            {
+                emitter.Play();
+                break;
+            }
+        }
+        foreach (StudioEventEmitter emitter in thunderEmittersR1)
+        {
+            if (emitter.Event == "event:/thunder/thunder" + x + "L2")
+            {
+                emitter.Play();
+                break;
+            }
+        }
+        foreach (StudioEventEmitter emitter in thunderEmittersR2)
+        {
+            if (emitter.Event == "event:/thunder/thunder" + x + "R2")
+            {
+                emitter.Play();
+                break;
+            }
+        }
     }
 }
