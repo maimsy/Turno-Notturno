@@ -102,7 +102,7 @@ public class AlarmManager : MonoBehaviour
 
     public void ActivateAlarm(Act act)
     {
-        ActivateAlarm(guardRoomAlarm);
+        //ActivateAlarm(guardRoomAlarm);
         if (act == Act.act_1) ActivateAlarm(act1Alarm);
         else if (act == Act.act_2) ActivateAlarm(act2Alarm);
         else if (act == Act.act_3) ActivateAlarm(act3Alarm);
@@ -132,13 +132,6 @@ public class AlarmManager : MonoBehaviour
         if (rotate) rotate.StopRotation();
         if (alarmSystem.light) alarmSystem.light.SetActive(false);
         if (alarmSystem.alarmLight) alarmSystem.alarmLight.SetActive(false);
-        if (alarmSystem.sound)
-        {
-            alarmSystem.sound.SetActive(false);
-            if(!act1Alarm.sound.activeSelf && !act2Alarm.sound.activeSelf && !act3Alarm.sound.activeSelf && !act4Alarm.sound.activeSelf)
-            {
-                StopAlarm(guardRoomAlarm);
-            }
-        }
+        if (alarmSystem.sound)  alarmSystem.sound.SetActive(false);
     }
 }

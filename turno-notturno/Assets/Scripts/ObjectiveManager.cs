@@ -148,10 +148,6 @@ public class ObjectiveManager : MonoBehaviour
         }
         obj = GetObject("RoomTrigger2");
         if(obj) obj.GetComponent<BoxCollider>().enabled = true;
-        obj = GetObject("bleach_01");
-        GameObject pos = GetObject("BleachEdgePos");
-        if (pos && obj) obj.transform.position = pos.transform.position;
-        Debug.Log(obj.transform.position);
         AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
         {
@@ -167,12 +163,14 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Act3()
     {
+        Invoke("TurnLightsOff", 1f);
         MouthArtWork robot = FindObjectOfType<MouthArtWork>();
         if (robot) robot.disabled = false;
         PlayDialogue("25", 1f);
         //PlayDialogue("26", 5f);
         StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
         DropPaintings(false);
+        ScatterTeeth();
         GameObject obj = GetObject("WakeUpPosition_Act3");
         if (obj)
         {
@@ -914,6 +912,11 @@ public class ObjectiveManager : MonoBehaviour
         foreach (GameObject light in lights)
         {
             light.SetActive(false);
+        }
+        GameObject manager = GetObject("ScribbleManager");
+        foreach(Transform child in manager.transform)
+        {
+            child.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
         }
 
         // Disable lightmaps for all objects
