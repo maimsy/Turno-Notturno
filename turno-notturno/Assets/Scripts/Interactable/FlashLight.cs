@@ -40,11 +40,8 @@ public class FlashLight : BaseInteractable
             if(Physics.Raycast(target.transform.position, target.forward, out hit))
             {
                 Debug.Log(hit.point);
-               // Vector3 diff = Vector3.RotateTowards(transform.forward, (hit.point-transform.forward), 0.001f, 0);
-                transform.rotation = Quaternion.LookRotation(hit.point-transform.position);
-                //Debug.DrawRay(transform.position, diff, Color.red);
-                //transform.rotation = Quaternion.LookRotation(diff);
-                //rbody.angularVelocity = diff*10;
+                Vector3 diff = Vector3.RotateTowards(transform.forward, (hit.point - transform.position), 1f, 0);
+                transform.rotation = Quaternion.LookRotation(diff);
             }
             transform.rotation *= Quaternion.Euler(0, -90, 0);
 
