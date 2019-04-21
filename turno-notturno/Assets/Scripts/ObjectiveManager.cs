@@ -102,6 +102,8 @@ public class ObjectiveManager : MonoBehaviour
         if (alarmManager)
         {
             alarmManager.ActivateAlarm(AlarmManager.Act.act_1);
+            obj = GetObject("MiniGameSound");
+            if (obj) obj.GetComponent<MinigameSound>().ReadyToStop(1);
         }
         else
         {
@@ -152,7 +154,8 @@ public class ObjectiveManager : MonoBehaviour
         if (alarmManager)
         {
             alarmManager.ActivateAlarm(AlarmManager.Act.act_2);
-           // alarmManager.ActivateAlarm(AlarmManager.Act.act_3);
+            obj = GetObject("MiniGameSound");
+            if (obj) obj.GetComponent<MinigameSound>().ReadyToStop(2);
         }
         else
         {
@@ -198,6 +201,8 @@ public class ObjectiveManager : MonoBehaviour
         if (alarmManager)
         {
             alarmManager.ActivateAlarm(AlarmManager.Act.act_3);
+            obj = GetObject("MiniGameSound");
+            if (obj) obj.GetComponent<MinigameSound>().ReadyToStop(3);
         }
         else
         {

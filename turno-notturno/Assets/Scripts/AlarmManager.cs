@@ -42,8 +42,6 @@ public class AlarmManager : MonoBehaviour
     {
         if (minimapScreen) minimapRenderer = minimapScreen.GetComponent<MeshRenderer>();
         alarmSystems = new AlarmSystem[] { guardRoomAlarm, act1Alarm, act2Alarm, act3Alarm, act4Alarm };
-        StopAlarm();
-        
     }
 
     private void SwapMinimapImage()
@@ -80,7 +78,6 @@ public class AlarmManager : MonoBehaviour
 
     public void StopAlarm(int act)
     {
-        
         switch (act)
         {
             case 1:
@@ -121,7 +118,10 @@ public class AlarmManager : MonoBehaviour
         Rotate rotate = alarmSystem.light.GetComponentInParent<Rotate>();
         if (rotate) rotate.StartRotation();
         if (alarmSystem.light) alarmSystem.light.SetActive(true);
-        if (alarmSystem.sound) alarmSystem.sound.SetActive(true);
+        if (alarmSystem.sound)
+        {
+            alarmSystem.sound.GetComponent<StudioEventEmitter>().Play();
+        }
         if (alarmSystem.alarmLight) alarmSystem.alarmLight.SetActive(true);
         alarmMinimap = alarmSystem.alarmMinimap;
     }
@@ -132,6 +132,6 @@ public class AlarmManager : MonoBehaviour
         if (rotate) rotate.StopRotation();
         if (alarmSystem.light) alarmSystem.light.SetActive(false);
         if (alarmSystem.alarmLight) alarmSystem.alarmLight.SetActive(false);
-        if (alarmSystem.sound)  alarmSystem.sound.SetActive(false);
+        if (alarmSystem.sound)  alarmSystem.sound.GetComponent<StudioEventEmitter>().Stop();
     }
 }
