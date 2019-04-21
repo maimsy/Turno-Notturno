@@ -42,8 +42,6 @@ public class AlarmManager : MonoBehaviour
     {
         if (minimapScreen) minimapRenderer = minimapScreen.GetComponent<MeshRenderer>();
         alarmSystems = new AlarmSystem[] { guardRoomAlarm, act1Alarm, act2Alarm, act3Alarm, act4Alarm };
-        StopAlarm();
-        
     }
 
     private void SwapMinimapImage()
@@ -80,7 +78,6 @@ public class AlarmManager : MonoBehaviour
 
     public void StopAlarm(int act)
     {
-        
         switch (act)
         {
             case 1:
@@ -102,7 +99,7 @@ public class AlarmManager : MonoBehaviour
 
     public void ActivateAlarm(Act act)
     {
-        ActivateAlarm(guardRoomAlarm);
+        //ActivateAlarm(guardRoomAlarm);
         if (act == Act.act_1) ActivateAlarm(act1Alarm);
         else if (act == Act.act_2) ActivateAlarm(act2Alarm);
         else if (act == Act.act_3) ActivateAlarm(act3Alarm);
@@ -121,7 +118,10 @@ public class AlarmManager : MonoBehaviour
         Rotate rotate = alarmSystem.light.GetComponentInParent<Rotate>();
         if (rotate) rotate.StartRotation();
         if (alarmSystem.light) alarmSystem.light.SetActive(true);
-        if (alarmSystem.sound) alarmSystem.sound.SetActive(true);
+        if (alarmSystem.sound)
+        {
+            alarmSystem.sound.GetComponent<StudioEventEmitter>().Play();
+        }
         if (alarmSystem.alarmLight) alarmSystem.alarmLight.SetActive(true);
         alarmMinimap = alarmSystem.alarmMinimap;
     }
@@ -132,13 +132,6 @@ public class AlarmManager : MonoBehaviour
         if (rotate) rotate.StopRotation();
         if (alarmSystem.light) alarmSystem.light.SetActive(false);
         if (alarmSystem.alarmLight) alarmSystem.alarmLight.SetActive(false);
-        if (alarmSystem.sound)
-        {
-            alarmSystem.sound.SetActive(false);
-            if(!act1Alarm.sound.activeSelf && !act2Alarm.sound.activeSelf && !act3Alarm.sound.activeSelf && !act4Alarm.sound.activeSelf)
-            {
-                StopAlarm(guardRoomAlarm);
-            }
-        }
+        if (alarmSystem.sound)  alarmSystem.sound.GetComponent<StudioEventEmitter>().Stop();
     }
 }

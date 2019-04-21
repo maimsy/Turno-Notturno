@@ -11,7 +11,6 @@ public class ScribbleManager : MonoBehaviour
 
     public void SaveString(string str, List<Vector2> positions)
     {
-
         FileStream stream = new FileStream(pathScribble, FileMode.Truncate);
         StreamWriter writer = new StreamWriter(stream);
         writer.Write(str);
@@ -36,10 +35,9 @@ public class ScribbleManager : MonoBehaviour
         reader = new StreamReader(pathPositions);
         string pos = reader.ReadToEnd();
         string[] positions = pos.Split("\n"[0]);
-        Debug.Log("length " + scribble.Length);
         for(int i = 0; i < scribble.Length; i++)
         {
-            Debug.Log("i " + i);
+            if (positions[i].Length == 0) break;
             string[] coordinates = positions[i].Split(","[0]);
             GameObject obj = Instantiate(letter, transform);
             obj.transform.localPosition 

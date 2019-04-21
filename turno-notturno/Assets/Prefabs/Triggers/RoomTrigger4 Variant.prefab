@@ -10,12 +10,12 @@ PrefabInstance:
     - target: {fileID: 621553240859618457, guid: bcfb19fe26c635546a3c52bb5c24abe4,
         type: 3}
       propertyPath: m_Name
-      value: RoomTrigger4 Variant
+      value: RoomTrigger4
       objectReference: {fileID: 0}
     - target: {fileID: 621553240859618458, guid: bcfb19fe26c635546a3c52bb5c24abe4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.07
+      value: 16.09
       objectReference: {fileID: 0}
     - target: {fileID: 621553240859618458, guid: bcfb19fe26c635546a3c52bb5c24abe4,
         type: 3}
@@ -74,23 +74,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 621553240859618459, guid: bcfb19fe26c635546a3c52bb5c24abe4,
         type: 3}
-      propertyPath: m_Size.z
-      value: 7.4812803
-      objectReference: {fileID: 0}
-    - target: {fileID: 621553240859618459, guid: bcfb19fe26c635546a3c52bb5c24abe4,
-        type: 3}
-      propertyPath: m_Center.z
-      value: -11.890968
-      objectReference: {fileID: 0}
-    - target: {fileID: 621553240859618459, guid: bcfb19fe26c635546a3c52bb5c24abe4,
-        type: 3}
       propertyPath: m_Size.x
-      value: 14.214872
+      value: 7.608835
+      objectReference: {fileID: 0}
+    - target: {fileID: 621553240859618459, guid: bcfb19fe26c635546a3c52bb5c24abe4,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 19.28013
       objectReference: {fileID: 0}
     - target: {fileID: 621553240859618459, guid: bcfb19fe26c635546a3c52bb5c24abe4,
         type: 3}
       propertyPath: m_Center.x
-      value: -6.2755785
+      value: -2.97256
+      objectReference: {fileID: 0}
+    - target: {fileID: 621553240859618459, guid: bcfb19fe26c635546a3c52bb5c24abe4,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -5.991544
+      objectReference: {fileID: 0}
+    - target: {fileID: 621553240859618456, guid: bcfb19fe26c635546a3c52bb5c24abe4,
+        type: 3}
+      propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 621553240859618456, guid: bcfb19fe26c635546a3c52bb5c24abe4,
         type: 3}
@@ -99,8 +104,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 621553240859618456, guid: bcfb19fe26c635546a3c52bb5c24abe4,
         type: 3}
-      propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
+      propertyPath: triggerEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Room3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcfb19fe26c635546a3c52bb5c24abe4, type: 3}
