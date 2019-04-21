@@ -19,6 +19,7 @@ public class ObjectiveManager : MonoBehaviour
     private FMOD.Studio.EventInstance currentVoiceLine;
     private FMOD.Studio.EventInstance currentWhisper; // Guard voice and whispers are allowed to overlap
     private int act2ArtVoiceline = 0;
+    private AlarmManager alarmManager;
 
     public enum ClueObjective
     {
@@ -55,6 +56,8 @@ public class ObjectiveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        alarmManager = FindObjectOfType<AlarmManager>();
+        SaveAlarmDistances();
         GameObject obj = GetObject("Act2VoicelineTrigger");
         if (obj) obj.GetComponent<BoxCollider>().enabled = false;
         MouthArtWork robot = FindObjectOfType<MouthArtWork>();
@@ -94,16 +97,22 @@ public class ObjectiveManager : MonoBehaviour
         if (obj) obj.GetComponentInChildren<Rotate>().StartRotation();
         SetMainDoorTooltip("Main doors");
         OpenWindows();
-
+        obj = GetObject("WakeUpPosition_Act1");
+        if (obj)
+        {
+            FindObjectOfType<Player>().transform.position = obj.transform.position;
+            FindObjectOfType<Player>().RotateTo(obj.transform.rotation);
+        }
         PlayDialogue("01", 1f, abortPrevious: false);
         PlayDialogue("02", 3f, abortPrevious: false);
         //PlayDialogue("03", 20f, abortPrevious: false);
-        AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
         {
-            alarmManager.ActivateAlarm(AlarmManager.Act.act_1);
-            obj = GetObject("MiniGameSound");
-            if (obj) obj.GetComponent<MinigameSound>().ReadyToStop(1);
+            if (!alarmManager.act1Alarm.sound.GetComponent<StudioEventEmitter>().IsPlaying())
+            {
+                alarmManager.ActivateAlarm(AlarmManager.Act.act_1);
+            }
+            alarmManager.ResetPositions();
         }
         else
         {
@@ -150,12 +159,13 @@ public class ObjectiveManager : MonoBehaviour
         }
         obj = GetObject("RoomTrigger2");
         if(obj) obj.GetComponent<BoxCollider>().enabled = true;
-        AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
         {
-            alarmManager.ActivateAlarm(AlarmManager.Act.act_2);
-            obj = GetObject("MiniGameSound");
-            if (obj) obj.GetComponent<MinigameSound>().ReadyToStop(2);
+            if(!alarmManager.act2Alarm.sound.GetComponent<StudioEventEmitter>().IsPlaying())
+            {
+                alarmManager.ActivateAlarm(AlarmManager.Act.act_2);
+            }
+            alarmManager.ResetPositions();
         }
         else
         {
@@ -166,7 +176,7 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Act3()
     {
-        Invoke("TurnLightsOff", 1f);
+        //Invoke("TurnLightsOff", 1f);
         MouthArtWork robot = FindObjectOfType<MouthArtWork>();
         if (robot) robot.disabled = false;
         PlayDialogue("25", 1f);
@@ -197,12 +207,13 @@ public class ObjectiveManager : MonoBehaviour
             obj.transform.rotation = pos.transform.rotation;
             //obj.GetComponent<Interactable>().isInteractable = true;
         }
-        AlarmManager alarmManager = FindObjectOfType<AlarmManager>();
         if (alarmManager)
         {
-            alarmManager.ActivateAlarm(AlarmManager.Act.act_3);
-            obj = GetObject("MiniGameSound");
-            if (obj) obj.GetComponent<MinigameSound>().ReadyToStop(3);
+            if (!alarmManager.act3Alarm.sound.GetComponent<StudioEventEmitter>().IsPlaying())
+            {
+                alarmManager.ActivateAlarm(AlarmManager.Act.act_3);
+            }
+            alarmManager.ResetPositions();
         }
         else
         {
@@ -328,6 +339,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("alarm1"))
         {
+            StopAlarm();
             if (multiObjectives.Count == 0)
             {
                 WhispersBeforeLocking();
@@ -709,7 +721,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("alarm2"))
         {
-            //PlayDialogue("04", 0f);
+            StopAlarm();
             if (multiObjectives.Count == 0)
             {
                 StorageRoomSetUp();
@@ -808,6 +820,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("alarm3"))
         {
+            StopAlarm();
             if (multiObjectives.Count == 0)
             {
                 Leave();
@@ -1057,6 +1070,50 @@ public class ObjectiveManager : MonoBehaviour
             UnityEngine.Random.Range(bounds.min.y, bounds.max.y),
             UnityEngine.Random.Range(bounds.min.z, bounds.max.z)
         );
+    }
+    public void StopAlarm()
+    {
+        if(alarmManager)
+        {
+            alarmManager.StopAlarm();
+        }
+    }
+
+    private void SaveAlarmDistances()
+    {
+        GameObject obj = GetObject("WakeUpPosition_Act2");
+        Transform player = obj.transform;
+        Vector3 alarmPos = alarmManager.act1Alarm.sound.transform.position;
+        Vector2 soundPos = new Vector2(alarmPos.x, alarmPos.z);
+        Vector2 dir = soundPos - new Vector2(player.position.x, player.position.z);
+        Debug.Log("Act1angle "+Vector2.Angle(new Vector2(player.forward.x, player.forward.z), dir));
+        Debug.Log("player forward " + player.forward);
+        PlayerPrefs.SetFloat("act1distance", dir.magnitude);
+        PlayerPrefs.SetFloat("act1angle", Vector2.Angle(new Vector2(player.forward.x, player.forward.z), dir));
+        obj = GetObject("WakeUpPosition_Act2");
+        if (obj)
+        {
+            player = obj.transform;
+            alarmPos = alarmManager.act2Alarm.sound.transform.position;
+            soundPos = new Vector2(alarmPos.x, alarmPos.z);
+            dir = soundPos - new Vector2(player.position.x, player.position.z);
+            Debug.Log("Act2angle " + Vector2.Angle(new Vector2(player.forward.x, player.forward.z), dir));
+            Debug.Log("player forward " + player.forward);
+            PlayerPrefs.SetFloat("act2distance", dir.magnitude);
+            PlayerPrefs.SetFloat("act2angle", Vector2.Angle(new Vector2(player.forward.x, player.forward.z), dir));
+        }
+        obj = GetObject("WakeUpPosition_Act3");
+        if (obj)
+        {
+            player = obj.transform;
+            alarmPos = alarmManager.act3Alarm.sound.transform.position;
+            soundPos = new Vector2(alarmPos.x, alarmPos.z);
+            dir = soundPos - new Vector2(player.position.x, player.position.z);
+            Debug.Log("Act3angle " + Vector2.Angle(new Vector2(player.forward.x, player.forward.z), dir));
+            Debug.Log("player forward " + player.forward);
+            PlayerPrefs.SetFloat("act3distance", dir.magnitude);
+            PlayerPrefs.SetFloat("act3angle", Vector2.Angle(new Vector2(player.forward.x, player.forward.z), dir));
+        }
     }
 
     private IEnumerator FadeToNextScene(float delay)

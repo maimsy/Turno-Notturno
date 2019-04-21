@@ -37,11 +37,25 @@ public class AlarmManager : MonoBehaviour
     private Material alarmMinimap;
     private MeshRenderer minimapRenderer;
     private bool minimapToggle = false;
+    private Vector3 act1Pos;
+    private Vector3 act2Pos;
+    private Vector3 act3Pos;
+    private Vector3 act4Pos;
 
     void Awake()
     {
+        act1Pos = act1Alarm.sound.transform.parent.position;
+        act2Pos = act2Alarm.sound.transform.parent.position;
+        act3Pos = act3Alarm.sound.transform.parent.position;
+        act4Pos = act4Alarm.sound.transform.parent.position;
         if (minimapScreen) minimapRenderer = minimapScreen.GetComponent<MeshRenderer>();
         alarmSystems = new AlarmSystem[] { guardRoomAlarm, act1Alarm, act2Alarm, act3Alarm, act4Alarm };
+        GameObject[] managers = GameObject.FindGameObjectsWithTag("AlarmManager");
+        if (managers.Length > 1)
+        {
+            Destroy(this.gameObject);
+        }
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void SwapMinimapImage()
@@ -121,6 +135,7 @@ public class AlarmManager : MonoBehaviour
         if (alarmSystem.sound)
         {
             alarmSystem.sound.GetComponent<StudioEventEmitter>().Play();
+            alarmSystem.sound.transform.localPosition = Vector3.zero;
         }
         if (alarmSystem.alarmLight) alarmSystem.alarmLight.SetActive(true);
         alarmMinimap = alarmSystem.alarmMinimap;
@@ -133,5 +148,13 @@ public class AlarmManager : MonoBehaviour
         if (alarmSystem.light) alarmSystem.light.SetActive(false);
         if (alarmSystem.alarmLight) alarmSystem.alarmLight.SetActive(false);
         if (alarmSystem.sound)  alarmSystem.sound.GetComponent<StudioEventEmitter>().Stop();
+    }
+
+    public void ResetPositions()
+    {
+        act1Alarm.sound.transform.parent.position = act1Pos;
+        act2Alarm.sound.transform.parent.position = act2Pos;
+        act3Alarm.sound.transform.parent.position = act3Pos;
+        act4Alarm.sound.transform.parent.position = act4Pos;
     }
 }
