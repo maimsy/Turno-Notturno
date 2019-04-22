@@ -15,7 +15,7 @@ public class MiniSound : MonoBehaviour
     void Start()
     {
         manager = FindObjectOfType<AlarmManager>();
-        manager.StopAlarm();
+        if(manager) manager.StopAlarm();
         Invoke("SetSoundPosition",timeBeforeStart);
         
     }
@@ -34,6 +34,10 @@ public class MiniSound : MonoBehaviour
     {
         if (manager)
         {
+            manager.act1Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = false;
+            manager.act2Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = false;
+            manager.act3Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = false;
+            manager.act4Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = false;
             float angle, dist, z, x;
             Vector3 pos;
             switch (act)

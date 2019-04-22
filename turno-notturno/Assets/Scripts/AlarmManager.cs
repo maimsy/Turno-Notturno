@@ -159,5 +159,9 @@ public class AlarmManager : MonoBehaviour
         act2Alarm.sound.transform.parent.position = act2Pos;
         act3Alarm.sound.transform.parent.position = act3Pos;
         act4Alarm.sound.transform.parent.position = act4Pos;
+        act1Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = true;
+        act2Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = true;
+        act3Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = true;
+        act4Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = true;
     }
 }
