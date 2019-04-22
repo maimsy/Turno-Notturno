@@ -762,7 +762,7 @@ public class ObjectiveManager : MonoBehaviour
         obj = GetObject("Act2VoicelineTrigger");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         PlayDialogue("19", 1f, abortPrevious: false);
-        obj = GetObject("RoomTrigger2");
+        obj = GetObject("RoomTrigger3");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         obj = GetObject("bleach_01");
         if (obj) obj.GetComponent<StudioEventEmitter>().Play();
@@ -1006,7 +1006,7 @@ public class ObjectiveManager : MonoBehaviour
             {
                 PlayDialogue("w11", 2f, abortPrevious: false);
                 AddClue6Objectives();
-                StartCoroutine(NewObjective("notebook", "Check the notebook", 1, delayTime));
+                StartCoroutine(NewObjective("notebook", "Check the notebook", 1, delayTime*2));
             }
         }
     }
@@ -1017,7 +1017,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             if (UpdateProgress("notebook"))
             {
-                StartCoroutine(NewObjective("storage2", "Go to the storage room", 1, delayTime));
+                StartCoroutine(NewObjective("storage2", "Go to the storage room", 1, delayTime*2));
                 GameObject obj = GetObject("RoomTrigger3");
                 if (obj) obj.GetComponent<BoxCollider>().enabled = true;
             }
