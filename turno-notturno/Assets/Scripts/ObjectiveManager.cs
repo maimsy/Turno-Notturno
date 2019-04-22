@@ -1081,7 +1081,7 @@ public class ObjectiveManager : MonoBehaviour
 
     private void SaveAlarmDistances()
     {
-        GameObject obj = GetObject("WakeUpPosition_Act2");
+        GameObject obj = GetObject("WakeUpPosition_Act1");
         Transform player = obj.transform;
         Vector3 alarmPos = alarmManager.act1Alarm.sound.transform.position;
         Vector2 soundPos = new Vector2(alarmPos.x, alarmPos.z);

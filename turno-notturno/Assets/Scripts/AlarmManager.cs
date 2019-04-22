@@ -41,9 +41,11 @@ public class AlarmManager : MonoBehaviour
     private Vector3 act2Pos;
     private Vector3 act3Pos;
     private Vector3 act4Pos;
+    private Vector3 position;
 
     void Awake()
     {
+        position = transform.position;
         act1Pos = act1Alarm.sound.transform.parent.position;
         act2Pos = act2Alarm.sound.transform.parent.position;
         act3Pos = act3Alarm.sound.transform.parent.position;
@@ -152,6 +154,7 @@ public class AlarmManager : MonoBehaviour
 
     public void ResetPositions()
     {
+        transform.position = position;
         act1Alarm.sound.transform.parent.position = act1Pos;
         act2Alarm.sound.transform.parent.position = act2Pos;
         act3Alarm.sound.transform.parent.position = act3Pos;

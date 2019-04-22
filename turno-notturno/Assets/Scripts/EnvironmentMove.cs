@@ -17,7 +17,7 @@ public class EnvironmentMove : MonoBehaviour
     private float timeLimit = 0.5f;
     private P2Dmovement playerMovement;
     private Vector3 originalPos;
-
+    private AlarmManager manager;
     private Vector3 fallFollowVelocity = Vector3.zero;
     private float fallFollowDampening = 0.3f;
 
@@ -32,6 +32,7 @@ public class EnvironmentMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        manager = FindObjectOfType<AlarmManager>();
         originalPos = transform.position;
         layerSpeeds = new List<float>();
         layers = new List<GameObject[]>();
@@ -85,7 +86,7 @@ public class EnvironmentMove : MonoBehaviour
 
             // Smooth falling after reset
             Camera.main.transform.position = Vector3.SmoothDamp(transform.position, new Vector3(pos.x, originalPos.y, pos.z), ref fallFollowVelocity, fallFollowDampening);
-
+            if (manager) manager.transform.position = Camera.main.transform.position;
             // Acceleration
             timer += Time.fixedDeltaTime;
             if (timer > timeLimit)
@@ -154,6 +155,8 @@ public class EnvironmentMove : MonoBehaviour
 
     public void SmoothReset()
     {
+        MiniSound sounds = FindObjectOfType<MiniSound>();
+        if(sounds) sounds.Reset();
         StudioEventEmitter sound = GameObject.Find("BirthSound").GetComponent<StudioEventEmitter>();
         if (!sound.IsPlaying())
         {

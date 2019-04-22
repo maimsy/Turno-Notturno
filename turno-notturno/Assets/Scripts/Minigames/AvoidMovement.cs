@@ -93,7 +93,8 @@ public class AvoidMovement : MonoBehaviour
         resetVelocity = Vector3.zero;
         collider.enabled = false;
         Invoke("Reset", resetTime*2);
-
+        MiniSound sounds = FindObjectOfType<MiniSound>();
+        sounds.Reset();
         foreach (ObjPos backgroundObject in backgroundObjects)
         {
             ObjPos op = backgroundObject;
