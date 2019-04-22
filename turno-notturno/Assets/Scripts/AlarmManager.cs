@@ -159,9 +159,15 @@ public class AlarmManager : MonoBehaviour
         act2Alarm.sound.transform.parent.position = act2Pos;
         act3Alarm.sound.transform.parent.position = act3Pos;
         act4Alarm.sound.transform.parent.position = act4Pos;
-        act1Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = true;
-        act2Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = true;
-        act3Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = true;
-        act4Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = true;
+        act1Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = true;
+        act1Alarm.light.SetActive(true);
+        act2Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = true;
+        act2Alarm.light.SetActive(true);
+        act3Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = true;
+        act3Alarm.light.SetActive(true);
+        act4Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = true;
+        act4Alarm.light.SetActive(true);
+        guardRoomAlarm.light.transform.parent.GetComponent<MeshRenderer>().enabled = true;
+        guardRoomAlarm.light.SetActive(true);
     }
 }

@@ -105,6 +105,7 @@ public class DrawingLogic : MonoBehaviour
         inkUsed = 0;
         inkMeter.GetComponent<Slider>().value = 1;
         SetLetters();
+        positions = new List<Vector2>();
     }
     public string GetLetters()
     {

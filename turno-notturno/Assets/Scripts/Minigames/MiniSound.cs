@@ -15,7 +15,20 @@ public class MiniSound : MonoBehaviour
     void Start()
     {
         manager = FindObjectOfType<AlarmManager>();
-        if(manager) manager.StopAlarm();
+        if (manager)
+        {
+            manager.StopAlarm();
+            manager.act1Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+            manager.act1Alarm.light.SetActive(false);
+            manager.act2Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+            manager.act2Alarm.light.SetActive(false);
+            manager.act3Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+            manager.act3Alarm.light.SetActive(false);
+            manager.act4Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+            manager.act4Alarm.light.SetActive(false);
+            manager.guardRoomAlarm.light.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+            manager.guardRoomAlarm.light.SetActive(false);
+        }
         Invoke("SetSoundPosition",timeBeforeStart);
         
     }
@@ -34,10 +47,7 @@ public class MiniSound : MonoBehaviour
     {
         if (manager)
         {
-            manager.act1Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = false;
-            manager.act2Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = false;
-            manager.act3Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = false;
-            manager.act4Alarm.sound.transform.parent.GetComponent<MeshCollider>().enabled = false;
+            
             float angle, dist, z, x;
             Vector3 pos;
             switch (act)
@@ -50,6 +60,7 @@ public class MiniSound : MonoBehaviour
                    // Vector3 pos = new Vector3(Camera.main.transform.position.x + x, 
                        // Camera.main.transform.position.y, Camera.main.transform.position .z + z);
                     manager.ActivateAlarm(AlarmManager.Act.act_1);
+                    manager.act1Alarm.light.SetActive(false);
                     //manager.act1Alarm.sound.transform.parent.position = pos;
                     manager.act1Alarm.sound.GetComponent<StudioEventEmitter>().EventInstance.setVolume(0f);
                     break;
@@ -61,6 +72,7 @@ public class MiniSound : MonoBehaviour
                     pos = new Vector3(Camera.main.transform.position.x + x,
                         Camera.main.transform.position.y, Camera.main.transform.position.z + z);
                     manager.ActivateAlarm(AlarmManager.Act.act_2);
+                    manager.act2Alarm.light.SetActive(false);
                     manager.act2Alarm.sound.transform.parent.position = pos;
                     manager.act2Alarm.sound.GetComponent<StudioEventEmitter>().EventInstance.setVolume(0f);
                     break;
@@ -72,6 +84,7 @@ public class MiniSound : MonoBehaviour
                     pos = new Vector3(Camera.main.transform.position.x + x,
                         Camera.main.transform.position.y, Camera.main.transform.position.z + z);
                     manager.ActivateAlarm(AlarmManager.Act.act_3);
+                    manager.act3Alarm.light.SetActive(false);
                     manager.act3Alarm.sound.transform.parent.position = pos;
                     manager.act3Alarm.sound.GetComponent<StudioEventEmitter>().EventInstance.setVolume(0f);
                     break;
