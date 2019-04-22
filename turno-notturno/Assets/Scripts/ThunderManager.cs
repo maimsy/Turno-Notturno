@@ -24,6 +24,10 @@ public class ThunderManager : MonoBehaviour
 
     public bool stormStarted = true;
     private bool thunder = false;
+    private bool endStorm = false;
+    private float volume = 1;
+    private float timer = 0;
+    private float fadeSpeed = 0.1f;
 
     private StudioEventEmitter rainL1;
     private StudioEventEmitter rainL2;
@@ -61,6 +65,35 @@ public class ThunderManager : MonoBehaviour
                 thunderTimer = 0;
                 StartCoroutine("ThunderLight");
             }
+            if (endStorm)
+            {
+                if(volume == 0)
+                {
+                    stormStarted = false;
+                }
+                timer += Time.deltaTime;
+                volume = Mathf.Max(0, 1 - timer * fadeSpeed);
+                thunderPauseMin += fadeSpeed*0.1f;
+                thunderPauseMax += fadeSpeed * 0.1f;
+                soundPauseMin += fadeSpeed * 0.1f;
+                soundPauseMax += fadeSpeed * 0.1f;
+                foreach (StudioEventEmitter emitter in thunderEmittersL1)
+                {
+                    emitter.EventInstance.setVolume(volume);
+                }
+                foreach (StudioEventEmitter emitter in thunderEmittersL2)
+                {
+                    emitter.EventInstance.setVolume(volume);
+                }
+                foreach (StudioEventEmitter emitter in thunderEmittersR1)
+                {
+                    emitter.EventInstance.setVolume(volume);
+                }
+                foreach (StudioEventEmitter emitter in thunderEmittersR2)
+                {
+                    emitter.EventInstance.setVolume(volume);
+                }
+            }
         }
         if(thunder)
         {
@@ -73,6 +106,7 @@ public class ThunderManager : MonoBehaviour
                 thunder = false;
             }
         }
+        
     }
 
     public void StartStorm()
@@ -82,6 +116,11 @@ public class ThunderManager : MonoBehaviour
         rainL2.Play();
         rainR1.Play();
         rainR2.Play();
+    }
+
+    public void EndStorm()
+    {
+        endStorm = true;
     }
 
     IEnumerator ThunderLight()

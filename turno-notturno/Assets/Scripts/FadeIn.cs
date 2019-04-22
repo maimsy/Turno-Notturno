@@ -27,10 +27,20 @@ public class FadeIn : MonoBehaviour
         float alpha = fadeIn == true ? 1 -  fade: fade;
         GetComponent<Image>().color = new Color(color.r, color.g, color.b, alpha);
         timer += Time.deltaTime;
-        if(timer > fadeTime && changeSceneAfterDone)
+        if(timer > fadeTime)
         {
-            GameManager gameManager = GameManager.GetInstance();
-            gameManager.LoadNextAct();
+            if (changeSceneAfterDone)
+            {
+                GameManager gameManager = GameManager.GetInstance();
+                gameManager.LoadNextAct();
+            }
+            else
+            {
+                GetComponent<Image>().color = new Color(color.r, color.g, color.b, 0);
+                GameObject.Find("FadeIn").GetComponent<Animator>().Play("FadeIn", -1, 0f);
+                this.enabled = false;
+            }
+            
         }
 
     }

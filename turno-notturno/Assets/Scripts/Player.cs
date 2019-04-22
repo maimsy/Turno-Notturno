@@ -225,6 +225,7 @@ public class Player : Character
     
     Vector3 MovementVector()
     {
+        
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         return new Vector3(h, 0, v);

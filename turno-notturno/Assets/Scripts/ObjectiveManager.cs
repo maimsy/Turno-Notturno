@@ -176,6 +176,9 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Act3()
     {
+        
+        //Invoke("Finish",4f);
+        //TurnLightsOff();
         //Invoke("TurnLightsOff", 1f);
         MouthArtWork robot = FindObjectOfType<MouthArtWork>();
         if (robot) robot.disabled = false;
@@ -924,6 +927,12 @@ public class ObjectiveManager : MonoBehaviour
         if (thunder) thunder.GetComponent<ThunderManager>().StartStorm();
     }
 
+    private void EndStorm()
+    {
+        GameObject thunder = GetObject("ThunderManager");
+        if (thunder) thunder.GetComponent<ThunderManager>().EndStorm();
+    }
+
     public void TurnLightsOff()
     {
         GameObject[] lights = GameObject.FindGameObjectsWithTag("Light");
@@ -1026,6 +1035,36 @@ public class ObjectiveManager : MonoBehaviour
         }
     }
 
+    public void Finish()
+    {
+
+        if(UpdateProgress("finish"))
+        {
+            //Fade to camera panning around the museum
+            //THunderstorm fades
+            EndStorm();
+            //Working sounds, coughing, (heartbeat?)
+            StartCoroutine(FadeOutAndIn(1f));
+            Invoke("EnableFinalArtWork", 5);
+            //Camera comes back to storage room
+            //Player sees the storage room with the finished artwork and blood around
+            //Portrait is placed so that it looks at the artwork with endearing eyes
+            //Credits after while
+            Invoke("Credits", 10f);
+        }
+    }
+
+    private void EnableFinalArtWork()
+    {
+        GameObject obj = GameObject.Find("Final_Artwork");
+        if(obj) obj.GetComponent<MeshRenderer>().enabled = true;
+    }
+
+    private void Credits()
+    {
+        //Application.Quit();
+    }
+
     //Drop paintings on the floor
     private void DropPaintings(bool act2)
     {
@@ -1086,8 +1125,6 @@ public class ObjectiveManager : MonoBehaviour
         Vector3 alarmPos = alarmManager.act1Alarm.sound.transform.position;
         Vector2 soundPos = new Vector2(alarmPos.x, alarmPos.z);
         Vector2 dir = soundPos - new Vector2(player.position.x, player.position.z);
-        Debug.Log("Act1angle "+Vector2.Angle(new Vector2(player.forward.x, player.forward.z), dir));
-        Debug.Log("player forward " + player.forward);
         PlayerPrefs.SetFloat("act1distance", dir.magnitude);
         PlayerPrefs.SetFloat("act1angle", Vector2.Angle(new Vector2(player.forward.x, player.forward.z), dir));
         obj = GetObject("WakeUpPosition_Act2");
@@ -1097,8 +1134,6 @@ public class ObjectiveManager : MonoBehaviour
             alarmPos = alarmManager.act2Alarm.sound.transform.position;
             soundPos = new Vector2(alarmPos.x, alarmPos.z);
             dir = soundPos - new Vector2(player.position.x, player.position.z);
-            Debug.Log("Act2angle " + Vector2.Angle(new Vector2(player.forward.x, player.forward.z), dir));
-            Debug.Log("player forward " + player.forward);
             PlayerPrefs.SetFloat("act2distance", dir.magnitude);
             PlayerPrefs.SetFloat("act2angle", Vector2.Angle(new Vector2(player.forward.x, player.forward.z), dir));
         }
@@ -1109,8 +1144,6 @@ public class ObjectiveManager : MonoBehaviour
             alarmPos = alarmManager.act3Alarm.sound.transform.position;
             soundPos = new Vector2(alarmPos.x, alarmPos.z);
             dir = soundPos - new Vector2(player.position.x, player.position.z);
-            Debug.Log("Act3angle " + Vector2.Angle(new Vector2(player.forward.x, player.forward.z), dir));
-            Debug.Log("player forward " + player.forward);
             PlayerPrefs.SetFloat("act3distance", dir.magnitude);
             PlayerPrefs.SetFloat("act3angle", Vector2.Angle(new Vector2(player.forward.x, player.forward.z), dir));
         }
@@ -1121,6 +1154,17 @@ public class ObjectiveManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         GameObject obj = GetObject("FadeOut");
         if(obj) obj.GetComponent<FadeIn>().enabled = true;
+    }
+
+    private IEnumerator FadeOutAndIn(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameObject obj = GetObject("FadeOut");
+        if (obj)
+        {
+            obj.GetComponent<FadeIn>().enabled = true;
+            obj.GetComponent<FadeIn>().changeSceneAfterDone = false;
+        }
     }
 
     public void AbortDialogue()
