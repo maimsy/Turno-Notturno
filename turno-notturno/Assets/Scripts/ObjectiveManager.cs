@@ -1099,9 +1099,10 @@ public class ObjectiveManager : MonoBehaviour
     //Scatter some teeth
     private void ScatterTeeth()
     {
-        GameObject area = GetObject("RoomTrigger4");
+        GameObject area = GetObject("TeethSpawner");
         area.GetComponent<BoxCollider>().enabled = true;
         GameObject[] teeth = GameObject.FindGameObjectsWithTag("Teeth");
+        Vector3 center = new Vector3(0, 0, 0);
         for (int i = 0; i < 20; i++)
         {
             //int which = UnityEngine.Random.Range(1, 5);
@@ -1110,7 +1111,8 @@ public class ObjectiveManager : MonoBehaviour
             //tooth = Instantiate(tooth, RandomPointInBounds(area.GetComponent<BoxCollider>().bounds), Quaternion.identity);
 
             Vector3 pos = RandomPointInBounds(area.GetComponent<BoxCollider>().bounds);
-            pos = new Vector3(pos.x, pos.y, pos.z-6f);
+            pos = new Vector3(pos.x, pos.y, pos.z);
+            pos = pos - center;
             teeth[i].transform.position = pos;
             teeth[i].GetComponent<Rigidbody>().isKinematic = false;
         }
