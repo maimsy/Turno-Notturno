@@ -1371,7 +1371,7 @@ public class ObjectiveManager : MonoBehaviour
                 dialogueMessage = "Using copper only for a plate? What a waste.";
                 break;
             case "c09":
-                dialogueMessage = "This green looks... moldy.;
+                dialogueMessage = "This green looks... moldy.";
                 break;
             case "c10":
                 dialogueMessage = "Inspired by Magritte? Please. Rene’ is much better.";
