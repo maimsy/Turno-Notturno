@@ -184,7 +184,7 @@ public class ObjectiveManager : MonoBehaviour
         MouthArtWork robot = FindObjectOfType<MouthArtWork>();
         if (robot) robot.disabled = false;
         PlayDialogue("25", 1f);
-        //PlayDialogue("26", 5f);
+        PlayDialogue("26", 5f);
         StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
         DropPaintings(false);
         ScatterTeeth();
@@ -873,6 +873,7 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("w08", 5f, abortPrevious: false);
         PlayDialogue("w09", 12f, abortPrevious: false);
         Invoke("PanicSound", 12.5f);
+        PlayDialogue("30b", 9f, abortPrevious: false);
         MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
         if (migraine) migraine.StartMigrainDelayed(10.5f);
         
@@ -1015,6 +1016,7 @@ public class ObjectiveManager : MonoBehaviour
             if (UpdateProgress("artpiece4"))
             {
                 PlayDialogue("w11", 2f, abortPrevious: false);
+                PlayDialogue("36b", 2f, abortPrevious: false);
                 AddClue6Objectives();
                 StartCoroutine(NewObjective("notebook", "Check the notebook", 1, delayTime*2));
             }
@@ -1027,6 +1029,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             if (UpdateProgress("notebook"))
             {
+                PlayDialogue("37", 0f, abortPrevious: false);
                 StartCoroutine(NewObjective("storage2", "Go to the storage room", 1, delayTime*2));
                 GameObject obj = GetObject("RoomTrigger3");
                 if (obj) obj.GetComponent<BoxCollider>().enabled = true;
@@ -1050,6 +1053,7 @@ public class ObjectiveManager : MonoBehaviour
 
         if(UpdateProgress("finish"))
         {
+            PlayDialogue("38", 0.5f, abortPrevious: false);
             //Fade to camera panning around the museum
             //THunderstorm fades
             EndStorm();
@@ -1206,19 +1210,19 @@ public class ObjectiveManager : MonoBehaviour
                 dialogueMessage = "... a dream?";
                 break;
             case "02":
-                dialogueMessage = "Wait… someone broke in?";
+                dialogueMessage = "Wait... someone broke in?";
                 break;
             case "03":
                 dialogueMessage = "03"; // Empty in latest script
                 break;
             case "04":
-                dialogueMessage = "It’s not supposed to be on… What if it’s damaged";
+                dialogueMessage = "It’s not supposed to be on... What if it’s damaged";
                 break;
             case "05":
                 dialogueMessage = "05"; // Empty in latest script
                 break;
             case "06":
-                dialogueMessage = "What… what was that?\r\nA-anyways [stuttering], I should go secure the place";
+                dialogueMessage = "What... what was that?\r\nA-anyways, I should go secure the place";
                 break;
             case "06a":
                 dialogueMessage = "Comment on color";
@@ -1239,21 +1243,21 @@ public class ObjectiveManager : MonoBehaviour
                 dialogueMessage = "08"; // Empty in latest script
                 break;
             case "09":
-                dialogueMessage = "It’s weird only one room was activated. I guess whoever it was got scared by the alarm and fled?... what a weird thief";
+                dialogueMessage = "Only one artwork was touched. I guess whoever it was got scared by the alarm and fled? ...what a weird thief";
                 break;
             case "10":
                 dialogueMessage = "I’m sure I locked the door when I arrived";
                 break;
             case "11":
-                dialogueMessage = "Ugh...what is happening!!";
+                dialogueMessage = "Ugh... my head!";
                 break;
             case "12":
-                dialogueMessage = "*gulping sound*";
+                dialogueMessage = ""; // Gulping sound
                 break;
 
             /*************          ACT 2           *************/
             case "13":
-                dialogueMessage = "Haah! What? What the fuck. (intimidated tone)\r\nWhy am I here? (low voice, breathing)";
+                dialogueMessage = "Haah! What? What the fuck?\r\nWhy am I here?";
                 break;
             case "14":
                 dialogueMessage = "Again?";
@@ -1268,7 +1272,7 @@ public class ObjectiveManager : MonoBehaviour
                 dialogueMessage = "This isn’t funny...";
                 break;
             case "18":
-                dialogueMessage = "Stop… [shaking]";
+                dialogueMessage = "Stop...";
                 break;
             case "19":
                 dialogueMessage = "What was that? It sounds like it came from downstairs";
@@ -1277,13 +1281,13 @@ public class ObjectiveManager : MonoBehaviour
                 dialogueMessage = "That door wasn’t open before...";
                 break;
             case "21":
-                dialogueMessage = "Is that… (confused, little surprised)";
+                dialogueMessage = "Is that...";
                 break;
             case "22":
                 dialogueMessage = "22"; // Empty in latest script
                 break;
             case "23":
-                dialogueMessage = "Stop, stop! Please stop! I can’t take it anymore. I’m sorry, I’m sorry, I’m sorry...\r\n...What is this smell…? Ammonia?\r\n";
+                dialogueMessage = "Stop, stop! Please stop! I can’t take it anymore. I’m sorry, I’m sorry, I’m sorry...\r\nWhat is this smell...? Ammonia?\r\n";
                 break;
 
 
@@ -1292,22 +1296,25 @@ public class ObjectiveManager : MonoBehaviour
                 dialogueMessage = "24"; // Empty in latest script
                 break;
             case "25":
-                dialogueMessage = "(heavy breathing) … Still having those weird dreams….";
+                dialogueMessage = "Still having those weird dreams...";
                 break;
             case "26":
-                dialogueMessage = "What the hell. I’m tired of this.\r\n(shouting) Wherever you are, come out!!";
+                dialogueMessage = "Why does this keep happening?";//"What the hell. I’m tired of this.\r\n(shouting) Wherever you are, come out!!";
                 break;
             case "27":
                 dialogueMessage = "27"; // Empty in latest script
                 break;
             case "28":
-                dialogueMessage = "...";
+                dialogueMessage = "";
                 break;
             case "29":
                 dialogueMessage = "29"; // Empty in latest script
                 break;
             case "30":
                 dialogueMessage = ""; // "*panicked breathing of the guard*";   // Disabled as this subtitle is quite useless
+                break;
+            case "30b":
+                dialogueMessage = "I... I need to get out of here."; 
                 break;
             case "31":
                 dialogueMessage = "31"; // Empty in latest script
@@ -1327,53 +1334,62 @@ public class ObjectiveManager : MonoBehaviour
             case "36":
                 dialogueMessage = "There’s someone here, hur-";
                 break;
+            case "36b":
+                dialogueMessage = "How... But it can’t be on! What is happening.";
+                break;
+            case "37":
+                dialogueMessage = "My notebook!";
+                break;
+            case "38":
+                dialogueMessage = "This is for you. Mother.";
+                break;
 
 
             /*************          CLUES           *************/
             case "c01":
-                dialogueMessage = "A blue, spiraling cityscape";
+                dialogueMessage = "The blue and spirals remind me of something.";
                 break;
             case "c02":
-                dialogueMessage = "It’s made of wood";
+                dialogueMessage = "Dei Monti always uses wood. Basic.";
                 break;
             case "c03":
-                dialogueMessage = "Nothing seems to be missing or broken";
+                dialogueMessage = "Nothing seems to be missing or broken.";
                 break;
             case "c04":
-                dialogueMessage = "Red spheres in a spiral pattern";
+                dialogueMessage = "Spirals projecting a portrait... Nice.";
                 break;
             case "c05":
-                dialogueMessage = "It’s a portrait";
+                dialogueMessage = "She kept lots of copper in her studio as well... ";
                 break;
             case "c06":
-                dialogueMessage = "It's made of copper";
+                dialogueMessage = "This color looks off.";
                 break;
             case "c07":
                 dialogueMessage = "Ugh. Teeth.";
                 break;
             case "c08":
-                dialogueMessage = "It’s all copper";
+                dialogueMessage = "Using copper only for a plate? What a waste.";
                 break;
             case "c09":
-                dialogueMessage = "I hate this green";
+                dialogueMessage = "This green looks... moldy.;
                 break;
             case "c10":
-                dialogueMessage = "From a famous abstract artist";
+                dialogueMessage = "Inspired by Magritte? Please. Rene’ is much better.";
                 break;
             case "c11":
-                dialogueMessage = "Spirals forming an abstract scenery";
+                dialogueMessage = "Spirals. That almost seems to be a theme in the exhibition.";
                 break;
             case "c12":
-                dialogueMessage = "This is red wood";
+                dialogueMessage = "Mother wanted an abstract portrait too. Just not red...";
                 break;
             case "c13":
-                dialogueMessage = "A cityscape of teeth";
+                dialogueMessage = "A cityscape... of teeth";
                 break;
             case "c14":
-                dialogueMessage = "Made of blue copper";
+                dialogueMessage = "Ammonia and copper. Best way to make it blue.";
                 break;
-            case "c15":
-                dialogueMessage = "Blue, abstract, wood...what is the point of all this?";
+            case "c14b":
+                dialogueMessage = "Blue copper... she used to do it with ammonia...";
                 break;
 
             /*************          Secondary clues (when inspecting clues again)           *************/
@@ -1399,7 +1415,7 @@ public class ObjectiveManager : MonoBehaviour
                 dialogueMessage = "There was a lot of copper in the storage as well";
                 break;
             case "c23":
-                dialogueMessage = "Spirals...if I could just remember…";
+                dialogueMessage = "Spirals... if I could just remember...";
                 break;
             case "c24":
                 dialogueMessage = "This shade of blue reminds me of something";
