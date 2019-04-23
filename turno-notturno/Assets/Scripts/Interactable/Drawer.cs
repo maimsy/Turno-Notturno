@@ -13,8 +13,8 @@ public class Drawer : BaseInteractable
     public bool locked = false;
     public float openX = -0.5f;
 
-    public StudioEventEmitter movingSound;
-    public StudioEventEmitter lockedSound;
+    public StudioEventEmitter openSound;
+    public StudioEventEmitter closeSound;
 
     private float curTime;
     private bool opening = false;
@@ -35,6 +35,11 @@ public class Drawer : BaseInteractable
         originalPosition = transform.position;
         targetX = transform.localPosition.x;
         closedX = targetX;
+        openSound = gameObject.AddComponent<StudioEventEmitter>();
+        openSound.Event = "event:/fx/drawerOpen";
+        
+        closeSound = gameObject.AddComponent<StudioEventEmitter>();
+        closeSound.Event = "event:/fx/drawerClose";
     }
 
     void FixedUpdate()
@@ -59,6 +64,11 @@ public class Drawer : BaseInteractable
                 pos += worldDir;
                 containedObject.transform.position = pos;
             }
+
+            if (!opening && transform.localPosition.x == targetX)
+            {
+                closeSound.Play();
+            }
         }
     }
 
@@ -69,10 +79,12 @@ public class Drawer : BaseInteractable
         if (opening)
         {
             targetX = openX;
+            openSound.Play();
         }
         else
         {
             targetX = closedX;
+
         }
     }
 
