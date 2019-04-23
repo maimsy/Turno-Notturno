@@ -7,7 +7,6 @@ public class MiniSound : MonoBehaviour
 {
     private AlarmManager manager;
     [SerializeField] int act;
-    [SerializeField] float timeBeforeStart;
     [SerializeField] float riseTime;
     private bool started = false;
     private float timer = 0;
@@ -17,19 +16,9 @@ public class MiniSound : MonoBehaviour
         manager = FindObjectOfType<AlarmManager>();
         if (manager)
         {
-            manager.StopAlarm();
-            manager.act1Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
-            manager.act1Alarm.light.SetActive(false);
-            manager.act2Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
-            manager.act2Alarm.light.SetActive(false);
-            manager.act3Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
-            manager.act3Alarm.light.SetActive(false);
-            manager.act4Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
-            manager.act4Alarm.light.SetActive(false);
-            manager.guardRoomAlarm.light.transform.parent.GetComponent<MeshRenderer>().enabled = false;
-            manager.guardRoomAlarm.light.SetActive(false);
+            Reset();
         }
-        Invoke("SetSoundPosition",timeBeforeStart);
+        
         
     }
     private void Update()
@@ -38,7 +27,6 @@ public class MiniSound : MonoBehaviour
         {
             timer += Time.deltaTime;
             float volume = Mathf.Min(1, timer / riseTime);
-            Debug.Log("Volume " + volume);
             SetVolume(volume);
         }
     }
@@ -111,8 +99,24 @@ public class MiniSound : MonoBehaviour
     {
         timer = 0;
         started = false;
+        manager.StopAlarm();
+        manager.act1Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+        manager.act1Alarm.light.SetActive(false);
+        manager.act2Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+        manager.act2Alarm.light.SetActive(false);
+        manager.act3Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+        manager.act3Alarm.light.SetActive(false);
+        manager.act4Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+        manager.act4Alarm.light.SetActive(false);
+        manager.guardRoomAlarm.light.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+        manager.guardRoomAlarm.light.SetActive(false);
         //manager.StopAlarm();
-        Invoke("SetSoundPosition", timeBeforeStart);
-
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Player")
+        {
+            SetSoundPosition();
+        }
     }
 }
