@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class TextAnimation : MonoBehaviour
 {
     public Text text;
-    public int speed = 15;
+    public int speed = 25;
 
     private void Start()
     {
