@@ -40,22 +40,49 @@ public class ClueNotebook : MonoBehaviour
     public ArrayList Act6ClueChosen = new ArrayList();
 
     private void Start()
-    { 
+    {
         CluesGuessed.CollectionChanged += CluesGuessed_CollectionChanged;
+    }
+
+    public void Update()
+    {
+        
+
+        
+            Debug.Log(CheckforCorrectSolution());
+        
+    }
+
+    public bool CheckforCorrectSolution()
+    {
+        Debug.Log(ClueTexts[0].text+ ClueTexts[1].text+ ClueTexts[2].text+ ClueTexts[3].text );
+        String[] m = { "Blue", "Spirals", "Copper", "Abstract" };
+        String[] clues = { ClueTexts[0].text, ClueTexts[1].text, ClueTexts[2].text, ClueTexts[3].text };
+        bool t = CluesGuessed.Any(x => m.ToList().Contains(x));
+        if (t) { Debug.Log("Hurrah You Win!"); return true; }
+        if (clues.Any(m.Contains)) { Debug.Log("Hurrah You Win!"); return true; }
+        return false;
     }
 
     private void CluesGuessed_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
     {
-        if (CluesGuessed.Count > 4) {
-            for (int i = CluesGuessed.Count; i > 4; i--) {
-                CluesGuessed.RemoveAt(i);
-            }
+        //CluesGuessed = new ObservableCollection<String>(CluesGuessed.Distinct().ToList());
+
+        //Remove clues more than 4
+        int j = CluesGuessed.Count;
+        Debug.Log(j);
+        while (CluesGuessed.Count > 4)
+        {
+            CluesGuessed.RemoveAt(j);
+            j--;
         }
-        
+
+        Debug.Log("Collection Changed! " + string.Join(", ", CluesGuessed.ToArray()));
         for (int i = 0; i < CluesGuessed.Count; i++)
         {
-            ClueTexts[i].text = CluesGuessed[i];
-            
+            Debug.Log("Collection Changed! Inside loop. Size of Clues guessed " + CluesGuessed.Count);
+            ClueTexts[i].text = CluesGuessed[i]; 
+            Debug.Log(ClueTexts[i].text + " Clue text " + i + CluesGuessed[i]);
         }
     }
 
@@ -151,18 +178,22 @@ public class ClueNotebook : MonoBehaviour
         return true;
     }
 
-    
 
-    public void onClickClue()
+
+    public void OnClickClue()
     {
         GameObject clueButtonObject = EventSystem.current.currentSelectedGameObject;
+       
         String clueText = clueButtonObject.GetComponentInChildren<Text>().text;
+        Debug.Log("clicked "+ clueText);
 
         String par = clueButtonObject.transform.parent.name;
 
-        if (par == "Act1") {
+        if (par == "Act1")
+        {
 
-            if (!Act1ClueChosen.Contains(clueText)) {
+            if (!Act1ClueChosen.Contains(clueText))
+            {
                 Act1ClueChosen.Add(clueText);
                 if (Act1ClueChosen.Count == 3) { Act1ClueChosen.RemoveAt(0); }
             }
@@ -176,7 +207,8 @@ public class ClueNotebook : MonoBehaviour
         else if (par == "Act2")
         {
 
-            if (!Act2ClueChosen.Contains(clueText)) {
+            if (!Act2ClueChosen.Contains(clueText))
+            {
                 Act2ClueChosen.Add(clueText);
             }
             else
@@ -242,25 +274,29 @@ public class ClueNotebook : MonoBehaviour
 
             TrackActRowForCluesChosen(Act6ClueChosen, Texts6);
         }
+
+       
     }
 
 
-    void TrackActRowForCluesChosen(ArrayList actClues, GameObject[] texts)
+    void TrackActRowForCluesChosen(ArrayList actChosenClues, GameObject[] textsFromRow)
     {
-        if (actClues.Count == 2)
+        Debug.Log(string.Join(", ", actChosenClues.ToArray()));
+        if (actChosenClues.Count == 2)
         {
-            foreach (GameObject t in texts)
+            foreach (GameObject t in textsFromRow)
             {
-                if (!actClues.Contains(t.GetComponent<Text>().text))
+                if (!actChosenClues.Contains(t.GetComponent<Text>().text))
                 {
                     t.GetComponent<Text>().text = StrikeThrough(t.GetComponent<Text>().text);
-
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/menuClick");
                 }
                 else
                 {
                     if (!CluesGuessed.Contains(t.GetComponent<Text>().text))
                     {
                         CluesGuessed.Add(t.GetComponent<Text>().text);
+                        Debug.Log("Clues guessed " + string.Join(", ", CluesGuessed.ToArray()));
                     }
                 }
             }
@@ -268,12 +304,17 @@ public class ClueNotebook : MonoBehaviour
         else
         {
             //unstrike text
-            foreach (GameObject t in texts)
-            {
-                t.GetComponent<Text>().text = UnstrikeThrough(t.GetComponent<Text>().text);
-            }
+            //foreach (GameObject t in textsFromRow)
+            //{
+            //    Debug.Log("Unstriked word "+UnstrikeThrough(t.GetComponent<Text>().text));
+            //    t.GetComponent<Text>().text = UnstrikeThrough(t.GetComponent<Text>().text);
+            //}
         }
     }
+
+   
+
+
 
     public string StrikeThrough(string s)
     {
@@ -298,8 +339,9 @@ public class ClueNotebook : MonoBehaviour
 
     public void TurnPage6To5()
     {
-        Debug.Log("clicked");
         Animator anim = Book.GetComponent<Animator>();
+
+        anim.SetBool("Turn6to5", true);
         anim.Play("TurnPage6To5");
     }
 
