@@ -177,7 +177,7 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Act3()
     {
-        
+       // BleachFall();
         //Invoke("Finish",4f);
         //TurnLightsOff();
         //Invoke("TurnLightsOff", 1f);
@@ -194,6 +194,8 @@ public class ObjectiveManager : MonoBehaviour
             FindObjectOfType<Player>().transform.position = obj.transform.position;
             FindObjectOfType<Player>().RotateTo(obj.transform.rotation);
         }
+        obj = GetObject("bleach_01");
+        if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
         obj = GetObject("RoomTrigger4");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         obj = GetObject("door_04_group");
@@ -750,8 +752,14 @@ public class ObjectiveManager : MonoBehaviour
     {
         //Act2VoicelineTrigger
         GameObject obj = GetObject("bleachFall");
-        if (obj) obj.GetComponent<StudioEventEmitter>().Play();
+        if (obj)
+        {
+            obj.GetComponent<StudioEventEmitter>().Play();
+            obj.transform.GetChild(0).gameObject.SetActive(true);
+        }
         obj = GetObject("bleach_01");
+        if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
+        obj = GetObject("ammonia_01");
         if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
         GameObject pos = GetObject("FlashLightPos_Act3");
         obj = GetObject("flashlight_01");
