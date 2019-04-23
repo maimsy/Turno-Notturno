@@ -29,33 +29,36 @@ public class headbobber : MonoBehaviour
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
-        // Advance bobbing timer
+        
         if (Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0)
         {
             timer = 0.0f;
+            stepSoundPlayed = false;
         }
         else
         {
+            // Advance bobbing timer
             float spm = stepsPerMinute;
             if (player.IsRunning()) spm = runningStepsPerMinute;
             waveslice = Mathf.Sin(timer);
             timer = timer + spm / 60 * Time.deltaTime * (Mathf.PI * 2);
+            
+            // Play sounds
+            if (timer > 4.2f && !stepSoundPlayed)  // Sin(4.2) = ~-0.9
+            {
+                stepSoundPlayed = true;
+                PlaySound();
+            }
+            
+            // Reset timer
             if (timer > Mathf.PI * 2)
             {
                 timer = timer - (Mathf.PI * 2);
+                stepSoundPlayed = false;
             }
         }
 
-        // Play sounds
-        if (waveslice > 0)
-        {
-            stepSoundPlayed = false;
-        }
-        else if (waveslice < -0.9 && !stepSoundPlayed)
-        {
-            stepSoundPlayed = true;
-            PlaySound();
-        }
+        
 
         // Move camera
         if (waveslice != 0)
