@@ -22,13 +22,15 @@ public class MainMainMenuButtons : MonoBehaviour
 
     public GameObject Book;
 
-    public Text IntroText;
+    public Text IntroText; 
+    public Text TurnPageText;
 
     private GameManager gameManager;
     private float fadeTime = 2.0f;
     private float fadeTimer = 0;
     private bool isFade = false;
     private bool isBookOpen = false;
+    private bool isZoomIn = false;
 
     Animator m_Animator;
 
@@ -39,7 +41,7 @@ public class MainMainMenuButtons : MonoBehaviour
         ArrowImage3.SetActive(false);
         gameManager = GameManager.GetInstance();
         m_Animator = Book.GetComponent<Animator>();
-        IntroText.gameObject.SetActive(false);
+        IntroText.gameObject.SetActive(false); 
 
     }
 
@@ -49,6 +51,8 @@ public class MainMainMenuButtons : MonoBehaviour
         
         if (isFade) { FadeTextOut(); }
         if (isBookOpen) { OpenBook(); }
+        if (isZoomIn) { InitiateMiniGameTransition(); }
+        if (IntroText.GetComponent<TextAnimation>().isAnimating) { FadeTextIn(TurnPageText);  }
 
         GameObject selected = EventSystem.current.currentSelectedGameObject;
 
@@ -104,6 +108,7 @@ public class MainMainMenuButtons : MonoBehaviour
             Destroy(StartText);
             Destroy(ContinueText);
             Destroy(ExitText);
+            
             isBookOpen = true;
         }
     }
@@ -112,27 +117,32 @@ public class MainMainMenuButtons : MonoBehaviour
     void FadeTextIn(Text text)
     {
         fadeTimer += Time.deltaTime;
-        float fade = fadeTimer / fadeTime;                 
+        float fade = fadeTimer / 10f;                 
         Color Color1 = StartText.color; 
-        text.color = new Color(Color1.r, Color1.g, Color1.b, 1 - fade);
+        text.color = new Color(Color1.r, Color1.g, Color1.b, 0.1f + fade);
         if (fadeTimer > fadeTime)
         {
-
+            //isFade = false;
         } 
     }
 
 
     void OpenBook() {
-        Animator anim = Book.GetComponent<Animator>();
-        anim.Play("TurnToPage1");
+        //m_Animator.Play("TurnToPage1");
+        m_Animator.SetTrigger("isTurnPage1");
     }
 
     // Start is called before the first frame update
     public void StartGame()
     {
          isFade = true;
-        //GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
-        //PlayerPrefs.SetInt("GameState", -1);
+        StartCoroutine("ShowIntrotext");
+       
+    }
+
+    IEnumerator ShowIntrotext() {
+
+        yield return new WaitForSeconds(2f);
         IntroText.gameObject.SetActive(true);
     }
 
@@ -141,10 +151,38 @@ public class MainMainMenuButtons : MonoBehaviour
     public void Continue()
     {
         isFade = true;
+        GameObject.FindObjectOfType<GameManager>().LoadGame();
+    } 
+
+    public void Quit() {
+        Application.Quit();
     }
 
-    public void Options()
-    {
-        isFade = true;
+    public void OnClickTurnPage() {
+        IntroText.gameObject.SetActive(false);
+        TurnPageText.gameObject.SetActive(false);
+        m_Animator.SetTrigger("isTurnPage2");
+        fadeTimer = 0;
+        isZoomIn = true;
+        GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
+        //PlayerPrefs.SetInt("GameState", -1);
+    }
+
+    public void InitiateMiniGameTransition() {
+        if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("TurnPage2"))
+        {
+
+            fadeTimer += Time.deltaTime;
+            float fade = fadeTimer / 10.0f; 
+            Color Color1 = TurnPageText.color; 
+            TurnPageText.color = new Color(Color1.r, Color1.g, Color1.b, 1 - fadeTimer);
+            Color Color2 = IntroText.color;
+            IntroText.color = new Color(Color2.r, Color2.g, Color2.b, 1 - fadeTimer);
+
+
+
+            if (Camera.main.fieldOfView > 2)
+                Camera.main.fieldOfView -= 0.1f;
+        } 
     }
 }
