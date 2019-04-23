@@ -75,6 +75,11 @@ public class MainMainMenuButtons : MonoBehaviour
             ArrowImage3.SetActive(true);
         }
 
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.W)) {
+            
+        FMODUnity.RuntimeManager.PlayOneShot("event:/menuClick");
+        }
+
     }
 
 
@@ -128,14 +133,14 @@ public class MainMainMenuButtons : MonoBehaviour
 
 
     void OpenBook() {
-        //m_Animator.Play("TurnToPage1");
         m_Animator.SetTrigger("isTurnPage1");
     }
 
     // Start is called before the first frame update
     public void StartGame()
     {
-         isFade = true;
+        isFade = true;
+        
         StartCoroutine("ShowIntrotext");
        
     }
@@ -143,22 +148,26 @@ public class MainMainMenuButtons : MonoBehaviour
     IEnumerator ShowIntrotext() {
 
         yield return new WaitForSeconds(2f);
+       
         IntroText.gameObject.SetActive(true);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
     }
 
      
     // Update is called once per frame
     public void Continue()
-    {
+    { 
         isFade = true;
         GameObject.FindObjectOfType<GameManager>().LoadGame();
     } 
 
-    public void Quit() {
+    public void Quit() { 
         Application.Quit();
     }
 
     public void OnClickTurnPage() {
+        
+        FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
         IntroText.gameObject.SetActive(false);
         TurnPageText.gameObject.SetActive(false);
         m_Animator.SetTrigger("isTurnPage2");
