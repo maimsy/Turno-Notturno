@@ -99,18 +99,20 @@ public class MiniSound : MonoBehaviour
     {
         timer = 0;
         started = false;
-        manager.StopAlarm();
-        manager.act1Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
-        manager.act1Alarm.light.SetActive(false);
-        manager.act2Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
-        manager.act2Alarm.light.SetActive(false);
-        manager.act3Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
-        manager.act3Alarm.light.SetActive(false);
-        manager.act4Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
-        manager.act4Alarm.light.SetActive(false);
-        manager.guardRoomAlarm.light.transform.parent.GetComponent<MeshRenderer>().enabled = false;
-        manager.guardRoomAlarm.light.SetActive(false);
-        //manager.StopAlarm();
+        if(manager)
+        {
+            manager.StopAlarm();
+            manager.act1Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+            manager.act1Alarm.light.SetActive(false);
+            manager.act2Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+            manager.act2Alarm.light.SetActive(false);
+            manager.act3Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+            manager.act3Alarm.light.SetActive(false);
+            manager.act4Alarm.sound.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+            manager.act4Alarm.light.SetActive(false);
+            manager.guardRoomAlarm.light.transform.parent.GetComponent<MeshRenderer>().enabled = false;
+            manager.guardRoomAlarm.light.SetActive(false);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
