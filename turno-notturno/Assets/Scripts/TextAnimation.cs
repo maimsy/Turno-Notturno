@@ -12,6 +12,7 @@ public class TextAnimation : MonoBehaviour
 {
     public Text text;
     public int speed = 25;
+    public bool isAnimating = false;
 
     private void Start()
     {
@@ -20,8 +21,9 @@ public class TextAnimation : MonoBehaviour
 
 
     private void OnEnable()
-    {;
+    {
         StartCoroutine("WriteTextOut", 500f);
+        isAnimating = true;
     }
 
     private void OnDisable()

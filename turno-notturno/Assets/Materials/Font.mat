@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Font
   m_Shader: {fileID: 4800000, guid: 37595a30852f45a4b9a947e706f9a678, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: _ISANIMATING_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -62,7 +62,7 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _ColorMask: 15
-    - _Cutoff: 0.13032264
+    - _Cutoff: 0.38559848
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
