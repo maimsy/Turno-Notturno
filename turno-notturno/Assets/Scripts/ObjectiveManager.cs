@@ -177,7 +177,7 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Act3()
     {
-        BleachFall();
+       // BleachFall();
         //Invoke("Finish",4f);
         //TurnLightsOff();
         //Invoke("TurnLightsOff", 1f);
@@ -758,11 +758,9 @@ public class ObjectiveManager : MonoBehaviour
             obj.transform.GetChild(0).gameObject.SetActive(true);
         }
         obj = GetObject("bleach_01");
-        if (obj)
-        {
-            obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
-            obj.transform.GetChild(0).gameObject.SetActive(true);
-        }
+        if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
+        obj = GetObject("ammonia_01");
+        if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
         GameObject pos = GetObject("FlashLightPos_Act3");
         obj = GetObject("flashlight_01");
         if (obj && pos)
