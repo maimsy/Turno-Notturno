@@ -54539,7 +54539,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7, y: -132}
+  m_AnchoredPosition: {x: -87, y: -117}
   m_SizeDelta: {x: 102.5, y: 79.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1270824023
@@ -63740,7 +63740,7 @@ PrefabInstance:
     - target: {fileID: 7265320030908201130, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -155
+      value: -127
       objectReference: {fileID: 0}
     - target: {fileID: 7265320030908201130, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
@@ -63790,17 +63790,17 @@ PrefabInstance:
     - target: {fileID: 7265320030908201131, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7265320030908201131, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7265320030908201131, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7265320030908201131, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
@@ -63811,6 +63811,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FontData.m_MaxSize
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265320030908201131, guid: d48a6771dd082b8459b8f42db5f2ee94,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: b54db2d64b087e04c8ee7edc876b79cd,
+        type: 3}
+    - target: {fileID: 7265320030908201131, guid: d48a6771dd082b8459b8f42db5f2ee94,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265320030908201131, guid: d48a6771dd082b8459b8f42db5f2ee94,
+        type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7265320030908201129, guid: d48a6771dd082b8459b8f42db5f2ee94, type: 3}
