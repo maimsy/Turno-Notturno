@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Door : BaseInteractable
@@ -18,6 +19,7 @@ public class Door : BaseInteractable
     public float openAngle = 100;
 
     public StudioEventEmitter closeDoorSound;
+    public StudioEventEmitter lockerCloseSound; // Hacky workaround for the locker doors
     public StudioEventEmitter openDoorSound;
     public StudioEventEmitter lockedDoorSound;
 
@@ -107,6 +109,7 @@ public class Door : BaseInteractable
         curTime = openingTime;
         closed = true;
         moving = true;
+        if (lockerCloseSound) lockerCloseSound.Play(); // Hacky workaround for the locker doors
     }
 
     public void SlamClose()

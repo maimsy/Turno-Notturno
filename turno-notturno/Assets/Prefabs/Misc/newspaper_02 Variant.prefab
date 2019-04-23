@@ -30,7 +30,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
---- !u!114 &186403136
+--- !u!114 &255632755
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,11 +39,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1823906688261946642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e55741470968fb2c094123cad6a747f8, type: 3}
+  m_Script: {fileID: 11500000, guid: b7cc1df9a11d4e45868817513b2170cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightChildren: 1
+  highlightParents: 0
+  overrideDefaultHighlight: 0
+  overrideHighlightMaterial: {fileID: 0}
   throwVelocity: 20
   displayName: newspaper
+  flipOnEveryGrab: 1
+  forcedInspectionDistance: 0.7
+  forcedInspectionRotation: {x: 90, y: 0, z: 0}
 --- !u!1001 &1823906688261847986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55,33 +62,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: newspaper_02
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.255
+      value: 7.069
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.916
+      value: 1.014
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.481
+      value: -8.211
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.00043739483
+      value: -0.007126676
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.011532148
+      value: 0.18789864
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.037898533
+      value: -0.03722502
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.999215
+      value: 0.9814569
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
       propertyPath: m_RootOrder
@@ -93,16 +104,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 21.676
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -4.3440003
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
+      objectReference: {fileID: 2100000, guid: 6adcd2c6831098443b318c174c76c153, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe1c51011044319429158f6d9742d33a, type: 3}
 --- !u!1 &1823906688261946642 stripped
