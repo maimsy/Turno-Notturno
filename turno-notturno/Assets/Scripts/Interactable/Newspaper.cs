@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
 
@@ -11,7 +12,19 @@ public class Newspaper : Movable
     public Vector3 forcedInspectionRotation = new Vector3(0, 0, 0);
     
     private bool flipped = false;
+
+    private StudioEventEmitter soundEmitter;
+
+    private float lastSoundPlayed = 0f;
     
+
+    protected override void Awake()
+    {
+        base.Awake();
+        soundEmitter = gameObject.AddComponent<StudioEventEmitter>();
+        soundEmitter.Event = "event:/fx/newspaper";
+    }
+
     protected override void Update()
     {
         if (playerIsHolding)
@@ -50,7 +63,22 @@ public class Newspaper : Movable
                 Physics.IgnoreCollision(col_1, col_2, true);
             }
         }
+        
+        PlaySound();
+        
+    }
 
+    private void PlaySound()
+    {
+        if (lastSoundPlayed + 1f < Time.time) // Avoid playing sound too often
+        {
+            lastSoundPlayed = Time.time;
+            soundEmitter.Play();
+        }
+    }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        PlaySound();
     }
 }
