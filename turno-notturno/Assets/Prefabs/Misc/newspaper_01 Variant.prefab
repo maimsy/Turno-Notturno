@@ -30,7 +30,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
---- !u!114 &614045228
+--- !u!114 &1652860917
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,11 +39,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 5624712457913124336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e55741470968fb2c094123cad6a747f8, type: 3}
+  m_Script: {fileID: 11500000, guid: b7cc1df9a11d4e45868817513b2170cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightChildren: 1
+  highlightParents: 0
+  overrideDefaultHighlight: 0
+  overrideHighlightMaterial: {fileID: 0}
   throwVelocity: 20
   displayName: newspaper
+  flipOnEveryGrab: 0
+  forcedInspectionDistance: 0.7
+  forcedInspectionRotation: {x: 90, y: 0, z: 0}
 --- !u!1001 &5624712457913221968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55,29 +62,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: newspaper_01
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0bf02cac5845c6f4897a299316707b23, type: 2}
+      objectReference: {fileID: 2100000, guid: 90f2e23f56030a344aded06f0dad2ec9, type: 2}
     - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.9692273
+      value: 6.697
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.90561503
+      value: 0.997
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.399581
+      value: -8.31
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.18566327
+      value: -0.063988656
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_LocalRotation.z
@@ -85,7 +96,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.98261344
+      value: 0.9979507
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_RootOrder
@@ -97,11 +108,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -7.3380003
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a16da6276f14c04f9c2b6b444e5f1e3, type: 3}

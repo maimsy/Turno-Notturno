@@ -9,9 +9,9 @@ public class Movable : BaseInteractable
     [SerializeField] float throwVelocity = 20f;
     public string displayName;
 
-    private bool playerIsHolding = false;
+    protected bool playerIsHolding = false;
     private Transform target;
-    private float targetDistance;
+    protected float targetDistance;
     private Rigidbody rbody;
     private bool gravityWasEnabled;
     private int originalLayer;
@@ -48,12 +48,12 @@ public class Movable : BaseInteractable
         }
     }
 
-    Vector3 GetCenterOfMass()
+    protected Vector3 GetCenterOfMass()
     {
         return transform.TransformPoint(rbody.centerOfMass);
     }
 
-    public void Grab()
+    public virtual void Grab()
     {
         target = Camera.main.transform;
         targetDistance = (target.position - GetCenterOfMass()).magnitude;
