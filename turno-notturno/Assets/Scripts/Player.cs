@@ -45,10 +45,18 @@ public class Player : Character
 
     private bool running = false;
 
+    private Text interactTooltip2;
+
     public void UpdateMouseSensitivity()
     {
         XSensitivity = PlayerPrefs.GetFloat("MouseSensitivityX", 5);
         YSensitivity = PlayerPrefs.GetFloat("MouseSensitivityY", 5);
+    }
+
+    void Awake()
+    {
+        GameObject textObj = GameObject.Find("InteractTooltip_2");
+        if (textObj) interactTooltip2 = textObj.GetComponent<Text>();
     }
 
     void Start()
@@ -148,6 +156,13 @@ public class Player : Character
             }
         }
         return null;
+    }
+
+    public void SetTooltip2(String str)
+    {
+        if (interactTooltip2) interactTooltip2.text = str;
+        DisappearingUI disappear = interactTooltip2.gameObject.GetComponent<DisappearingUI>();
+        if (disappear) disappear.ResetTimer();
     }
 
     public void SetTooltip(String str)

@@ -74,6 +74,11 @@ public class FlashLight : BaseInteractable
         gravityWasEnabled = rbody.useGravity;
         rbody.useGravity = false;
         FMODUnity.RuntimeManager.PlayOneShot("event:/fx/flashlightPickup");
+        Player player = FindObjectOfType<Player>();
+        if (player)
+        {
+            player.SetTooltip2("E: Toggle flashlight");
+        }
     }
 
     public void Drop()
@@ -82,6 +87,12 @@ public class FlashLight : BaseInteractable
         rbody.useGravity = gravityWasEnabled;
         wasHoldingThisFrame = true;
         GetComponent<MeshCollider>().enabled = true;
+        
+        Player player = FindObjectOfType<Player>();
+        if (player)
+        {
+            player.SetTooltip2("");
+        }
     }
 
 
