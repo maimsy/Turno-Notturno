@@ -140,6 +140,7 @@ public class ObjectiveManager : MonoBehaviour
     // set up objectives for act 2
     private void Act2()
     {
+        
         PlayDialogue("13", 2f, abortPrevious: false);
         PlayDialogue("14", 7f, abortPrevious: false);
         StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
@@ -758,6 +759,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             obj.transform.position = pos.transform.position;
             obj.transform.rotation = pos.transform.rotation;
+            obj.GetComponent<FlashLight>().SwitchOn(true);
         }
         obj = GetObject("Act2VoicelineTrigger");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;

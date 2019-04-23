@@ -73,7 +73,7 @@ public class ThunderManager : MonoBehaviour
                 }
                 timer += Time.deltaTime;
                 volume = Mathf.Max(0, 1 - timer * fadeSpeed);
-                thunderPauseMin += fadeSpeed*0.1f;
+                thunderPauseMin += fadeSpeed * 0.1f;
                 thunderPauseMax += fadeSpeed * 0.1f;
                 soundPauseMin += fadeSpeed * 0.1f;
                 soundPauseMax += fadeSpeed * 0.1f;

@@ -14,6 +14,7 @@ public class FlashLight : BaseInteractable
     private bool gravityWasEnabled;
     private bool wasHoldingThisFrame;
     private Transform player;
+    private bool isOn = false;
 
     protected override void Awake()
     {
@@ -29,8 +30,6 @@ public class FlashLight : BaseInteractable
         wasHoldingThisFrame = playerIsHolding;
         if (playerIsHolding)
         {
-            
-
             Vector3 targetPos = target.position + target.forward * targetDistance + target.right * offSetRight + -target.up * offSetDown;
             Vector3 offset = targetPos - GetCenterOfMass();
             rbody.velocity = offset * 12;
@@ -49,9 +48,19 @@ public class FlashLight : BaseInteractable
             {
                 Drop();
             }
+            if(Input.GetKeyUp(KeyCode.E))
+            {
+                SwitchOn(!isOn);
+            }
         }
     }
 
+    public void SwitchOn(bool on)
+    {
+        transform.GetChild(0).gameObject.SetActive(on);
+        transform.GetChild(1).gameObject.SetActive(on);
+        isOn = on;
+    }
     Vector3 GetCenterOfMass()
     {
         return transform.TransformPoint(rbody.centerOfMass);
