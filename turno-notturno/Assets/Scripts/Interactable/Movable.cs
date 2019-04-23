@@ -61,6 +61,12 @@ public class Movable : BaseInteractable
         gravityWasEnabled = rbody.useGravity;
         rbody.useGravity = false;
         IgnorePlayerCollision(true);
+        
+        Player player = FindObjectOfType<Player>();
+        if (player)
+        {
+            player.SetTooltip2("Left click to throw \nRight click to drop");
+        }
     }
 
     public void Drop()
@@ -69,6 +75,11 @@ public class Movable : BaseInteractable
         rbody.useGravity = gravityWasEnabled;
         IgnorePlayerCollision(false);
         wasHoldingThisFrame = true;
+        Player player = FindObjectOfType<Player>();
+        if (player)
+        {
+            player.SetTooltip2("");
+        }
     }
 
     void IgnorePlayerCollision(bool value)

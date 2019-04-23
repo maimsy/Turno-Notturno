@@ -247,6 +247,12 @@ public class Inspectable : BaseInteractable
         hor = 0;
         vert = 0;
         OnStartInspect();
+
+        Player player = FindObjectOfType<Player>();
+        if (player)
+        {
+            player.SetTooltip2("Right click to exit");
+        }
     }
 
     public void StopInspect()
@@ -257,6 +263,12 @@ public class Inspectable : BaseInteractable
         Camera.main.transform.rotation = prevCameraRotation;
         gameManager.EnableControls();
         OnStopInspect();
+        
+        Player player = FindObjectOfType<Player>();
+        if (player)
+        {
+            player.SetTooltip2("");
+        }
     }
 
     protected virtual void OnStartInspect()
