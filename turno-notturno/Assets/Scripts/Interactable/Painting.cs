@@ -29,7 +29,7 @@ public class Painting : Inspectable
 
                 if (player) player.SetTooltip(interactable.GetTooltip());
                 interactable.HighLight();
-                if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.E))
                 {
                     interactable.Interact();
                 }

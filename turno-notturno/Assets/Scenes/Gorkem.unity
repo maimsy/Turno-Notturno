@@ -2026,15 +2026,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: light_art_27
       objectReference: {fileID: 0}
+    - target: {fileID: 540924783, guid: 00513c5876eb3c24c8818706af9ed3a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 540924788, guid: 00513c5876eb3c24c8818706af9ed3a2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 21489469093970832, guid: eb44d445b51986c41abe1f12f69de3ce,
         type: 2}
-    - target: {fileID: 540924783, guid: 00513c5876eb3c24c8818706af9ed3a2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1980727879, guid: 00513c5876eb3c24c8818706af9ed3a2, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -7481,7 +7481,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876208652}
-  m_LocalRotation: {x: 0.051655225, y: 0.6999312, z: -0.05088542, w: 0.71052}
+  m_LocalRotation: {x: 0.051655244, y: 0.6999312, z: -0.05088544, w: 0.71052}
   m_LocalPosition: {x: 8.61, y: 1.808, z: -4.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -10128,7 +10128,7 @@ PrefabInstance:
     - target: {fileID: 2320043632968817848, guid: a3be83d62679bc741bec0e8551e58b56,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3be83d62679bc741bec0e8551e58b56, type: 3}
@@ -20656,6 +20656,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 34918854, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
+      propertyPath: m_Name
+      value: notebook
+      objectReference: {fileID: 0}
+    - target: {fileID: 34918854, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2943340082256704567, guid: 7343cb1a12f653b4093a6bdd46ab764f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20710,14 +20718,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 34918854, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
-      propertyPath: m_Name
-      value: notebook
-      objectReference: {fileID: 0}
-    - target: {fileID: 34918854, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4105389692439479432, guid: 7343cb1a12f653b4093a6bdd46ab764f,
         type: 3}
@@ -21070,6 +21070,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834880404945373417, guid: f44d9172c61e1e94496a23f7d1114583,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 5.9883914
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834880404945373417, guid: f44d9172c61e1e94496a23f7d1114583,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -2.4259427
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f44d9172c61e1e94496a23f7d1114583, type: 3}
