@@ -290,6 +290,7 @@ public class ClueNotebook : MonoBehaviour
 
         if (CheckforCorrectSolution()) {
             Debug.Log("CHAMPION");
+            FindObjectOfType<ObjectiveManager>().FinishedPuzzle();
         }
     }
 

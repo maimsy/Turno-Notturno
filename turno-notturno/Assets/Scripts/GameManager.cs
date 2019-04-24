@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OpenCloseBook()
+    public void OpenCloseBook()
     {
         isBookOpen = !isBookOpen;
         Notes.SetActive(isBookOpen);

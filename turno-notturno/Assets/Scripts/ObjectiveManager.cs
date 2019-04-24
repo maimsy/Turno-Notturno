@@ -1166,12 +1166,23 @@ public class ObjectiveManager : MonoBehaviour
             if (UpdateProgress("notebook"))
             {
                 PlayDialogue("37", 0f, abortPrevious: false);
-                StartCoroutine(NewObjective("storage2", "Go to the storage room", 1, delayTime*2));
-                GameObject obj = GetObject("RoomTrigger3");
-                if (obj) obj.GetComponent<BoxCollider>().enabled = true;
-                GameManager.GetInstance().CanOpenBook(true);
+                GameManager.GetInstance().OpenCloseBook();
             }
         }
+    }
+    public void FinishedPuzzle()
+    {
+        //scribble on notebook??
+        //whispers??
+        Invoke("AfterPuzzle", delayTime);
+    }
+
+    private void AfterPuzzle()
+    {
+        GameManager.GetInstance().OpenCloseBook();
+        StartCoroutine(NewObjective("storage2", "Go to the storage room", 1, delayTime));
+        GameObject obj = GetObject("RoomTrigger3");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
     }
 
     public void StorageRoom2()
