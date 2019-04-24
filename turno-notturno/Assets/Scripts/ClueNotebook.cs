@@ -397,8 +397,8 @@ public class ClueNotebook : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("ClueFoundAct11")) { Texts1[0].SetActive(true); }
         if (PlayerPrefs.HasKey("ClueFoundAct12")) { Texts1[1].SetActive(true); }
-        if (PlayerPrefs.HasKey("ClueFoundAct13")) { Texts1[1].SetActive(true); }
-        if (PlayerPrefs.HasKey("ClueFoundAct14")) { Texts1[1].SetActive(true); }
+        if (PlayerPrefs.HasKey("ClueFoundAct13")) { Texts1[2].SetActive(true); }
+        if (PlayerPrefs.HasKey("ClueFoundAct14")) { Texts1[3].SetActive(true); }
 
         if (PlayerPrefs.HasKey("ClueFoundAct21")) { Texts2[0].SetActive(true); }
         if (PlayerPrefs.HasKey("ClueFoundAct22")) { Texts2[1].SetActive(true); }
@@ -426,6 +426,8 @@ public class ClueNotebook : MonoBehaviour
         if (PlayerPrefs.HasKey("ClueFoundAct63")) { Texts6[2].SetActive(true); }
         if (PlayerPrefs.HasKey("ClueFoundAct64")) { Texts6[3].SetActive(true); }
 
+
+        //Checking for enabling Guesses
         for (int i = 0; i < Texts1.Length; i++)
         {
             if (!Texts1[i].activeInHierarchy) { return false; }

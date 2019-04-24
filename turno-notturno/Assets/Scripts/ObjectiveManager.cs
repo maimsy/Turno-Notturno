@@ -558,9 +558,13 @@ public class ObjectiveManager : MonoBehaviour
             {
                 case ClueObjective.SpinningCityMesh:
                     PlayerPrefs.SetInt("ClueFoundAct11", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct12", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct13", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct14", 1);
                     PlayDialogue("c01", 0f);
                     break;
                 case ClueObjective.SpinningCityDescription:
+                    PlayerPrefs.SetInt("ClueFoundAct11", 1);
                     PlayerPrefs.SetInt("ClueFoundAct12", 1);
                     PlayerPrefs.SetInt("ClueFoundAct13", 1);
                     PlayerPrefs.SetInt("ClueFoundAct14", 1);
@@ -618,10 +622,10 @@ public class ObjectiveManager : MonoBehaviour
                     break;
                 case ClueObjective.BallsyPortraitShadow:
                     PlayerPrefs.SetInt("ClueFoundAct33", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct34", 1);
                     PlayDialogue("c04", 0f);
                     break;
                 case ClueObjective.BallsyPortraitSpiral:
-                    PlayerPrefs.SetInt("ClueFoundAct34", 1);
                     break;
             }
             UpdateProgress(s);
