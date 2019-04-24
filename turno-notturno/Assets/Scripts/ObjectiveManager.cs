@@ -558,9 +558,13 @@ public class ObjectiveManager : MonoBehaviour
             {
                 case ClueObjective.SpinningCityMesh:
                     PlayerPrefs.SetInt("ClueFoundAct11", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct12", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct13", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct14", 1);
                     PlayDialogue("c01", 0f);
                     break;
                 case ClueObjective.SpinningCityDescription:
+                    PlayerPrefs.SetInt("ClueFoundAct11", 1);
                     PlayerPrefs.SetInt("ClueFoundAct12", 1);
                     PlayerPrefs.SetInt("ClueFoundAct13", 1);
                     PlayerPrefs.SetInt("ClueFoundAct14", 1);
@@ -618,10 +622,10 @@ public class ObjectiveManager : MonoBehaviour
                     break;
                 case ClueObjective.BallsyPortraitShadow:
                     PlayerPrefs.SetInt("ClueFoundAct33", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct34", 1);
                     PlayDialogue("c04", 0f);
                     break;
                 case ClueObjective.BallsyPortraitSpiral:
-                    PlayerPrefs.SetInt("ClueFoundAct34", 1);
                     break;
             }
             UpdateProgress(s);
@@ -638,13 +642,13 @@ public class ObjectiveManager : MonoBehaviour
             switch (objective)
             {
                 case ClueObjective.MouthRobotTeeth:
-                    PlayerPrefs.SetInt("ClueFoundAct41", 1);
-                    PlayDialogue("c13", 0f);
-                    break;
-                case ClueObjective.MouthRobotDescription:
+                    PlayerPrefs.SetInt("ClueFoundAct41", 1); 
                     PlayerPrefs.SetInt("ClueFoundAct42", 1);
                     PlayerPrefs.SetInt("ClueFoundAct43", 1);
                     PlayerPrefs.SetInt("ClueFoundAct44", 1);
+                    PlayDialogue("c13", 0f);
+                    break;
+                case ClueObjective.MouthRobotDescription:
                     PlayDialogue("c14", 0f);
                     break;
             }
@@ -687,14 +691,14 @@ public class ObjectiveManager : MonoBehaviour
             {
                 case ClueObjective.VideoPart1:
                     PlayerPrefs.SetInt("ClueFoundAct61", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct62", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct63", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct64", 1);
                     PlayDialogue("c15", 0f);
                     break;
                 case ClueObjective.VideoPart2:
-                    PlayerPrefs.SetInt("ClueFoundAct62", 1);
                     break;
                 case ClueObjective.VideoPart3:
-                    PlayerPrefs.SetInt("ClueFoundAct63", 1);
-                    PlayerPrefs.SetInt("ClueFoundAct64", 1);
                     break;
             }
             UpdateProgress(s);
