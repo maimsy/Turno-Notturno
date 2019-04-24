@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject finalPuzzle;
     public GameObject Notes;
+    
     private bool isBookOpen = false;
     private bool canOpenBook = true;
 
@@ -79,10 +80,12 @@ public class GameManager : MonoBehaviour
             if (isBookOpen)
             {
                 notebookFilterEmitter.SetParameter("notebookFilter", 1);
+                notebookFilterEmitter.Play();
             }
             else
             {
                 notebookFilterEmitter.SetParameter("notebookFilter", 0);
+                notebookFilterEmitter.Stop();
             }
         }
     }
