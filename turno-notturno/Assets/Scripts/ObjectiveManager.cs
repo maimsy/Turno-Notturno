@@ -1025,11 +1025,16 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("flashlight"))
         {
-            GameObject obj = GetObject("RoomTrigger5");
-            if (obj) obj.GetComponent<BoxCollider>().enabled = true; 
             StartCoroutine(NewObjective("room4", "Check the noise", 1, delayTime));
+            Invoke("EnableRoomTrigger5", delayTime);
         }
      }
+    private void EnableRoomTrigger5()
+    {
+        GameObject obj = GetObject("RoomTrigger5");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+    }
+
 
     public void Room4()
     {
