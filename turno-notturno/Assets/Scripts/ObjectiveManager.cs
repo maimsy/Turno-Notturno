@@ -466,6 +466,8 @@ public class ObjectiveManager : MonoBehaviour
 
     public void InspectCluesGlobal(ClueObjective objective)
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/menuClick");
+
         // Act 1
         string s = ClueToString(objective);
 
