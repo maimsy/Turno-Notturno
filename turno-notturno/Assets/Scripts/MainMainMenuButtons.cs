@@ -174,7 +174,7 @@ public class MainMainMenuButtons : MonoBehaviour
         fadeTimer = 0;
         isZoomIn = true;
         GameObject.Find("FadeOut").GetComponent<FadeIn>().enabled = true;
-        //PlayerPrefs.SetInt("GameState", -1);
+        PlayerPrefs.SetInt("GameState", -1);
     }
 
     public void InitiateMiniGameTransition() {
