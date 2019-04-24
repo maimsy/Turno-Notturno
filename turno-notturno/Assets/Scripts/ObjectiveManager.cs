@@ -649,6 +649,10 @@ public class ObjectiveManager : MonoBehaviour
                     PlayDialogue("c13", 0f);
                     break;
                 case ClueObjective.MouthRobotDescription:
+                    PlayerPrefs.SetInt("ClueFoundAct41", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct42", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct43", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct44", 1);
                     PlayDialogue("c14", 0f);
                     break;
             }
