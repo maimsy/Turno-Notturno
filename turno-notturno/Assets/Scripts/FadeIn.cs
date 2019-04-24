@@ -9,6 +9,7 @@ public class FadeIn : MonoBehaviour
     [SerializeField] bool fadeIn;
     public bool changeSceneAfterDone;
 
+    private float timeBlack = 0;
     private float timer;
 
     private void Start()
@@ -36,12 +37,26 @@ public class FadeIn : MonoBehaviour
             }
             else
             {
-                GetComponent<Image>().color = new Color(color.r, color.g, color.b, 0);
-                GameObject.Find("FadeIn").GetComponent<Animator>().Play("FadeIn", -1, 0f);
-                this.enabled = false;
+                if(timer-fadeTime > timeBlack)
+                {
+                    GetComponent<Image>().color = new Color(color.r, color.g, color.b, 0);
+                    GameObject.Find("FadeIn").GetComponent<Animator>().Play("FadeIn", -1, 0f);
+                    GameObject.Find("FadeIn").GetComponent<Animator>().speed = 4;
+                    this.enabled = false;
+                }
             }
             
         }
 
+    }
+
+    public void SetTimeBlack(float time)
+    {
+        timeBlack = time;
+    }
+
+    public void Reset()
+    {
+        timer = 0;
     }
 }

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject finalPuzzle;
     public GameObject Notes;
+    
     private bool isBookOpen = false;
     private bool canOpenBook = true;
 
@@ -29,6 +30,9 @@ public class GameManager : MonoBehaviour
     private PauseMenu pauseMenu;
     private static GameManager instance;
     private StudioEventEmitter notebookFilterEmitter;
+
+    private RenderTexture notebookBackgroundTexture;
+    private GameObject notebookBackgroundPlane;
 
     public static GameManager GetInstance()
     {
@@ -79,10 +83,12 @@ public class GameManager : MonoBehaviour
             if (isBookOpen)
             {
                 notebookFilterEmitter.SetParameter("notebookFilter", 1);
+                notebookFilterEmitter.Play();
             }
             else
             {
                 notebookFilterEmitter.SetParameter("notebookFilter", 0);
+                notebookFilterEmitter.Stop();
             }
         }
     }
@@ -91,8 +97,27 @@ public class GameManager : MonoBehaviour
     {
         isBookOpen = !isBookOpen;
         Notes.SetActive(isBookOpen);
-        if (isBookOpen) DisableControls();
-        else EnableControls();
+        if (isBookOpen)
+        {
+            if (!notebookBackgroundTexture)
+            {
+                int width = Camera.main.scaledPixelWidth;
+                int height = Camera.main.scaledPixelHeight;
+                notebookBackgroundTexture = new RenderTexture(width, height, 16);
+                GameObject obj = GameObject.Find("NotebookBackground");
+                MeshRenderer rend = obj.GetComponent<MeshRenderer>();
+                rend.material.mainTexture = notebookBackgroundTexture;
+            }
+            Camera.main.targetTexture = notebookBackgroundTexture;
+            Camera.main.forceIntoRenderTexture = true;
+            DisableControls();
+        }
+        else
+        {
+            Camera.main.targetTexture = null;
+            Camera.main.forceIntoRenderTexture = false;
+            EnableControls();
+        }
     }
 
     public bool IsPaused()

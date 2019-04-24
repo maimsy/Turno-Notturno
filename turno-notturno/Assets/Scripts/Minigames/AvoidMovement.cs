@@ -41,6 +41,7 @@ public class AvoidMovement : MonoBehaviour
         {
             backgroundObjects.Add(new ObjPos(obj, obj.transform.position));
         }
+        GetComponent<Animator>().speed = 2;
     }
 
     // Update is called once per frame

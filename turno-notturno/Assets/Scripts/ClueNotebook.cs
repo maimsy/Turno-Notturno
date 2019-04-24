@@ -297,7 +297,6 @@ public class ClueNotebook : MonoBehaviour
     void OnEnable()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
-
         VerticalLayoutGroup hlg = gameObject.GetComponent<VerticalLayoutGroup>();
         Canvas.ForceUpdateCanvases();
         hlg.CalculateLayoutInputHorizontal();
