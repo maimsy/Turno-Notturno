@@ -267,6 +267,7 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Act3()
     {
+       // StartCoroutine(NewObjective("clue6", "Inspect the artwork for clues", 1, 0));
         // BleachFall();
         //Invoke("Finish",4f);
         //TurnLightsOff();
@@ -518,7 +519,7 @@ public class ObjectiveManager : MonoBehaviour
     private void AddClue6Objectives()
     {
         int amount = CountClues("clue6");
-        StartCoroutine(NewObjective("clue6", "Inspect the artwork for clues", amount, 0));
+        StartCoroutine(NewObjective("clue6", "Inspect the artwork for clues", 1, 0));
     }
 
     private int CountClues(string objective)
@@ -937,8 +938,8 @@ public class ObjectiveManager : MonoBehaviour
             Invoke("Dizzyness", 8f);
             PlayDialogue("23", 12f, abortPrevious: false);
             Invoke("Heartbeat", 12f);
-            StartCoroutine(FadeToNextScene(22f));
-            Invoke("StopDizzyness", 26f);
+            StartCoroutine(FadeToNextScene(23f));
+            Invoke("StopDizzyness", 27f);
             PlayDialogue("w06", 18f, abortPrevious: false);
         }
     }
@@ -1217,8 +1218,8 @@ public class ObjectiveManager : MonoBehaviour
             //Player sees the storage room with the finished artwork and blood around
             //Portrait is placed so that it looks at the artwork with endearing eyes
             //Credits after while
-            StartCoroutine(FadeToNextScene(40f));
-            Invoke("Credits", 44f);
+            StartCoroutine(FadeToNextScene(41f));
+            Invoke("Credits", 45f);
         }
     }
 
@@ -1231,6 +1232,8 @@ public class ObjectiveManager : MonoBehaviour
         obj = GameObject.Find("box_coppers");
         if (obj) obj.SetActive(false);
         obj = GetObject("flashlight_01");
+        if (obj) obj.SetActive(false);
+        obj = GetObject("Crosshair");
         if (obj) obj.SetActive(false);
 
     }
