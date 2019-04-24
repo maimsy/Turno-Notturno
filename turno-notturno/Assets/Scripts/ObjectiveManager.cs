@@ -93,10 +93,89 @@ public class ObjectiveManager : MonoBehaviour
 
     }
 
+    private void SetLights(string tag, bool value)
+    {
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag(tag))
+        {
+            Light light = obj.GetComponent<Light>();
+            if (light) light.enabled = value;
+        }
+    }
+
+    private void EnableAct1Lights()
+    {
+        SetLights("Room1", true); // Art room downstairs
+        SetLights("Room2", false);  // Video room
+        SetLights("Room3", false);  // Painting room
+        SetLights("Room4", false);  // Upstairs hallway
+        SetLights("Room5", false);  // Upstairs sculpture room
+        SetLights("Room6", true); // Guard room
+        SetLights("Room7", true); // Main lobby
+        SetLights("Room8", true); // Storage
+        SetLights("TurnON", false); // Dim lights during thunderstorm?
+    }
+
+    private void EnableAct2Lights()
+    {
+        SetLights("Room1", true); // Art room downstairs
+        SetLights("Room2", false);  // Video room
+        SetLights("Room3", true);  // Painting room
+        SetLights("Room4", false);  // Upstairs hallway
+        SetLights("Room5", true);  // Upstairs sculpture room
+        SetLights("Room6", true); // Guard room
+        SetLights("Room7", true); // Main lobby
+        SetLights("Room8", true); // Storage
+        SetLights("TurnON", false); // Dim lights during thunderstorm?
+    }
+
+    private void EnableAct3Lights()
+    {
+        SetLights("Room1", true); // Art room downstairs
+        SetLights("Room2", false);  // Video room
+        SetLights("Room3", true);  // Painting room
+        SetLights("Room4", true);  // Upstairs hallway
+        SetLights("Room5", true);  // Upstairs sculpture room
+        SetLights("Room6", true); // Guard room
+        SetLights("Room7", true); // Main lobby
+        SetLights("Room8", true); // Storage
+        SetLights("TurnON", false); // Dim lights during thunderstorm?
+    }
+
+    public void TurnLightsOff()
+    {
+        GameObject[] lights = GameObject.FindGameObjectsWithTag("Light");
+        foreach (GameObject light in lights)
+        {
+            light.SetActive(false);
+        }
+        lights = GameObject.FindGameObjectsWithTag("TurnON");
+        foreach (GameObject light in lights)
+        {
+            light.GetComponent<Light>().enabled = true;
+        }
+        GameObject manager = GetObject("ScribbleManager");
+        foreach (Transform child in manager.transform)
+        {
+            child.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+        }
+
+        // Disable lightmaps for all objects
+        //LightmapSettings.lightmaps = new LightmapData[0];
+        foreach (Renderer rend in FindObjectsOfType<Renderer>())
+        {
+            rend.lightmapIndex = -1;
+        }
+
+        GameObject obj = GetObject("Plane"); // Disable computer screen - didn't want to edit scene to add Light-tag
+        if (obj) obj.SetActive(false);
+    }
+
+
     // set up objectives for act 1
     private void Act1()
     {
-       // Heartbeat();
+        // Heartbeat();
+        EnableAct1Lights();
         windowBars = new List<GameObject>();
         GameObject obj = GetObject("windows_bars_art_room");
         if (obj) windowBars.Add(obj);
@@ -151,7 +230,7 @@ public class ObjectiveManager : MonoBehaviour
     // set up objectives for act 2
     private void Act2()
     {
-        
+        EnableAct2Lights();
         PlayDialogue("13", 2f, abortPrevious: false);
         PlayDialogue("14", 7f, abortPrevious: false);
         StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
@@ -193,7 +272,8 @@ public class ObjectiveManager : MonoBehaviour
         //TurnLightsOff();
         //Invoke("TurnLightsOff", 1f);
         //Invoke("PlayFinalCinematic", 5f);
-        if(raulitest)
+        EnableAct3Lights();
+        if (raulitest)
         {
 
             StartCoroutine(NewObjective("storage2", "Go to the storage room", 1, delayTime));
@@ -1016,34 +1096,7 @@ public class ObjectiveManager : MonoBehaviour
         if (thunder) thunder.GetComponent<ThunderManager>().EndStorm();
     }
 
-    public void TurnLightsOff()
-    {
-        GameObject[] lights = GameObject.FindGameObjectsWithTag("Light");
-        foreach (GameObject light in lights)
-        {
-            light.SetActive(false);
-        }
-        lights = GameObject.FindGameObjectsWithTag("TurnON");
-        foreach (GameObject light in lights)
-        {
-            light.GetComponent<Light>().enabled = true;
-        }
-        GameObject manager = GetObject("ScribbleManager");
-        foreach(Transform child in manager.transform)
-        {
-            child.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
-        }
-
-        // Disable lightmaps for all objects
-        //LightmapSettings.lightmaps = new LightmapData[0];
-        foreach (Renderer rend in FindObjectsOfType<Renderer>())
-        {
-            rend.lightmapIndex = -1;
-        }
-
-        GameObject obj = GetObject("Plane"); // Disable computer screen - didn't want to edit scene to add Light-tag
-        if (obj) obj.SetActive(false);
-    }
+    
 
     private void FootStepStart()
     {
