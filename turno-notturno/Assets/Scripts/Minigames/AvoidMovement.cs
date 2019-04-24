@@ -135,6 +135,7 @@ public class AvoidMovement : MonoBehaviour
         {
             GetComponent<MinigameEnding>().EndGame(true);
             GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = false;
             enabled = false;
         }
     }

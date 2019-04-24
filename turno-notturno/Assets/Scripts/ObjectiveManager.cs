@@ -962,7 +962,6 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Room3Objectives()
     {
-        PlayDialogue("26", 1f);
         StartCoroutine(NewObjective("alarm3", "Turn off the alarm", 1, 0));
         StartCoroutine(NewObjective("artpiece3", "Find the cause of the alarm", 2, delayTime));
         string[] names = { "alarm3", "artpiece3" };
