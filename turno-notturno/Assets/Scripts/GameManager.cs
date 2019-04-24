@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     private StudioEventEmitter notebookFilterEmitter;
 
+    private RenderTexture notebookBackgroundTexture;
+    private GameObject notebookBackgroundPlane;
+
     public static GameManager GetInstance()
     {
         instance = FindObjectOfType<GameManager>();
@@ -94,8 +97,27 @@ public class GameManager : MonoBehaviour
     {
         isBookOpen = !isBookOpen;
         Notes.SetActive(isBookOpen);
-        if (isBookOpen) DisableControls();
-        else EnableControls();
+        if (isBookOpen)
+        {
+            if (!notebookBackgroundTexture)
+            {
+                int width = Camera.main.scaledPixelWidth;
+                int height = Camera.main.scaledPixelHeight;
+                notebookBackgroundTexture = new RenderTexture(width, height, 16);
+                GameObject obj = GameObject.Find("NotebookBackground");
+                MeshRenderer rend = obj.GetComponent<MeshRenderer>();
+                rend.material.mainTexture = notebookBackgroundTexture;
+            }
+            Camera.main.targetTexture = notebookBackgroundTexture;
+            Camera.main.forceIntoRenderTexture = true;
+            DisableControls();
+        }
+        else
+        {
+            Camera.main.targetTexture = null;
+            Camera.main.forceIntoRenderTexture = false;
+            EnableControls();
+        }
     }
 
     public bool IsPaused()
