@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -31,56 +28,271 @@ public class ClueNotebook : MonoBehaviour
     public Text[] ClueTexts;
 
     public ObservableCollection<String> FinalCluesGuessed = new ObservableCollection<String>();
+    
+    public enum ClueState { Normal, Chosen, Striked }
 
-    public ArrayList Act1ClueChosen = new ArrayList();
-    public ArrayList Act2ClueChosen = new ArrayList();
-    public ArrayList Act3ClueChosen = new ArrayList();
-    public ArrayList Act4ClueChosen = new ArrayList();
-    public ArrayList Act5ClueChosen = new ArrayList();
-    public ArrayList Act6ClueChosen = new ArrayList();
+    [System.Serializable]
+    public class ClueClass
+    {
+        public string Name;
+        public ClueState State;
+    };
+     
+    public ClueClass[,] Clue2DArray = new ClueClass[6, 4];
 
     private void Start()
     {
-        FinalCluesGuessed.CollectionChanged += CluesGuessed_CollectionChanged;
+        FinalCluesGuessed.CollectionChanged += FinalCluesGuessed_CollectionChanged;
+
+        Clue2DArray[0, 0] = new ClueClass { Name = "Blue", State = ClueState.Normal };
+        Clue2DArray[0, 1] = new ClueClass { Name = "Cityscape", State = ClueState.Normal };
+        Clue2DArray[0, 2] = new ClueClass { Name = "Wood", State = ClueState.Normal };
+        Clue2DArray[0, 3] = new ClueClass { Name = "Spirals", State = ClueState.Normal };
+
+
+        Clue2DArray[1, 0] = new ClueClass { Name = "Red", State = ClueState.Normal };
+        Clue2DArray[1, 1] = new ClueClass { Name = "Portrait", State = ClueState.Normal };
+        Clue2DArray[1, 2] = new ClueClass { Name = "Copper", State = ClueState.Normal };
+        Clue2DArray[1, 3] = new ClueClass { Name = "Spirals", State = ClueState.Normal };
+
+        Clue2DArray[2, 0] = new ClueClass { Name = "Green", State = ClueState.Normal };
+        Clue2DArray[2, 1] = new ClueClass { Name = "Abstract", State = ClueState.Normal };
+        Clue2DArray[2, 2] = new ClueClass { Name = "Copper", State = ClueState.Normal };
+        Clue2DArray[2, 3] = new ClueClass { Name = "Teeth", State = ClueState.Normal };
+
+        Clue2DArray[3, 0] = new ClueClass { Name = "Red", State = ClueState.Normal };
+        Clue2DArray[3, 1] = new ClueClass { Name = "Abstract", State = ClueState.Normal };
+        Clue2DArray[3, 2] = new ClueClass { Name = "Wood", State = ClueState.Normal };
+        Clue2DArray[3, 3] = new ClueClass { Name = "Spirals", State = ClueState.Normal };
+
+        Clue2DArray[4, 0] = new ClueClass { Name = "Blue", State = ClueState.Normal };
+        Clue2DArray[4, 1] = new ClueClass { Name = "Cityscape", State = ClueState.Normal };
+        Clue2DArray[4, 2] = new ClueClass { Name = "Copper", State = ClueState.Normal };
+        Clue2DArray[4, 3] = new ClueClass { Name = "Teeth", State = ClueState.Normal };
+
+        Clue2DArray[5, 0] = new ClueClass { Name = "Blue", State = ClueState.Normal };
+        Clue2DArray[5, 1] = new ClueClass { Name = "Abstract", State = ClueState.Normal };
+        Clue2DArray[5, 2] = new ClueClass { Name = "Teeth", State = ClueState.Normal };
+        Clue2DArray[5, 3] = new ClueClass { Name = "Technology", State = ClueState.Normal };
+         
     }
 
-    public void Update()
-    { 
-        if (CheckforCorrectSolution()) {
-            Debug.Log("Hurrah You Win!");
+     
+
+    //Function: Populate Text components with modified texts
+    void UpdateTextElementWithClue2DArray()
+    {
+        for (int row = 0; row < 6; row++)
+        {
+            for (int column = 0; column < 4; column++)
+            {
+                if (row == 0)
+                {
+                    Texts1[column].GetComponent<Text>().text = Clue2DArray[row, column].Name;
+                }
+                else if (row == 1)
+                {
+                    Texts2[column].GetComponent<Text>().text = Clue2DArray[row, column].Name;
+                }
+                else if (row == 2)
+                {
+                    Texts3[column].GetComponent<Text>().text = Clue2DArray[row, column].Name;
+                }
+                else if (row == 3)
+                {
+                    Texts4[column].GetComponent<Text>().text = Clue2DArray[row, column].Name;
+                }
+                else if (row == 4)
+                {
+                    Texts5[column].GetComponent<Text>().text = Clue2DArray[row, column].Name;
+                }
+                else if (row == 5)
+                {
+                    Texts6[column].GetComponent<Text>().text = Clue2DArray[row, column].Name;
+                }
+            }
+        }
+    }
+
+    //Function: Check if 2 chosen clues are made per row then strike the rest
+    //Adds to Observable Collection
+    void CheckIf2CluesChosen()
+    {
+        int chosenNum = 0; 
+
+        for (int row = 0; row < 6; row++)
+        {
+            ////Mark chosen ones from Collection
+            //for (int column = 0; column < 4; column++)
+            //{
+            //    if (FinalCluesGuessed.Contains( Clue2DArray[row, column].Name))
+            //    {
+            //        Clue2DArray[row, column].State = ClueState.Chosen;
+            //    }
+            //}
+
+            //Count chosens
+            for (int column = 0; column < 4; column++)
+            {
+                if (Clue2DArray[row, column].State == ClueState.Chosen)
+                {
+                    chosenNum++;
+
+                    //if (row == 4) {
+                    //    Debug.Log(chosenNum+" "+Clue2DArray[row, column].Name);
+                    //}
+                }
+            }
+
+
+            //If 2 chosen then mark rest Striked and add chosens in Collection
+            if (chosenNum == 2)
+            {
+                for (int column = 0; column < 4; column++)
+                {
+                    if (Clue2DArray[row, column].State == ClueState.Normal)
+                    {
+                        //Clue2DArray[row, column].State = ClueState.Striked;
+                        UpdateDependentCluesIn2DArrayClues(Clue2DArray[row, column].Name, ClueState.Striked);
+                    }
+                    else if (Clue2DArray[row, column].State == ClueState.Chosen)
+                    {
+                        if (!FinalCluesGuessed.Contains(CleanString(Clue2DArray[row, column].Name)))
+                        {
+                            FinalCluesGuessed.Add( CleanString(Clue2DArray[row, column].Name));
+                        }
+                    }
+                }
+
+            }
+
+            chosenNum = 0;
         } 
     }
 
-    public bool CheckforCorrectSolution()
-    { 
-        String[] correctClues = { "Blue", "Spirals", "Copper", "Abstract" };
-        String[] cluesFromTextBox = { Regex.Replace(ClueTexts[0].text, "[^a-zA-Z]", ""), Regex.Replace(ClueTexts[1].text, "[^a-zA-Z]", ""), Regex.Replace(ClueTexts[2].text, "[^a-zA-Z]", ""), Regex.Replace(ClueTexts[3].text, "[^a-zA-Z]", "") };
-        
-        if (correctClues.Any(cluesFromTextBox.Contains)) {  return true; }
-        return false;
-    }
 
-    private void CluesGuessed_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    //function: Go through array and do visual according to state
+    private void VisualiseClueTexts()
     {
-        //CluesGuessed = new ObservableCollection<String>(CluesGuessed.Distinct().ToList());
-
-        //Remove clues more than 4
-        int j = FinalCluesGuessed.Count;
-        Debug.Log(j);
-        while (FinalCluesGuessed.Count > 4)
-        {
-            FinalCluesGuessed.RemoveAt(j);
-            j--;
-        }
-
-        Debug.Log("Collection Changed! " + string.Join(", ", FinalCluesGuessed.ToArray()));
-        for (int i = 0; i < FinalCluesGuessed.Count; i++)
-        {
-            Debug.Log("Collection Changed! Inside loop. Size of Clues guessed " + FinalCluesGuessed.Count);
-            ClueTexts[i].text = FinalCluesGuessed[i]; 
-            Debug.Log(ClueTexts[i].text + " Clue text " + i + FinalCluesGuessed[i]);
+        for (int row = 0; row < 6; row++)
+        { 
+            for (int column = 0; column < 4; column++)
+            {
+                if (Clue2DArray[row, column].State == ClueState.Chosen) {
+                    //Add ! to show chosen
+                    if(!Clue2DArray[row, column].Name.Contains("@"))
+                        Clue2DArray[row, column].Name = "@"+Clue2DArray[row, column].Name;
+                }
+                else if (Clue2DArray[row, column].State == ClueState.Normal)
+                { 
+                    //Clean the string 
+                    Clue2DArray[row, column].Name = CleanString(Clue2DArray[row, column].Name);
+                }
+                else if (Clue2DArray[row, column].State == ClueState.Striked)
+                {
+                    //Strike it through
+                    if(!isStriked(Clue2DArray[row, column].Name))
+                        Clue2DArray[row, column].Name = StrikeThrough(Clue2DArray[row, column].Name);
+                } 
+            }
         }
     }
+
+    private string CleanString(string name)
+    {
+        return Regex.Replace(name, "[^a-zA-Z]", "");
+    }
+
+    //Mark clicked clue as Chosen or Normal 
+    public void OnClickClue()
+    {
+        GameObject clueButtonObject = EventSystem.current.currentSelectedGameObject;
+        String clickedClueText = (clueButtonObject.GetComponentInChildren<Text>().text);
+        String parentActofClickedClue = clueButtonObject.transform.parent.name;
+
+        //Find clicked clue in 2Darray
+        int row = Convert.ToInt32( Regex.Match(parentActofClickedClue, @"\d+").Value) - 1;
+        for (int column = 0; column < 4; column++)
+        {
+            if (clickedClueText.Contains(Clue2DArray[row, column].Name))
+            { 
+                if (Clue2DArray[row, column].State == ClueState.Striked)
+                {
+                    //Make all clues in row normal
+                    //Remove Chosen clues from final clue
+                    for (int col = 0; col < 4; col++)
+                    {
+                        UpdateDependentCluesIn2DArrayClues(Clue2DArray[row, col].Name, ClueState.Normal);
+                        //Clue2DArray[row, col].State = ClueState.Normal;
+                        if (FinalCluesGuessed.Contains(Clue2DArray[row, col].Name)) {
+                            Debug.Log("1Removing "+ Clue2DArray[row, col].Name);
+                            FinalCluesGuessed.Remove(Clue2DArray[row, col].Name);
+                        }
+
+                    }
+                } 
+                else if (Clue2DArray[row, column].State == ClueState.Chosen)
+                {
+                    UpdateDependentCluesIn2DArrayClues(Clue2DArray[row, column].Name, ClueState.Normal);
+                    //Clue2DArray[row, column].State = ClueState.Normal;
+                    if (FinalCluesGuessed.Contains(Clue2DArray[row, column].Name)) {
+                        Debug.Log("2Removing " + Clue2DArray[row, column].Name);
+                        FinalCluesGuessed.Remove(Clue2DArray[row, column].Name);
+                    }
+                }
+                else if (Clue2DArray[row, column].State == ClueState.Normal)
+                {
+                    //Clue2DArray[row, column].State = ClueState.Chosen;
+                    UpdateDependentCluesIn2DArrayClues(Clue2DArray[row, column].Name, ClueState.Chosen);
+                }
+            } 
+        }
+         
+        CheckIf2CluesChosen();
+        VisualiseClueTexts();
+        UpdateTextElementWithClue2DArray();
+        //PrintNameStateOfClueArray(5,4);
+    }
+
+    private void UpdateDependentCluesIn2DArrayClues(String clueName, ClueState state)
+    {
+        for (int row = 0; row < 6; row++)
+        {
+            for (int column = 0; column < 4; column++)
+            {
+                if (Clue2DArray[row, column].Name == clueName) {
+                    Clue2DArray[row, column].State = state;
+                }
+            }
+        }
+    }
+
+    void PrintNameStateOfClueArray(int r, int c)
+    {
+        Debug.Log("\n"); Debug.Log("\n");
+        for (int row = 0; row < r; row++)
+        {
+            for (int column = 0; column < c; column++)
+            {
+                Debug.Log(Clue2DArray[row, column].Name + "="+Clue2DArray[row, column].State.ToString());
+            }
+            Debug.Log(" ");
+        }
+    }
+
+
+    private void FinalCluesGuessed_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        //foreach (String s in FinalCluesGuessed)
+        //{
+        //    Debug.Log(FinalCluesGuessed.Count+ " FinalClue " + s );
+        //}
+
+        if (CheckforCorrectSolution()) {
+            Debug.Log("CHAMPION");
+        }
+    }
+
 
     void OnEnable()
     {
@@ -113,7 +325,7 @@ public class ClueNotebook : MonoBehaviour
     }
 
 
-
+    //Activates clues in notebook on collecting
     private bool CheckClueCollectionProgress()
     {
         if (PlayerPrefs.HasKey("ClueFoundAct11")) { Texts1[0].SetActive(true); }
@@ -176,138 +388,8 @@ public class ClueNotebook : MonoBehaviour
 
 
 
-    public void OnClickClue()
-    {
-        GameObject clueButtonObject = EventSystem.current.currentSelectedGameObject;
-        String clickedClueText = ( clueButtonObject.GetComponentInChildren<Text>().text);
-      
-        String parentActofClickedClue = clueButtonObject.transform.parent.name;
 
-        if (parentActofClickedClue == "Act1")
-        {
-
-            if (!Act1ClueChosen.Contains(clickedClueText))
-            {
-                Act1ClueChosen.Add(clickedClueText);
-                if (Act1ClueChosen.Count == 3) { Act1ClueChosen.RemoveAt(0); }
-            }
-            else
-            {
-                Act1ClueChosen.Remove(clickedClueText);
-            }
-
-            TrackActRowForCluesChosen(Act1ClueChosen, Texts1);
-        }
-        else if (parentActofClickedClue == "Act2")
-        {
-
-            if (!Act2ClueChosen.Contains(clickedClueText))
-            {
-                Act2ClueChosen.Add(clickedClueText);
-            }
-            else
-            {
-                Act2ClueChosen.Remove(clickedClueText);
-            }
-
-            TrackActRowForCluesChosen(Act2ClueChosen, Texts2);
-        }
-        else if (parentActofClickedClue == "Act3")
-        {
-
-            if (!Act3ClueChosen.Contains(clickedClueText))
-            {
-                Act3ClueChosen.Add(clickedClueText);
-            }
-            else
-            {
-                Act3ClueChosen.Remove(clickedClueText);
-            }
-
-            TrackActRowForCluesChosen(Act3ClueChosen, Texts3);
-        }
-        else if (parentActofClickedClue == "Act4")
-        {
-
-            if (!Act4ClueChosen.Contains(clickedClueText))
-            {
-                Act4ClueChosen.Add(clickedClueText);
-            }
-            else
-            {
-                Act4ClueChosen.Remove(clickedClueText);
-            }
-
-            TrackActRowForCluesChosen(Act4ClueChosen, Texts4);
-        }
-        else if (parentActofClickedClue == "Act5")
-        {
-
-            if (!Act5ClueChosen.Contains(clickedClueText))
-            {
-                Act5ClueChosen.Add(clickedClueText);
-            }
-            else
-            {
-                Act5ClueChosen.Remove(clickedClueText);
-            }
-
-            TrackActRowForCluesChosen(Act5ClueChosen, Texts5);
-        }
-        else if (parentActofClickedClue == "Act6")
-        {
-
-            if (!Act6ClueChosen.Contains(clickedClueText))
-            {
-                Act6ClueChosen.Add(clickedClueText);
-            }
-            else
-            {
-                Act6ClueChosen.Remove(clickedClueText);
-            }
-
-            TrackActRowForCluesChosen(Act6ClueChosen, Texts6);
-        }
-
-       
-    }
-
-
-    void TrackActRowForCluesChosen(ArrayList actChosenClues, GameObject[] textsFromActRow)
-    {
-        //Debug.Log(string.Join(", ", actChosenClues.ToArray()));
-        if (actChosenClues.Count == 2)
-        {
-            foreach (GameObject t in textsFromActRow)
-            {
-                if (!actChosenClues.Contains(t.GetComponent<Text>().text))
-                {
-                    t.GetComponent<Text>().text = StrikeThrough(t.GetComponent<Text>().text);
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/menuClick");
-                }
-                else
-                {
-                    if (!FinalCluesGuessed.Contains(t.GetComponent<Text>().text))
-                    {
-                        FinalCluesGuessed.Add(t.GetComponent<Text>().text);
-                        Debug.Log("Clues guessed " + string.Join(", ", FinalCluesGuessed.ToArray()));
-                    }
-                }
-            }
-        }
-        else
-        {
-            //unstrike text
-            //foreach (GameObject t in textsFromRow)
-            //{
-            //    Debug.Log("Unstriked word " + UnstrikeThrough(t.GetComponent<Text>().text));
-            //    t.GetComponent<Text>().text = UnstrikeThrough(t.GetComponent<Text>().text);
-            //}
-        }
-    }
-
-   
-
+     
 
 
     public string StrikeThrough(string s)
@@ -320,8 +402,18 @@ public class ClueNotebook : MonoBehaviour
         return strikethrough;
     }
 
+    public bool isStriked(string str)
+    {
+        foreach (char c in str)
+        {
+            if (c == '\u0336')
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
-   
     public string UnstrikeThrough(string str)
     {
         Regex rgx = new Regex("[^a-zA-Z0-9 -]");
@@ -330,13 +422,26 @@ public class ClueNotebook : MonoBehaviour
     }
 
 
-    public void TurnPage6To5()
-    {
-        Animator anim = Book.GetComponent<Animator>();
 
-        anim.SetBool("Turn6to5", true);
-        anim.Play("TurnPage6To5");
+    //This is broken. TODO
+    public bool CheckforCorrectSolution()
+    { 
+        if (FinalCluesGuessed.Contains("Blue"))
+        {
+            if (FinalCluesGuessed.Contains("Spirals"))
+            {
+                if (FinalCluesGuessed.Contains("Copper"))
+                {
+                    if (FinalCluesGuessed.Contains("Abstract"))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
+
 
 }
 
