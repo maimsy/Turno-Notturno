@@ -921,7 +921,18 @@ public class ObjectiveManager : MonoBehaviour
             Invoke("PutPhoneAway", 8f);
             //Disable notebook opening
             StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 12f));
-
+            Invoke("TestFlashlight", 13f);
+        }
+    }
+    private void TestFlashlight()
+    {
+        FlashLight light = FindObjectOfType<FlashLight>();
+        if (light)
+        {
+            if (light.PlayerIsHolding())
+            {
+                FlashLight();
+            }
         }
     }
 

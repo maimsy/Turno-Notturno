@@ -107,6 +107,11 @@ public class FlashLight : BaseInteractable
         else Drop();
     }
 
+    public bool PlayerIsHolding()
+    {
+        return playerIsHolding;
+    }
+
     public override string GetTooltip()
     {
         if (!playerIsHolding) return "Pick up ";
