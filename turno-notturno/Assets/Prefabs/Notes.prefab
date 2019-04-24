@@ -5813,7 +5813,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7392132963203186314}
   - component: {fileID: 7392132963203186356}
-  - component: {fileID: 7392132963203186357}
   m_Layer: 0
   m_Name: Main Camera (1)
   m_TagString: MainCamera
@@ -5877,19 +5876,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &7392132963203186357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7392132963203186315}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ListenerNumber: 0
 --- !u!1 &7392132963282330444
 GameObject:
   m_ObjectHideFlags: 0
@@ -7836,10 +7822,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2262764709498591873}
     m_Modifications:
-    - target: {fileID: 34918854, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
-      propertyPath: m_Name
-      value: notebook (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 2943340082256704567, guid: 7343cb1a12f653b4093a6bdd46ab764f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7909,6 +7891,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 34918854, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
+      propertyPath: m_Name
+      value: notebook (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4105389692439479432, guid: 7343cb1a12f653b4093a6bdd46ab764f,
         type: 3}

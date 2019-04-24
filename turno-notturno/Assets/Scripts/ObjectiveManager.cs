@@ -1060,7 +1060,7 @@ public class ObjectiveManager : MonoBehaviour
             //Working sounds, coughing, (heartbeat?)
             StartCoroutine(FadeOutAndIn(1f));
             Invoke("EnableFinalArtWork", 5);
-            //Camera comes back to storage room
+            Invoke("PlayFinalCinematic", 4.5f); //Camera comes back to storage room
             //Player sees the storage room with the finished artwork and blood around
             //Portrait is placed so that it looks at the artwork with endearing eyes
             //Credits after while
@@ -1071,7 +1071,13 @@ public class ObjectiveManager : MonoBehaviour
     private void EnableFinalArtWork()
     {
         GameObject obj = GameObject.Find("Final_Artwork");
-        if(obj) obj.GetComponent<MeshRenderer>().enabled = true;
+        if (obj) obj.GetComponent<MeshRenderer>().enabled = true;
+    }
+
+    private void PlayFinalCinematic()
+    {
+        GameObject obj = GameObject.Find("FinalCamera");
+        if (obj) obj.SetActive(true);
     }
 
     private void Credits()
