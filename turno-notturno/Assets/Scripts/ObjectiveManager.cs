@@ -504,11 +504,11 @@ public class ObjectiveManager : MonoBehaviour
                     break;
                 case ClueObjective.BallsyPortraitBalls:
                     PlayerPrefs.SetInt("ClueFoundAct32", 1);
-                    PlayDialogue("c04", 0f);
+                    PlayDialogue("c05", 0f);
                     break;
                 case ClueObjective.BallsyPortraitShadow:
                     PlayerPrefs.SetInt("ClueFoundAct33", 1);
-                    PlayDialogue("c05", 0f);
+                    PlayDialogue("c04", 0f);
                     break;
                 case ClueObjective.BallsyPortraitSpiral:
                     PlayerPrefs.SetInt("ClueFoundAct34", 1);
