@@ -30,7 +30,7 @@ public class ClueNotebook : MonoBehaviour
 
     public Text[] ClueTexts;
 
-    public ObservableCollection<String> CluesGuessed = new ObservableCollection<String>();
+    public ObservableCollection<String> FinalCluesGuessed = new ObservableCollection<String>();
 
     public ArrayList Act1ClueChosen = new ArrayList();
     public ArrayList Act2ClueChosen = new ArrayList();
@@ -41,26 +41,22 @@ public class ClueNotebook : MonoBehaviour
 
     private void Start()
     {
-        CluesGuessed.CollectionChanged += CluesGuessed_CollectionChanged;
+        FinalCluesGuessed.CollectionChanged += CluesGuessed_CollectionChanged;
     }
 
     public void Update()
-    {
-        
-
-        
-            Debug.Log(CheckforCorrectSolution());
-        
+    { 
+        if (CheckforCorrectSolution()) {
+            Debug.Log("Hurrah You Win!");
+        } 
     }
 
     public bool CheckforCorrectSolution()
-    {
-        Debug.Log(ClueTexts[0].text+ ClueTexts[1].text+ ClueTexts[2].text+ ClueTexts[3].text );
-        String[] m = { "Blue", "Spirals", "Copper", "Abstract" };
-        String[] clues = { ClueTexts[0].text, ClueTexts[1].text, ClueTexts[2].text, ClueTexts[3].text };
-        bool t = CluesGuessed.Any(x => m.ToList().Contains(x));
-        if (t) { Debug.Log("Hurrah You Win!"); return true; }
-        if (clues.Any(m.Contains)) { Debug.Log("Hurrah You Win!"); return true; }
+    { 
+        String[] correctClues = { "Blue", "Spirals", "Copper", "Abstract" };
+        String[] cluesFromTextBox = { Regex.Replace(ClueTexts[0].text, "[^a-zA-Z]", ""), Regex.Replace(ClueTexts[1].text, "[^a-zA-Z]", ""), Regex.Replace(ClueTexts[2].text, "[^a-zA-Z]", ""), Regex.Replace(ClueTexts[3].text, "[^a-zA-Z]", "") };
+        
+        if (correctClues.Any(cluesFromTextBox.Contains)) {  return true; }
         return false;
     }
 
@@ -69,20 +65,20 @@ public class ClueNotebook : MonoBehaviour
         //CluesGuessed = new ObservableCollection<String>(CluesGuessed.Distinct().ToList());
 
         //Remove clues more than 4
-        int j = CluesGuessed.Count;
+        int j = FinalCluesGuessed.Count;
         Debug.Log(j);
-        while (CluesGuessed.Count > 4)
+        while (FinalCluesGuessed.Count > 4)
         {
-            CluesGuessed.RemoveAt(j);
+            FinalCluesGuessed.RemoveAt(j);
             j--;
         }
 
-        Debug.Log("Collection Changed! " + string.Join(", ", CluesGuessed.ToArray()));
-        for (int i = 0; i < CluesGuessed.Count; i++)
+        Debug.Log("Collection Changed! " + string.Join(", ", FinalCluesGuessed.ToArray()));
+        for (int i = 0; i < FinalCluesGuessed.Count; i++)
         {
-            Debug.Log("Collection Changed! Inside loop. Size of Clues guessed " + CluesGuessed.Count);
-            ClueTexts[i].text = CluesGuessed[i]; 
-            Debug.Log(ClueTexts[i].text + " Clue text " + i + CluesGuessed[i]);
+            Debug.Log("Collection Changed! Inside loop. Size of Clues guessed " + FinalCluesGuessed.Count);
+            ClueTexts[i].text = FinalCluesGuessed[i]; 
+            Debug.Log(ClueTexts[i].text + " Clue text " + i + FinalCluesGuessed[i]);
         }
     }
 
@@ -183,93 +179,91 @@ public class ClueNotebook : MonoBehaviour
     public void OnClickClue()
     {
         GameObject clueButtonObject = EventSystem.current.currentSelectedGameObject;
-       
-        String clueText = clueButtonObject.GetComponentInChildren<Text>().text;
-        Debug.Log("clicked "+ clueText);
+        String clickedClueText = ( clueButtonObject.GetComponentInChildren<Text>().text);
+      
+        String parentActofClickedClue = clueButtonObject.transform.parent.name;
 
-        String par = clueButtonObject.transform.parent.name;
-
-        if (par == "Act1")
+        if (parentActofClickedClue == "Act1")
         {
 
-            if (!Act1ClueChosen.Contains(clueText))
+            if (!Act1ClueChosen.Contains(clickedClueText))
             {
-                Act1ClueChosen.Add(clueText);
+                Act1ClueChosen.Add(clickedClueText);
                 if (Act1ClueChosen.Count == 3) { Act1ClueChosen.RemoveAt(0); }
             }
             else
             {
-                Act1ClueChosen.Remove(clueText);
+                Act1ClueChosen.Remove(clickedClueText);
             }
 
             TrackActRowForCluesChosen(Act1ClueChosen, Texts1);
         }
-        else if (par == "Act2")
+        else if (parentActofClickedClue == "Act2")
         {
 
-            if (!Act2ClueChosen.Contains(clueText))
+            if (!Act2ClueChosen.Contains(clickedClueText))
             {
-                Act2ClueChosen.Add(clueText);
+                Act2ClueChosen.Add(clickedClueText);
             }
             else
             {
-                Act2ClueChosen.Remove(clueText);
+                Act2ClueChosen.Remove(clickedClueText);
             }
 
             TrackActRowForCluesChosen(Act2ClueChosen, Texts2);
         }
-        else if (par == "Act3")
+        else if (parentActofClickedClue == "Act3")
         {
 
-            if (!Act3ClueChosen.Contains(clueText))
+            if (!Act3ClueChosen.Contains(clickedClueText))
             {
-                Act3ClueChosen.Add(clueText);
+                Act3ClueChosen.Add(clickedClueText);
             }
             else
             {
-                Act3ClueChosen.Remove(clueText);
+                Act3ClueChosen.Remove(clickedClueText);
             }
 
             TrackActRowForCluesChosen(Act3ClueChosen, Texts3);
         }
-        else if (par == "Act4")
+        else if (parentActofClickedClue == "Act4")
         {
 
-            if (!Act4ClueChosen.Contains(clueText))
+            if (!Act4ClueChosen.Contains(clickedClueText))
             {
-                Act4ClueChosen.Add(clueText);
+                Act4ClueChosen.Add(clickedClueText);
             }
             else
             {
-                Act4ClueChosen.Remove(clueText);
+                Act4ClueChosen.Remove(clickedClueText);
             }
 
             TrackActRowForCluesChosen(Act4ClueChosen, Texts4);
         }
-        else if (par == "Act5")
+        else if (parentActofClickedClue == "Act5")
         {
 
-            if (!Act5ClueChosen.Contains(clueText))
+            if (!Act5ClueChosen.Contains(clickedClueText))
             {
-                Act5ClueChosen.Add(clueText);
+                Act5ClueChosen.Add(clickedClueText);
             }
             else
             {
-                Act5ClueChosen.Remove(clueText);
+                Act5ClueChosen.Remove(clickedClueText);
             }
 
             TrackActRowForCluesChosen(Act5ClueChosen, Texts5);
         }
-        else if (par == "Act6")
+        else if (parentActofClickedClue == "Act6")
         {
 
-            if (!Act6ClueChosen.Contains(clueText))
+            if (!Act6ClueChosen.Contains(clickedClueText))
             {
-                Act6ClueChosen.Add(clueText);
+                Act6ClueChosen.Add(clickedClueText);
             }
             else
             {
-                Act6ClueChosen.Remove(clueText);
+                Act6ClueChosen.Remove(clickedClueText);
             }
 
             TrackActRowForCluesChosen(Act6ClueChosen, Texts6);
@@ -279,12 +273,12 @@ public class ClueNotebook : MonoBehaviour
     }
 
 
-    void TrackActRowForCluesChosen(ArrayList actChosenClues, GameObject[] textsFromRow)
+    void TrackActRowForCluesChosen(ArrayList actChosenClues, GameObject[] textsFromActRow)
     {
-        Debug.Log(string.Join(", ", actChosenClues.ToArray()));
+        //Debug.Log(string.Join(", ", actChosenClues.ToArray()));
         if (actChosenClues.Count == 2)
         {
-            foreach (GameObject t in textsFromRow)
+            foreach (GameObject t in textsFromActRow)
             {
                 if (!actChosenClues.Contains(t.GetComponent<Text>().text))
                 {
@@ -293,10 +287,10 @@ public class ClueNotebook : MonoBehaviour
                 }
                 else
                 {
-                    if (!CluesGuessed.Contains(t.GetComponent<Text>().text))
+                    if (!FinalCluesGuessed.Contains(t.GetComponent<Text>().text))
                     {
-                        CluesGuessed.Add(t.GetComponent<Text>().text);
-                        Debug.Log("Clues guessed " + string.Join(", ", CluesGuessed.ToArray()));
+                        FinalCluesGuessed.Add(t.GetComponent<Text>().text);
+                        Debug.Log("Clues guessed " + string.Join(", ", FinalCluesGuessed.ToArray()));
                     }
                 }
             }
@@ -306,7 +300,7 @@ public class ClueNotebook : MonoBehaviour
             //unstrike text
             //foreach (GameObject t in textsFromRow)
             //{
-            //    Debug.Log("Unstriked word "+UnstrikeThrough(t.GetComponent<Text>().text));
+            //    Debug.Log("Unstriked word " + UnstrikeThrough(t.GetComponent<Text>().text));
             //    t.GetComponent<Text>().text = UnstrikeThrough(t.GetComponent<Text>().text);
             //}
         }
@@ -327,13 +321,12 @@ public class ClueNotebook : MonoBehaviour
     }
 
 
-    //TODO
-    public string UnstrikeThrough(string s)
+   
+    public string UnstrikeThrough(string str)
     {
-        string strikethrough = "";
         Regex rgx = new Regex("[^a-zA-Z0-9 -]");
-        strikethrough = s.Replace(s, "");
-        return strikethrough;
+        str = rgx.Replace(str, "");
+        return str;
     }
 
 
