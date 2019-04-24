@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject finalPuzzle;
     public GameObject Notes;
     private bool isBookOpen = false;
+    private bool canOpenBook = true;
 
     [Serializable]
     public struct SceneStatePair
@@ -68,7 +69,7 @@ public class GameManager : MonoBehaviour
             SetPaused(!paused);
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && canOpenBook)
         {
             OpenCloseBook();
         }
@@ -85,6 +86,10 @@ public class GameManager : MonoBehaviour
     public bool IsPaused()
     {
         return paused;
+    }
+    public void CanOpenBook(bool can)
+    {
+        canOpenBook = can;
     }
 
     public void SetPaused(bool value)

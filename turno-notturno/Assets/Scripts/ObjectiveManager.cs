@@ -965,6 +965,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         GameObject thunder = GetObject("ThunderManager");
         if (thunder) thunder.GetComponent<ThunderManager>().StartStorm();
+        GameManager.GetInstance().CanOpenBook(false);
     }
 
     private void EndStorm()
@@ -1062,6 +1063,7 @@ public class ObjectiveManager : MonoBehaviour
                 StartCoroutine(NewObjective("storage2", "Go to the storage room", 1, delayTime*2));
                 GameObject obj = GetObject("RoomTrigger3");
                 if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+                GameManager.GetInstance().CanOpenBook(true);
             }
         }
     }
@@ -1101,6 +1103,8 @@ public class ObjectiveManager : MonoBehaviour
     {
         GameObject obj = GameObject.Find("Final_Artwork");
         if (obj) obj.GetComponent<MeshRenderer>().enabled = true;
+        obj = GameObject.Find("box_coppers");
+        if (obj) obj.GetComponent<MeshRenderer>().enabled = false;
     }
 
     private void PlayFinalCinematic()

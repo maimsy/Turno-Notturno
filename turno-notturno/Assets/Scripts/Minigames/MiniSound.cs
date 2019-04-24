@@ -53,15 +53,15 @@ public class MiniSound : MonoBehaviour
                     manager.act1Alarm.sound.GetComponent<StudioEventEmitter>().EventInstance.setVolume(0f);
                     break;
                 case 2:
-                    //angle = PlayerPrefs.GetFloat("act2angle");
-                   // dist = PlayerPrefs.GetFloat("act2distance");
-                    //z = dist * Mathf.Cos(angle * Mathf.Deg2Rad);
-                   // x = dist * Mathf.Sin(angle * Mathf.Deg2Rad);
-                   // pos = new Vector3(Camera.main.transform.position.x + x,
-                       // Camera.main.transform.position.y, Camera.main.transform.position.z + z);
+                    angle = PlayerPrefs.GetFloat("act2angle");
+                    dist = PlayerPrefs.GetFloat("act2distance");
+                    z = dist * Mathf.Cos(angle * Mathf.Deg2Rad);
+                    x = dist * Mathf.Sin(angle * Mathf.Deg2Rad);
+                    pos = new Vector3(Camera.main.transform.position.x + x,
+                    Camera.main.transform.position.y, Camera.main.transform.position.z + z);
                     manager.ActivateAlarm(AlarmManager.Act.act_2);
                     manager.act2Alarm.light.SetActive(false);
-                   // manager.act2Alarm.sound.transform.parent.position = pos;
+                    manager.act2Alarm.sound.transform.parent.position = pos;
                     manager.act2Alarm.sound.GetComponent<StudioEventEmitter>().EventInstance.setVolume(0f);
                     break;
                 case 3:
@@ -119,6 +119,7 @@ public class MiniSound : MonoBehaviour
         if(collision.tag == "Player")
         {
             SetSoundPosition();
+            Debug.Log("WHY");
         }
     }
 }
