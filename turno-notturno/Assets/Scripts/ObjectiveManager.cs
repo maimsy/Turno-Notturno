@@ -1105,7 +1105,7 @@ public class ObjectiveManager : MonoBehaviour
     private void PlayFinalCinematic()
     {
         GameObject obj = GameObject.Find("FinalCamera");
-        if (obj) obj.SetActive(true);
+        if (obj) obj.GetComponent<PlayableDirector>().Play();
     }
 
     private void Credits()
