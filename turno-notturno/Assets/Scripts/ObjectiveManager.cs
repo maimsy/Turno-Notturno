@@ -21,6 +21,9 @@ public class ObjectiveManager : MonoBehaviour
     private int act2ArtVoiceline = 0;
     private AlarmManager alarmManager;
     private DisappearingUI clueTip;
+    private FMOD.Studio.EventInstance heartbeat;
+
+    public bool raulitest = false;
 
     public enum ClueObjective
     {
@@ -90,9 +93,89 @@ public class ObjectiveManager : MonoBehaviour
 
     }
 
+    private void SetLights(string tag, bool value)
+    {
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag(tag))
+        {
+            Light light = obj.GetComponent<Light>();
+            if (light) light.enabled = value;
+        }
+    }
+
+    private void EnableAct1Lights()
+    {
+        SetLights("Room1", true); // Art room downstairs
+        SetLights("Room2", false);  // Video room
+        SetLights("Room3", false);  // Painting room
+        SetLights("Room4", false);  // Upstairs hallway
+        SetLights("Room5", false);  // Upstairs sculpture room
+        SetLights("Room6", true); // Guard room
+        SetLights("Room7", true); // Main lobby
+        SetLights("Room8", true); // Storage
+        SetLights("TurnON", false); // Dim lights during thunderstorm?
+    }
+
+    private void EnableAct2Lights()
+    {
+        SetLights("Room1", true); // Art room downstairs
+        SetLights("Room2", false);  // Video room
+        SetLights("Room3", true);  // Painting room
+        SetLights("Room4", false);  // Upstairs hallway
+        SetLights("Room5", true);  // Upstairs sculpture room
+        SetLights("Room6", true); // Guard room
+        SetLights("Room7", true); // Main lobby
+        SetLights("Room8", true); // Storage
+        SetLights("TurnON", false); // Dim lights during thunderstorm?
+    }
+
+    private void EnableAct3Lights()
+    {
+        SetLights("Room1", true); // Art room downstairs
+        SetLights("Room2", false);  // Video room
+        SetLights("Room3", true);  // Painting room
+        SetLights("Room4", true);  // Upstairs hallway
+        SetLights("Room5", true);  // Upstairs sculpture room
+        SetLights("Room6", true); // Guard room
+        SetLights("Room7", true); // Main lobby
+        SetLights("Room8", true); // Storage
+        SetLights("TurnON", false); // Dim lights during thunderstorm?
+    }
+
+    public void TurnLightsOff()
+    {
+        GameObject[] lights = GameObject.FindGameObjectsWithTag("Light");
+        foreach (GameObject light in lights)
+        {
+            light.SetActive(false);
+        }
+        lights = GameObject.FindGameObjectsWithTag("TurnON");
+        foreach (GameObject light in lights)
+        {
+            light.GetComponent<Light>().enabled = true;
+        }
+        GameObject manager = GetObject("ScribbleManager");
+        foreach (Transform child in manager.transform)
+        {
+            child.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+        }
+
+        // Disable lightmaps for all objects
+        //LightmapSettings.lightmaps = new LightmapData[0];
+        foreach (Renderer rend in FindObjectsOfType<Renderer>())
+        {
+            rend.lightmapIndex = -1;
+        }
+
+        GameObject obj = GetObject("Plane"); // Disable computer screen - didn't want to edit scene to add Light-tag
+        if (obj) obj.SetActive(false);
+    }
+
+
     // set up objectives for act 1
     private void Act1()
     {
+        // Heartbeat();
+        EnableAct1Lights();
         windowBars = new List<GameObject>();
         GameObject obj = GetObject("windows_bars_art_room");
         if (obj) windowBars.Add(obj);
@@ -147,7 +230,7 @@ public class ObjectiveManager : MonoBehaviour
     // set up objectives for act 2
     private void Act2()
     {
-        
+        EnableAct2Lights();
         PlayDialogue("13", 2f, abortPrevious: false);
         PlayDialogue("14", 7f, abortPrevious: false);
         StartCoroutine(NewObjective("room2", "Check the alarm", 1, delayTime));
@@ -189,11 +272,42 @@ public class ObjectiveManager : MonoBehaviour
         //TurnLightsOff();
         //Invoke("TurnLightsOff", 1f);
         //Invoke("PlayFinalCinematic", 5f);
+        EnableAct3Lights();
+        if (raulitest)
+        {
+
+            StartCoroutine(NewObjective("storage2", "Go to the storage room", 1, delayTime));
+            GameObject obj1 = GetObject("RoomTrigger3");
+            if (obj1) obj1.GetComponent<BoxCollider>().enabled = true;
+            GameManager.GetInstance().CanOpenBook(true);
+            Invoke("TurnLightsOff", 0);
+            Invoke("StartStorm", 0);
+            //phone dies because of batteries run out
+            //HeartBeat sound from minigame comes back
+            Invoke("StartVideo", 0);
+            
+        }
+        else
+        {
+            PlayDialogue("25", 1f);
+            PlayDialogue("25b", 5f);
+            StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
+            if (alarmManager)
+            {
+                if (!alarmManager.act3Alarm.sound.GetComponent<StudioEventEmitter>().IsPlaying())
+                {
+                    alarmManager.ActivateAlarm(AlarmManager.Act.act_3);
+                }
+                alarmManager.ResetPositions();
+            }
+            else
+            {
+                Debug.LogError("Alarm manager is missing!");
+            }
+        }
         MouthArtWork robot = FindObjectOfType<MouthArtWork>();
         if (robot) robot.disabled = false;
-        PlayDialogue("25", 1f);
-        PlayDialogue("26", 5f);
-        StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
+        
         DropPaintings(false);
         ScatterTeeth();
         GameObject obj = GetObject("WakeUpPosition_Act3");
@@ -202,6 +316,10 @@ public class ObjectiveManager : MonoBehaviour
             FindObjectOfType<Player>().transform.position = obj.transform.position;
             FindObjectOfType<Player>().RotateTo(obj.transform.rotation);
         }
+        obj = GetObject("flashlight_01");
+        if (obj) obj.GetComponent<FlashLight>().SwitchOn(true);
+        obj = GetObject("Act3VoicelineTrigger");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         obj = GetObject("bleach_01");
         if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
         obj = GetObject("ammonia_01");
@@ -223,18 +341,7 @@ public class ObjectiveManager : MonoBehaviour
             obj.transform.rotation = pos.transform.rotation;
             //obj.GetComponent<Interactable>().isInteractable = true;
         }
-        if (alarmManager)
-        {
-            if (!alarmManager.act3Alarm.sound.GetComponent<StudioEventEmitter>().IsPlaying())
-            {
-                alarmManager.ActivateAlarm(AlarmManager.Act.act_3);
-            }
-            alarmManager.ResetPositions();
-        }
-        else
-        {
-            Debug.LogError("Alarm manager is missing!");
-        }
+        
         obj = GetObject("ScribbleManager");
         if (obj) obj.GetComponent<ScribbleManager>().ScribbleOnFloor();
     }
@@ -439,6 +546,8 @@ public class ObjectiveManager : MonoBehaviour
 
     public void InspectCluesGlobal(ClueObjective objective)
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/menuClick");
+
         // Act 1
         string s = ClueToString(objective);
 
@@ -674,7 +783,8 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("pills1"))
         {
-            PlayDialogue("12", 0f);
+            //PlayDialogue("12", 0f);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/fx/pills");
             //fall asleep for act 2 minigame 
             GameObject obj = GetObject("FadeOut");
             if (obj) obj.GetComponent<FadeIn>().enabled = true;
@@ -771,14 +881,14 @@ public class ObjectiveManager : MonoBehaviour
         if (obj)
         {
             obj.GetComponent<StudioEventEmitter>().Play();
-            obj.transform.GetChild(0).gameObject.SetActive(true);
         }
         obj = GetObject("bleach_01");
-        if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
+        if (obj)
+        {
+            obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
+        }
         obj = GetObject("ammonia_01");
         if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
-        obj = GetObject("fume");
-        if (obj) obj.GetComponent<ParticleSystem>().Play();
         GameObject pos = GetObject("FlashLightPos_Act3");
         obj = GetObject("flashlight_01");
         if (obj && pos)
@@ -792,8 +902,6 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("19", 1f, abortPrevious: false);
         obj = GetObject("RoomTrigger3");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
-        obj = GetObject("bleach_01");
-        if (obj) obj.GetComponent<StudioEventEmitter>().Play();
     }
 
     //player arrives to the storage room
@@ -811,12 +919,26 @@ public class ObjectiveManager : MonoBehaviour
                 obj.GetComponent<Door>().SlamClose();
                 obj.GetComponent<Door>().locked = true;
             }
+            obj = GetObject("fume");
+            if (obj) obj.GetComponent<ParticleSystem>().Play();
+            obj = GetObject("bleach_01");
+            if (obj)
+            {
+                obj.GetComponent<StudioEventEmitter>().Play();
+            }
             Invoke("Dizzyness", 8f);
             PlayDialogue("23", 12f, abortPrevious: false);
-            StartCoroutine(FadeToNextScene(20f));
-            Invoke("StopDizzyness", 24f);
+            Invoke("Heartbeat", 12f);
+            StartCoroutine(FadeToNextScene(22f));
+            Invoke("StopDizzyness", 26f);
             PlayDialogue("w06", 18f, abortPrevious: false);
         }
+    }
+
+    private void Heartbeat()
+    {
+        heartbeat = FMODUnity.RuntimeManager.CreateInstance("event:/heartbeat");
+        heartbeat.start();
     }
 
     private void Dizzyness()
@@ -827,6 +949,7 @@ public class ObjectiveManager : MonoBehaviour
     private void StopDizzyness()
     {
         FindObjectOfType<DizzyEffect1>().EndDizzy();
+        heartbeat.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
     //Enters the middle area upstairs
     public void Room3()
@@ -839,6 +962,7 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Room3Objectives()
     {
+        PlayDialogue("26", 1f);
         StartCoroutine(NewObjective("alarm3", "Turn off the alarm", 1, 0));
         StartCoroutine(NewObjective("artpiece3", "Find the cause of the alarm", 2, delayTime));
         string[] names = { "alarm3", "artpiece3" };
@@ -974,29 +1098,7 @@ public class ObjectiveManager : MonoBehaviour
         if (thunder) thunder.GetComponent<ThunderManager>().EndStorm();
     }
 
-    public void TurnLightsOff()
-    {
-        GameObject[] lights = GameObject.FindGameObjectsWithTag("Light");
-        foreach (GameObject light in lights)
-        {
-            light.SetActive(false);
-        }
-        GameObject manager = GetObject("ScribbleManager");
-        foreach(Transform child in manager.transform)
-        {
-            child.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
-        }
-
-        // Disable lightmaps for all objects
-        //LightmapSettings.lightmaps = new LightmapData[0];
-        foreach (Renderer rend in FindObjectsOfType<Renderer>())
-        {
-            rend.lightmapIndex = -1;
-        }
-
-        GameObject obj = GetObject("Plane"); // Disable computer screen - didn't want to edit scene to add Light-tag
-        if (obj) obj.SetActive(false);
-    }
+    
 
     private void FootStepStart()
     {
@@ -1024,11 +1126,16 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("flashlight"))
         {
-            GameObject obj = GetObject("RoomTrigger5");
-            if (obj) obj.GetComponent<BoxCollider>().enabled = true; 
             StartCoroutine(NewObjective("room4", "Check the noise", 1, delayTime));
+            Invoke("EnableRoomTrigger5", delayTime);
         }
      }
+    private void EnableRoomTrigger5()
+    {
+        GameObject obj = GetObject("RoomTrigger5");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+    }
+
 
     public void Room4()
     {
@@ -1089,22 +1196,28 @@ public class ObjectiveManager : MonoBehaviour
             //THunderstorm fades
             EndStorm();
             //Working sounds, coughing, (heartbeat?)
-            StartCoroutine(FadeOutAndIn(1f));
+            StartCoroutine(FadeOutAndIn(1f, 10f));
             Invoke("EnableFinalArtWork", 5);
-            Invoke("PlayFinalCinematic", 4.5f); //Camera comes back to storage room
+            Invoke("PlayFinalCinematic", 15f); //Camera comes back to storage room
             //Player sees the storage room with the finished artwork and blood around
             //Portrait is placed so that it looks at the artwork with endearing eyes
             //Credits after while
-            Invoke("Credits", 10f);
+            StartCoroutine(FadeToNextScene(40f));
+            Invoke("Credits", 44f);
         }
     }
 
     private void EnableFinalArtWork()
     {
+
+        FMODUnity.RuntimeManager.PlayOneShot("event:/endMusic");
         GameObject obj = GameObject.Find("Final_Artwork");
         if (obj) obj.GetComponent<MeshRenderer>().enabled = true;
         obj = GameObject.Find("box_coppers");
-        if (obj) obj.GetComponent<MeshRenderer>().enabled = false;
+        if (obj) obj.SetActive(false);
+        obj = GetObject("flashlight_01");
+        if (obj) obj.SetActive(false);
+
     }
 
     private void PlayFinalCinematic()
@@ -1217,11 +1330,16 @@ public class ObjectiveManager : MonoBehaviour
     private IEnumerator FadeToNextScene(float delay)
     {
         yield return new WaitForSeconds(delay);
+        Debug.Log("fadinnn");
         GameObject obj = GetObject("FadeOut");
-        if(obj) obj.GetComponent<FadeIn>().enabled = true;
+        if (obj)
+        {
+            obj.GetComponent<FadeIn>().enabled = true;
+            obj.GetComponent<FadeIn>().Reset();
+        }
     }
 
-    private IEnumerator FadeOutAndIn(float delay)
+    private IEnumerator FadeOutAndIn(float delay, float timeBlack)
     {
         yield return new WaitForSeconds(delay);
         GameObject obj = GetObject("FadeOut");
@@ -1229,6 +1347,8 @@ public class ObjectiveManager : MonoBehaviour
         {
             obj.GetComponent<FadeIn>().enabled = true;
             obj.GetComponent<FadeIn>().changeSceneAfterDone = false;
+            obj.GetComponent<FadeIn>().SetTimeBlack(timeBlack);
+            obj.GetComponent<FadeIn>().Reset();
         }
     }
 
@@ -1341,6 +1461,9 @@ public class ObjectiveManager : MonoBehaviour
                 break;
             case "25":
                 dialogueMessage = "Still having those weird dreams...";
+                break;
+            case "25b":
+                dialogueMessage = "That writing...I must be going crazy.";
                 break;
             case "26":
                 dialogueMessage = "Why does this keep happening?";//"What the hell. I’m tired of this.\r\n(shouting) Wherever you are, come out!!";

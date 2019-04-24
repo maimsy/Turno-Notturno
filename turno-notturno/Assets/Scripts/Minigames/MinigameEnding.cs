@@ -21,17 +21,14 @@ public class MinigameEnding : MonoBehaviour
     {
         if(ending)
         {
-            if (Input.GetKeyUp(KeyCode.Mouse0))
+            ending = false;
+            if (winning)
             {
-                ending = false;
-                if (winning)
-                {
-                    LoadNextScene();
-                }
-                else
-                {
-                    Restart();
-                }
+                LoadNextScene();
+            }
+            else
+            {
+                Restart();
             }
         }
     }
@@ -50,25 +47,17 @@ public class MinigameEnding : MonoBehaviour
     public void EndGame(bool win)
     {
         //player won the minigame
-
-        FadeIn fadeIn = GameObject.Find("FadeOut").GetComponent<FadeIn>();
-        fadeIn.enabled = true;
-        if (win)
+        if (win && FindObjectOfType<EnvironmentMove>().GetState() != EnvironmentMove.MinigameState.behind)
         {
             //infoText.GetComponent<Text>().text = "You win!! Left click to continue";
             //infoText.SetActive(true);
             //Invoke("LoadNextScene", 4f);
             //enabled = false; // Avoid ending game multiple times
+            FadeIn fadeIn = GameObject.Find("FadeOut").GetComponent<FadeIn>();
+            fadeIn.enabled = true;
             fadeIn.changeSceneAfterDone = true;
         }
         //he lost
-        else
-        {
-            //infoText.GetComponent<Text>().text = "You lost.. Left click to restart";
-            //infoText.SetActive(true);
-            Invoke("Restart", 4f);
-            fadeIn.changeSceneAfterDone = false;
-        }
         //winning = win;
         //ending = true;
     }

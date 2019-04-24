@@ -251,7 +251,7 @@ public class Inspectable : BaseInteractable
         Player player = FindObjectOfType<Player>();
         if (player)
         {
-            player.SetTooltip2("Right click to exit");
+            player.SetTooltip2("Right click to exit\nHold Space to zoom");
         }
     }
 

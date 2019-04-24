@@ -66337,10 +66337,20 @@ PrefabInstance:
       propertyPath: m_FontData.m_FontStyle
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7265320030908201131, guid: d48a6771dd082b8459b8f42db5f2ee94,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265320030908201131, guid: d48a6771dd082b8459b8f42db5f2ee94,
+        type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 7265320030908201129, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
       propertyPath: lifeTime
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d48a6771dd082b8459b8f42db5f2ee94, type: 3}
@@ -71877,6 +71887,7 @@ GameObject:
   - component: {fileID: 1213564254}
   - component: {fileID: 1213564258}
   - component: {fileID: 1213564257}
+  - component: {fileID: 1213564259}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -72035,6 +72046,29 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 1
       enableBigTilePrepass: 1
       isFptlEnabled: 1
+--- !u!114 &1213564259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213564253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/minigameNoInk
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &1217493040
 GameObject:
   m_ObjectHideFlags: 0
@@ -88305,7 +88339,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1559506722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.65, y: -1.85, z: 0}
+  m_LocalPosition: {x: -6.49, y: -1.31, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 1}
   m_Children:
   - {fileID: 340080001}
@@ -88327,6 +88361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   reDragging: 0
+  animator: {fileID: 0}
 --- !u!114 &1559506729
 MonoBehaviour:
   m_ObjectHideFlags: 0

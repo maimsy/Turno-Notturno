@@ -8,6 +8,7 @@ public class P2Dmovement : MonoBehaviour
 {
     public float speed = 2f;
     [SerializeField] bool reDragging = false;
+    [SerializeField] Animator animator;
     private GameObject goal;
     private Vector2 losingXY;
 
@@ -15,8 +16,9 @@ public class P2Dmovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //animator.pla
         GetComponent<Rigidbody2D>().velocity = new Vector2(speed, GetComponent<Rigidbody2D>().velocity.y);
-        
+        GetComponentInChildren<Animator>().speed = 1;
     }
 
     // Update is called once per frame
@@ -25,12 +27,16 @@ public class P2Dmovement : MonoBehaviour
         Move();
         Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(-50, 0, 10));
         losingXY = new Vector2(pos.x, pos.y);
-        if (transform.position.x < losingXY.x || transform.position.y < losingXY.y)
+        if (transform.position.x < losingXY.x)
         {
             //GetComponent<MinigameEnding>().EndGame(false);
             //enabled = false;
  
-                FindObjectOfType<EnvironmentMove>().SmoothReset();
+            FindObjectOfType<EnvironmentMove>().SmoothReset(EnvironmentMove.MinigameState.behind);
+        }
+        if(transform.position.y < losingXY.y)
+        {
+            FindObjectOfType<EnvironmentMove>().SmoothReset(EnvironmentMove.MinigameState.falling);
         }
     }
 
@@ -72,7 +78,10 @@ public class P2Dmovement : MonoBehaviour
                 DrawingLogic logic = GetComponent<DrawingLogic>();
                 scribbleManager.SaveString(logic.GetLetters(), logic.GetPositions());
             }
-            enabled = false;
+            if(FindObjectOfType<EnvironmentMove>().GetState() != EnvironmentMove.MinigameState.behind)
+            {
+                enabled = false;
+            }
         }
     } 
 }
