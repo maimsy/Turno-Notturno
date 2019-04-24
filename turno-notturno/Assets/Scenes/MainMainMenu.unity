@@ -259,19 +259,19 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: b54db2d64b087e04c8ee7edc876b79cd, type: 3}
-    m_FontSize: 50
+    m_Font: {fileID: 12800000, guid: b3f146334ed7b3c488085d26e842b56a, type: 3}
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 50
+    m_MinSize: 1
+    m_MaxSize: 100
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Quit
+  m_Text: "E\u0336x\u0336i\u0336t\u0336"
 --- !u!222 &152244168
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -579,19 +579,19 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: b54db2d64b087e04c8ee7edc876b79cd, type: 3}
-    m_FontSize: 50
+    m_Font: {fileID: 12800000, guid: b3f146334ed7b3c488085d26e842b56a, type: 3}
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 50
+    m_MinSize: 1
+    m_MaxSize: 100
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Continue
+  m_Text: "C\u0336o\u0336n\u0336t\u0336i\u0336n\u0336u\u0336e\u0336"
 --- !u!222 &410591748
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -840,7 +840,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &514134305
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1482,7 +1482,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1588551053
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1556,7 +1556,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1624742863
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1842,9 +1842,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c8a3b50a70cff4da097ba793604543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ArrowImage1: {fileID: 1588551052}
-  ArrowImage2: {fileID: 1624742862}
-  ArrowImage3: {fileID: 514134304}
   StartButton: {fileID: 1986474424}
   ContinueButton: {fileID: 2012073371}
   OptionsButton: {fileID: 1033735850}
@@ -2191,12 +2188,12 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: b54db2d64b087e04c8ee7edc876b79cd, type: 3}
-    m_FontSize: 50
+    m_Font: {fileID: 12800000, guid: b3f146334ed7b3c488085d26e842b56a, type: 3}
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 50
+    m_MinSize: 1
+    m_MaxSize: 100
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
