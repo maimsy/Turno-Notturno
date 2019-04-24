@@ -1130,7 +1130,7 @@ public class ObjectiveManager : MonoBehaviour
         if (UpdateProgress("flashlight"))
         {
             StartCoroutine(NewObjective("room4", "Check the noise", 1, delayTime));
-            Invoke("EnableRoomTrigger5", delayTime);
+            Invoke("EnableRoomTrigger5", delayTime+1);
         }
      }
     private void EnableRoomTrigger5()
@@ -1144,25 +1144,19 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("room4"))
         {
-            StartCoroutine(NewObjective("artpiece4", "Analyze the artwork", 1, delayTime));
+            //StartCoroutine(NewObjective("artpiece4", "Analyze the artwork", 1, delayTime));
+            AddClue6Objectives();
         }
     }
 
     public void InspectPainting4()
     {
-        if (objectives.ContainsKey("artpiece4"))
+        if (objectives.ContainsKey("clue6"))
         {
-
-            if (UpdateProgress("artpiece4"))
-            {
-                PlayDialogue("w11", 2f, abortPrevious: false);
-                PlayDialogue("36b", 2f, abortPrevious: false);
-                //AddClue6Objectives();
-                InspectCluesGlobal(ClueObjective.VideoPart1);
-                InspectCluesGlobal(ClueObjective.VideoPart2);
-                InspectCluesGlobal(ClueObjective.VideoPart3);
-                StartCoroutine(NewObjective("notebook", "Check the notebook", 1, delayTime*2));
-            }
+            InspectCluesGlobal(ClueObjective.VideoPart1);
+            PlayDialogue("w11", 2f, abortPrevious: false);
+            PlayDialogue("36b", 2f, abortPrevious: false);
+            StartCoroutine(NewObjective("notebook", "Check the notebook", 1, delayTime*2));
         }
     }
 
