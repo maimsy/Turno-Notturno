@@ -18,7 +18,7 @@ public class P2Dmovement : MonoBehaviour
     {
         //animator.pla
         GetComponent<Rigidbody2D>().velocity = new Vector2(speed, GetComponent<Rigidbody2D>().velocity.y);
-        
+        GetComponentInChildren<Animator>().speed = 1;
     }
 
     // Update is called once per frame
