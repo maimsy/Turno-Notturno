@@ -192,8 +192,11 @@
         </relationship>
     </object>
     <object class="SpatialiserEffect" id="{68793b1f-62c5-43d1-916b-a759f47299c2}">
+        <property name="distanceRolloffType">
+            <value>1</value>
+        </property>
         <property name="maximumDistance">
-            <value>50</value>
+            <value>85</value>
         </property>
     </object>
     <object class="SingleSound" id="{9974ed7a-bd6b-4bf4-a1f9-b73d4b606759}">
