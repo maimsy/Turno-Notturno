@@ -996,7 +996,7 @@ public class ObjectiveManager : MonoBehaviour
             if (whichPainting == 0)
             {
                 PlayDialogue("w07", 1f, abortPrevious: false);
-                PlayDialogue("28", 2f, abortPrevious: false);
+                //PlayDialogue("28", 2f, abortPrevious: false);
                 AddClue4Objectives();
             }
             if (whichPainting == 1)
@@ -1157,7 +1157,10 @@ public class ObjectiveManager : MonoBehaviour
             {
                 PlayDialogue("w11", 2f, abortPrevious: false);
                 PlayDialogue("36b", 2f, abortPrevious: false);
-                AddClue6Objectives();
+                //AddClue6Objectives();
+                InspectCluesGlobal(ClueObjective.VideoPart1);
+                InspectCluesGlobal(ClueObjective.VideoPart2);
+                InspectCluesGlobal(ClueObjective.VideoPart3);
                 StartCoroutine(NewObjective("notebook", "Check the notebook", 1, delayTime*2));
             }
         }
