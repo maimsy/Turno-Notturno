@@ -170,6 +170,64 @@ public class ClueNotebook : MonoBehaviour
         } 
     }
 
+    void ButtonUpdate(string clueName, bool isUnderline) {
+        clueName = CleanString(clueName);
+        foreach (GameObject t in Texts1) {
+            if (CleanString(t.GetComponent<Text>().text) == (clueName)) { 
+                    t.GetComponentInParent<Image>().enabled = isUnderline;
+                break;
+            }
+        }
+        foreach (GameObject t in Texts1)
+        {
+            if (CleanString(t.GetComponent<Text>().text) == (clueName))
+            {
+                t.GetComponentInParent<Image>().enabled = isUnderline;
+                break;
+            }
+        }
+        foreach (GameObject t in Texts2)
+        {
+            if (CleanString(t.GetComponent<Text>().text) == (clueName))
+            {
+                t.GetComponentInParent<Image>().enabled = isUnderline;
+                break;
+            }
+        }
+        foreach (GameObject t in Texts3)
+        {
+            if (CleanString(t.GetComponent<Text>().text) == (clueName))
+            {
+                t.GetComponentInParent<Image>().enabled = isUnderline;
+                break;
+            }
+        }
+        foreach (GameObject t in Texts4)
+        {
+            if (CleanString(t.GetComponent<Text>().text) == (clueName))
+            {
+                t.GetComponentInParent<Image>().enabled = isUnderline;
+                break;
+            }
+        }
+        foreach (GameObject t in Texts5)
+        {
+            if (CleanString(t.GetComponent<Text>().text) == (clueName))
+            {
+                t.GetComponentInParent<Image>().enabled = isUnderline;
+                break;
+            }
+        }
+        foreach (GameObject t in Texts6)
+        {
+            if (CleanString(t.GetComponent<Text>().text) == (clueName))
+            {
+                t.GetComponentInParent<Image>().enabled = isUnderline;
+                break;
+            }
+        }
+
+    }
 
     //function: Go through array and do visual according to state
     private void VisualiseClueTexts()
@@ -180,13 +238,18 @@ public class ClueNotebook : MonoBehaviour
             {
                 if (Clue2DArray[row, column].State == ClueState.Chosen) {
                     //Add ! to show chosen
-                    if(!Clue2DArray[row, column].Name.Contains("@"))
-                        Clue2DArray[row, column].Name = "@"+Clue2DArray[row, column].Name;
+                    //////if(!Clue2DArray[row, column].Name.Contains("@"))
+                    //////    Clue2DArray[row, column].Name = "@"+Clue2DArray[row, column].Name;
+                     
+                    //Find the button for the chosen clue and enable its image
+                    ButtonUpdate(Clue2DArray[row, column].Name, true); 
                 }
                 else if (Clue2DArray[row, column].State == ClueState.Normal)
                 { 
                     //Clean the string 
-                    Clue2DArray[row, column].Name = CleanString(Clue2DArray[row, column].Name);
+                    Clue2DArray[row, column].Name = CleanString(Clue2DArray[row, column].Name); 
+                    //Remove Underline from clue
+                    ButtonUpdate(Clue2DArray[row, column].Name, false);
                 }
                 else if (Clue2DArray[row, column].State == ClueState.Striked)
                 {
@@ -200,7 +263,7 @@ public class ClueNotebook : MonoBehaviour
 
     private string CleanString(string name)
     {
-        return Regex.Replace(name, "[^a-zA-Z]", "");
+        return Regex.Replace(name, "[^a-zA-Z]", ""); 
     }
 
     //Mark clicked clue as Chosen or Normal 
@@ -225,7 +288,7 @@ public class ClueNotebook : MonoBehaviour
                         UpdateDependentCluesIn2DArrayClues(Clue2DArray[row, col].Name, ClueState.Normal);
                         //Clue2DArray[row, col].State = ClueState.Normal;
                         if (FinalCluesGuessed.Contains(Clue2DArray[row, col].Name)) {
-                            Debug.Log("1Removing "+ Clue2DArray[row, col].Name);
+                            //Debug.Log("1Removing "+ Clue2DArray[row, col].Name);
                             FinalCluesGuessed.Remove(Clue2DArray[row, col].Name);
                         }
 
@@ -236,7 +299,7 @@ public class ClueNotebook : MonoBehaviour
                     UpdateDependentCluesIn2DArrayClues(Clue2DArray[row, column].Name, ClueState.Normal);
                     //Clue2DArray[row, column].State = ClueState.Normal;
                     if (FinalCluesGuessed.Contains(Clue2DArray[row, column].Name)) {
-                        Debug.Log("2Removing " + Clue2DArray[row, column].Name);
+                       // Debug.Log("2Removing " + Clue2DArray[row, column].Name);
                         FinalCluesGuessed.Remove(Clue2DArray[row, column].Name);
                     }
                 }
@@ -293,10 +356,15 @@ public class ClueNotebook : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
+    }
 
     void OnEnable()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
+
         VerticalLayoutGroup hlg = gameObject.GetComponent<VerticalLayoutGroup>();
         Canvas.ForceUpdateCanvases();
         hlg.CalculateLayoutInputHorizontal();
@@ -420,9 +488,7 @@ public class ClueNotebook : MonoBehaviour
         return str;
     }
 
-
-
-    //This is broken. TODO
+    
     public bool CheckforCorrectSolution()
     { 
         if (FinalCluesGuessed.Contains("Blue"))
@@ -439,9 +505,7 @@ public class ClueNotebook : MonoBehaviour
             }
         }
         return false;
-    }
-
-
+    } 
 }
 
 
