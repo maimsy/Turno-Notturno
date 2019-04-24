@@ -674,7 +674,8 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("pills1"))
         {
-            PlayDialogue("12", 0f);
+            //PlayDialogue("12", 0f);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/fx/pills");
             //fall asleep for act 2 minigame 
             GameObject obj = GetObject("FadeOut");
             if (obj) obj.GetComponent<FadeIn>().enabled = true;
