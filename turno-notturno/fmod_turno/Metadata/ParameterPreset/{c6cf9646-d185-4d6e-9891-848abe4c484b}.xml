@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{c6cf9646-d185-4d6e-9891-848abe4c484b}">
+        <property name="name">
+            <value>notebookFilter</value>
+        </property>
+        <relationship name="folder">
+            <destination>{f81e462a-9d36-408c-9b99-269f6f7ddbca}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{2d1a6743-4ff6-442a-a991-1fdce85a7b58}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{2d1a6743-4ff6-442a-a991-1fdce85a7b58}">
+        <property name="initialValue">
+            <value>0</value>
+        </property>
+        <property name="seekSpeed">
+            <value>1.0000001192092896</value>
+        </property>
+    </object>
+</objects>

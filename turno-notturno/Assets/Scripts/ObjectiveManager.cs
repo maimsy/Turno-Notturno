@@ -887,12 +887,12 @@ public class ObjectiveManager : MonoBehaviour
     private void Leave()
     {
         
-        PlayDialogue("30", 7f, abortPrevious: false);
+        //PlayDialogue("30", 7f, abortPrevious: false);
         //run
         PlayDialogue("w08", 5f, abortPrevious: false);
         PlayDialogue("w09", 12f, abortPrevious: false);
         Invoke("PanicSound", 12.5f);
-        PlayDialogue("30b", 9f, abortPrevious: false);
+        PlayDialogue("30b", 7f, abortPrevious: false);
         MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
         if (migraine) migraine.StartMigrainDelayed(10.5f);
         
