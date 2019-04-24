@@ -698,7 +698,7 @@ public class ObjectiveManager : MonoBehaviour
                     PlayerPrefs.SetInt("ClueFoundAct62", 1);
                     PlayerPrefs.SetInt("ClueFoundAct63", 1);
                     PlayerPrefs.SetInt("ClueFoundAct64", 1);
-                    PlayDialogue("c15", 0f);
+                    //PlayDialogue("c15", 0f);
                     break;
                 case ClueObjective.VideoPart2:
                     break;
