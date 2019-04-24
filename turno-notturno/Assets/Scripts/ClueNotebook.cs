@@ -345,11 +345,18 @@ public class ClueNotebook : MonoBehaviour
 
 
     private void FinalCluesGuessed_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-    {
-        //foreach (String s in FinalCluesGuessed)
-        //{
-        //    Debug.Log(FinalCluesGuessed.Count+ " FinalClue " + s );
-        //}
+    { 
+        for (int j = 0; j < FinalCluesGuessed.Count; j++)
+        {
+            ClueTexts[j].text = FinalCluesGuessed[j];
+        }
+
+        for (int j = FinalCluesGuessed.Count; j < 4-FinalCluesGuessed.Count; j++)
+        {
+            ClueTexts[j].text = "xxxxx";
+        }
+
+
 
         if (CheckforCorrectSolution()) {
             Debug.Log("CHAMPION");
@@ -455,13 +462,7 @@ public class ClueNotebook : MonoBehaviour
         }
         return true;
     }
-
-
-
-
-     
-
-
+    
     public string StrikeThrough(string s)
     {
         string strikethrough = "";
@@ -509,6 +510,8 @@ public class ClueNotebook : MonoBehaviour
         }
         return false;
     } 
+
+     
 }
 
 
