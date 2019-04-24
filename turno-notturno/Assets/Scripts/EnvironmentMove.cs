@@ -23,15 +23,17 @@ public class EnvironmentMove : MonoBehaviour
 
     private MinigameState state = MinigameState.playing;
 
-    enum MinigameState
+    public enum MinigameState
     {
         playing,
-        falling
+        falling,
+        behind
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        
         manager = FindObjectOfType<AlarmManager>();
         originalPos = transform.position;
         layerSpeeds = new List<float>();
@@ -153,7 +155,7 @@ public class EnvironmentMove : MonoBehaviour
         }
     }
 
-    public void SmoothReset()
+    public void SmoothReset(MinigameState how)
     {
         MiniSound sounds = FindObjectOfType<MiniSound>();
         if(sounds) sounds.Reset();
@@ -162,14 +164,18 @@ public class EnvironmentMove : MonoBehaviour
         {
             sound.Play();
         }
-        if (state == MinigameState.falling) return;  // Reset already in progress
+        if (state == MinigameState.falling || state == MinigameState.behind) return;  // Reset already in progress
         fallFollowVelocity = Vector3.zero;
         speedUp = 1f;
         timer = 0;
-        state = MinigameState.falling;
+        state = how;
         playerMovement.speed = gameSpeed * 60;
         playerMovement.GetComponent<CircleCollider2D>().isTrigger = true;
         //Invoke("Reset", 1f);
+    }
+    public MinigameState GetState()
+    {
+        return state;
     }
 
     private void Reset()

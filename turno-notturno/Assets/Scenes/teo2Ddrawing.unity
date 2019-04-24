@@ -66337,10 +66337,20 @@ PrefabInstance:
       propertyPath: m_FontData.m_FontStyle
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7265320030908201131, guid: d48a6771dd082b8459b8f42db5f2ee94,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265320030908201131, guid: d48a6771dd082b8459b8f42db5f2ee94,
+        type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 7265320030908201129, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
       propertyPath: lifeTime
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d48a6771dd082b8459b8f42db5f2ee94, type: 3}
@@ -88305,7 +88315,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1559506722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.65, y: -1.85, z: 0}
+  m_LocalPosition: {x: -6.49, y: -1.31, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 1}
   m_Children:
   - {fileID: 340080001}

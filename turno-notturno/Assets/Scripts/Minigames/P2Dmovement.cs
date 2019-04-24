@@ -25,12 +25,16 @@ public class P2Dmovement : MonoBehaviour
         Move();
         Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(-50, 0, 10));
         losingXY = new Vector2(pos.x, pos.y);
-        if (transform.position.x < losingXY.x || transform.position.y < losingXY.y)
+        if (transform.position.x < losingXY.x)
         {
             //GetComponent<MinigameEnding>().EndGame(false);
             //enabled = false;
  
-                FindObjectOfType<EnvironmentMove>().SmoothReset();
+            FindObjectOfType<EnvironmentMove>().SmoothReset(EnvironmentMove.MinigameState.behind);
+        }
+        if(transform.position.y < losingXY.y)
+        {
+            FindObjectOfType<EnvironmentMove>().SmoothReset(EnvironmentMove.MinigameState.falling);
         }
     }
 
@@ -72,7 +76,10 @@ public class P2Dmovement : MonoBehaviour
                 DrawingLogic logic = GetComponent<DrawingLogic>();
                 scribbleManager.SaveString(logic.GetLetters(), logic.GetPositions());
             }
-            enabled = false;
+            if(FindObjectOfType<EnvironmentMove>().GetState() != EnvironmentMove.MinigameState.behind)
+            {
+                enabled = false;
+            }
         }
     } 
 }

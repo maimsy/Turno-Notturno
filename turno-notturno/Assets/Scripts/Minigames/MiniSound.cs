@@ -119,7 +119,6 @@ public class MiniSound : MonoBehaviour
         if(collision.tag == "Player")
         {
             SetSoundPosition();
-            Debug.Log("WHY");
         }
     }
 }
