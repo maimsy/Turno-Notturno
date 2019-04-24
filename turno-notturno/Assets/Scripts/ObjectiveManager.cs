@@ -184,10 +184,11 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Act3()
     {
-       // BleachFall();
+        // BleachFall();
         //Invoke("Finish",4f);
         //TurnLightsOff();
         //Invoke("TurnLightsOff", 1f);
+        //Invoke("PlayFinalCinematic", 5f);
         MouthArtWork robot = FindObjectOfType<MouthArtWork>();
         if (robot) robot.disabled = false;
         PlayDialogue("25", 1f);
@@ -885,12 +886,12 @@ public class ObjectiveManager : MonoBehaviour
     private void Leave()
     {
         
-        PlayDialogue("30", 7f, abortPrevious: false);
+        //PlayDialogue("30", 7f, abortPrevious: false);
         //run
         PlayDialogue("w08", 5f, abortPrevious: false);
         PlayDialogue("w09", 12f, abortPrevious: false);
         Invoke("PanicSound", 12.5f);
-        PlayDialogue("30b", 9f, abortPrevious: false);
+        PlayDialogue("30b", 7f, abortPrevious: false);
         MigrainEffect migraine = FindObjectOfType<MigrainEffect>();
         if (migraine) migraine.StartMigrainDelayed(10.5f);
         
@@ -964,6 +965,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         GameObject thunder = GetObject("ThunderManager");
         if (thunder) thunder.GetComponent<ThunderManager>().StartStorm();
+        GameManager.GetInstance().CanOpenBook(false);
     }
 
     private void EndStorm()
@@ -1061,6 +1063,7 @@ public class ObjectiveManager : MonoBehaviour
                 StartCoroutine(NewObjective("storage2", "Go to the storage room", 1, delayTime*2));
                 GameObject obj = GetObject("RoomTrigger3");
                 if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+                GameManager.GetInstance().CanOpenBook(true);
             }
         }
     }
@@ -1100,12 +1103,19 @@ public class ObjectiveManager : MonoBehaviour
     {
         GameObject obj = GameObject.Find("Final_Artwork");
         if (obj) obj.GetComponent<MeshRenderer>().enabled = true;
+        obj = GameObject.Find("box_coppers");
+        if (obj) obj.GetComponent<MeshRenderer>().enabled = false;
     }
 
     private void PlayFinalCinematic()
     {
         GameObject obj = GameObject.Find("FinalCamera");
-        if (obj) obj.GetComponent<PlayableDirector>().Play();
+        if (obj)
+        {
+            obj.GetComponent<Camera>().enabled = true;
+            obj.GetComponent<PlayableDirector>().Play();
+        }
+
     }
 
     private void Credits()
