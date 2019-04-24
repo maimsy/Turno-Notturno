@@ -96,7 +96,7 @@ public class ObjectiveManager : MonoBehaviour
     // set up objectives for act 1
     private void Act1()
     {
-        Heartbeat();
+       // Heartbeat();
         windowBars = new List<GameObject>();
         GameObject obj = GetObject("windows_bars_art_room");
         if (obj) windowBars.Add(obj);
@@ -214,6 +214,7 @@ public class ObjectiveManager : MonoBehaviour
         else
         {
             PlayDialogue("25", 1f);
+            PlayDialogue("25b", 5f);
             StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
             if (alarmManager)
             {
@@ -231,7 +232,7 @@ public class ObjectiveManager : MonoBehaviour
         MouthArtWork robot = FindObjectOfType<MouthArtWork>();
         if (robot) robot.disabled = false;
         
-        
+
         DropPaintings(false);
         ScatterTeeth();
         GameObject obj = GetObject("WakeUpPosition_Act3");
@@ -240,6 +241,8 @@ public class ObjectiveManager : MonoBehaviour
             FindObjectOfType<Player>().transform.position = obj.transform.position;
             FindObjectOfType<Player>().RotateTo(obj.transform.rotation);
         }
+        obj = GetObject("Act3VoicelineTrigger");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         obj = GetObject("bleach_01");
         if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
         obj = GetObject("ammonia_01");
@@ -1136,13 +1139,14 @@ public class ObjectiveManager : MonoBehaviour
             //THunderstorm fades
             EndStorm();
             //Working sounds, coughing, (heartbeat?)
-            StartCoroutine(FadeOutAndIn(1f));
+            StartCoroutine(FadeOutAndIn(1f, 10f));
             Invoke("EnableFinalArtWork", 5);
             Invoke("PlayFinalCinematic", 4.5f); //Camera comes back to storage room
             //Player sees the storage room with the finished artwork and blood around
             //Portrait is placed so that it looks at the artwork with endearing eyes
             //Credits after while
-            Invoke("Credits", 10f);
+            FadeToNextScene(35f);
+            Invoke("Credits", 39f);
         }
     }
 
@@ -1268,7 +1272,7 @@ public class ObjectiveManager : MonoBehaviour
         if(obj) obj.GetComponent<FadeIn>().enabled = true;
     }
 
-    private IEnumerator FadeOutAndIn(float delay)
+    private IEnumerator FadeOutAndIn(float delay, float timeBlack)
     {
         yield return new WaitForSeconds(delay);
         GameObject obj = GetObject("FadeOut");
@@ -1276,6 +1280,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             obj.GetComponent<FadeIn>().enabled = true;
             obj.GetComponent<FadeIn>().changeSceneAfterDone = false;
+            obj.GetComponent<FadeIn>().SetTimeBlack(timeBlack);
         }
     }
 
@@ -1388,6 +1393,9 @@ public class ObjectiveManager : MonoBehaviour
                 break;
             case "25":
                 dialogueMessage = "Still having those weird dreams...";
+                break;
+            case "25b":
+                dialogueMessage = "That writing...I must be going crazy.";
                 break;
             case "26":
                 dialogueMessage = "Why does this keep happening?";//"What the hell. I’m tired of this.\r\n(shouting) Wherever you are, come out!!";
