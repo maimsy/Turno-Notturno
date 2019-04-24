@@ -8,6 +8,7 @@ public class P2Dmovement : MonoBehaviour
 {
     public float speed = 2f;
     [SerializeField] bool reDragging = false;
+    [SerializeField] Animator animator;
     private GameObject goal;
     private Vector2 losingXY;
 
@@ -15,6 +16,7 @@ public class P2Dmovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //animator.pla
         GetComponent<Rigidbody2D>().velocity = new Vector2(speed, GetComponent<Rigidbody2D>().velocity.y);
         
     }

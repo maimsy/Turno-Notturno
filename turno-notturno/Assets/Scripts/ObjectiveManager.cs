@@ -21,6 +21,9 @@ public class ObjectiveManager : MonoBehaviour
     private int act2ArtVoiceline = 0;
     private AlarmManager alarmManager;
     private DisappearingUI clueTip;
+    private FMOD.Studio.EventInstance heartbeat;
+
+    public bool raulitest = false;
 
     public enum ClueObjective
     {
@@ -93,6 +96,7 @@ public class ObjectiveManager : MonoBehaviour
     // set up objectives for act 1
     private void Act1()
     {
+        Heartbeat();
         windowBars = new List<GameObject>();
         GameObject obj = GetObject("windows_bars_art_room");
         if (obj) windowBars.Add(obj);
@@ -189,11 +193,45 @@ public class ObjectiveManager : MonoBehaviour
         //TurnLightsOff();
         //Invoke("TurnLightsOff", 1f);
         //Invoke("PlayFinalCinematic", 5f);
+        if(raulitest)
+        {
+
+            StartCoroutine(NewObjective("storage2", "Go to the storage room", 1, delayTime));
+            GameObject obj1 = GetObject("RoomTrigger3");
+            if (obj1) obj1.GetComponent<BoxCollider>().enabled = true;
+            GameManager.GetInstance().CanOpenBook(true);
+            Invoke("TurnLightsOff", 0);
+            Invoke("StartStorm", 0);
+            //phone dies because of batteries run out
+            //HeartBeat sound from minigame comes back
+            Invoke("StartVideo", 0);
+            obj1 = GetObject("flashlight_01");
+            if (obj1)
+            {
+                obj1.GetComponent<FlashLight>().SwitchOn(true);
+            }
+        }
+        else
+        {
+            PlayDialogue("25", 1f);
+            StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
+            if (alarmManager)
+            {
+                if (!alarmManager.act3Alarm.sound.GetComponent<StudioEventEmitter>().IsPlaying())
+                {
+                    alarmManager.ActivateAlarm(AlarmManager.Act.act_3);
+                }
+                alarmManager.ResetPositions();
+            }
+            else
+            {
+                Debug.LogError("Alarm manager is missing!");
+            }
+        }
         MouthArtWork robot = FindObjectOfType<MouthArtWork>();
         if (robot) robot.disabled = false;
-        PlayDialogue("25", 1f);
-        PlayDialogue("26", 5f);
-        StartCoroutine(NewObjective("room3", "Check the alarm", 1, delayTime));
+        
+        
         DropPaintings(false);
         ScatterTeeth();
         GameObject obj = GetObject("WakeUpPosition_Act3");
@@ -223,18 +261,7 @@ public class ObjectiveManager : MonoBehaviour
             obj.transform.rotation = pos.transform.rotation;
             //obj.GetComponent<Interactable>().isInteractable = true;
         }
-        if (alarmManager)
-        {
-            if (!alarmManager.act3Alarm.sound.GetComponent<StudioEventEmitter>().IsPlaying())
-            {
-                alarmManager.ActivateAlarm(AlarmManager.Act.act_3);
-            }
-            alarmManager.ResetPositions();
-        }
-        else
-        {
-            Debug.LogError("Alarm manager is missing!");
-        }
+        
         obj = GetObject("ScribbleManager");
         if (obj) obj.GetComponent<ScribbleManager>().ScribbleOnFloor();
     }
@@ -772,14 +799,14 @@ public class ObjectiveManager : MonoBehaviour
         if (obj)
         {
             obj.GetComponent<StudioEventEmitter>().Play();
-            obj.transform.GetChild(0).gameObject.SetActive(true);
         }
         obj = GetObject("bleach_01");
-        if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
+        if (obj)
+        {
+            obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
+        }
         obj = GetObject("ammonia_01");
         if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
-        obj = GetObject("fume");
-        if (obj) obj.GetComponent<ParticleSystem>().Play();
         GameObject pos = GetObject("FlashLightPos_Act3");
         obj = GetObject("flashlight_01");
         if (obj && pos)
@@ -793,8 +820,6 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("19", 1f, abortPrevious: false);
         obj = GetObject("RoomTrigger3");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
-        obj = GetObject("bleach_01");
-        if (obj) obj.GetComponent<StudioEventEmitter>().Play();
     }
 
     //player arrives to the storage room
@@ -812,12 +837,26 @@ public class ObjectiveManager : MonoBehaviour
                 obj.GetComponent<Door>().SlamClose();
                 obj.GetComponent<Door>().locked = true;
             }
+            obj = GetObject("fume");
+            if (obj) obj.GetComponent<ParticleSystem>().Play();
+            obj = GetObject("bleach_01");
+            if (obj)
+            {
+                obj.GetComponent<StudioEventEmitter>().Play();
+            }
             Invoke("Dizzyness", 8f);
             PlayDialogue("23", 12f, abortPrevious: false);
-            StartCoroutine(FadeToNextScene(20f));
-            Invoke("StopDizzyness", 24f);
+            Invoke("Heartbeat", 12f);
+            StartCoroutine(FadeToNextScene(22f));
+            Invoke("StopDizzyness", 26f);
             PlayDialogue("w06", 18f, abortPrevious: false);
         }
+    }
+
+    private void Heartbeat()
+    {
+        heartbeat = FMODUnity.RuntimeManager.CreateInstance("event:/heartbeat");
+        heartbeat.start();
     }
 
     private void Dizzyness()
@@ -828,6 +867,7 @@ public class ObjectiveManager : MonoBehaviour
     private void StopDizzyness()
     {
         FindObjectOfType<DizzyEffect1>().EndDizzy();
+        heartbeat.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
     //Enters the middle area upstairs
     public void Room3()
@@ -840,6 +880,7 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Room3Objectives()
     {
+        PlayDialogue("26", 1f);
         StartCoroutine(NewObjective("alarm3", "Turn off the alarm", 1, 0));
         StartCoroutine(NewObjective("artpiece3", "Find the cause of the alarm", 2, delayTime));
         string[] names = { "alarm3", "artpiece3" };
