@@ -93,7 +93,6 @@ public class GameManager : MonoBehaviour
     private void OpenCloseBook()
     {
         isBookOpen = !isBookOpen;
-        FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
         Notes.SetActive(isBookOpen);
         if (isBookOpen) DisableControls();
         else EnableControls();
