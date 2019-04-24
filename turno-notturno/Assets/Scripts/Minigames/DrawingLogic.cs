@@ -19,10 +19,10 @@ public class DrawingLogic : MonoBehaviour
                                   "Feel the world spinning. " +
                                   "Stare into the eternity of the Universe. " +
                                   "Like the freest man alive, without the worries of the world underneath us." +
-        "Your father was the kindest man I had ever met. I really, really miss him. I’m lucky to have you. You have the same eyes as him." +
+        "Your father was the kindest man I had ever met. I really, really miss him. I'm lucky to have you. You have the same eyes as him." +
         "I told you many times, your teeth will rot and decay and blacken " +
-                                  "and fill with worms and fall all over the floor if you don’t take care of them. " +
-                                  "Now go wash your teeth. I will check when it’s time to sleep";
+                                  "and fill with worms and fall all over the floor if you don't take care of them. " +
+                                  "Now go wash your teeth. I will check when it's time to sleep";
     private List<Vector2> positions;
     private float drawDistance = 0.1f;
     private int currentLetter = 0;
