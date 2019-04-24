@@ -54,4 +54,9 @@ public class FadeIn : MonoBehaviour
     {
         timeBlack = time;
     }
+
+    public void Reset()
+    {
+        timer = 0;
+    }
 }

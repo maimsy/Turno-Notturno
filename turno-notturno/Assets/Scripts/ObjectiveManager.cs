@@ -205,11 +205,7 @@ public class ObjectiveManager : MonoBehaviour
             //phone dies because of batteries run out
             //HeartBeat sound from minigame comes back
             Invoke("StartVideo", 0);
-            obj1 = GetObject("flashlight_01");
-            if (obj1)
-            {
-                obj1.GetComponent<FlashLight>().SwitchOn(true);
-            }
+            
         }
         else
         {
@@ -232,7 +228,6 @@ public class ObjectiveManager : MonoBehaviour
         MouthArtWork robot = FindObjectOfType<MouthArtWork>();
         if (robot) robot.disabled = false;
         
-
         DropPaintings(false);
         ScatterTeeth();
         GameObject obj = GetObject("WakeUpPosition_Act3");
@@ -241,6 +236,8 @@ public class ObjectiveManager : MonoBehaviour
             FindObjectOfType<Player>().transform.position = obj.transform.position;
             FindObjectOfType<Player>().RotateTo(obj.transform.rotation);
         }
+        obj = GetObject("flashlight_01");
+        if (obj) obj.GetComponent<FlashLight>().SwitchOn(true);
         obj = GetObject("Act3VoicelineTrigger");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         obj = GetObject("bleach_01");
@@ -1026,6 +1023,11 @@ public class ObjectiveManager : MonoBehaviour
         {
             light.SetActive(false);
         }
+        lights = GameObject.FindGameObjectsWithTag("TurnON");
+        foreach (GameObject light in lights)
+        {
+            light.GetComponent<Light>().enabled = true;
+        }
         GameObject manager = GetObject("ScribbleManager");
         foreach(Transform child in manager.transform)
         {
@@ -1141,21 +1143,26 @@ public class ObjectiveManager : MonoBehaviour
             //Working sounds, coughing, (heartbeat?)
             StartCoroutine(FadeOutAndIn(1f, 10f));
             Invoke("EnableFinalArtWork", 5);
-            Invoke("PlayFinalCinematic", 4.5f); //Camera comes back to storage room
+            Invoke("PlayFinalCinematic", 15f); //Camera comes back to storage room
             //Player sees the storage room with the finished artwork and blood around
             //Portrait is placed so that it looks at the artwork with endearing eyes
             //Credits after while
-            FadeToNextScene(35f);
-            Invoke("Credits", 39f);
+            StartCoroutine(FadeToNextScene(40f));
+            Invoke("Credits", 44f);
         }
     }
 
     private void EnableFinalArtWork()
     {
+
+        FMODUnity.RuntimeManager.PlayOneShot("event:/endMusic");
         GameObject obj = GameObject.Find("Final_Artwork");
         if (obj) obj.GetComponent<MeshRenderer>().enabled = true;
         obj = GameObject.Find("box_coppers");
-        if (obj) obj.GetComponent<MeshRenderer>().enabled = false;
+        if (obj) obj.SetActive(false);
+        obj = GetObject("flashlight_01");
+        if (obj) obj.SetActive(false);
+
     }
 
     private void PlayFinalCinematic()
@@ -1268,8 +1275,13 @@ public class ObjectiveManager : MonoBehaviour
     private IEnumerator FadeToNextScene(float delay)
     {
         yield return new WaitForSeconds(delay);
+        Debug.Log("fadinnn");
         GameObject obj = GetObject("FadeOut");
-        if(obj) obj.GetComponent<FadeIn>().enabled = true;
+        if (obj)
+        {
+            obj.GetComponent<FadeIn>().enabled = true;
+            obj.GetComponent<FadeIn>().Reset();
+        }
     }
 
     private IEnumerator FadeOutAndIn(float delay, float timeBlack)
@@ -1281,6 +1293,7 @@ public class ObjectiveManager : MonoBehaviour
             obj.GetComponent<FadeIn>().enabled = true;
             obj.GetComponent<FadeIn>().changeSceneAfterDone = false;
             obj.GetComponent<FadeIn>().SetTimeBlack(timeBlack);
+            obj.GetComponent<FadeIn>().Reset();
         }
     }
 
