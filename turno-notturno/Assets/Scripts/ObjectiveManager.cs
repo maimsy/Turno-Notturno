@@ -642,13 +642,13 @@ public class ObjectiveManager : MonoBehaviour
             switch (objective)
             {
                 case ClueObjective.MouthRobotTeeth:
-                    PlayerPrefs.SetInt("ClueFoundAct41", 1);
-                    PlayDialogue("c13", 0f);
-                    break;
-                case ClueObjective.MouthRobotDescription:
+                    PlayerPrefs.SetInt("ClueFoundAct41", 1); 
                     PlayerPrefs.SetInt("ClueFoundAct42", 1);
                     PlayerPrefs.SetInt("ClueFoundAct43", 1);
                     PlayerPrefs.SetInt("ClueFoundAct44", 1);
+                    PlayDialogue("c13", 0f);
+                    break;
+                case ClueObjective.MouthRobotDescription:
                     PlayDialogue("c14", 0f);
                     break;
             }
@@ -691,14 +691,14 @@ public class ObjectiveManager : MonoBehaviour
             {
                 case ClueObjective.VideoPart1:
                     PlayerPrefs.SetInt("ClueFoundAct61", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct62", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct63", 1);
+                    PlayerPrefs.SetInt("ClueFoundAct64", 1);
                     PlayDialogue("c15", 0f);
                     break;
                 case ClueObjective.VideoPart2:
-                    PlayerPrefs.SetInt("ClueFoundAct62", 1);
                     break;
                 case ClueObjective.VideoPart3:
-                    PlayerPrefs.SetInt("ClueFoundAct63", 1);
-                    PlayerPrefs.SetInt("ClueFoundAct64", 1);
                     break;
             }
             UpdateProgress(s);
