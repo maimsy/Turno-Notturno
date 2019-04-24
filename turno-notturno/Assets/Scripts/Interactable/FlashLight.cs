@@ -48,7 +48,7 @@ public class FlashLight : BaseInteractable
             {
                 Drop();
             }
-            if(Input.GetKeyUp(KeyCode.E))
+            if(Input.GetKeyUp(KeyCode.F))
             {
                 SwitchOn(!isOn);
             }
@@ -57,6 +57,7 @@ public class FlashLight : BaseInteractable
 
     public void SwitchOn(bool on)
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/fx/flashlightSwitch");
         transform.GetChild(0).gameObject.SetActive(on);
         transform.GetChild(1).gameObject.SetActive(on);
         isOn = on;
@@ -77,7 +78,7 @@ public class FlashLight : BaseInteractable
         Player player = FindObjectOfType<Player>();
         if (player)
         {
-            player.SetTooltip2("E: Toggle flashlight");
+            player.SetTooltip2("F: Toggle flashlight");
         }
     }
 

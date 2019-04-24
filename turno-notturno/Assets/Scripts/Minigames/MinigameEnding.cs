@@ -46,16 +46,21 @@ public class MinigameEnding : MonoBehaviour
 
     public void EndGame(bool win)
     {
+        EnvironmentMove env = FindObjectOfType<EnvironmentMove>();
         //player won the minigame
-        if (win && FindObjectOfType<EnvironmentMove>().GetState() != EnvironmentMove.MinigameState.behind)
+        if (win)
         {
+            if(env == null || (env && FindObjectOfType<EnvironmentMove>().GetState() != EnvironmentMove.MinigameState.behind))
+            {
+                FadeIn fadeIn = GameObject.Find("FadeOut").GetComponent<FadeIn>();
+                fadeIn.enabled = true;
+                fadeIn.changeSceneAfterDone = true;
+            }
             //infoText.GetComponent<Text>().text = "You win!! Left click to continue";
             //infoText.SetActive(true);
             //Invoke("LoadNextScene", 4f);
             //enabled = false; // Avoid ending game multiple times
-            FadeIn fadeIn = GameObject.Find("FadeOut").GetComponent<FadeIn>();
-            fadeIn.enabled = true;
-            fadeIn.changeSceneAfterDone = true;
+            
         }
         //he lost
         //winning = win;
