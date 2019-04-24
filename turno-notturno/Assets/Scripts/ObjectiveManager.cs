@@ -188,7 +188,7 @@ public class ObjectiveManager : MonoBehaviour
         //Invoke("Finish",4f);
         //TurnLightsOff();
         //Invoke("TurnLightsOff", 1f);
-        Invoke("PlayFinalCinematic", 5f);
+        //Invoke("PlayFinalCinematic", 5f);
         MouthArtWork robot = FindObjectOfType<MouthArtWork>();
         if (robot) robot.disabled = false;
         PlayDialogue("25", 1f);
@@ -1110,7 +1110,6 @@ public class ObjectiveManager : MonoBehaviour
         {
             obj.GetComponent<Camera>().enabled = true;
             obj.GetComponent<PlayableDirector>().Play();
-            //Camera.main.gameObject.SetActive(false);
         }
 
     }
