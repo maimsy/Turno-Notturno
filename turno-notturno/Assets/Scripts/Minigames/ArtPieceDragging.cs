@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class ArtPieceDragging : MonoBehaviour
 {
@@ -47,6 +48,7 @@ public class ArtPieceDragging : MonoBehaviour
         {
             GetComponent<BoxCollider2D>().enabled = true;
             GetComponent<BoxCollider2D>().isTrigger = false;
+            FMODUnity.RuntimeManager.PlayOneShot("event:/minigamePaintingDrop");
         }
     }
 
