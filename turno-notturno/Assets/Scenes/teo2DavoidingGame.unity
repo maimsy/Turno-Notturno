@@ -1818,7 +1818,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508131940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 109.7, y: 0.9879, z: -0.32780838}
+  m_LocalPosition: {x: 15.3, y: 0.9879, z: -0.32780838}
   m_LocalScale: {x: 0.58, y: 0.58, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3422,22 +3422,22 @@ PrefabInstance:
     - target: {fileID: 7265320030908201130, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 39.8
+      value: 33.4
       objectReference: {fileID: 0}
     - target: {fileID: 7265320030908201130, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -4.4
+      value: 40.5
       objectReference: {fileID: 0}
     - target: {fileID: 7265320030908201130, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1257.2
+      value: 1270
       objectReference: {fileID: 0}
     - target: {fileID: 7265320030908201130, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 167.8
+      value: 360.1
       objectReference: {fileID: 0}
     - target: {fileID: 7265320030908201130, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
@@ -3487,7 +3487,9 @@ PrefabInstance:
     - target: {fileID: 7265320030908201131, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
       propertyPath: m_Text
-      value: Avoid The Paintings!
+      value: 'Avoid The Paintings!
+
+        Use WASD'
       objectReference: {fileID: 0}
     - target: {fileID: 7265320030908201131, guid: d48a6771dd082b8459b8f42db5f2ee94,
         type: 3}
