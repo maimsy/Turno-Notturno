@@ -20,6 +20,7 @@ public class ObjectiveManager : MonoBehaviour
     private FMOD.Studio.EventInstance currentWhisper; // Guard voice and whispers are allowed to overlap
     private int act2ArtVoiceline = 0;
     private AlarmManager alarmManager;
+    private DisappearingUI clueTip;
 
     public enum ClueObjective
     {
@@ -56,6 +57,12 @@ public class ObjectiveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject textObj = GetObject("ClueTip");
+        if (textObj)
+        {
+            clueTip = textObj.GetComponent<DisappearingUI>();
+            textObj.SetActive(false);
+        }
         alarmManager = FindObjectOfType<AlarmManager>();
         SaveAlarmDistances();
         GameObject obj = GetObject("Act2VoicelineTrigger");
@@ -195,6 +202,8 @@ public class ObjectiveManager : MonoBehaviour
             FindObjectOfType<Player>().RotateTo(obj.transform.rotation);
         }
         obj = GetObject("bleach_01");
+        if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
+        obj = GetObject("ammonia_01");
         if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
         obj = GetObject("RoomTrigger4");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
@@ -495,11 +504,11 @@ public class ObjectiveManager : MonoBehaviour
                     break;
                 case ClueObjective.BallsyPortraitBalls:
                     PlayerPrefs.SetInt("ClueFoundAct32", 1);
-                    PlayDialogue("c04", 0f);
+                    PlayDialogue("c05", 0f);
                     break;
                 case ClueObjective.BallsyPortraitShadow:
                     PlayerPrefs.SetInt("ClueFoundAct33", 1);
-                    PlayDialogue("c05", 0f);
+                    PlayDialogue("c04", 0f);
                     break;
                 case ClueObjective.BallsyPortraitSpiral:
                     PlayerPrefs.SetInt("ClueFoundAct34", 1);
@@ -588,11 +597,16 @@ public class ObjectiveManager : MonoBehaviour
 
     public void WhispersBeforeLocking()
     {
+        SetClueTip();
         PlayDialogue("w01", 9f);
         PlayDialogue("06", 11.5f);
         Invoke("Locking", 13f);
     }
 
+    private void SetClueTip()
+    {
+        clueTip.ResetTimer();
+    }
     //Start the locking objectives
     public void Locking()
     {
@@ -738,6 +752,7 @@ public class ObjectiveManager : MonoBehaviour
 
     private void StorageRoomSetUp()
     {
+        SetClueTip();
         GameObject obj = GetObject("door_04_group");
         if (obj)
         {
@@ -761,6 +776,8 @@ public class ObjectiveManager : MonoBehaviour
         if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
         obj = GetObject("ammonia_01");
         if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
+        obj = GetObject("fume");
+        if (obj) obj.GetComponent<ParticleSystem>().Play();
         GameObject pos = GetObject("FlashLightPos_Act3");
         obj = GetObject("flashlight_01");
         if (obj && pos)
@@ -794,10 +811,10 @@ public class ObjectiveManager : MonoBehaviour
                 obj.GetComponent<Door>().locked = true;
             }
             Invoke("Dizzyness", 8f);
-            PlayDialogue("23", 14f, abortPrevious: false);
+            PlayDialogue("23", 12f, abortPrevious: false);
             StartCoroutine(FadeToNextScene(20f));
             Invoke("StopDizzyness", 24f);
-            PlayDialogue("w06", 20f, abortPrevious: false);
+            PlayDialogue("w06", 18f, abortPrevious: false);
         }
     }
 
@@ -921,7 +938,18 @@ public class ObjectiveManager : MonoBehaviour
             Invoke("PutPhoneAway", 8f);
             //Disable notebook opening
             StartCoroutine(NewObjective("flashlight", "Get flashlight from storage room", 1, 12f));
-
+            Invoke("TestFlashlight", 13f);
+        }
+    }
+    private void TestFlashlight()
+    {
+        FlashLight light = FindObjectOfType<FlashLight>();
+        if (light)
+        {
+            if (light.PlayerIsHolding())
+            {
+                FlashLight();
+            }
         }
     }
 
