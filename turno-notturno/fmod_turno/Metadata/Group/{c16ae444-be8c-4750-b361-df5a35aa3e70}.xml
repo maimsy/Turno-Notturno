@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="MixerGroup" id="{c16ae444-be8c-4750-b361-df5a35aa3e70}">
+        <property name="name">
+            <value>notebookFiltering</value>
+        </property>
+        <relationship name="effectChain">
+            <destination>{4683d2fc-c89f-4fc7-8b39-387d9995cde2}</destination>
+        </relationship>
+        <relationship name="panner">
+            <destination>{115583fb-25a8-4b5c-8e1f-e74f8d16cca5}</destination>
+        </relationship>
+        <relationship name="output">
+            <destination>{ba3326e9-e473-4b5a-9857-1e6766e25ad6}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusEffectChain" id="{4683d2fc-c89f-4fc7-8b39-387d9995cde2}">
+        <relationship name="effects">
+            <destination>{e0df0040-caf2-4eca-ad9a-85a505ded7be}</destination>
+            <destination>{a60104af-d0c8-4536-8170-c69077676595}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusPanner" id="{115583fb-25a8-4b5c-8e1f-e74f8d16cca5}"/>
+    <object class="MixerBusFader" id="{e0df0040-caf2-4eca-ad9a-85a505ded7be}"/>
+    <object class="ThreeEQEffect" id="{a60104af-d0c8-4536-8170-c69077676595}">
+        <property name="lowCrossover">
+            <value>10</value>
+        </property>
+        <property name="highCrossover">
+            <value>360</value>
+        </property>
+        <property name="crossoverSlope">
+            <value>0</value>
+        </property>
+    </object>
+</objects>
