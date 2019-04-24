@@ -71887,6 +71887,7 @@ GameObject:
   - component: {fileID: 1213564254}
   - component: {fileID: 1213564258}
   - component: {fileID: 1213564257}
+  - component: {fileID: 1213564259}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -72045,6 +72046,29 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 1
       enableBigTilePrepass: 1
       isFptlEnabled: 1
+--- !u!114 &1213564259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213564253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/minigameNoInk
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &1217493040
 GameObject:
   m_ObjectHideFlags: 0
@@ -88337,6 +88361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   reDragging: 0
+  animator: {fileID: 0}
 --- !u!114 &1559506729
 MonoBehaviour:
   m_ObjectHideFlags: 0
