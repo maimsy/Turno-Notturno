@@ -259,8 +259,11 @@ public class ClueNotebook : MonoBehaviour
                 else if (Clue2DArray[row, column].State == ClueState.Striked)
                 {
                     //Strike it through
-                    if(!isStriked(Clue2DArray[row, column].Name))
+                    if (!isStriked(Clue2DArray[row, column].Name))
+                    {
                         Clue2DArray[row, column].Name = StrikeThrough(Clue2DArray[row, column].Name);
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/menuClick");
+                    }
                 } 
             }
         }
