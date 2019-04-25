@@ -153,6 +153,11 @@ public class ObjectiveManager : MonoBehaviour
         {
             light.GetComponent<Light>().enabled = true;
         }
+        lights = GameObject.FindGameObjectsWithTag("NotebookLights");
+        foreach (GameObject light in lights)
+        {
+            light.GetComponent<Light>().enabled = true;
+        }
         GameObject manager = GetObject("ScribbleManager");
         foreach (Transform child in manager.transform)
         {
@@ -879,7 +884,7 @@ public class ObjectiveManager : MonoBehaviour
             obj.GetComponent<Door>().Open();
         }
         StartCoroutine(NewObjective("storage", "Check the storage room", 1, 8f));
-        Invoke("BleachFall", 6f);
+        Invoke("BleachFall", 10f);
     }
 
     private void BleachFall()
