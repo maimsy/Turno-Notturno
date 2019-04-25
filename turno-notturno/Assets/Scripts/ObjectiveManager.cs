@@ -139,6 +139,10 @@ public class ObjectiveManager : MonoBehaviour
         SetLights("Room7", true); // Main lobby
         SetLights("Room8", true); // Storage
         SetLights("TurnON", false); // Dim lights during thunderstorm?
+        
+        // Force alarm light off as a workaround to a last minute bug
+        GameObject obj = GetObject("light_alarm_lower_right");
+        if (obj) obj.SetActive(false);
     }
 
     public void TurnLightsOff()
@@ -149,6 +153,11 @@ public class ObjectiveManager : MonoBehaviour
             light.SetActive(false);
         }
         lights = GameObject.FindGameObjectsWithTag("TurnON");
+        foreach (GameObject light in lights)
+        {
+            light.GetComponent<Light>().enabled = true;
+        }
+        lights = GameObject.FindGameObjectsWithTag("NotebookLights");
         foreach (GameObject light in lights)
         {
             light.GetComponent<Light>().enabled = true;
@@ -614,11 +623,11 @@ public class ObjectiveManager : MonoBehaviour
             {
                 case ClueObjective.BallsyPortraitDescription:
                     PlayerPrefs.SetInt("ClueFoundAct31", 1);
-                    PlayDialogue("c06", 0f);
+                    PlayDialogue("c05", 0f);
                     break;
                 case ClueObjective.BallsyPortraitBalls:
                     PlayerPrefs.SetInt("ClueFoundAct32", 1);
-                    PlayDialogue("c05", 0f);
+                    PlayDialogue("c06", 0f);
                     break;
                 case ClueObjective.BallsyPortraitShadow:
                     PlayerPrefs.SetInt("ClueFoundAct33", 1);
