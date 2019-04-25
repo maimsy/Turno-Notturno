@@ -9,29 +9,16 @@ public class ScribbleManager : MonoBehaviour
     private string pathPositions = "/Resources/ScribblePositions.txt";
     private string localPath;
     private bool build = false;
+    
     [SerializeField] GameObject letter;
     private void Start()
     {
-       
-        localPath = Application.dataPath;
-        Debug.LogError(localPath);
-        if (localPath.Contains("build"))
-        {
-            build = true;
-            pathScribble += "/Scribble.txt";
-            pathPositions += "/ScribblePositions.txt";
-        }
-        else
-        {
-            pathScribble = localPath + pathScribble;
-            pathPositions = localPath + pathPositions;
-        }
-        
         //Debug.Log(pathScribble);
         //Debug.Log(pathPositions);
     }
     public void SaveString(string str, List<Vector2> positions)
     {
+        /*
         FileStream stream = new FileStream(pathScribble, FileMode.Truncate);
         StreamWriter writer = new StreamWriter(stream);
         writer.Write(str);
@@ -45,11 +32,14 @@ public class ScribbleManager : MonoBehaviour
         }
         writer.Close();
         stream.Close();
+        */
+        FindObjectOfType<AlarmManager>().posses = positions;
+        FindObjectOfType<AlarmManager>().writing = str;
     }
 
     public void ScribbleOnFloor()
     {
-        StreamReader reader = new StreamReader(pathScribble);
+        /*StreamReader reader = new StreamReader(pathScribble);
         string scribble = reader.ReadToEnd();
         reader.Close();
         reader = new StreamReader(pathPositions);
@@ -64,6 +54,16 @@ public class ScribbleManager : MonoBehaviour
                 = new Vector3(float.Parse(coordinates[0]), float.Parse(coordinates[1]), 0);
             obj.GetComponent<TextMesh>().text = scribble[i].ToString();
 
+        }
+        */
+        string scribble = FindObjectOfType<AlarmManager>().writing;
+        List<Vector2> coordinates = FindObjectOfType<AlarmManager>().posses;
+        for (int i = 0; i < scribble.Length; i++)
+        {
+            GameObject obj = Instantiate(letter, transform);
+            obj.transform.localPosition
+                = new Vector3(coordinates[i].x, coordinates[i].y, 0);
+            obj.GetComponent<TextMesh>().text = scribble[i].ToString();
         }
 
     }
