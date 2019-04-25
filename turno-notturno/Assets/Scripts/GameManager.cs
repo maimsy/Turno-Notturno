@@ -51,14 +51,12 @@ public class GameManager : MonoBehaviour
         notebookFilterEmitter = gameObject.AddComponent<StudioEventEmitter>();
         notebookFilterEmitter.Event = "event:/notebookFilter";
         player = FindObjectOfType<Player>();
-        Notes.SetActive(isBookOpen);
     }
 
     void Start()
     {
         ActManager actManager = FindObjectOfType<ActManager>();
         if (actManager) actManager.SetUpAct(GetGameState());
-        Notes.SetActive(isBookOpen);
     }
 
     void Update()
@@ -78,7 +76,7 @@ public class GameManager : MonoBehaviour
             SetPaused(!paused);
         }
         
-        if (Input.GetKeyDown(KeyCode.Tab) && canOpenBook)
+        if ((Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.B)) && canOpenBook)
         {
             OpenCloseBook();
             if (isBookOpen)
