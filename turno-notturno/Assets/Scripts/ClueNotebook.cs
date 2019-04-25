@@ -28,7 +28,12 @@ public class ClueNotebook : MonoBehaviour
     public Text[] ClueTexts;
 
     public ObservableCollection<String> FinalCluesGuessed = new ObservableCollection<String>();
-    
+
+    public Animator anim;
+
+
+    public VerticalLayoutGroup hlg;
+
     public enum ClueState { Normal, Chosen, Striked }
 
     [System.Serializable]
@@ -368,12 +373,14 @@ public class ClueNotebook : MonoBehaviour
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
     }
-
+  
     void OnEnable()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
 
-        VerticalLayoutGroup hlg = gameObject.GetComponent<VerticalLayoutGroup>();
+         hlg = gameObject.GetComponent<VerticalLayoutGroup>();
+       
+
         Canvas.ForceUpdateCanvases();
         hlg.CalculateLayoutInputHorizontal();
         hlg.CalculateLayoutInputVertical();
@@ -397,6 +404,14 @@ public class ClueNotebook : MonoBehaviour
                 b.interactable = false;
             }
         }
+        hlg.enabled = false; 
+    }
+
+
+    private void Update()
+    {
+        hlg.enabled = false; hlg.enabled = true;
+        
     }
 
 
