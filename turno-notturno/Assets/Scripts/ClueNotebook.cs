@@ -28,7 +28,12 @@ public class ClueNotebook : MonoBehaviour
     public Text[] ClueTexts;
 
     public ObservableCollection<String> FinalCluesGuessed = new ObservableCollection<String>();
-    
+
+    public Animator anim;
+
+
+    public VerticalLayoutGroup hlg;
+
     public enum ClueState { Normal, Chosen, Striked }
 
     [System.Serializable]
@@ -42,8 +47,6 @@ public class ClueNotebook : MonoBehaviour
 
     private void Start()
     {
-
-        
         FinalCluesGuessed.CollectionChanged += FinalCluesGuessed_CollectionChanged;
 
         Clue2DArray[0, 0] = new ClueClass { Name = "Blue", State = ClueState.Normal };
@@ -368,20 +371,21 @@ public class ClueNotebook : MonoBehaviour
 
     private void OnDisable()
     {
-        //FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
+        FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
     }
-
+  
     void OnEnable()
     {
-        
-        VerticalLayoutGroup hlg = gameObject.GetComponent<VerticalLayoutGroup>();
-        
+        FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
+
+         hlg = gameObject.GetComponent<VerticalLayoutGroup>();
+       
+
+        Canvas.ForceUpdateCanvases();
         hlg.CalculateLayoutInputHorizontal();
         hlg.CalculateLayoutInputVertical();
         hlg.SetLayoutHorizontal();
         hlg.SetLayoutVertical();
-        Canvas.ForceUpdateCanvases();
-        
 
         UnityEngine.UI.Button[] buttons = this.GetComponentsInChildren<UnityEngine.UI.Button>();
 
@@ -400,6 +404,14 @@ public class ClueNotebook : MonoBehaviour
                 b.interactable = false;
             }
         }
+        hlg.enabled = false; 
+    }
+
+
+    private void Update()
+    {
+        hlg.enabled = false; hlg.enabled = true;
+        
     }
 
 
