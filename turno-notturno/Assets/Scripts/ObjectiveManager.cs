@@ -139,6 +139,10 @@ public class ObjectiveManager : MonoBehaviour
         SetLights("Room7", true); // Main lobby
         SetLights("Room8", true); // Storage
         SetLights("TurnON", false); // Dim lights during thunderstorm?
+        
+        // Force alarm light off as a workaround to a last minute bug
+        GameObject obj = GetObject("light_alarm_lower_right");
+        if (obj) obj.SetActive(false);
     }
 
     public void TurnLightsOff()
