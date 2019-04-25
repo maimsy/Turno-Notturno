@@ -879,7 +879,7 @@ public class ObjectiveManager : MonoBehaviour
             // Open door immediately, so the player wont see it opening
             obj.GetComponent<Door>().Open();
         }
-        StartCoroutine(NewObjective("storage", "Check the storage room", 1, 8f));
+        StartCoroutine(NewObjective("storage", "Check the storage room", 1, 11f));
         Invoke("BleachFall", 10f);
     }
 
