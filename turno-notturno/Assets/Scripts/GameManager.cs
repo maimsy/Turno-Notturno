@@ -51,13 +51,14 @@ public class GameManager : MonoBehaviour
         notebookFilterEmitter = gameObject.AddComponent<StudioEventEmitter>();
         notebookFilterEmitter.Event = "event:/notebookFilter";
         player = FindObjectOfType<Player>();
-        //SetPlayerPosition();
+        Notes.SetActive(isBookOpen);
     }
 
     void Start()
     {
         ActManager actManager = FindObjectOfType<ActManager>();
         if (actManager) actManager.SetUpAct(GetGameState());
+        Notes.SetActive(isBookOpen);
     }
 
     void Update()
@@ -84,6 +85,7 @@ public class GameManager : MonoBehaviour
             {
                 notebookFilterEmitter.SetParameter("notebookFilter", 1);
                 notebookFilterEmitter.Play();
+                FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
             }
             else
             {
@@ -118,6 +120,7 @@ public class GameManager : MonoBehaviour
             Camera.main.forceIntoRenderTexture = false;
             EnableControls();
         }
+
     }
 
     public bool IsPaused()

@@ -42,6 +42,8 @@ public class ClueNotebook : MonoBehaviour
 
     private void Start()
     {
+
+        
         FinalCluesGuessed.CollectionChanged += FinalCluesGuessed_CollectionChanged;
 
         Clue2DArray[0, 0] = new ClueClass { Name = "Blue", State = ClueState.Normal };
@@ -366,19 +368,20 @@ public class ClueNotebook : MonoBehaviour
 
     private void OnDisable()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
     }
 
     void OnEnable()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
-
+        
         VerticalLayoutGroup hlg = gameObject.GetComponent<VerticalLayoutGroup>();
-        Canvas.ForceUpdateCanvases();
+        
         hlg.CalculateLayoutInputHorizontal();
         hlg.CalculateLayoutInputVertical();
         hlg.SetLayoutHorizontal();
         hlg.SetLayoutVertical();
+        Canvas.ForceUpdateCanvases();
+        
 
         UnityEngine.UI.Button[] buttons = this.GetComponentsInChildren<UnityEngine.UI.Button>();
 
