@@ -9,6 +9,7 @@ public class Movable : BaseInteractable
     [SerializeField] float throwVelocity = 20f;
     public string displayName;
 
+    protected bool pickedUpThisFrame = false;
     protected bool playerIsHolding = false;
     private Transform target;
     protected float targetDistance;
@@ -37,14 +38,16 @@ public class Movable : BaseInteractable
             rbody.velocity = offset * 10;
             rbody.angularVelocity = Vector3.zero;
 
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !pickedUpThisFrame)
             {
                 Throw();
             }
-            if (Input.GetKeyDown(KeyCode.Mouse1))
+            if (Input.GetKeyDown(KeyCode.Mouse1) && !pickedUpThisFrame)
             {
                 Drop();
             }
+
+            pickedUpThisFrame = false;
         }
     }
 
@@ -55,6 +58,7 @@ public class Movable : BaseInteractable
 
     public virtual void Grab()
     {
+        pickedUpThisFrame = true;
         target = Camera.main.transform;
         targetDistance = (target.position - GetCenterOfMass()).magnitude;
         playerIsHolding = true;
