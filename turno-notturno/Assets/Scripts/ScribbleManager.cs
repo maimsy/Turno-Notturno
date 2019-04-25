@@ -5,17 +5,11 @@ using System.IO;
 
 public class ScribbleManager : MonoBehaviour
 {
-    private string pathScribble = "/Resources/Scribble.txt";
-    private string pathPositions = "/Resources/ScribblePositions.txt";
-    private string localPath;
-    private bool build = false;
-    
+
+    private string pathScribble = "Assets/Resources/Scribble.txt";
+    private string pathPositions = "Assets/Resources/ScribblePositions.txt";
     [SerializeField] GameObject letter;
-    private void Start()
-    {
-        //Debug.Log(pathScribble);
-        //Debug.Log(pathPositions);
-    }
+
     public void SaveString(string str, List<Vector2> positions)
     {
         /*
@@ -24,6 +18,7 @@ public class ScribbleManager : MonoBehaviour
         writer.Write(str);
         writer.Close();
         stream.Close();
+
         stream = new FileStream(pathPositions, FileMode.Truncate);
         writer = new StreamWriter(stream);
         foreach(Vector2 pos in positions)
