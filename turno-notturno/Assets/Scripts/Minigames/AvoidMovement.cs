@@ -41,6 +41,7 @@ public class AvoidMovement : MonoBehaviour
         {
             backgroundObjects.Add(new ObjPos(obj, obj.transform.position));
         }
+        GetComponent<Animator>().speed = 2;
     }
 
     // Update is called once per frame
@@ -134,6 +135,7 @@ public class AvoidMovement : MonoBehaviour
         {
             GetComponent<MinigameEnding>().EndGame(true);
             GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = false;
             enabled = false;
         }
     }

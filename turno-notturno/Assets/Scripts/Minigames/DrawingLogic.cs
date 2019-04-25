@@ -19,20 +19,22 @@ public class DrawingLogic : MonoBehaviour
                                   "Feel the world spinning. " +
                                   "Stare into the eternity of the Universe. " +
                                   "Like the freest man alive, without the worries of the world underneath us." +
-        "Your father was the kindest man I had ever met. I really, really miss him. I’m lucky to have you. You have the same eyes as him." +
+        "Your father was the kindest man I had ever met. I really, really miss him. I'm lucky to have you. You have the same eyes as him." +
         "I told you many times, your teeth will rot and decay and blacken " +
-                                  "and fill with worms and fall all over the floor if you don’t take care of them. " +
-                                  "Now go wash your teeth. I will check when it’s time to sleep";
+                                  "and fill with worms and fall all over the floor if you don't take care of them. " +
+                                  "Now go wash your teeth. I will check when it's time to sleep";
     private List<Vector2> positions;
     private float drawDistance = 0.1f;
     private int currentLetter = 0;
     private int inkUsed = 0;
     private string lettersUsed;
     [SerializeField] int inkAmount = 42;
+    private StudioEventEmitter noInkSound;
 
     // Start is called before the first frame update
     void Awake()
     {
+        noInkSound = Camera.main.GetComponent<StudioEventEmitter>();
         positions = new List<Vector2>();
         drawDistance = drawingPrefab.GetComponent<CircleCollider2D>().radius * drawingPrefab.transform.localScale.x;
         SetLetters();
@@ -55,22 +57,32 @@ public class DrawingLogic : MonoBehaviour
     private void Draw()
     {
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (inkUsed < inkAmount && !Physics2D.OverlapCircle(new Vector3(worldPos.x,worldPos.y,0), drawDistance*0.5f))
+        if (inkUsed < inkAmount)
         {
-            GameObject obj = Instantiate(drawingPrefab, worldPos, Quaternion.identity);
-            obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, 0);
-            GameObject letter = Instantiate(drawingLetterPrefab, worldPos, Quaternion.identity);
-            letter.transform.position = new Vector3(letter.transform.position.x, letter.transform.position.y, 10);
-            positions.Add(letter.transform.position);
-            letter.transform.GetChild(0).GetComponent<Text>().text = letters[currentLetter].ToString();
-            lettersUsed += letters[currentLetter];
-            float scale = 2*drawDistance/ letter.GetComponent<RectTransform>().sizeDelta.x;
-            letter.transform.localScale = new Vector2(scale, scale);
-            currentLetter = currentLetter + 1 >= letters.Length ? 0 : currentLetter + 1;
-            inkUsed++;
-            inkMeter.GetComponent<Slider>().value = 1 - (float) inkUsed / inkAmount;
-            letterSound.Play();
-            //obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, 0);
+            if(!Physics2D.OverlapCircle(new Vector3(worldPos.x, worldPos.y, 0), drawDistance * 0.5f))
+            {
+                GameObject obj = Instantiate(drawingPrefab, worldPos, Quaternion.identity);
+                obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, 0);
+                GameObject letter = Instantiate(drawingLetterPrefab, worldPos, Quaternion.identity);
+                letter.transform.position = new Vector3(letter.transform.position.x, letter.transform.position.y, 10);
+                positions.Add(letter.transform.position);
+                letter.transform.GetChild(0).GetComponent<Text>().text = letters[currentLetter].ToString();
+                lettersUsed += letters[currentLetter];
+                float scale = 2 * drawDistance / letter.GetComponent<RectTransform>().sizeDelta.x;
+                letter.transform.localScale = new Vector2(scale, scale);
+                currentLetter = currentLetter + 1 >= letters.Length ? 0 : currentLetter + 1;
+                inkUsed++;
+                inkMeter.GetComponent<Slider>().value = 1 - (float)inkUsed / inkAmount;
+                letterSound.Play();
+                //obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, 0);
+            }
+        }
+        else
+        {
+            if(!noInkSound.IsPlaying())
+            {
+                noInkSound.Play();
+            }
         }
     }
 
