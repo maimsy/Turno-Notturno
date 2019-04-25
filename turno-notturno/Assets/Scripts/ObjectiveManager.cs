@@ -179,6 +179,35 @@ public class ObjectiveManager : MonoBehaviour
     // set up objectives for act 1
     private void Act1()
     {
+        PlayerPrefs.DeleteKey("ClueFoundAct11");
+        PlayerPrefs.DeleteKey("ClueFoundAct12");
+        PlayerPrefs.DeleteKey("ClueFoundAct13");
+        PlayerPrefs.DeleteKey("ClueFoundAct14");
+
+        PlayerPrefs.DeleteKey("ClueFoundAct21");
+        PlayerPrefs.DeleteKey("ClueFoundAct22");
+        PlayerPrefs.DeleteKey("ClueFoundAct23");
+        PlayerPrefs.DeleteKey("ClueFoundAct24");
+
+        PlayerPrefs.DeleteKey("ClueFoundAct31");
+        PlayerPrefs.DeleteKey("ClueFoundAct32");
+        PlayerPrefs.DeleteKey("ClueFoundAct33");
+        PlayerPrefs.DeleteKey("ClueFoundAct34");
+
+        PlayerPrefs.DeleteKey("ClueFoundAct41");
+        PlayerPrefs.DeleteKey("ClueFoundAct42");
+        PlayerPrefs.DeleteKey("ClueFoundAct43");
+        PlayerPrefs.DeleteKey("ClueFoundAct44");
+        PlayerPrefs.DeleteKey("ClueFoundAct51");
+        PlayerPrefs.DeleteKey("ClueFoundAct52");
+        PlayerPrefs.DeleteKey("ClueFoundAct53");
+        PlayerPrefs.DeleteKey("ClueFoundAct54");
+
+
+        PlayerPrefs.DeleteKey("ClueFoundAct61");
+        PlayerPrefs.DeleteKey("ClueFoundAct62");
+        PlayerPrefs.DeleteKey("ClueFoundAct63");
+        PlayerPrefs.DeleteKey("ClueFoundAct64");
         // Heartbeat();
         EnableAct1Lights();
         windowBars = new List<GameObject>();
@@ -235,6 +264,36 @@ public class ObjectiveManager : MonoBehaviour
     // set up objectives for act 2
     private void Act2()
     {
+        PlayerPrefs.SetInt("ClueFoundAct11", 1);
+        PlayerPrefs.SetInt("ClueFoundAct12", 1);
+        PlayerPrefs.SetInt("ClueFoundAct13", 1);
+        PlayerPrefs.SetInt("ClueFoundAct14", 1);
+
+        PlayerPrefs.DeleteKey("ClueFoundAct21");
+        PlayerPrefs.DeleteKey("ClueFoundAct22");
+        PlayerPrefs.DeleteKey("ClueFoundAct23");
+        PlayerPrefs.DeleteKey("ClueFoundAct24");
+
+        PlayerPrefs.DeleteKey("ClueFoundAct31");
+        PlayerPrefs.DeleteKey("ClueFoundAct32");
+        PlayerPrefs.DeleteKey("ClueFoundAct33");
+        PlayerPrefs.DeleteKey("ClueFoundAct34");
+
+        PlayerPrefs.DeleteKey("ClueFoundAct41");
+        PlayerPrefs.DeleteKey("ClueFoundAct42");
+        PlayerPrefs.DeleteKey("ClueFoundAct43");
+        PlayerPrefs.DeleteKey("ClueFoundAct44");
+        PlayerPrefs.DeleteKey("ClueFoundAct51");
+        PlayerPrefs.DeleteKey("ClueFoundAct52");
+        PlayerPrefs.DeleteKey("ClueFoundAct53");
+        PlayerPrefs.DeleteKey("ClueFoundAct54");
+
+
+        PlayerPrefs.DeleteKey("ClueFoundAct61");
+        PlayerPrefs.DeleteKey("ClueFoundAct62");
+        PlayerPrefs.DeleteKey("ClueFoundAct63");
+        PlayerPrefs.DeleteKey("ClueFoundAct64");
+        
         EnableAct2Lights();
         PlayDialogue("13", 2f, abortPrevious: false);
         PlayDialogue("14", 7f, abortPrevious: false);
@@ -272,6 +331,35 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Act3()
     {
+        PlayerPrefs.SetInt("ClueFoundAct11", 1);
+        PlayerPrefs.SetInt("ClueFoundAct12", 1);
+        PlayerPrefs.SetInt("ClueFoundAct13", 1);
+        PlayerPrefs.SetInt("ClueFoundAct14", 1);
+
+        PlayerPrefs.SetInt("ClueFoundAct21", 1);
+        PlayerPrefs.SetInt("ClueFoundAct22", 1);
+        PlayerPrefs.SetInt("ClueFoundAct23", 1);
+        PlayerPrefs.SetInt("ClueFoundAct24", 1);
+
+        PlayerPrefs.SetInt("ClueFoundAct31", 1);
+        PlayerPrefs.SetInt("ClueFoundAct32", 1);
+        PlayerPrefs.SetInt("ClueFoundAct33", 1);
+        PlayerPrefs.SetInt("ClueFoundAct34", 1);
+
+        PlayerPrefs.DeleteKey("ClueFoundAct41");
+        PlayerPrefs.DeleteKey("ClueFoundAct42");
+        PlayerPrefs.DeleteKey("ClueFoundAct43");
+        PlayerPrefs.DeleteKey("ClueFoundAct44");
+        PlayerPrefs.DeleteKey("ClueFoundAct51");
+        PlayerPrefs.DeleteKey("ClueFoundAct52");
+        PlayerPrefs.DeleteKey("ClueFoundAct53");
+        PlayerPrefs.DeleteKey("ClueFoundAct54");
+
+
+        PlayerPrefs.DeleteKey("ClueFoundAct61");
+        PlayerPrefs.DeleteKey("ClueFoundAct62");
+        PlayerPrefs.DeleteKey("ClueFoundAct63");
+        PlayerPrefs.DeleteKey("ClueFoundAct64");
         // BleachFall();
         //Invoke("Finish",4f);
         //TurnLightsOff();

@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
             SetPaused(!paused);
         }
         
-        if (Input.GetKeyDown(KeyCode.Tab) && canOpenBook)
+        if ((Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.B)) && canOpenBook)
         {
             OpenCloseBook();
             if (isBookOpen)
