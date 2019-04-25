@@ -43,6 +43,9 @@ public class AlarmManager : MonoBehaviour
     private Vector3 act4Pos;
     private Vector3 position;
 
+    public string writing;
+    public List<Vector2> posses;
+
     void Awake()
     {
         position = transform.position;

@@ -786,16 +786,12 @@ public class ObjectiveManager : MonoBehaviour
         {
             switch (objective)
             {
-                case ClueObjective.VideoPart1:
-                    PlayerPrefs.SetInt("ClueFoundAct61", 1);
-                    PlayerPrefs.SetInt("ClueFoundAct62", 1);
-                    PlayerPrefs.SetInt("ClueFoundAct63", 1);
-                    PlayerPrefs.SetInt("ClueFoundAct64", 1);
+                case ClueObjective.VideoPart1: 
                     PlayDialogue("c15", 0f);
                     break;
-                case ClueObjective.VideoPart2:
+                case ClueObjective.VideoPart2: 
                     break;
-                case ClueObjective.VideoPart3:
+                case ClueObjective.VideoPart3: 
                     break;
             }
             UpdateProgress(s);
@@ -1255,9 +1251,10 @@ public class ObjectiveManager : MonoBehaviour
                 PlayDialogue("w11", 2f, abortPrevious: false);
                 PlayDialogue("36b", 2f, abortPrevious: false);
                 //AddClue6Objectives();
-                InspectCluesGlobal(ClueObjective.VideoPart1);
-                InspectCluesGlobal(ClueObjective.VideoPart2);
-                InspectCluesGlobal(ClueObjective.VideoPart3);
+                PlayerPrefs.SetInt("ClueFoundAct61", 1);
+                PlayerPrefs.SetInt("ClueFoundAct62", 1);
+                PlayerPrefs.SetInt("ClueFoundAct63", 1);
+                PlayerPrefs.SetInt("ClueFoundAct64", 1);
                 StartCoroutine(NewObjective("notebook", "Check the notebook", 1, delayTime*2));
             }
         }
