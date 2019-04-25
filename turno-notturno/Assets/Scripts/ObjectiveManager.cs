@@ -623,11 +623,11 @@ public class ObjectiveManager : MonoBehaviour
             {
                 case ClueObjective.BallsyPortraitDescription:
                     PlayerPrefs.SetInt("ClueFoundAct31", 1);
-                    PlayDialogue("c06", 0f);
+                    PlayDialogue("c05", 0f);
                     break;
                 case ClueObjective.BallsyPortraitBalls:
                     PlayerPrefs.SetInt("ClueFoundAct32", 1);
-                    PlayDialogue("c05", 0f);
+                    PlayDialogue("c06", 0f);
                     break;
                 case ClueObjective.BallsyPortraitShadow:
                     PlayerPrefs.SetInt("ClueFoundAct33", 1);
