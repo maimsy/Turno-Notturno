@@ -267,7 +267,6 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Act3()
     {
-       // StartCoroutine(NewObjective("clue6", "Inspect the artwork for clues", 1, 0));
         // BleachFall();
         //Invoke("Finish",4f);
         //TurnLightsOff();
@@ -519,7 +518,7 @@ public class ObjectiveManager : MonoBehaviour
     private void AddClue6Objectives()
     {
         int amount = CountClues("clue6");
-        StartCoroutine(NewObjective("clue6", "Inspect the artwork for clues", 1, 0));
+        StartCoroutine(NewObjective("clue6", "Inspect the artwork for clues", amount, 0));
     }
 
     private int CountClues(string objective)
@@ -699,7 +698,7 @@ public class ObjectiveManager : MonoBehaviour
                     PlayerPrefs.SetInt("ClueFoundAct62", 1);
                     PlayerPrefs.SetInt("ClueFoundAct63", 1);
                     PlayerPrefs.SetInt("ClueFoundAct64", 1);
-                    //PlayDialogue("c15", 0f);
+                    PlayDialogue("c15", 0f);
                     break;
                 case ClueObjective.VideoPart2:
                     break;
@@ -938,8 +937,8 @@ public class ObjectiveManager : MonoBehaviour
             Invoke("Dizzyness", 8f);
             PlayDialogue("23", 12f, abortPrevious: false);
             Invoke("Heartbeat", 12f);
-            StartCoroutine(FadeToNextScene(23f));
-            Invoke("StopDizzyness", 27f);
+            StartCoroutine(FadeToNextScene(22f));
+            Invoke("StopDizzyness", 26f);
             PlayDialogue("w06", 18f, abortPrevious: false);
         }
     }
@@ -1135,7 +1134,7 @@ public class ObjectiveManager : MonoBehaviour
         if (UpdateProgress("flashlight"))
         {
             StartCoroutine(NewObjective("room4", "Check the noise", 1, delayTime));
-            Invoke("EnableRoomTrigger5", delayTime+1);
+            Invoke("EnableRoomTrigger5", delayTime);
         }
      }
     private void EnableRoomTrigger5()
@@ -1149,19 +1148,25 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("room4"))
         {
-            //StartCoroutine(NewObjective("artpiece4", "Analyze the artwork", 1, delayTime));
-            AddClue6Objectives();
+            StartCoroutine(NewObjective("artpiece4", "Analyze the artwork", 1, delayTime));
         }
     }
 
     public void InspectPainting4()
     {
-        if (objectives.ContainsKey("clue6"))
+        if (objectives.ContainsKey("artpiece4"))
         {
-            InspectCluesGlobal(ClueObjective.VideoPart1);
-            PlayDialogue("w11", 2f, abortPrevious: false);
-            PlayDialogue("36b", 2f, abortPrevious: false);
-            StartCoroutine(NewObjective("notebook", "Check the notebook", 1, delayTime*2));
+
+            if (UpdateProgress("artpiece4"))
+            {
+                PlayDialogue("w11", 2f, abortPrevious: false);
+                PlayDialogue("36b", 2f, abortPrevious: false);
+                //AddClue6Objectives();
+                InspectCluesGlobal(ClueObjective.VideoPart1);
+                InspectCluesGlobal(ClueObjective.VideoPart2);
+                InspectCluesGlobal(ClueObjective.VideoPart3);
+                StartCoroutine(NewObjective("notebook", "Check the notebook", 1, delayTime*2));
+            }
         }
     }
 
@@ -1218,8 +1223,8 @@ public class ObjectiveManager : MonoBehaviour
             //Player sees the storage room with the finished artwork and blood around
             //Portrait is placed so that it looks at the artwork with endearing eyes
             //Credits after while
-            StartCoroutine(FadeToNextScene(41f));
-            Invoke("Credits", 45f);
+            StartCoroutine(FadeToNextScene(40f));
+            Invoke("Credits", 44f);
         }
     }
 
@@ -1232,8 +1237,6 @@ public class ObjectiveManager : MonoBehaviour
         obj = GameObject.Find("box_coppers");
         if (obj) obj.SetActive(false);
         obj = GetObject("flashlight_01");
-        if (obj) obj.SetActive(false);
-        obj = GetObject("Crosshair");
         if (obj) obj.SetActive(false);
 
     }

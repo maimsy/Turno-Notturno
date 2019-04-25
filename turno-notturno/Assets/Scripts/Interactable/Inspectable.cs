@@ -44,12 +44,15 @@ public class Inspectable : BaseInteractable
     protected MeshRenderer meshRenderer;
 
     private ObjectiveManager objectiveManager;
+    private bool wasFlipped;
+    
+    
 
     protected override void Awake()
     {
         base.Awake();
         meshRenderer = GetComponentInChildren<MeshRenderer>();
-        
+        wasFlipped = flipDirection;
     }
 
     protected virtual void Start()
@@ -234,6 +237,26 @@ public class Inspectable : BaseInteractable
     public void StartInspect()
     {
         //center = transform.position;
+        /*
+        if (transform.forward.y > 0.1f && wasFlipped)
+        {
+            return;
+            //flipDirection = !wasFlipped;
+        }
+        if (transform.forward.y < -0.1f && !wasFlipped)
+        {
+            return;
+            //flipDirection = !wasFlipped;
+        }
+        */
+        if (GetStartingPosition().y < 4.7f)
+        {
+            flipDirection = !wasFlipped;
+        }
+        else
+        {
+            flipDirection = wasFlipped;
+        }
         prevCameraPosition = Camera.main.transform.position;
         prevCameraRotation = Camera.main.transform.rotation;
         Camera.main.transform.position = GetStartingPosition();
