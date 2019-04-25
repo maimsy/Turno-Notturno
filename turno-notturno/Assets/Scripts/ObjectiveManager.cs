@@ -153,6 +153,11 @@ public class ObjectiveManager : MonoBehaviour
         {
             light.GetComponent<Light>().enabled = true;
         }
+        lights = GameObject.FindGameObjectsWithTag("NotebookLights");
+        foreach (GameObject light in lights)
+        {
+            light.GetComponent<Light>().enabled = true;
+        }
         GameObject manager = GetObject("ScribbleManager");
         foreach (Transform child in manager.transform)
         {
