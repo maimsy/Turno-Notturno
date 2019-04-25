@@ -1223,7 +1223,7 @@ public class ObjectiveManager : MonoBehaviour
         if (UpdateProgress("flashlight"))
         {
             StartCoroutine(NewObjective("room4", "Check the noise", 1, delayTime));
-            Invoke("EnableRoomTrigger5", delayTime);
+            Invoke("EnableRoomTrigger5", delayTime+1);
         }
      }
     private void EnableRoomTrigger5()
