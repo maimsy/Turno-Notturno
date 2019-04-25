@@ -247,7 +247,9 @@ public class ClueNotebook : MonoBehaviour
                     //////    Clue2DArray[row, column].Name = "@"+Clue2DArray[row, column].Name;
                      
                     //Find the button for the chosen clue and enable its image
-                    ButtonUpdate(Clue2DArray[row, column].Name, true); 
+                    ButtonUpdate(Clue2DArray[row, column].Name, true);
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/menuClick");
+
                 }
                 else if (Clue2DArray[row, column].State == ClueState.Normal)
                 { 
