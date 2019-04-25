@@ -411,6 +411,7 @@ public class ClueNotebook : MonoBehaviour
     private void Update()
     {
         hlg.enabled = false; hlg.enabled = true;
+
         
     }
 
