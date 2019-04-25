@@ -1275,6 +1275,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         //scribble on notebook??
         //whispers??
+        PlayDialogue("w12", 0f, abortPrevious: false);
         Invoke("AfterPuzzle", delayTime);
     }
 
