@@ -884,7 +884,7 @@ public class ObjectiveManager : MonoBehaviour
             obj.GetComponent<Door>().Open();
         }
         StartCoroutine(NewObjective("storage", "Check the storage room", 1, 8f));
-        Invoke("BleachFall", 6f);
+        Invoke("BleachFall", 10f);
     }
 
     private void BleachFall()
