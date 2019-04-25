@@ -51,14 +51,14 @@ public class GameManager : MonoBehaviour
         notebookFilterEmitter = gameObject.AddComponent<StudioEventEmitter>();
         notebookFilterEmitter.Event = "event:/notebookFilter";
         player = FindObjectOfType<Player>();
-        Notes.SetActive(isBookOpen);
+        if(Notes) Notes.SetActive(isBookOpen);
     }
 
     void Start()
     {
         ActManager actManager = FindObjectOfType<ActManager>();
         if (actManager) actManager.SetUpAct(GetGameState());
-        Notes.SetActive(isBookOpen);
+        if (Notes) Notes.SetActive(isBookOpen);
     }
 
     void Update()

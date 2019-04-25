@@ -518,7 +518,7 @@ public class ObjectiveManager : MonoBehaviour
     private void AddClue6Objectives()
     {
         int amount = CountClues("clue6");
-        StartCoroutine(NewObjective("clue6", "Inspect the artwork for clues", amount, 0));
+        StartCoroutine(NewObjective("clue6", "Inspect the artwork for clues", 1, 0));
     }
 
     private int CountClues(string objective)
@@ -698,7 +698,6 @@ public class ObjectiveManager : MonoBehaviour
                     PlayerPrefs.SetInt("ClueFoundAct62", 1);
                     PlayerPrefs.SetInt("ClueFoundAct63", 1);
                     PlayerPrefs.SetInt("ClueFoundAct64", 1);
-                    PlayDialogue("c15", 0f);
                     break;
                 case ClueObjective.VideoPart2:
                     break;
@@ -1148,23 +1147,20 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (UpdateProgress("room4"))
         {
-            StartCoroutine(NewObjective("artpiece4", "Analyze the artwork", 1, delayTime));
+            AddClue6Objectives();
         }
     }
 
     public void InspectPainting4()
     {
-        if (objectives.ContainsKey("artpiece4"))
+        if (objectives.ContainsKey("clue6"))
         {
 
-            if (UpdateProgress("artpiece4"))
+            if (UpdateProgress("clue6"))
             {
                 PlayDialogue("w11", 2f, abortPrevious: false);
                 PlayDialogue("36b", 2f, abortPrevious: false);
-                //AddClue6Objectives();
                 InspectCluesGlobal(ClueObjective.VideoPart1);
-                InspectCluesGlobal(ClueObjective.VideoPart2);
-                InspectCluesGlobal(ClueObjective.VideoPart3);
                 StartCoroutine(NewObjective("notebook", "Check the notebook", 1, delayTime*2));
             }
         }
