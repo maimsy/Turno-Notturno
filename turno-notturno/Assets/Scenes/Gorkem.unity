@@ -9641,6 +9641,12 @@ PrefabInstance:
       propertyPath: raulitest
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2635885403346968815, guid: f4bd57ca1c934bf418a0605f330527e5,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: beb2a730b20a7b34bbda3ad13edc58a9,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4bd57ca1c934bf418a0605f330527e5, type: 3}
 --- !u!114 &1180025608 stripped
@@ -13711,6 +13717,17 @@ PrefabInstance:
       propertyPath: m_FontData.m_MinSize
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2438634480700843501, guid: 3b27d1fb834eca94ebc0a0335d37efc9,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 59fc2af53919f454ab9114aade7625e9,
+        type: 3}
+    - target: {fileID: 2438634480700843501, guid: 3b27d1fb834eca94ebc0a0335d37efc9,
+        type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2438634480208218736, guid: 3b27d1fb834eca94ebc0a0335d37efc9,
         type: 3}
       propertyPath: m_UiScaleMode
@@ -13725,6 +13742,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ReferenceResolution.y
       value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 914903503, guid: 3b27d1fb834eca94ebc0a0335d37efc9, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924669308, guid: 3b27d1fb834eca94ebc0a0335d37efc9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924669310, guid: 3b27d1fb834eca94ebc0a0335d37efc9, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: a19bdc6f5a104ee44928c0799e878888,
+        type: 3}
+    - target: {fileID: 1924669310, guid: 3b27d1fb834eca94ebc0a0335d37efc9, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b27d1fb834eca94ebc0a0335d37efc9, type: 3}
@@ -18390,7 +18424,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2057024427}
-  m_LocalRotation: {x: 0.08898964, y: 0.72557676, z: -0.095567055, w: 0.6756376}
+  m_LocalRotation: {x: 0.08898963, y: 0.72557676, z: -0.09556705, w: 0.6756376}
   m_LocalPosition: {x: 15.636, y: 2.325, z: -2.614}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -20745,6 +20779,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 34918854, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
+      propertyPath: m_Name
+      value: notebook
+      objectReference: {fileID: 0}
+    - target: {fileID: 34918854, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2943340082256704567, guid: 7343cb1a12f653b4093a6bdd46ab764f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20799,14 +20841,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 34918854, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
-      propertyPath: m_Name
-      value: notebook
-      objectReference: {fileID: 0}
-    - target: {fileID: 34918854, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4105389692439479432, guid: 7343cb1a12f653b4093a6bdd46ab764f,
         type: 3}
@@ -20886,7 +20920,7 @@ PrefabInstance:
     - target: {fileID: 2648093601061057779, guid: a4e670aed3e359141900837b7b003724,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.08898964
+      value: 0.08898963
       objectReference: {fileID: 0}
     - target: {fileID: 2648093601061057779, guid: a4e670aed3e359141900837b7b003724,
         type: 3}
@@ -20896,7 +20930,7 @@ PrefabInstance:
     - target: {fileID: 2648093601061057779, guid: a4e670aed3e359141900837b7b003724,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.095567055
+      value: -0.09556705
       objectReference: {fileID: 0}
     - target: {fileID: 2648093601061057779, guid: a4e670aed3e359141900837b7b003724,
         type: 3}
