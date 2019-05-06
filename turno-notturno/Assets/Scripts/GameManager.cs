@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     private RenderTexture notebookBackgroundTexture;
     private GameObject notebookBackgroundPlane;
+    private GameObject crossHair;
 
     public static GameManager GetInstance()
     {
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
     {
         ActManager actManager = FindObjectOfType<ActManager>();
         if (actManager) actManager.SetUpAct(GetGameState());
+        crossHair = GameObject.Find("Crosshair");
     }
 
     void Update()
@@ -84,11 +86,13 @@ public class GameManager : MonoBehaviour
                 notebookFilterEmitter.SetParameter("notebookFilter", 1);
                 notebookFilterEmitter.Play();
                 FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
+                crossHair.SetActive(false);
             }
             else
             {
                 notebookFilterEmitter.SetParameter("notebookFilter", 0);
                 notebookFilterEmitter.Stop();
+                crossHair.SetActive(true);
             }
         }
     }
