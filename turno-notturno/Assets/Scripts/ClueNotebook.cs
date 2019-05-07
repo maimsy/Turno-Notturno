@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -248,8 +249,7 @@ public class ClueNotebook : MonoBehaviour
                      
                     //Find the button for the chosen clue and enable its image
                     ButtonUpdate(Clue2DArray[row, column].Name, true);
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/menuClick");
-
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/menuClick"); 
                 }
                 else if (Clue2DArray[row, column].State == ClueState.Normal)
                 { 
@@ -263,7 +263,7 @@ public class ClueNotebook : MonoBehaviour
                     //Strike it through
                     if (!isStriked(Clue2DArray[row, column].Name))
                     {
-                        Clue2DArray[row, column].Name = StrikeThrough(Clue2DArray[row, column].Name);
+                        //Clue2DArray[row, column].Name = StrikeThrough(Clue2DArray[row, column].Name);
                         FMODUnity.RuntimeManager.PlayOneShot("event:/menuClick");
                     }
                 } 
@@ -293,6 +293,7 @@ public class ClueNotebook : MonoBehaviour
                 {
                     //Make all clues in row normal
                     //Remove Chosen clues from final clue
+                    //make clicked clue chosen
                     for (int col = 0; col < 4; col++)
                     {
                         UpdateDependentCluesIn2DArrayClues(Clue2DArray[row, col].Name, ClueState.Normal);
@@ -300,10 +301,11 @@ public class ClueNotebook : MonoBehaviour
                         if (FinalCluesGuessed.Contains(Clue2DArray[row, col].Name)) {
                             //Debug.Log("1Removing "+ Clue2DArray[row, col].Name);
                             FinalCluesGuessed.Remove(Clue2DArray[row, col].Name);
-                        }
-
+                        } 
                     }
-                } 
+                    UpdateDependentCluesIn2DArrayClues(clickedClueText, ClueState.Chosen);
+
+                }
                 else if (Clue2DArray[row, column].State == ClueState.Chosen)
                 {
                     UpdateDependentCluesIn2DArrayClues(Clue2DArray[row, column].Name, ClueState.Normal);
@@ -370,8 +372,14 @@ public class ClueNotebook : MonoBehaviour
 
         if (CheckforCorrectSolution()) {
             Debug.Log("CHAMPION");
+            StartCoroutine(WaitSomeTime());
             FindObjectOfType<ObjectiveManager>().FinishedPuzzle();
         }
+    }
+
+    IEnumerator WaitSomeTime()
+    { 
+        yield return new WaitForSeconds(5);
     }
 
     private void OnDisable()
