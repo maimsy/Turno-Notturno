@@ -66,4 +66,10 @@ public class Button : BaseInteractable
             return false;
         }
     }
+
+    public void ChangeTooltip(string newTip)
+    {
+        enabledTooltip = newTip;
+        
+    }
 }
