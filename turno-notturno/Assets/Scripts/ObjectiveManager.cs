@@ -219,6 +219,15 @@ public class ObjectiveManager : MonoBehaviour
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         obj = GetObject("art_main_01_sculptre");
         if (obj) obj.GetComponentInChildren<Rotate>().StartRotation();
+        GameObject pos = GetObject("Notebookpos_act1");
+        obj = GetObject("notebook");
+        if (obj && pos)
+        {
+            obj.transform.position = pos.transform.position;
+            obj.GetComponent<Button>().ChangeTooltip("Write clues");
+            obj.transform.rotation = pos.transform.rotation;
+            //obj.GetComponent<Interactable>().isInteractable = true;
+        }
         SetMainDoorTooltip("Main doors");
         OpenWindows();
         obj = GetObject("WakeUpPosition_Act1");
@@ -243,6 +252,7 @@ public class ObjectiveManager : MonoBehaviour
             Debug.LogError("Alarm manager is missing!");
         }
         StartCoroutine(NewObjective("room1", "Check the alarm", 1, delayTime));
+        GameManager.GetInstance().CanOpenBook(false);
     }
 
     private void OpenWindows()
@@ -305,12 +315,6 @@ public class ObjectiveManager : MonoBehaviour
         {
             FindObjectOfType<Player>().transform.position = obj.transform.position;
             FindObjectOfType<Player>().RotateTo(obj.transform.rotation);
-        }
-        obj = GetObject("door_04_group");
-        if (obj)
-        { 
-            obj.GetComponent<Door>().locked = false;
-            obj.GetComponent<Door>().Open();
         }
         obj = GetObject("RoomTrigger2");
         if(obj) obj.GetComponent<BoxCollider>().enabled = true;
@@ -378,7 +382,8 @@ public class ObjectiveManager : MonoBehaviour
             //phone dies because of batteries run out
             //HeartBeat sound from minigame comes back
             Invoke("StartVideo", 0);
-            
+            //FMODUnity.RuntimeManager.PlayOneShot("event:/stormFade");
+            //EndStorm();
         }
         else
         {
@@ -667,7 +672,7 @@ public class ObjectiveManager : MonoBehaviour
             if (UpdateProgress(s) && multiObjectives.Count == 0)
             {
                 PlayDialogue("c03", 3f, false);
-                WhispersBeforeLocking();
+                StartCoroutine(NewObjective("notebook1", "Find notebook to write clues", 1, delayTime));
             }
         }
 
@@ -999,6 +1004,12 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("19", 1f, abortPrevious: false);
         obj = GetObject("RoomTrigger3");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+        obj = GetObject("door_04_group");
+        if (obj)
+        {
+            obj.GetComponent<Door>().locked = false;
+            obj.GetComponent<Door>().Open();
+        }
     }
 
     //player arrives to the storage room
@@ -1190,6 +1201,7 @@ public class ObjectiveManager : MonoBehaviour
 
     private void EndStorm()
     {
+        //removed because FMOD will take care of this
         GameObject thunder = GetObject("ThunderManager");
         if (thunder) thunder.GetComponent<ThunderManager>().EndStorm();
     }
@@ -1223,6 +1235,8 @@ public class ObjectiveManager : MonoBehaviour
         if (UpdateProgress("flashlight"))
         {
             StartCoroutine(NewObjective("room4", "Check the noise", 1, delayTime));
+            FMODUnity.RuntimeManager.PlayOneShot("event:/stormFade");
+            EndStorm();
             Invoke("EnableRoomTrigger5", delayTime+1);
         }
      }
@@ -1255,7 +1269,7 @@ public class ObjectiveManager : MonoBehaviour
                 PlayerPrefs.SetInt("ClueFoundAct62", 1);
                 PlayerPrefs.SetInt("ClueFoundAct63", 1);
                 PlayerPrefs.SetInt("ClueFoundAct64", 1);
-                StartCoroutine(NewObjective("notebook", "Check the notebook", 1, delayTime*2));
+                StartCoroutine(NewObjective("notebook", "Find the notebook", 1, delayTime*2));
             }
         }
     }
@@ -1268,6 +1282,18 @@ public class ObjectiveManager : MonoBehaviour
             {
                 PlayDialogue("37", 0f, abortPrevious: false);
                 GameManager.GetInstance().OpenCloseBook();
+            }
+        }
+    }
+    public void NoteBookAct1()
+    {
+        if (objectives.ContainsKey("notebook1"))
+        {
+            if (UpdateProgress("notebook1"))
+            {
+                WhispersBeforeLocking();
+                GameManager.GetInstance().OpenCloseBook();
+                GameManager.GetInstance().CanOpenBook(true);
             }
         }
     }

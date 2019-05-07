@@ -2779,6 +2779,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 144
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &349262069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 349262070}
+  m_Layer: 0
+  m_Name: Notebookpos_act1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &349262070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349262069}
+  m_LocalRotation: {x: 0, y: -0.48291174, z: -0, w: 0.875669}
+  m_LocalPosition: {x: 7.786, y: 1.004, z: -5.102}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 177
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &355542664
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9900,6 +9930,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 12800000, guid: beb2a730b20a7b34bbda3ad13edc58a9,
         type: 3}
+    - target: {fileID: 2635885403346968815, guid: f4bd57ca1c934bf418a0605f330527e5,
+        type: 3}
+      propertyPath: m_Text
+      value: Press TAB to use notebook
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4bd57ca1c934bf418a0605f330527e5, type: 3}
 --- !u!114 &1180025608 stripped
@@ -10770,7 +10805,7 @@ MonoBehaviour:
   Params: []
   OverrideAttenuation: 0
   OverrideMinDistance: 1
-  OverrideMaxDistance: 20
+  OverrideMaxDistance: 8.2
 --- !u!64 &1314719263
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16251,6 +16286,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7392132962648003534, guid: b5474a90734a7be40b1586fe6409439d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5474a90734a7be40b1586fe6409439d, type: 3}
 --- !u!1001 &1651054579
@@ -16472,7 +16512,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1726238257}
-  m_LocalRotation: {x: 0.092141904, y: 0.7102221, z: -0.094639994, w: 0.691475}
+  m_LocalRotation: {x: 0.09214191, y: 0.7102221, z: -0.09464, w: 0.691475}
   m_LocalPosition: {x: 15.5, y: 2.365, z: -2.662}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -21117,7 +21157,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 34918855, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
       propertyPath: objective.Array.size
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 34918855, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 34918855, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
       propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -21125,7 +21169,7 @@ PrefabInstance:
       objectReference: {fileID: 1180025608}
     - target: {fileID: 34918855, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
       propertyPath: enabledTooltip
-      value: Use Notebook
+      value: Notebook
       objectReference: {fileID: 0}
     - target: {fileID: 34918855, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
       propertyPath: disabledTooltip
@@ -21134,6 +21178,30 @@ PrefabInstance:
     - target: {fileID: 34918855, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
       propertyPath: objective.Array.data[0]
       value: notebook
+      objectReference: {fileID: 0}
+    - target: {fileID: 34918855, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 34918855, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 34918855, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1180025608}
+    - target: {fileID: 34918855, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: NoteBookAct1
+      objectReference: {fileID: 0}
+    - target: {fileID: 34918855, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 34918855, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
+      propertyPath: objective.Array.data[1]
+      value: notebook1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7343cb1a12f653b4093a6bdd46ab764f, type: 3}
@@ -21173,37 +21241,37 @@ PrefabInstance:
     - target: {fileID: 2648093601061057779, guid: a4e670aed3e359141900837b7b003724,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.636
+      value: 15.5
       objectReference: {fileID: 0}
     - target: {fileID: 2648093601061057779, guid: a4e670aed3e359141900837b7b003724,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.325
+      value: 2.365
       objectReference: {fileID: 0}
     - target: {fileID: 2648093601061057779, guid: a4e670aed3e359141900837b7b003724,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.614
+      value: -2.662
       objectReference: {fileID: 0}
     - target: {fileID: 2648093601061057779, guid: a4e670aed3e359141900837b7b003724,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.08898962
+      value: 0.09214191
       objectReference: {fileID: 0}
     - target: {fileID: 2648093601061057779, guid: a4e670aed3e359141900837b7b003724,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.72557676
+      value: 0.7102221
       objectReference: {fileID: 0}
     - target: {fileID: 2648093601061057779, guid: a4e670aed3e359141900837b7b003724,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.09556704
+      value: -0.09464
       objectReference: {fileID: 0}
     - target: {fileID: 2648093601061057779, guid: a4e670aed3e359141900837b7b003724,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6756376
+      value: 0.691475
       objectReference: {fileID: 0}
     - target: {fileID: 2648093601061057779, guid: a4e670aed3e359141900837b7b003724,
         type: 3}
@@ -27644,6 +27712,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5048200158203423747, guid: f32a9f445a9fbf345899194e908d4f30,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5048200158203785251, guid: f32a9f445a9fbf345899194e908d4f30,
         type: 3}

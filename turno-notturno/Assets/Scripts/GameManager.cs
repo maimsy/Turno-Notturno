@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
 
     private RenderTexture notebookBackgroundTexture;
     private GameObject notebookBackgroundPlane;
+    private GameObject crossHair;
+    private GameObject objectivecanvas;
 
     public static GameManager GetInstance()
     {
@@ -57,6 +59,9 @@ public class GameManager : MonoBehaviour
     {
         ActManager actManager = FindObjectOfType<ActManager>();
         if (actManager) actManager.SetUpAct(GetGameState());
+        crossHair = GameObject.Find("Crosshair");
+        objectivecanvas = GameObject.Find("ObjectiveCanvas");
+        objectivecanvas.GetComponent<Canvas>().enabled = false;
     }
 
     void Update()
@@ -84,11 +89,15 @@ public class GameManager : MonoBehaviour
                 notebookFilterEmitter.SetParameter("notebookFilter", 1);
                 notebookFilterEmitter.Play();
                 FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
+                crossHair.SetActive(false);
+                objectivecanvas.GetComponent<Canvas>().enabled = false;
             }
             else
             {
                 notebookFilterEmitter.SetParameter("notebookFilter", 0);
                 notebookFilterEmitter.Stop();
+                crossHair.SetActive(true);
+                objectivecanvas.GetComponent<Canvas>().enabled = true;
             }
         }
     }
@@ -140,12 +149,14 @@ public class GameManager : MonoBehaviour
             enableControlsAfterPause = controlsEnabled;
             DisableControls();
             Time.timeScale = 0f;
+            objectivecanvas.GetComponent<Canvas>().enabled = false;
         }
         else
         {
             pauseMenu.gameObject.SetActive(false);
             if (enableControlsAfterPause) EnableControls();
             Time.timeScale = 1f;
+            objectivecanvas.GetComponent<Canvas>().enabled = true;
         }
     }
 
