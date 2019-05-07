@@ -382,7 +382,8 @@ public class ObjectiveManager : MonoBehaviour
             //phone dies because of batteries run out
             //HeartBeat sound from minigame comes back
             Invoke("StartVideo", 0);
-            
+            //FMODUnity.RuntimeManager.PlayOneShot("event:/stormFade");
+            //EndStorm();
         }
         else
         {
@@ -1201,8 +1202,8 @@ public class ObjectiveManager : MonoBehaviour
     private void EndStorm()
     {
         //removed because FMOD will take care of this
-        //GameObject thunder = GetObject("ThunderManager");
-        //if (thunder) thunder.GetComponent<ThunderManager>().EndStorm();
+        GameObject thunder = GetObject("ThunderManager");
+        if (thunder) thunder.GetComponent<ThunderManager>().EndStorm();
     }
 
     
@@ -1234,6 +1235,7 @@ public class ObjectiveManager : MonoBehaviour
         if (UpdateProgress("flashlight"))
         {
             StartCoroutine(NewObjective("room4", "Check the noise", 1, delayTime));
+            FMODUnity.RuntimeManager.PlayOneShot("event:/stormFade");
             Invoke("EnableRoomTrigger5", delayTime+1);
         }
      }

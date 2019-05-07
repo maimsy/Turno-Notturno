@@ -27,7 +27,7 @@ public class ThunderManager : MonoBehaviour
     private bool endStorm = false;
     private float volume = 1;
     private float timer = 0;
-    private float fadeSpeed = 0.1f;
+    private float fadeSpeed = 1000f;
 
     private StudioEventEmitter rainL1;
     private StudioEventEmitter rainL2;
@@ -77,22 +77,7 @@ public class ThunderManager : MonoBehaviour
                 thunderPauseMax += fadeSpeed * 0.1f;
                 soundPauseMin += fadeSpeed * 0.1f;
                 soundPauseMax += fadeSpeed * 0.1f;
-                foreach (StudioEventEmitter emitter in thunderEmittersL1)
-                {
-                    emitter.EventInstance.setVolume(volume);
-                }
-                foreach (StudioEventEmitter emitter in thunderEmittersL2)
-                {
-                    emitter.EventInstance.setVolume(volume);
-                }
-                foreach (StudioEventEmitter emitter in thunderEmittersR1)
-                {
-                    emitter.EventInstance.setVolume(volume);
-                }
-                foreach (StudioEventEmitter emitter in thunderEmittersR2)
-                {
-                    emitter.EventInstance.setVolume(volume);
-                }
+                //AdjustVolume();
             }
         }
         if(thunder)
@@ -108,7 +93,25 @@ public class ThunderManager : MonoBehaviour
         }
         
     }
-
+    private void AdjustVolume()
+    {
+        foreach (StudioEventEmitter emitter in thunderEmittersL1)
+        {
+            emitter.EventInstance.setVolume(volume);
+        }
+        foreach (StudioEventEmitter emitter in thunderEmittersL2)
+        {
+            emitter.EventInstance.setVolume(volume);
+        }
+        foreach (StudioEventEmitter emitter in thunderEmittersR1)
+        {
+            emitter.EventInstance.setVolume(volume);
+        }
+        foreach (StudioEventEmitter emitter in thunderEmittersR2)
+        {
+            emitter.EventInstance.setVolume(volume);
+        }
+    }
     public void StartStorm()
     {
         stormStarted = true;
