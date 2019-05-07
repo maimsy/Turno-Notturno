@@ -306,12 +306,6 @@ public class ObjectiveManager : MonoBehaviour
             FindObjectOfType<Player>().transform.position = obj.transform.position;
             FindObjectOfType<Player>().RotateTo(obj.transform.rotation);
         }
-        obj = GetObject("door_04_group");
-        if (obj)
-        { 
-            obj.GetComponent<Door>().locked = false;
-            obj.GetComponent<Door>().Open();
-        }
         obj = GetObject("RoomTrigger2");
         if(obj) obj.GetComponent<BoxCollider>().enabled = true;
         if (alarmManager)
@@ -999,6 +993,12 @@ public class ObjectiveManager : MonoBehaviour
         PlayDialogue("19", 1f, abortPrevious: false);
         obj = GetObject("RoomTrigger3");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
+        obj = GetObject("door_04_group");
+        if (obj)
+        {
+            obj.GetComponent<Door>().locked = false;
+            obj.GetComponent<Door>().Open();
+        }
     }
 
     //player arrives to the storage room
@@ -1190,8 +1190,9 @@ public class ObjectiveManager : MonoBehaviour
 
     private void EndStorm()
     {
-        GameObject thunder = GetObject("ThunderManager");
-        if (thunder) thunder.GetComponent<ThunderManager>().EndStorm();
+        //removed because FMOD will take care of this
+        //GameObject thunder = GetObject("ThunderManager");
+        //if (thunder) thunder.GetComponent<ThunderManager>().EndStorm();
     }
 
     
