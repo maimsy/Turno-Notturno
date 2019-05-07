@@ -1236,6 +1236,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             StartCoroutine(NewObjective("room4", "Check the noise", 1, delayTime));
             FMODUnity.RuntimeManager.PlayOneShot("event:/stormFade");
+            EndStorm();
             Invoke("EnableRoomTrigger5", delayTime+1);
         }
      }
