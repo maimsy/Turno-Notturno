@@ -21,6 +21,7 @@ public class ObjectiveManager : MonoBehaviour
     private int act2ArtVoiceline = 0;
     private AlarmManager alarmManager;
     private DisappearingUI clueTip;
+    private DisappearingUI runTip;
     private FMOD.Studio.EventInstance heartbeat;
 
     public bool raulitest = false;
@@ -64,6 +65,12 @@ public class ObjectiveManager : MonoBehaviour
         if (textObj)
         {
             clueTip = textObj.GetComponent<DisappearingUI>();
+            textObj.SetActive(false);
+        }
+        textObj = GetObject("RunTip");
+        if (textObj)
+        {
+            runTip = textObj.GetComponent<DisappearingUI>();
             textObj.SetActive(false);
         }
         alarmManager = FindObjectOfType<AlarmManager>();
@@ -215,6 +222,8 @@ public class ObjectiveManager : MonoBehaviour
         if (obj) windowBars.Add(obj);
         obj = GetObject("windows_bars_shop");
         if (obj) windowBars.Add(obj);
+        obj = GetObject("RunTipTrigger");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         obj = GetObject("RoomTrigger");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
         obj = GetObject("art_main_01_sculptre");
@@ -818,6 +827,10 @@ public class ObjectiveManager : MonoBehaviour
     private void SetClueTip()
     {
         clueTip.ResetTimer();
+    }
+    public void SetRunTip()
+    {
+        runTip.ResetTimer();
     }
     //Start the locking objectives
     public void Locking()
