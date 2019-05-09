@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         if (actManager) actManager.SetUpAct(GetGameState());
         crossHair = GameObject.Find("Crosshair");
         objectivecanvas = GameObject.Find("ObjectiveCanvas");
-        objectivecanvas.GetComponent<Canvas>().enabled = false;
+        //objectivecanvas.GetComponent<Canvas>().enabled = false;
     }
 
     void Update()
