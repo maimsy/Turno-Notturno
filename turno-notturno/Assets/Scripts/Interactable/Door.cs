@@ -35,7 +35,7 @@ public class Door : BaseInteractable
         base.Awake();
         curTime = openingTime;
         animator = GetComponent<Animator>();
-        if (!animator) Debug.LogError("Door does not have animation!");
+        //if (!animator) Debug.LogError("Door does not have animation!");
         rbody = GetComponent<Rigidbody>();
         rbody.isKinematic = true;
         rbody.useGravity = false;
