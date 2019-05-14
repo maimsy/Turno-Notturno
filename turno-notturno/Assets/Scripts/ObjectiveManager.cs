@@ -96,8 +96,6 @@ public class ObjectiveManager : MonoBehaviour
                 Act3();
                 break;
         }
-        
-
     }
 
     private void SetLights(string tag, bool value)
@@ -376,7 +374,8 @@ public class ObjectiveManager : MonoBehaviour
         // BleachFall();
         //Invoke("Finish",4f);
         //TurnLightsOff();
-        //Invoke("TurnLightsOff", 1f);
+        //Invoke("TurnLightsOff", 5f);
+        //Invoke("EnableFinalArtWork", 5f);
         //Invoke("PlayFinalCinematic", 5f);
         EnableAct3Lights();
         if (raulitest)
@@ -1360,8 +1359,18 @@ public class ObjectiveManager : MonoBehaviour
         if (obj) obj.GetComponent<MeshRenderer>().enabled = true;
         obj = GameObject.Find("box_coppers");
         if (obj) obj.SetActive(false);
+
+        // Move flashlight so it illuminates the final artwork
         obj = GetObject("flashlight_final");
-        if (obj) obj.SetActive(false);
+        if (obj)
+        {
+            //obj.SetActive(false);
+            GameObject flashlightPosition = GetObject("flashlight_final_pos");
+            obj.transform.position = flashlightPosition.transform.position;
+            obj.transform.rotation = flashlightPosition.transform.rotation;
+            obj.GetComponent<Rigidbody>().isKinematic = true;
+            obj.GetComponent<FlashLight>().SwitchOn(true);
+        }
 
     }
 
@@ -1397,6 +1406,12 @@ public class ObjectiveManager : MonoBehaviour
                 Vector3 pos = painting.transform.position;
                 force.x = pos.x < forceDirection ? UnityEngine.Random.Range(1.5f, maxForce) : UnityEngine.Random.Range(-1.5f, -maxForce);
                 painting.GetComponent<Rigidbody>().AddForceAtPosition(force, pos, ForceMode.Impulse);
+            }
+
+            // Disable inspection for paintings on the floor - just to avoid confusing the player
+            foreach (Inspectable inspectable in painting.GetComponentsInChildren<Inspectable>())
+            {
+                inspectable.enabled = false;
             }
 
         }
