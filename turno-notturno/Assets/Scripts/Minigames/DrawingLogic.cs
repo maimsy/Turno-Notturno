@@ -59,7 +59,7 @@ public class DrawingLogic : MonoBehaviour
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (inkUsed < inkAmount)
         {
-            if(!Physics2D.OverlapCircle(new Vector3(worldPos.x, worldPos.y, 0), drawDistance * 0.5f))
+            if(!Physics2D.OverlapCircle(new Vector3(worldPos.x, worldPos.y, 0), drawDistance * 0.4f))
             {
                 GameObject obj = Instantiate(drawingPrefab, worldPos, Quaternion.identity);
                 obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, 0);
