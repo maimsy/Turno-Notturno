@@ -47,7 +47,7 @@ public class EnemyMovement : MonoBehaviour
     {
         while(Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y) < moveSpeed*0.3f)
         {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpeed, Random.Range(-moveSpeed, moveSpeed));
+            GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpeed, Random.Range(-moveSpeed*0.7f, moveSpeed * 0.7f));
         }
         
 
