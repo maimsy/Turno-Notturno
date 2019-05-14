@@ -1406,14 +1406,13 @@ public class ObjectiveManager : MonoBehaviour
                 Vector3 pos = painting.transform.position;
                 force.x = pos.x < forceDirection ? UnityEngine.Random.Range(1.5f, maxForce) : UnityEngine.Random.Range(-1.5f, -maxForce);
                 painting.GetComponent<Rigidbody>().AddForceAtPosition(force, pos, ForceMode.Impulse);
-            }
 
-            // Disable inspection for paintings on the floor - just to avoid confusing the player
-            foreach (Inspectable inspectable in painting.GetComponentsInChildren<Inspectable>())
-            {
-                inspectable.enabled = false;
+                // Disable inspection for paintings on the floor - just to avoid confusing the player
+                foreach (Inspectable inspectable in painting.GetComponentsInChildren<Inspectable>())
+                {
+                    inspectable.enabled = false;
+                }
             }
-
         }
     }
 

@@ -94,21 +94,7 @@ public class GameManager : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.B)) && canOpenBook)
         {
             OpenCloseBook();
-            if (isBookOpen)
-            {
-                notebookFilterEmitter.SetParameter("notebookFilter", 1);
-                notebookFilterEmitter.Play();
-                FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
-                crossHair.SetActive(false);
-                objectivecanvas.GetComponent<Canvas>().enabled = false;
-            }
-            else
-            {
-                notebookFilterEmitter.SetParameter("notebookFilter", 0);
-                notebookFilterEmitter.Stop();
-                crossHair.SetActive(true);
-                objectivecanvas.GetComponent<Canvas>().enabled = true;
-            }
+            
         }
     }
 
@@ -145,6 +131,22 @@ public class GameManager : MonoBehaviour
             Camera.main.targetTexture = null;
             Camera.main.forceIntoRenderTexture = false;
             EnableControls();
+        }
+
+        if (isBookOpen)
+        {
+            notebookFilterEmitter.SetParameter("notebookFilter", 1);
+            notebookFilterEmitter.Play();
+            RuntimeManager.PlayOneShot("event:/pageTurn");
+            crossHair.SetActive(false);
+            objectivecanvas.GetComponent<Canvas>().enabled = false;
+        }
+        else
+        {
+            notebookFilterEmitter.SetParameter("notebookFilter", 0);
+            notebookFilterEmitter.Stop();
+            crossHair.SetActive(true);
+            objectivecanvas.GetComponent<Canvas>().enabled = true;
         }
 
     }
