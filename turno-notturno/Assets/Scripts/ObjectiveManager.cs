@@ -423,7 +423,7 @@ public class ObjectiveManager : MonoBehaviour
             FindObjectOfType<Player>().transform.position = obj.transform.position;
             FindObjectOfType<Player>().RotateTo(obj.transform.rotation);
         }
-        obj = GetObject("flashlight_01");
+        obj = GetObject("flashlight_final");
         if (obj) obj.GetComponent<FlashLight>().SwitchOn(true);
         obj = GetObject("Act3VoicelineTrigger");
         if (obj) obj.GetComponent<BoxCollider>().enabled = true;
@@ -441,7 +441,7 @@ public class ObjectiveManager : MonoBehaviour
             //obj.GetComponent<Door>().UpdateTooltip();
         }
         GameObject pos = GetObject("FlashLightPos_Act3");
-        obj = GetObject("flashlight_01");
+        obj = GetObject("flashlight_final");
         if (obj && pos)
         {
             obj.transform.position = pos.transform.position;
@@ -1005,7 +1005,7 @@ public class ObjectiveManager : MonoBehaviour
         obj = GetObject("ammonia_01");
         if (obj) obj.GetComponent<Rigidbody>().AddForce(new Vector3(-1.5f, 0, 0), ForceMode.Impulse);
         GameObject pos = GetObject("FlashLightPos_Act3");
-        obj = GetObject("flashlight_01");
+        obj = GetObject("flashlight_final");
         if (obj && pos)
         {
             obj.transform.position = pos.transform.position;
@@ -1366,7 +1366,7 @@ public class ObjectiveManager : MonoBehaviour
         if (obj) obj.GetComponent<MeshRenderer>().enabled = true;
         obj = GameObject.Find("box_coppers");
         if (obj) obj.SetActive(false);
-        obj = GetObject("flashlight_01");
+        obj = GetObject("flashlight_final");
         if (obj) obj.SetActive(false);
 
     }
