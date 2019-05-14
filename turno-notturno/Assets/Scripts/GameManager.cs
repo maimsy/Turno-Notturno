@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     private GameObject notebookBackgroundPlane;
     private GameObject crossHair;
     private GameObject objectivecanvas;
+    private GameObject testPaintingUI;
 
     public static GameManager GetInstance()
     {
@@ -61,11 +62,20 @@ public class GameManager : MonoBehaviour
         if (actManager) actManager.SetUpAct(GetGameState());
         crossHair = GameObject.Find("Crosshair");
         objectivecanvas = GameObject.Find("ObjectiveCanvas");
+        testPaintingUI = GameObject.Find("TestPaintingUI");
         //objectivecanvas.GetComponent<Canvas>().enabled = false;
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            ToggleObjectives();
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ToggleInteractTips();
+        }
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (escapeActions != null)
@@ -100,6 +110,15 @@ public class GameManager : MonoBehaviour
                 objectivecanvas.GetComponent<Canvas>().enabled = true;
             }
         }
+    }
+
+    private void ToggleObjectives()
+    {
+        objectivecanvas.GetComponent<Canvas>().enabled = !objectivecanvas.GetComponent<Canvas>().enabled;
+    }
+    private void ToggleInteractTips()
+    {
+        testPaintingUI.GetComponent<Canvas>().enabled = !testPaintingUI.GetComponent<Canvas>().enabled;
     }
 
     public void OpenCloseBook()
