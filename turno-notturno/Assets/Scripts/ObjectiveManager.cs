@@ -1224,7 +1224,7 @@ public class ObjectiveManager : MonoBehaviour
     private void StartVideo()
     {
         GameObject obj = GetObject("art_main_04_video");
-        if (obj) obj.GetComponent<VideoPlayer>().enabled = true;
+        //if (obj) obj.GetComponent<VideoPlayer>().enabled = true;
         GameObject[] sounds = GameObject.FindGameObjectsWithTag("VideoSound");
         foreach(GameObject sound in sounds)
         {
