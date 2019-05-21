@@ -1297,6 +1297,8 @@ public class ObjectiveManager : MonoBehaviour
         {
             if (UpdateProgress("notebook1"))
             {
+                GameObject obj = GetObject("notebook");
+                if (obj) obj.SetActive(false);
                 WhispersBeforeLocking();
                 GameManager.GetInstance().OpenCloseBook();
                 GameManager.GetInstance().CanOpenBook(true);
