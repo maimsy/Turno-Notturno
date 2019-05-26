@@ -8,6 +8,7 @@ public class BrowseNotebook : MonoBehaviour
     public Animator animator;
     public GameObject clueCanvas;
     public GameObject[] pages;
+    public GameObject BrowseNotebookInstruction;
 
     [SerializeField]
     private int _currentPageNumber = 6;
@@ -20,6 +21,7 @@ public class BrowseNotebook : MonoBehaviour
     private void OnEnable()
     {
         EnablePageText("Text08", "haha");
+        StartCoroutine(ShowMessage( 2));
     }
 
     void Start()
@@ -69,6 +71,13 @@ public class BrowseNotebook : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    IEnumerator ShowMessage(float delay)
+    {
+        BrowseNotebookInstruction.SetActive( true);
+        yield return new WaitForSeconds(delay);
+        BrowseNotebookInstruction.SetActive(false);
     }
 
     // Update is called once per frame
