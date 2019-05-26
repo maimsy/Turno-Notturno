@@ -35,6 +35,9 @@ public class ClueNotebook : MonoBehaviour
     
     public enum ClueState { Normal, Chosen, Striked }
 
+    public Sprite Circle;
+    public Sprite Underline;
+
     [System.Serializable]
     public class ClueClass
     {
