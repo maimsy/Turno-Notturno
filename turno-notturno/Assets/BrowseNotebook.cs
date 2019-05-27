@@ -86,7 +86,7 @@ public class BrowseNotebook : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            timeToWait = 2;
+            timeToWait = 1;
 
             FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
             if (_currentPageNumber == 6)
@@ -116,7 +116,7 @@ public class BrowseNotebook : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            timeToWait = 4;
+            timeToWait = 3f;
 
             FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
             if (_currentPageNumber == 5)
