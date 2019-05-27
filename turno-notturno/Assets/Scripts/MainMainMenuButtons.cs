@@ -32,7 +32,6 @@ public class MainMainMenuButtons : MonoBehaviour
     private bool isFade = false;
     private bool isBookOpen = false;
     private bool isZoomIn = false;
-    private bool openingBook = false;
 
     Animator m_Animator;
 
@@ -66,10 +65,8 @@ public class MainMainMenuButtons : MonoBehaviour
 
         if (isFade) { FadeTextOut(); }
         if (isBookOpen) { OpenBook(); }
-        if (openingBook) { PlayBookSound(); }
         if (isZoomIn) { InitiateMiniGameTransition(); }
         if (IntroText.GetComponent<TextAnimation>().isAnimating) { FadeTextIn(TurnPageText);  }
-        
 
         GameObject selected = EventSystem.current.currentSelectedGameObject;
 
@@ -150,24 +147,12 @@ public class MainMainMenuButtons : MonoBehaviour
 
 
     void OpenBook() {
-
         m_Animator.SetTrigger("isTurnPage1");
 
-        openingBook = true;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
         isBookOpen = false;
 
 
-    }
-
-    void PlayBookSound()
-    {
-        if (m_Animator.GetAnimatorTransitionInfo(0).IsName("FlutteringPages -> TurnToPage1"))
-        {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
-            FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
-            openingBook = false;
-        }
-        
     }
 
     // Start is called before the first frame update
