@@ -121,6 +121,7 @@ public class BrowseNotebook : MonoBehaviour
             FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
             if (_currentPageNumber == 5)
             {
+                timeToWait = 1f;
                 animator.SetTrigger("TurnToPage6From5");
                 //clueCanvas.SetActive(true);
                 _currentPageNumber++;
