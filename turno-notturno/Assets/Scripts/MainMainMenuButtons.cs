@@ -144,9 +144,11 @@ public class MainMainMenuButtons : MonoBehaviour
             //isFade = false;
         } 
     }
+    public Animation anim;
 
 
     void OpenBook() {
+
         m_Animator.SetTrigger("isTurnPage1");
 
         FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");

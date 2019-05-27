@@ -1596,7 +1596,7 @@ RectTransform:
   m_GameObject: {fileID: 2383151015665153214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.83749, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 984308383825536737}
   m_RootOrder: 2
@@ -8075,7 +8075,7 @@ RectTransform:
   m_GameObject: {fileID: 7392132962648003522}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 19.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.10416667, y: 0.10416667, z: 0.10416667}
   m_Children:
   - {fileID: 6441953919210524556}
   - {fileID: 6741153627803464965}
@@ -8085,8 +8085,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 139.9, y: 446.52}
-  m_SizeDelta: {x: 234, y: 768}
+  m_AnchoredPosition: {x: 122.9, y: 235.02}
+  m_SizeDelta: {x: 1919.9999, y: 3311.9998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7392132962648003534
 Canvas:
@@ -9811,6 +9811,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2262764709498591873}
     m_Modifications:
+    - target: {fileID: 100128, guid: b252f4115332c4a4fb622bb5c2f472af, type: 3}
+      propertyPath: m_Name
+      value: NewNotebookAnimation1
+      objectReference: {fileID: 0}
     - target: {fileID: 400128, guid: b252f4115332c4a4fb622bb5c2f472af, type: 3}
       propertyPath: m_LocalPosition.x
       value: -25.143
@@ -9854,10 +9858,6 @@ PrefabInstance:
     - target: {fileID: 400128, guid: b252f4115332c4a4fb622bb5c2f472af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100128, guid: b252f4115332c4a4fb622bb5c2f472af, type: 3}
-      propertyPath: m_Name
-      value: NewNotebookAnimation1
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: b252f4115332c4a4fb622bb5c2f472af, type: 3}
       propertyPath: m_Controller

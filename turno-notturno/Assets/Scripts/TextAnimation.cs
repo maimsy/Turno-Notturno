@@ -22,7 +22,7 @@ public class TextAnimation : MonoBehaviour
 
     private void OnEnable()
     {
-        StartCoroutine("WriteTextOut", 500f);
+        StartCoroutine("WriteTextOut", 100f);
         isAnimating = true;
     }
 
