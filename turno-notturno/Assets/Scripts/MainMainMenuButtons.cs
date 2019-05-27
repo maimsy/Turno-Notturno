@@ -146,8 +146,7 @@ public class MainMainMenuButtons : MonoBehaviour
     }
     public Animation anim;
 
-    void OpenBook() {
-        m_Animator.StopPlayback();
+    void OpenBook() { 
         m_Animator.SetTrigger("isTurnPage1");
 
         FMODUnity.RuntimeManager.PlayOneShot("event:/pageTurn");
