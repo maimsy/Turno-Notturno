@@ -1181,10 +1181,10 @@ public class ObjectiveManager : MonoBehaviour
     }
     private void TestFlashlight()
     {
-        FlashLight light = FindObjectOfType<FlashLight>();
+        GameObject light = GetObject("flashlight_final");
         if (light)
         {
-            if (light.PlayerIsHolding())
+            if (light.GetComponent<FlashLight>().PlayerIsHolding())
             {
                 FlashLight();
             }
@@ -1233,6 +1233,9 @@ public class ObjectiveManager : MonoBehaviour
         obj = GetObject("notebook");
         GameObject pos = GetObject("NotebookPos");
         if (obj && pos) obj.transform.position = pos.transform.position;
+        obj = GetObject("ImageSwitcher");
+        if (obj) obj.GetComponent<VideoImageSwitcher>().StartVideo();
+               
         
     }
 

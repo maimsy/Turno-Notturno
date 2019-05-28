@@ -11,6 +11,7 @@ public class VideoImageSwitcher : MonoBehaviour
     private Image image;
     private int index = 0;
     private int max = 361;
+    private bool videoStarted = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,18 +26,21 @@ public class VideoImageSwitcher : MonoBehaviour
             sprites.Add(Resources.Load<Sprite>("Images/scene00" + filler + i.ToString()));
         }
         image = GetComponent<Image>();
-        image.sprite = sprites[index];
-        index++;
-        if (index == sprites.Count) index = 0;
+        //image.sprite = sprites[index];
+        //index++;
+        //if (index == sprites.Count) index = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(canSwitch)
+        if (videoStarted)
         {
-            StartCoroutine(Switch());
-            canSwitch = false;
+            if (canSwitch)
+            {
+                StartCoroutine(Switch());
+                canSwitch = false;
+            }
         }
     }
 
@@ -47,5 +51,11 @@ public class VideoImageSwitcher : MonoBehaviour
         index++;
         if (index == sprites.Count) index = 0;
         canSwitch = true;
+    }
+
+    public void StartVideo()
+    {
+        videoStarted = true;
+        image.color = new Color(1, 1, 1, 1);
     }
 }
