@@ -978,13 +978,14 @@ public class ObjectiveManager : MonoBehaviour
     private void StorageRoomSetUp()
     {
         SetClueTip();
-        StartCoroutine(NewObjective("storage", "Check the storage room", 1, 11f));
-        Invoke("BleachFall", 10f);
+        GameObject obj = GetObject("BleachTrigger");
+        if (obj) obj.GetComponent<BoxCollider>().enabled = true;
     }
 
-    private void BleachFall()
+    public void BleachFall()
     {
         //Act2VoicelineTrigger
+        StartCoroutine(NewObjective("storage", "Check the storage room", 1, 1f));
         GameObject obj = GetObject("bleachFall");
         if (obj)
         {
