@@ -4,11 +4,19 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: couch_1
+    100004: couch_2
     400000: //RootNode
+    400002: couch_1
+    400004: couch_2
     2100000: lambert1
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: couch_01
+    2100002: lambert2
+    2300000: couch_1
+    2300002: couch_2
+    3300000: couch_1
+    3300002: couch_2
+    4300000: couch_2
+    4300002: couch_1
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -40,7 +48,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 5
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
